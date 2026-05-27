@@ -2607,14 +2607,14 @@ export default function App() {
     return (
       <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
         
-        {/* COLUMNA IZQUIERDA: DETALLES DEL CLIENTE Y PAYPAL */}
+        {/* COLUMNA IZQUIERDA: DETALLES DEL CLIENTE */}
         <div className="flex-1 space-y-6">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase tracking-tight">
               Detalles de la Reserva
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
               <div className="space-y-4">
                 <div>
                   <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajero Principal</p>
@@ -2637,11 +2637,11 @@ export default function App() {
               </div>
             </div>
 
-            {/* ZONA DE PAYPAL: Solo aparece si el método es PayPal */}
+            {/* ZONA DE PAYPAL */}
             {datosCliente.paymentMethod === 'paypal' && (
               <div className="mt-8 pt-8 border-t border-gray-100">
-                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm">
-                  <p className="text-center text-blue-800 font-bold mb-4 uppercase text-xs">Paga de forma segura con PayPal</p>
+                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
+                  <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Paga de forma segura con PayPal</p>
                   <PayPalButtons
                     style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
                     createOrder={(data, actions) => {
@@ -2662,7 +2662,7 @@ export default function App() {
               </div>
             )}
 
-            {/* BOTÓN CONFIRMAR: Solo aparece si el método es Efectivo (Cash) */}
+            {/* BOTÓN CONFIRMAR PARA EFECTIVO */}
             {datosCliente.paymentMethod === 'cash' && (
               <button
                 onClick={procesarConfirmacion}
@@ -2681,24 +2681,6 @@ export default function App() {
            </div>
         </div>
 
-      </div>
-    );
-  };
-
-        {/* PARTE DERECHA: EL RESUMEN QUE TE GUSTA */}
-        <div className="w-full lg:w-96 flex-shrink-0">
-           {renderCartSummaryWidget(true)}
-           
-           {/* Botón de Confirmación para EFECTIVO solamente */}
-           {datosCliente.paymentMethod === 'cash' && (
-             <button
-               onClick={procesarConfirmacion}
-               className="w-full mt-4 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
-             >
-               Confirm Booking
-             </button>
-           )}
-        </div>
       </div>
     );
   };
