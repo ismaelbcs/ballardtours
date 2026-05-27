@@ -2604,51 +2604,63 @@ export default function App() {
   };
 
   const renderPaso4 = () => {
-    return (
-      <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
-        
-        {/* COLUMNA IZQUIERDA: DETALLES DEL CLIENTE */}
-        <div className="flex-1 space-y-6">
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase tracking-tight">
-              Detalles de la Reserva
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
-              <div className="space-y-4">
-                <div>
-                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajero Principal</p>
-                  <p className="font-bold text-gray-900 text-lg">{datosCliente.nombre}</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Correo</p>
-                  <p className="font-semibold text-gray-700">{datosCliente.email}</p>
-                </div>
+  return (
+    <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
+      
+      {/* COLUMNA IZQUIERDA: DETALLES Y BOTONES DE PAGO */}
+      <div className="flex-1 space-y-6">
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+          <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase tracking-tight">
+            Detalles de la Reserva
+          </h3>
+
+          {/* Información del Cliente (Asegúrate de que estas variables existan en tu estado) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm mb-8">
+            <div className="space-y-4">
+              <div>
+                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajero Principal</p>
+                <p className="font-bold text-gray-900 text-lg">{datosCliente.nombre}</p>
               </div>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajeros</p>
-                  <p className="font-bold text-gray-900">{reserva.pasajeros} Personas</p>
-                </div>
-                <div>
-                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Fecha del Servicio</p>
-                  <p className="font-bold text-gray-900">{reserva.fechaLlegada}</p>
-                </div>
+              <div>
+                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Correo</p>
+                <p className="font-semibold text-gray-700">{datosCliente.email}</p>
               </div>
             </div>
+            <div className="space-y-4">
+              <div>
+                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajeros</p>
+                <p className="font-bold text-gray-900">{reserva.pasajeros} Personas</p>
+              </div>
+              <div>
+                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Fecha</p>
+                <p className="font-bold text-gray-900">{reserva.fechaLlegada}</p>
+              </div>
+            </div>
+          </div>
 
-            {/* ZONA DE PAYPAL */}
-            {datosCliente.paymentMethod === 'paypal' && (
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
-                  <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Paga de forma segura con PayPal</p>
+          {/* ZONA DE PAYPAL */}
+          {datosCliente.paymentMethod === 'paypal' && (
+            <div className="mt-8 pt-8 border-t border-gray-100">
+              <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
+                <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Paga de forma segura con PayPal</p>
+                
+                {/* Forzamos el Provider aquí con el ID que ya tenemos */}
+                <PayPalScriptProvider 
+                  options={{ 
+                    "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
+                    currency: "USD" 
+                  }}
+                >
                   <PayPalButtons
-                    style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
+                    style={{ layout: "vertical", color: "blue", shape: "rect" }}
                     createOrder={(data, actions) => {
                       return actions.order.create({
                         purchase_units: [{
                           description: "Ballard Tours Reservation",
-                          amount: { currency_code: "USD", value: carritoTotal.toFixed(2) }
+                          amount: { 
+                            currency_code: "USD", 
+                            value: carritoTotal.toFixed(2) 
+                          }
                         }]
                       });
                     }}
@@ -2657,70 +2669,37 @@ export default function App() {
                         procesarConfirmacion(); 
                       });
                     }}
+                    onError={(err) => {
+                      console.error("PAYPAL ERROR:", err);
+                    }}
                   />
-                </div>
+                </PayPalScriptProvider>
               </div>
-            )}
+            </div>
+          )}
 
-            {/* BOTÓN CONFIRMAR PARA EFECTIVO */}
-            {datosCliente.paymentMethod === 'cash' && (
-              <button
-                onClick={procesarConfirmacion}
-                className="w-full mt-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
-              >
-                Confirmar Reserva
-              </button>
-            )}
-          </div>
+          {/* BOTÓN CONFIRMAR PARA EFECTIVO */}
+          {datosCliente.paymentMethod === 'cash' && (
+            <button
+              onClick={procesarConfirmacion}
+              className="w-full mt-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
+            >
+              Confirmar Reserva
+            </button>
+          )}
         </div>
-
-        {/* COLUMNA DERECHA: RESUMEN DE PRECIOS */}
-        <div className="w-full lg:w-96 flex-shrink-0">
-           <div className="sticky top-28">
-              {renderCartSummaryWidget(true)}
-           </div>
-        </div>
-
       </div>
-    );
-  };
 
+      {/* COLUMNA DERECHA: RESUMEN DE PRECIOS */}
+      <div className="w-full lg:w-96 flex-shrink-0">
+        <div className="sticky top-28">
           {renderCartSummaryWidget(true)}
-          {/* PEGA EL BLOQUE AQUÍ ABAJO */}
-      {datosCliente.paymentMethod === 'paypal' && (
-        <div className="mt-6 bg-white p-4 rounded-xl shadow-inner border border-gray-200">
-          <p className="text-center text-xs font-bold text-gray-500 mb-4 uppercase">
-            Secure Payment / Pago Seguro
-          </p>
-          <PayPalButtons
-            style={{ 
-              layout: "vertical", 
-              color: "gold", 
-              shape: "rect",
-              label: "pay" 
-            }}
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [{
-                  description: "Ballard Tours Reservation",
-                  amount: { 
-                    currency_code: "USD",
-                    value: carritoTotal.toFixed(2) 
-                  }
-                }]
-              });
-            }}
-            onApprove={(data, actions) => {
-              return actions.order.capture().then((details) => {
-                procesarConfirmacion(); 
-              });
-            }}
-            onError={(err) => {
-              console.error("PayPal Error:", err);
-            }}
-          />
         </div>
-      )}
+      </div>
+
+    </div>
+  );
+};
 
 // =========================================================
   // ✏️ NUEVA PANTALLA: MODIFICAR DATOS DESDE EL CORREO
@@ -3115,7 +3094,11 @@ export default function App() {
 
   return (
     <HelmetProvider>
-      <PayPalScriptProvider options={{ "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF" }}>
+      <PayPalScriptProvider options={{ 
+    "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
+    currency: "USD",
+    intent: "capture"
+}}>
         <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
         <Header />
         <DrawerCombo />
