@@ -455,17 +455,20 @@ export default function App() {
   const procesarConfirmacion = (e) => {
     if (e && e.preventDefault) e.preventDefault();
 
+    // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
+    const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
+    const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
+    const emailCliente = datosCliente.clienteEmail || datosCliente.email;
+
     // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
     if (appliedPromo) {
       const comision = carritoTotal * 0.10;
       const servicios = carrito.map(item => item.titulo).join(', ');
       const fechaTour = carrito[0]?.flightInfo?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.flightInfo?.fechaSalida || 'Fecha en sistema';
 
-      // 🚀 TUS DATOS OFICIALES DE META
       const tokenMeta = "EAAOP0FJrKocBRm2Tv0NyYwZBBexDxEQSlBvHWMwXFESBQbFyqQTI4QzFy1GaG3HyeZBm6DpiLwNdlZCyakJLW7yHS2wrdlTqqNc4cjqj5DQtbsXcZAMy39t0wypXJwUUijtEb07SXMUfmGZBGZBIGDF3ueIspAjZAZBmfJZCmGqulcaZCdqvNzogyGETGFfWueKUUp4duZC8lrBUQ4xPVBzZBwbVqSmZCHl0nGopgtXaBd5z8H0suMlONrfbZCbmusMbHzC1SbIgIUjOM8Y9lRmbre3zhyH2vmkaL1xVir8AZDZD";
       const idTelefonoMeta = "1146460171892849";
 
-      // Preparamos los datos
       const datosEnvio = {
         messaging_product: "whatsapp",
         to: appliedPromo.phone,
@@ -477,7 +480,7 @@ export default function App() {
             {
               type: "body",
               parameters: [
-                { type: "text", text: `${datosCliente.clienteNombre} ${datosCliente.clienteApellidos}` },
+                { type: "text", text: `${nombreCliente} ${apellidosCliente}` },
                 { type: "text", text: servicios },
                 { type: "text", text: fechaTour },
                 { type: "text", text: `$${comision.toFixed(2)} USD` }
@@ -485,9 +488,8 @@ export default function App() {
             }
           ]
         }
-      }; // <-- Fíjate cómo aquí sí termina correctamente el objeto
+      };
 
-      // Enviar a los servidores de Facebook (Versión 25.0)
       fetch(`https://graph.facebook.com/v25.0/${idTelefonoMeta}/messages`, {
         method: "POST",
         headers: {
@@ -499,22 +501,16 @@ export default function App() {
         .then(response => response.json())
         .then(data => console.log("✅ Notificación oficial de Meta enviada:", data))
         .catch(error => console.error("❌ Error en la API de Meta:", error));
-    } // <-- Aquí se cierra el IF correctamente
+    } 
     setProcesandoPago(true);
 
-    // Le agregamos 'async' aquí adentro para poder mandar los correos
     setTimeout(async () => {
       setProcesandoPago(false);
 
-      // 1. Generamos el código y lo guardamos para usarlo en los correos
       const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
       setNumConfirmacionGlobal(nuevoNumConfirmacion);
       setCorreoAdminEnviado(false);
 
-      // ===================================================
-      // 🚀 ENVÍO DE CORREOS REALES POR FIREBASE
-      // ===================================================
-      // Iniciamos un solo bloque de seguridad para ambos correos
       try {
         const correosRef = collection(db, 'correos');
         console.log("Enviando notificaciones...");
@@ -523,7 +519,7 @@ export default function App() {
         // CORREO 1: PARA EL CLIENTE
         // ==========================================
         await addDoc(correosRef, {
-          to: datosCliente.clienteEmail,
+          to: emailCliente || "reservationballard@gmail.com", // Envía al email detectado
           message: {
             subject: "Confirmación de Reserva - Ballard Tours",
             html: `
@@ -533,7 +529,7 @@ export default function App() {
                     <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
                   </div>
                   <div style="padding: 30px; background-color: white;">
-                    <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${datosCliente.clienteNombre}</strong>!,</p>
+                    <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
                     <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
                       <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
                     </div>
@@ -551,13 +547,14 @@ export default function App() {
         await addDoc(correosRef, {
           to: "reservationballard@gmail.com",
           message: {
-            subject: `🚨 NUEVA RESERVA: ${datosCliente.clienteNombre} (${nuevoNumConfirmacion})`,
+            subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
             html: `
                 <div style="font-family: Arial, sans-serif; padding: 20px;">
                   <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
-                  <p><strong>Cliente:</strong> ${datosCliente.clienteNombre} ${datosCliente.clienteApellidos}</p>
+                  <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
+                  <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
                   <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
-                  <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo'}</p>
+                  <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
                 </div>`
           }
         });
@@ -566,12 +563,11 @@ export default function App() {
         console.error("Error al enviar los correos:", error);
       }
 
-      // Finalmente avanzamos al paso de éxito
       setTimeout(() => {
         avanzarPaso();
       }, 1500);
-    }, 500); // <-- ESTE CIERRA EL SETTIMEOUT INICIAL (el que tiene el async)
-  };
+    }, 500); 
+};
 
   const regresarPaso = () => {
     if (paso === 2 && servicioSeleccionado === 'tours' && reserva.tourId) {
@@ -2487,12 +2483,11 @@ export default function App() {
               <ChevronLeft size={20} />
             </button>
             {showPaymentSelection ? (
-              <button
-                onClick={procesarConfirmacion}
-                disabled={procesandoPago}
-                className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex justify-center items-center transition shadow-lg disabled:opacity-50"
+              <button 
+                onClick={procesarConfirmacion} 
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 px-6 rounded-xl transition-all shadow-lg text-base uppercase"
               >
-                {procesandoPago ? t.step4.processing : t.step4.confirm_cash}
+                Confirmar y Pagar al Llegar
               </button>
             ) : (
               <button
@@ -2634,15 +2629,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* BOTÓN EFECTIVO */}
-            {datosCliente.paymentMethod === 'cash' && (
-              <button
-                onClick={procesarConfirmacion}
-                className="w-full mt-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
-              >
-                Confirmar Reserva
-              </button>
-            )}
             {/* 🔥 AQUÍ PEGAS TU CÓDIGO DE PAYPAL 🔥 */}
             {datosCliente.paymentMethod === 'paypal' && (
               <div className="mt-8">
