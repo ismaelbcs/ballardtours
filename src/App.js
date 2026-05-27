@@ -2605,98 +2605,98 @@ export default function App() {
 
   const renderPaso4 = () => {
     return (
-      <div className="animate-fade-in max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
-          <div className="flex-1 space-y-8">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{t.step4.confirm_title}</h2>
-                  <p className="text-gray-500 mb-8">{t.step4.confirm_sub}</p>
+      <div className="space-y-6 animate-fade-in">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+            {t.step4.title}
+          </h2>
 
-                  {/* Resumen del Cliente */}
-                  <div className="bg-gray-50 rounded-xl p-5 border border-gray-200 flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
-                      <div>
-                          <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">{t.step4.holder}</p>
-                          <p className="font-bold text-gray-900 text-lg">{datosCliente.clienteNombre} {datosCliente.clienteApellidos}</p>
-                          <p className="text-sm text-gray-600">{datosCliente.clienteEmail} | {datosCliente.clienteTelefono}</p>
-                      </div>
-                      <button onClick={() => setPaso(3)} className="text-blue-600 text-sm font-bold flex items-center hover:text-blue-800 transition">
-                          <Edit size={14} className="mr-1"/> {t.step4.modify}
-                      </button>
+          {/* Resumen del Carrito */}
+          <div className="space-y-4 mb-8">
+            {carrito.map((item, idx) => (
+              <div key={idx} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-bold text-gray-900">{item.tipo === 'transfer' ? `${item.zonaSalida} → ${item.zonaDestino}` : item.nombre}</p>
+                    <p className="text-sm text-gray-500">{item.vehiculo || item.categoria}</p>
                   </div>
-
-                  {/* Resumen de Items del Combo */}
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">{t.step4.service_details}</h3>
-                  <div className="space-y-4">
-                      {carrito.map(item => (
-                          <div key={item.id} className="border border-gray-200 rounded-xl p-5 hover:border-blue-300 transition-colors">
-                              <div className="flex justify-between items-start mb-3">
-                                  <div>
-                                      <h4 className="font-bold text-blue-900 text-lg">{item.titulo}</h4>
-                                      <p className="text-sm text-gray-600 font-medium">{item.subtitulo}</p>
-                                  </div>
-                                  <span className="font-black text-gray-900 text-lg">${item.precio.toFixed(2)}</span>
-                              </div>
-                              
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-100 text-sm">
-                                  <div>
-                                      <p className="text-gray-400 text-xs font-bold uppercase">{t.step4.main_date}</p>
-                                      <p className="font-semibold text-gray-800">{item.config.fechaLlegada || item.config.fechaTour || 'N/A'}</p>
-                                  </div>
-                                  <div>
-                                      <p className="text-gray-400 text-xs font-bold uppercase">{t.step4.pax_qty}</p>
-                                      <p className="font-semibold text-gray-800 flex items-center gap-1"><Users size={14}/> {item.config.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hhPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax}</p>
-                                  </div>
-                                  
-                                  {item.servicio !== 'tours' && !item.tipoEspecial && (
-                                      <div>
-                                          <p className="text-gray-400 text-xs font-bold uppercase">{t.step4.vehicle_req}</p>
-                                          <p className="font-semibold text-gray-800 capitalize flex items-center gap-1"><Car size={14}/> {VEHICULOS.find(v=>v.id===item.config.vehiculo)?.nombre}</p>
-                                      </div>
-                                  )}
-
-                                  {(item.config.carSeat > 0 || item.config.babySeat > 0 || item.config.boosterSeat > 0 || item.config.shoppingStop) && (
-                                      <div className="col-span-2 md:col-span-1">
-                                          <p className="text-gray-400 text-xs font-bold uppercase">{t.step4.extras}</p>
-                                          <p className="font-semibold text-blue-600 text-xs">
-                                              {item.config.carSeat > 0 && `${item.config.carSeat} Car Seat `}
-                                              {item.config.babySeat > 0 && `${item.config.babySeat} Baby Seat `}
-                                              {item.config.boosterSeat > 0 && `${item.config.boosterSeat} Booster `}
-                                              {item.config.shoppingStop && `+ ${t.step4.shopping}`}
-                                          </p>
-                                      </div>
-                                  )}
-                              </div>
-                          </div>
-                      ))}
-                  </div>
+                  <p className="font-bold text-blue-600">${item.precio.toFixed(2)}</p>
+                </div>
               </div>
+            ))}
           </div>
+
+          {renderCartSummaryWidget(true)}
+
+          {/* Bloque de PayPal */}
+          {datosCliente.paymentMethod === 'paypal' && (
+            <div className="mt-6 bg-white p-4 rounded-xl shadow-inner border border-blue-200">
+              <p className="text-center text-xs font-bold text-blue-800 mb-4 uppercase tracking-widest">
+                Secure Checkout via PayPal
+              </p>
+              <PayPalButtons
+                style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [{
+                      description: "Ballard Tours Booking",
+                      amount: { currency_code: "USD", value: carritoTotal.toFixed(2) }
+                    }]
+                  });
+                }}
+                onApprove={(data, actions) => {
+                  return actions.order.capture().then(() => {
+                    procesarConfirmacion();
+                  });
+                }}
+                onError={(err) => {
+                  console.error("PayPal Error:", err);
+                }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
 
           {renderCartSummaryWidget(true)}
           {/* PEGA EL BLOQUE AQUÍ ABAJO */}
       {datosCliente.paymentMethod === 'paypal' && (
-        <div style={{ marginTop: '20px', backgroundColor: 'white', padding: '15px', borderRadius: '12px', border: '2px solid #0070ba' }}>
-          <p className="text-center text-blue-900 font-bold mb-2">Complete your booking with PayPal</p>
+        <div className="mt-6 bg-white p-4 rounded-xl shadow-inner border border-gray-200">
+          <p className="text-center text-xs font-bold text-gray-500 mb-4 uppercase">
+            Secure Payment / Pago Seguro
+          </p>
           <PayPalButtons
-            style={{ layout: "vertical", color: "blue", shape: "rect" }}
+            style={{ 
+              layout: "vertical", 
+              color: "gold", 
+              shape: "rect",
+              label: "pay" 
+            }}
             createOrder={(data, actions) => {
               return actions.order.create({
                 purchase_units: [{
                   description: "Ballard Tours Reservation",
-                  amount: { value: carritoTotal.toFixed(2) }
+                  amount: { 
+                    currency_code: "USD",
+                    value: carritoTotal.toFixed(2) 
+                  }
                 }]
               });
             }}
             onApprove={(data, actions) => {
-              return actions.order.capture().then(() => {
+              return actions.order.capture().then((details) => {
                 procesarConfirmacion(); 
               });
+            }}
+            onError={(err) => {
+              console.error("PayPal Error:", err);
             }}
           />
         </div>
       )}
-      </div>
-    );
-  };
 
 // =========================================================
   // ✏️ NUEVA PANTALLA: MODIFICAR DATOS DESDE EL CORREO
