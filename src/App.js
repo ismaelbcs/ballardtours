@@ -2604,102 +2604,93 @@ export default function App() {
   };
 
   const renderPaso4 = () => {
-  return (
-    <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
-      
-      {/* COLUMNA IZQUIERDA: DETALLES Y BOTONES DE PAGO */}
-      <div className="flex-1 space-y-6">
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-          <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase tracking-tight">
-            Detalles de la Reserva
-          </h3>
-
-          {/* Información del Cliente (Asegúrate de que estas variables existan en tu estado) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm mb-8">
-            <div className="space-y-4">
+    return (
+      <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
+        
+        {/* COLUMNA IZQUIERDA: DATOS Y PAGO */}
+        <div className="flex-1 space-y-6">
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase">
+              Confirmación de Reserva
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div>
-                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajero Principal</p>
+                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajero</p>
                 <p className="font-bold text-gray-900 text-lg">{datosCliente.nombre}</p>
+                <p className="text-gray-600">{datosCliente.email}</p>
               </div>
               <div>
-                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Correo</p>
-                <p className="font-semibold text-gray-700">{datosCliente.email}</p>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajeros</p>
+                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Detalles</p>
                 <p className="font-bold text-gray-900">{reserva.pasajeros} Personas</p>
-              </div>
-              <div>
-                <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Fecha</p>
-                <p className="font-bold text-gray-900">{reserva.fechaLlegada}</p>
+                <p className="text-gray-600">{reserva.fechaLlegada}</p>
               </div>
             </div>
+
+            {/* BOTÓN DE PAYPAL CON PROVIDER INDEPENDIENTE */}
+            {datosCliente.paymentMethod === 'paypal' && (
+              <div className="mt-8 pt-8 border-t border-gray-100">
+                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
+                  <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Pago Seguro</p>
+                  
+                  {/* ESTE PROVIDER ES LA CLAVE MÁGICA */}
+                  <PayPalScriptProvider 
+                    options={{ 
+                      "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
+                      currency: "USD",
+                      intent: "capture"
+                    }}
+                  >
+                    <PayPalButtons
+                      style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
+                      forceReRender={[carritoTotal]} // Esto obliga a PayPal a despertar si cambia el precio
+                      createOrder={(data, actions) => {
+                        return actions.order.create({
+                          purchase_units: [{
+                            description: "Reserva Ballard Tours",
+                            amount: { 
+                                currency_code: "USD", 
+                                value: carritoTotal.toFixed(2) 
+                            }
+                          }]
+                        });
+                      }}
+                      onApprove={(data, actions) => {
+                        return actions.order.capture().then(() => { 
+                          procesarConfirmacion(); 
+                        });
+                      }}
+                      onError={(err) => {
+                        console.error("Fallo técnico PayPal:", err);
+                        alert("Ocurrió un error conectando con PayPal. Por favor, intenta más tarde o elige efectivo.");
+                      }}
+                    />
+                  </PayPalScriptProvider>
+                </div>
+              </div>
+            )}
+
+            {/* BOTÓN EFECTIVO */}
+            {datosCliente.paymentMethod === 'cash' && (
+              <button
+                onClick={procesarConfirmacion}
+                className="w-full mt-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
+              >
+                Confirmar Reserva
+              </button>
+            )}
           </div>
+        </div>
 
-          {/* ZONA DE PAYPAL */}
-          {datosCliente.paymentMethod === 'paypal' && (
-            <div className="mt-8 pt-8 border-t border-gray-100">
-              <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
-                <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Paga de forma segura con PayPal</p>
-                
-                {/* Forzamos el Provider aquí con el ID que ya tenemos */}
-                <PayPalScriptProvider 
-                  options={{ 
-                    "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
-                    currency: "USD" 
-                  }}
-                >
-                  <PayPalButtons
-                    style={{ layout: "vertical", color: "blue", shape: "rect" }}
-                    createOrder={(data, actions) => {
-                      return actions.order.create({
-                        purchase_units: [{
-                          description: "Ballard Tours Reservation",
-                          amount: { 
-                            currency_code: "USD", 
-                            value: carritoTotal.toFixed(2) 
-                          }
-                        }]
-                      });
-                    }}
-                    onApprove={(data, actions) => {
-                      return actions.order.capture().then(() => { 
-                        procesarConfirmacion(); 
-                      });
-                    }}
-                    onError={(err) => {
-                      console.error("PAYPAL ERROR:", err);
-                    }}
-                  />
-                </PayPalScriptProvider>
-              </div>
-            </div>
-          )}
-
-          {/* BOTÓN CONFIRMAR PARA EFECTIVO */}
-          {datosCliente.paymentMethod === 'cash' && (
-            <button
-              onClick={procesarConfirmacion}
-              className="w-full mt-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
-            >
-              Confirmar Reserva
-            </button>
-          )}
+        {/* COLUMNA DERECHA: RESUMEN */}
+        <div className="w-full lg:w-96 flex-shrink-0">
+           <div className="sticky top-28">
+              {renderCartSummaryWidget(true)}
+           </div>
         </div>
       </div>
-
-      {/* COLUMNA DERECHA: RESUMEN DE PRECIOS */}
-      <div className="w-full lg:w-96 flex-shrink-0">
-        <div className="sticky top-28">
-          {renderCartSummaryWidget(true)}
-        </div>
-      </div>
-
-    </div>
-  );
-};
+    );
+  };
 
 // =========================================================
   // ✏️ NUEVA PANTALLA: MODIFICAR DATOS DESDE EL CORREO
@@ -4044,7 +4035,6 @@ export default function App() {
           <WhatsAppButton />
 
         </div>
-      </PayPalScriptProvider>
     </HelmetProvider>
   );
 }
