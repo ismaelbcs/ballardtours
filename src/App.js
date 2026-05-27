@@ -32,13 +32,6 @@ const VEHICULOS = [
 
 export default function App() {
 
-  return (
-      <div className="App">
-        <h1>Mi Tienda React</h1>
-        {/* Tu componente de pago va aquí adentro */}
-        <CheckoutPage /> 
-      </div>
-  );
   const navigate = useNavigate();
   const [lang, setLang] = useState('es');
   const t = translations[lang];
