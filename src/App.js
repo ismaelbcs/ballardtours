@@ -2605,57 +2605,63 @@ export default function App() {
 
   const renderPaso4 = () => {
     return (
-      <div className="space-y-6 animate-fade-in">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
-            {t.step4.title}
-          </h2>
+      <div className="max-w-6xl mx-auto px-4 py-8 animate-fade-in">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* COLUMNA IZQUIERDA: Formulario y PayPal */}
+          <div className="space-y-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+                <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                {t.step4.title}
+              </h2>
 
-          {/* Resumen del Carrito */}
-          <div className="space-y-4 mb-8">
-            {carrito.map((item, idx) => (
-              <div key={idx} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="font-bold text-gray-900">{item.tipo === 'transfer' ? `${item.zonaSalida} → ${item.zonaDestino}` : item.nombre}</p>
-                    <p className="text-sm text-gray-500">{item.vehiculo || item.categoria}</p>
-                  </div>
-                  <p className="font-bold text-blue-600">${item.precio.toFixed(2)}</p>
+              <p className="text-gray-600 mb-6">
+                {t.step4.subtitle || 'Please select your payment method to complete the booking.'}
+              </p>
+
+              {/* Botones de PayPal (Solo aparecen si elige PayPal) */}
+              {datosCliente.paymentMethod === 'paypal' && (
+                <div className="mt-4 bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                  <p className="text-center text-xs font-black text-blue-800 mb-4 uppercase tracking-widest">
+                    Complete your payment via PayPal
+                  </p>
+                  <PayPalButtons
+                    style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
+                    createOrder={(data, actions) => {
+                      return actions.order.create({
+                        purchase_units: [{
+                          description: "Ballard Tours Reservation",
+                          amount: { currency_code: "USD", value: carritoTotal.toFixed(2) }
+                        }]
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then(() => {
+                        procesarConfirmacion();
+                      });
+                    }}
+                  />
                 </div>
-              </div>
-            ))}
+              )}
+              
+              {/* Botón para Efectivo (Solo aparece si NO es PayPal) */}
+              {datosCliente.paymentMethod !== 'paypal' && (
+                <button
+                  onClick={procesarConfirmacion}
+                  className="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-lg shadow-lg transition-all"
+                >
+                  {t.step4.confirm_btn || 'Confirm Booking'}
+                </button>
+              )}
+            </div>
           </div>
 
-          {renderCartSummaryWidget(true)}
+          {/* COLUMNA DERECHA: Resumen de lo que paga */}
+          <div className="lg:sticky lg:top-24 h-fit">
+             {renderCartSummaryWidget(true)}
+          </div>
 
-          {/* Bloque de PayPal */}
-          {datosCliente.paymentMethod === 'paypal' && (
-            <div className="mt-6 bg-white p-4 rounded-xl shadow-inner border border-blue-200">
-              <p className="text-center text-xs font-bold text-blue-800 mb-4 uppercase tracking-widest">
-                Secure Checkout via PayPal
-              </p>
-              <PayPalButtons
-                style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
-                createOrder={(data, actions) => {
-                  return actions.order.create({
-                    purchase_units: [{
-                      description: "Ballard Tours Booking",
-                      amount: { currency_code: "USD", value: carritoTotal.toFixed(2) }
-                    }]
-                  });
-                }}
-                onApprove={(data, actions) => {
-                  return actions.order.capture().then(() => {
-                    procesarConfirmacion();
-                  });
-                }}
-                onError={(err) => {
-                  console.error("PayPal Error:", err);
-                }}
-              />
-            </div>
-          )}
         </div>
       </div>
     );
