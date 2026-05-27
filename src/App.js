@@ -2620,7 +2620,7 @@ export default function App() {
     );
   };
 
-  const renderPaso4 = () => {
+  const renderPaso4 = () => {      // <-- ESTO ES LO QUE FALTA
     return (
       <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
         
