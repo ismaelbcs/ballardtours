@@ -455,6 +455,11 @@ export default function App() {
   const procesarConfirmacion = (e) => {
     if (e && e.preventDefault) e.preventDefault();
 
+    // RASTREADORES PARA LA CONSOLA
+    console.log("🚨 PASO 1: ¡El clic del botón sí funciona!");
+    console.log("🚨 PASO 2: Los datos del cliente son:", datosCliente);
+
+
     // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
     const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
     const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
