@@ -1162,27 +1162,6 @@ export default function App() {
                            <CheckCircle size={14} className="mr-1"/> Impuestos incluidos
                        </p>
                    </div> 
-{datosCliente.paymentMethod === 'paypal' && (
-  <div style={{ marginTop: '20px', backgroundColor: 'white', padding: '15px', borderRadius: '12px' }}>
-    <PayPalScriptProvider options={{ "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF" }}>
-      <PayPalButtons
-        style={{ layout: "vertical", color: "blue", shape: "rect" }}
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: carritoTotal.toFixed(2) }
-            }]
-          });
-        }}
-        onApprove={(data, actions) => {
-          return actions.order.capture().then(() => {
-            avanzarPaso(); 
-          });
-        }}
-      />
-    </PayPalScriptProvider>
-  </div>
-)}
                    {conBoton && (
                        <div className="flex gap-3 mt-6">
                            <button onClick={regresarPaso} className="px-5 py-4 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition flex items-center font-bold gap-1"><ChevronLeft size={20} /> <span className="hidden sm:inline">{t.step2.back}</span></button>
@@ -2693,6 +2672,28 @@ export default function App() {
           </div>
 
           {renderCartSummaryWidget(true)}
+          {/* PEGA EL BLOQUE AQUÍ ABAJO */}
+      {datosCliente.paymentMethod === 'paypal' && (
+        <div style={{ marginTop: '20px', backgroundColor: 'white', padding: '15px', borderRadius: '12px', border: '2px solid #0070ba' }}>
+          <p className="text-center text-blue-900 font-bold mb-2">Complete your booking with PayPal</p>
+          <PayPalButtons
+            style={{ layout: "vertical", color: "blue", shape: "rect" }}
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [{
+                  description: "Ballard Tours Reservation",
+                  amount: { value: carritoTotal.toFixed(2) }
+                }]
+              });
+            }}
+            onApprove={(data, actions) => {
+              return actions.order.capture().then(() => {
+                procesarConfirmacion(); 
+              });
+            }}
+          />
+        </div>
+      )}
       </div>
     );
   };
@@ -3090,7 +3091,8 @@ export default function App() {
 
   return (
     <HelmetProvider>
-      <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
+      <PayPalScriptProvider options={{ "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF" }}>
+        <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
         <Header />
         <DrawerCombo />
         {PromoModal()}
@@ -4035,6 +4037,7 @@ export default function App() {
           <WhatsAppButton />
 
         </div>
-      </HelmetProvider>
-    );
-}; // <--- Este cierra la función "const App = () => {" o "function App() {"
+      </PayPalScriptProvider>
+    </HelmetProvider>
+  );
+}
