@@ -11,7 +11,6 @@ import {
   toursData  // <--- AGREGA ESTO
 } from './data/seoData';
 import { db } from './firebase';
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import { 
   PlaneLanding, PlaneTakeoff, RefreshCw, Map as MapIcon, Car, Users, 
@@ -21,6 +20,8 @@ import {
   Save, EyeOff, Globe, CreditCard, Banknote, ShoppingBag, Baby, ShoppingCart,
   LogIn, LogOut, Gift
 } from 'lucide-react';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
 
 
 const VEHICULOS = [
@@ -30,6 +31,22 @@ const VEHICULOS = [
 
 
 export default function App() {
+  const initialOptions = {
+    "client-id": process.env.Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7tBw3M6TWDkxljqn8jLfpS2CyxF, // Nunca quemes el ID directo en producción
+    currency: "USD",
+    intent: "capture"
+  };
+
+  return (
+    <PayPalScriptProvider options={initialOptions}>
+      <div className="App">
+        <h1>Mi Tienda React</h1>
+        {/* Tu componente de pago va aquí adentro */}
+        <CheckoutPage /> 
+      </div>
+    </PayPalScriptProvider>
+  );
+}
   const navigate = useNavigate();
   const [lang, setLang] = useState('es');
   const t = translations[lang];
@@ -2607,7 +2624,7 @@ export default function App() {
     return (
       <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
         
-        {/* COLUMNA IZQUIERDA: DATOS Y PAGO */}
+        {/* COLUMNA IZQUIERDA: DETALLES Y PAGO */}
         <div className="flex-1 space-y-6">
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase">
@@ -2627,13 +2644,13 @@ export default function App() {
               </div>
             </div>
 
-            {/* BOTÓN DE PAYPAL CON PROVIDER INDEPENDIENTE */}
+            {/* AQUI APLICAMOS LA ARQUITECTURA OFICIAL DE PAYPAL */}
             {datosCliente.paymentMethod === 'paypal' && (
               <div className="mt-8 pt-8 border-t border-gray-100">
                 <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
-                  <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Pago Seguro</p>
+                  <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Pago Seguro con PayPal</p>
                   
-                  {/* ESTE PROVIDER ES LA CLAVE MÁGICA */}
+                  {/* EL PROVIDER ENVOLVIENDO SOLO AL BOTÓN */}
                   <PayPalScriptProvider 
                     options={{ 
                       "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
@@ -2643,29 +2660,31 @@ export default function App() {
                   >
                     <PayPalButtons
                       style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
-                      forceReRender={[carritoTotal]} // Esto obliga a PayPal a despertar si cambia el precio
+                      forceReRender={[carritoTotal]} // Truco avanzado: Fuerza al botón a actualizarse si el precio cambia
                       createOrder={(data, actions) => {
                         return actions.order.create({
                           purchase_units: [{
                             description: "Reserva Ballard Tours",
                             amount: { 
-                                currency_code: "USD", 
-                                value: carritoTotal.toFixed(2) 
+                              currency_code: "USD", 
+                              value: carritoTotal.toFixed(2) 
                             }
                           }]
                         });
                       }}
                       onApprove={(data, actions) => {
-                        return actions.order.capture().then(() => { 
+                        return actions.order.capture().then((details) => { 
+                          console.log("Pago completado por:", details.payer.name.given_name);
                           procesarConfirmacion(); 
                         });
                       }}
                       onError={(err) => {
                         console.error("Fallo técnico PayPal:", err);
-                        alert("Ocurrió un error conectando con PayPal. Por favor, intenta más tarde o elige efectivo.");
+                        alert("Error conectando con PayPal. Por favor intenta de nuevo.");
                       }}
                     />
                   </PayPalScriptProvider>
+
                 </div>
               </div>
             )}
@@ -2682,12 +2701,13 @@ export default function App() {
           </div>
         </div>
 
-        {/* COLUMNA DERECHA: RESUMEN */}
+        {/* COLUMNA DERECHA: RESUMEN (No tocar) */}
         <div className="w-full lg:w-96 flex-shrink-0">
            <div className="sticky top-28">
               {renderCartSummaryWidget(true)}
            </div>
         </div>
+
       </div>
     );
   };
