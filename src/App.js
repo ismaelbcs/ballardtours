@@ -2483,12 +2483,17 @@ export default function App() {
               <ChevronLeft size={20} />
             </button>
             {showPaymentSelection ? (
-              <button 
-                onClick={procesarConfirmacion} 
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 px-6 rounded-xl transition-all shadow-lg text-base uppercase"
-              >
-                Confirmar y Pagar al Llegar
-              </button>
+              <>
+          {datosCliente.paymentMethod === 'cash' && (
+            <button
+              onClick={procesarConfirmacion}
+              disabled={procesandoPago}
+              className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex justify-center items-center transition shadow-lg disabled:opacity-50"
+            >
+              {procesandoPago ? t.step4.processing : t.step4.confirm_cash}
+            </button>
+          )}
+              </>
             ) : (
               <button
                 onClick={avanzarPaso}
