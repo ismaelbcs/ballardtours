@@ -2605,33 +2605,62 @@ export default function App() {
 
   const renderPaso4 = () => {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-8 animate-fade-in">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
-          {/* COLUMNA IZQUIERDA: Formulario y PayPal */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-                <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
-                {t.step4.title}
-              </h2>
+      <div className="flex flex-col lg:flex-row gap-8 animate-fade-in max-w-7xl mx-auto px-4">
+        
+        {/* COLUMNA IZQUIERDA: RESUMEN DETALLADO */}
+        <div className="flex-1 space-y-6">
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <h3 className="text-xl font-black mb-6 text-gray-800 border-b pb-4 uppercase tracking-tight">
+              {t.step4.confirmation_details || 'Detalles de la Reserva'}
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Info del Cliente */}
+              <div className="space-y-4">
+                <div>
+                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajero Principal</p>
+                  <p className="font-bold text-gray-900 text-lg">{datosCliente.nombre}</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Correo Electrónico</p>
+                  <p className="font-semibold text-gray-700">{datosCliente.email}</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Teléfono</p>
+                  <p className="font-semibold text-gray-700">{datosCliente.telefono}</p>
+                </div>
+              </div>
 
-              <p className="text-gray-600 mb-6">
-                {t.step4.subtitle || 'Please select your payment method to complete the booking.'}
-              </p>
+              {/* Info del Viaje */}
+              <div className="space-y-4">
+                <div>
+                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Pasajeros</p>
+                  <p className="font-bold text-gray-900">{reserva.pasajeros} Personas</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Fecha de Servicio</p>
+                  <p className="font-bold text-gray-900">{reserva.fechaLlegada}</p>
+                </div>
+                {reserva.vueloLlegada && (
+                  <div>
+                    <p className="text-gray-400 uppercase font-bold text-[10px] tracking-widest">Vuelo</p>
+                    <p className="font-bold text-gray-900">{reserva.vueloLlegada}</p>
+                  </div>
+                )}
+              </div>
+            </div>
 
-              {/* Botones de PayPal (Solo aparecen si elige PayPal) */}
-              {datosCliente.paymentMethod === 'paypal' && (
-                <div className="mt-4 bg-blue-50 p-6 rounded-2xl border border-blue-100">
-                  <p className="text-center text-xs font-black text-blue-800 mb-4 uppercase tracking-widest">
-                    Complete your payment via PayPal
-                  </p>
+            {/* ZONA DE PAYPAL (Solo si está seleccionado) */}
+            {datosCliente.paymentMethod === 'paypal' && (
+              <div className="mt-8 pt-8 border-t border-gray-100">
+                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm">
+                  <p className="text-center text-blue-800 font-bold mb-4">Paga de forma segura con PayPal</p>
                   <PayPalButtons
-                    style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
+                    style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
                     createOrder={(data, actions) => {
                       return actions.order.create({
                         purchase_units: [{
-                          description: "Ballard Tours Reservation",
+                          description: "Ballard Tours Combo",
                           amount: { currency_code: "USD", value: carritoTotal.toFixed(2) }
                         }]
                       });
@@ -2643,25 +2672,42 @@ export default function App() {
                     }}
                   />
                 </div>
-              )}
-              
-              {/* Botón para Efectivo (Solo aparece si NO es PayPal) */}
-              {datosCliente.paymentMethod !== 'paypal' && (
-                <button
-                  onClick={procesarConfirmacion}
-                  className="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-lg shadow-lg transition-all"
-                >
-                  {t.step4.confirm_btn || 'Confirm Booking'}
-                </button>
-              )}
-            </div>
-          </div>
+              </div>
+            )}
 
-          {/* COLUMNA DERECHA: Resumen de lo que paga */}
-          <div className="lg:sticky lg:top-24 h-fit">
-             {renderCartSummaryWidget(true)}
+            {/* BOTÓN VERDE PARA EFECTIVO */}
+            {datosCliente.paymentMethod === 'cash' && (
+              <button
+                onClick={procesarConfirmacion}
+                className="w-full mt-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all flex justify-center items-center gap-2"
+              >
+                Confirmar Reserva
+              </button>
+            )}
           </div>
+        </div>
 
+        {/* COLUMNA DERECHA: TOTALES (STICKY) */}
+        <div className="w-full lg:w-96 flex-shrink-0">
+           {renderCartSummaryWidget(true)}
+        </div>
+      </div>
+    );
+  };
+
+        {/* PARTE DERECHA: EL RESUMEN QUE TE GUSTA */}
+        <div className="w-full lg:w-96 flex-shrink-0">
+           {renderCartSummaryWidget(true)}
+           
+           {/* Botón de Confirmación para EFECTIVO solamente */}
+           {datosCliente.paymentMethod === 'cash' && (
+             <button
+               onClick={procesarConfirmacion}
+               className="w-full mt-4 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-xl shadow-lg transition-all"
+             >
+               Confirm Booking
+             </button>
+           )}
         </div>
       </div>
     );
