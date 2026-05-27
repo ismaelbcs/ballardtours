@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { obtenerEmailChofer, registrarNotificacionMail } from './utils/firebaseutils';
 import { translations } from './data/translations';
 import { 
@@ -20,7 +21,6 @@ import {
   Save, EyeOff, Globe, CreditCard, Banknote, ShoppingBag, Baby, ShoppingCart,
   LogIn, LogOut, Gift
 } from 'lucide-react';
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 
 
@@ -31,22 +31,14 @@ const VEHICULOS = [
 
 
 export default function App() {
-  const initialOptions = {
-    "client-id": process.env.Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7tBw3M6TWDkxljqn8jLfpS2CyxF, // Nunca quemes el ID directo en producción
-    currency: "USD",
-    intent: "capture"
-  };
 
   return (
-    <PayPalScriptProvider options={initialOptions}>
       <div className="App">
         <h1>Mi Tienda React</h1>
         {/* Tu componente de pago va aquí adentro */}
         <CheckoutPage /> 
       </div>
-    </PayPalScriptProvider>
   );
-}
   const navigate = useNavigate();
   const [lang, setLang] = useState('es');
   const t = translations[lang];
@@ -2478,11 +2470,6 @@ export default function App() {
                      <div className="mt-6 pt-6 border-t border-gray-800">
                          <h4 className="font-bold text-white mb-4 text-sm">{t.step4.payment_method}</h4>
                          <div className="space-y-3">
-                             <label className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${datosCliente.paymentMethod === 'cash' ? 'bg-blue-900/50 border-blue-500' : 'bg-gray-800 border-gray-700 hover:border-gray-500'}`}>
-                                 <input type="radio" name="paymentMethod" value="cash" checked={datosCliente.paymentMethod === 'cash'} onChange={handleClienteChange} className="w-4 h-4 accent-blue-500"/>
-                                 <Banknote size={20} className={datosCliente.paymentMethod === 'cash' ? 'text-blue-400' : 'text-gray-400'}/>
-                                 <span className="font-semibold text-sm">{t.step4.cash}</span>
-                             </label>
                              <label className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${datosCliente.paymentMethod === 'paypal' ? 'bg-blue-900/50 border-blue-500' : 'bg-gray-800 border-gray-700 hover:border-gray-500'}`}>
                                  <input type="radio" name="paymentMethod" value="paypal" checked={datosCliente.paymentMethod === 'paypal'} onChange={handleClienteChange} className="w-4 h-4 accent-blue-500"/>
                                  <CreditCard size={20} className={datosCliente.paymentMethod === 'paypal' ? 'text-blue-400' : 'text-gray-400'}/>
@@ -2502,7 +2489,7 @@ export default function App() {
                              disabled={procesandoPago}
                              className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex justify-center items-center transition shadow-lg disabled:opacity-50"
                          >
-                             {procesandoPago ? t.step4.processing : (datosCliente.paymentMethod === 'paypal' ? t.step4.pay_with_paypal : t.step4.confirm_cash)}
+                             {procesandoPago ? t.step4.processing : t.step4.confirm_cash}
                          </button>
                      ) : (
                          <button
@@ -2644,51 +2631,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* AQUI APLICAMOS LA ARQUITECTURA OFICIAL DE PAYPAL */}
-            {datosCliente.paymentMethod === 'paypal' && (
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <div className="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm text-center">
-                  <p className="text-blue-800 font-bold mb-4 uppercase text-xs">Pago Seguro con PayPal</p>
-                  
-                  {/* EL PROVIDER ENVOLVIENDO SOLO AL BOTÓN */}
-                  <PayPalScriptProvider 
-                    options={{ 
-                      "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
-                      currency: "USD",
-                      intent: "capture"
-                    }}
-                  >
-                    <PayPalButtons
-                      style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
-                      forceReRender={[carritoTotal]} // Truco avanzado: Fuerza al botón a actualizarse si el precio cambia
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [{
-                            description: "Reserva Ballard Tours",
-                            amount: { 
-                              currency_code: "USD", 
-                              value: carritoTotal.toFixed(2) 
-                            }
-                          }]
-                        });
-                      }}
-                      onApprove={(data, actions) => {
-                        return actions.order.capture().then((details) => { 
-                          console.log("Pago completado por:", details.payer.name.given_name);
-                          procesarConfirmacion(); 
-                        });
-                      }}
-                      onError={(err) => {
-                        console.error("Fallo técnico PayPal:", err);
-                        alert("Error conectando con PayPal. Por favor intenta de nuevo.");
-                      }}
-                    />
-                  </PayPalScriptProvider>
-
-                </div>
-              </div>
-            )}
-
             {/* BOTÓN EFECTIVO */}
             {datosCliente.paymentMethod === 'cash' && (
               <button
@@ -2698,8 +2640,35 @@ export default function App() {
                 Confirmar Reserva
               </button>
             )}
+          {/* 🔥 AQUÍ PEGAS TU CÓDIGO DE PAYPAL 🔥 */}
+        {datosCliente.paymentMethod === 'paypal' && (
+          <div className="mt-8">
+            <PayPalButtons 
+              style={{ layout: "vertical", shape: "rect" }}
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        // Usamos tu variable carritoTotal para cobrar lo correcto
+                        value: carritoTotal.toFixed(2),
+                      },
+                    },
+                  ],
+                });
+              }}
+              onApprove={(data, actions) => {
+                return actions.order.capture().then((details) => {
+                  // Cuando el pago sea exitoso, detonamos tu función de confirmación
+                  procesarConfirmacion();
+                });
+              }}
+            />
           </div>
-        </div>
+        )}
+
+      </div>
+    </div>
 
         {/* COLUMNA DERECHA: RESUMEN (No tocar) */}
         <div className="w-full lg:w-96 flex-shrink-0">
@@ -2825,9 +2794,6 @@ export default function App() {
       setGuardadoExitoso(true);
 
       // REDIRECCIÓN A PAYPAL
-      if (datosModificar.metodoPagoExtra === 'paypal' && costoDiferencia > 0) {
-        window.open(`https://paypal.me/ballardtours/${costoDiferencia}USD`, '_blank');
-      }
 
     } catch (e) {
       console.error("Error al guardar cambios:", e);
@@ -2842,11 +2808,6 @@ export default function App() {
           <div className="text-6xl mb-4">✅</div>
           <h2 className="text-2xl font-black mb-2">¡Cambios Guardados!</h2>
           <p className="text-gray-600 mb-6">Hemos actualizado tu información y enviado una alerta a Ballard Tours.</p>
-          {datosModificar.metodoPagoExtra === 'paypal' && costoDiferencia > 0 && (
-            <div className="bg-blue-50 text-blue-800 p-4 rounded-xl mb-6 text-sm font-bold animate-pulse">
-              Se abrió una pestaña nueva para completar tu pago de ${costoDiferencia} USD en PayPal.
-            </div>
-          )}
           <button onClick={() => window.location.href = '/'} className="bg-gray-900 text-white font-bold py-3 px-6 rounded-xl">Ir al Inicio</button>
         </div>
     );
@@ -2888,10 +2849,6 @@ export default function App() {
               <h4 className="font-black text-amber-800 mb-2">⚠️ Cambio de Zona Detectado</h4>
               <p className="text-sm text-amber-700 mb-4">El nuevo hotel se encuentra en la <b>Zona {datosModificar.zonaNueva}</b>. Hay una diferencia de <strong className="text-lg bg-amber-200 px-2 py-1 rounded">${costoDiferencia} USD</strong> aplicable por la distancia extra.</p>
               <div className="space-y-2">
-                <label className="flex items-center space-x-3 cursor-pointer">
-                  <input type="radio" name="pago" value="paypal" onChange={(e) => setDatosModificar({...datosModificar, metodoPagoExtra: e.target.value})} className="w-5 h-5 text-blue-600" />
-                  <span className="font-bold text-gray-800">Pagar diferencia con PayPal al guardar</span>
-                </label>
                 <label className="flex items-center space-x-3 cursor-pointer">
                   <input type="radio" name="pago" value="efectivo" onChange={(e) => setDatosModificar({...datosModificar, metodoPagoExtra: e.target.value})} className="w-5 h-5 text-blue-600" />
                   <span className="font-bold text-gray-800">Pagar diferencia en efectivo al chofer</span>
@@ -3104,6 +3061,9 @@ export default function App() {
   };
 
   return (
+    <PayPalScriptProvider options={{ "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7tBw3M6TWDkxljqn8jLfpS2CyxF", currency: "USD" }}>
+    
+    
     <HelmetProvider>
       <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
         <Header />
@@ -4049,5 +4009,6 @@ export default function App() {
 
       </div>
     </HelmetProvider>
+    </PayPalScriptProvider>
   );
 }
