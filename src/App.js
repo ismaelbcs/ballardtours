@@ -3085,21 +3085,14 @@ export default function App() {
 
   return (
     <HelmetProvider>
-      <PayPalScriptProvider options={{ 
-    "client-id": "Af_QMaiYhnkVGklhDJbI7gdNcNsgSTCyQG5GfsR0uxD3QEs-XSDIX7TbW3M6TWDkxljqn8jLfpS2CyxF",
-    currency: "USD",
-    intent: "capture"
-}}>
-        <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
+      <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
         <Header />
         <DrawerCombo />
         {PromoModal()}
         {AuthModal()}
-        
+
         <main>
-          {/* El Stepper de reserva se muestra si el usuario está en proceso de pago */}
           {paso > 1 && paso <= 4 && <Stepper />}
-          
           <Routes>
               {/* 🏠 URL 1: INICIO (tudominio.com/) */}
               <Route path="/" element={
@@ -4026,15 +4019,15 @@ export default function App() {
               } />
 
             </Routes>
-          </main>
+        </main>
 
-          <footer className="mt-24 py-8 border-t border-gray-200 text-center text-gray-400 text-sm">
-              <p>© {new Date().getFullYear()} Ballard Tours Los Cabos. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
-          </footer>
+        <footer className="mt-24 py-8 border-t border-gray-200 text-center text-gray-400 text-sm">
+          <p>© {new Date().getFullYear()} Ballard Tours Los Cabos. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
+        </footer>
 
-          <WhatsAppButton />
+        <WhatsAppButton />
 
-        </div>
+      </div>
     </HelmetProvider>
   );
 }
