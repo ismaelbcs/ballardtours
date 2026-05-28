@@ -1,8 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+// Asegúrate de importar 'db' desde tu archivo de configuración de Firebase
+import { db } from './tu-archivo-de-firebase';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { obtenerEmailChofer, registrarNotificacionMail } from './utils/firebaseutils';
 import { translations } from './data/translations';
 import {
   landingPagesSEO,
@@ -11,8 +13,6 @@ import {
   zonasData, // <--- AGREGA ESTO
   toursData  // <--- AGREGA ESTO
 } from './data/seoData';
-import { db } from './firebase';
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import {
   PlaneLanding, PlaneTakeoff, RefreshCw, Map as MapIcon, Car, Users,
   Calendar, Clock, ChevronRight, ChevronLeft, CheckCircle, Info, User,
@@ -509,70 +509,72 @@ export default function App() {
  setProcesandoPago(true);
 
     // 👇 AQUÍ ESTÁ LA MAGIA: Quitamos el "async" y reordenamos
- setTimeout(() => {
-   setProcesandoPago(false);
+ setTimeout(async() => {
+    setProcesandoPago(false);
 
-   const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
-   setNumConfirmacionGlobal(nuevoNumConfirmacion);
-   setCorreoAdminEnviado(false);
+    const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
+    setNumConfirmacionGlobal(nuevoNumConfirmacion);
+    setCorreoAdminEnviado(false);
 
-   // 1️⃣ ¡EL TRUCO! Avanzamos de paso INMEDIATAMENTE para no trabar al cliente
-   avanzarPaso();
+    // 1️⃣ ¡EL TRUCO! Avanzamos de paso INMEDIATAMENTE para no trabar al cliente
+    avanzarPaso();
 
-   try {
-  const correosRef = collection(db, 'correos');
-  console.log("Enviando notificaciones en segundo plano...");
+    try {
+      console.log("Preparando datos de correos para Firebase Trigger Email...");
+      
+      // Apuntamos a la colección que configuraste en la extensión
+      const correosRef = collection(db, "correos");
 
-  // 2️⃣ Quitamos los "await" para que Firebase trabaje en el fondo
-  
-  // ==========================================
-  // CORREO 1: PARA EL CLIENTE
-  // ==========================================
-  addDoc(correosRef, {
-    to: emailCliente || "reservationballard@gmail.com",
-    message: {
-   subject: "Confirmación de Reserva - Ballard Tours",
-   html: `
-    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
-      <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
-     <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
-     <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
-      </div>
-      <div style="padding: 30px; background-color: white;">
-     <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
-     <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
-       <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
-     </div>
-     <ul style="font-size: 14px; color: #1e40af;">
-      ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
-     </ul>
-      </div>
-    </div>`
+      // ==========================================
+      // CORREO 1: PARA EL CLIENTE
+      // ==========================================
+      await addDoc(correosRef, {
+        to: emailCliente || "reservationballard@gmail.com",
+        message: {
+          subject: "Confirmación de Reserva - Ballard Tours",
+          html: `
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
+              <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
+                <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
+              </div>
+              <div style="padding: 30px; background-color: white;">
+                <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
+                <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
+                  <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
+                </div>
+                <ul style="font-size: 14px; color: #1e40af;">
+                  ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
+                </ul>
+              </div>
+            </div>`
+        }
+      });
+
+      // ==========================================
+      // CORREO 2: PARA LA EMPRESA
+      // ==========================================
+      await addDoc(correosRef, {
+        to: "reservationballard@gmail.com",
+        message: {
+          subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
+          html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px;">
+              <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
+              <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
+              <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
+              <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
+              <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
+            </div>`
+        }
+      });
+
+      console.log("✅ Correos registrados en Firebase exitosamente.");
+
+    } catch (error) {
+      console.error("❌ Error al registrar los correos en Firebase:", error);
     }
-  }).catch(err => console.error("🚨 Error en correo cliente:", err));
-
-  // ==========================================
-  // CORREO 2: PARA LA EMPRESA
-  // ==========================================
-  addDoc(correosRef, {
-    to: "reservationballard@gmail.com",
-    message: {
-   subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
-   html: `
-    <div style="font-family: Arial, sans-serif; padding: 20px;">
-      <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
-      <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
-      <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
-      <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
-      <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
-    </div>`
-    }
-  }).catch(err => console.error("🚨 Error en correo empresa:", err));
-
-   } catch (error) {
-  console.error("Error al enviar los correos:", error);
-   }
- }, 500); 
+  }, 500);
   };
 
   const regresarPaso = () => {
@@ -2755,48 +2757,48 @@ export default function App() {
   const guardarModificaciones = async () => {
     setCargandoModificar(true);
     try {
-      const correosRef = collection(db, 'correos');
-
       let avisoPagoExtra = "";
       if (costoDiferencia > 0) {
         avisoPagoExtra = `<tr style="background-color: #fef08a;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309;">⚠️ CAMBIO A ZONA MÁS CARA:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309;">Cambió a Zona ${datosModificar.zonaNueva}. Diferencia: $${costoDiferencia} USD. El cliente eligió pagar con: <b>${datosModificar.metodoPagoExtra === 'paypal' ? 'PayPal' : 'Efectivo al llegar'}</b>.</td></tr>`;
       }
 
+      // 👇 AQUÍ EMPIEZA EL CÓDIGO NUEVO DE FIREBASE 👇
+      const correosRef = collection(db, "correos");
+      
       await addDoc(correosRef, {
         to: "reservationballard@gmail.com",
         message: {
           subject: `⚠️ MODIFICACIÓN DE RESERVA: (${idModificar})`,
           html: `
-            <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: 0 auto; border: 1px solid #ea580c; padding: 30px; border-radius: 12px; background-color: #fff7ed;">
-              <h2 style="color: #ea580c; margin-top: 0; font-size: 26px;">🚨 ¡El Cliente Modificó su Reserva!</h2>
-              <p style="font-size: 18px; border-bottom: 2px solid #fed7aa; padding-bottom: 15px;">Código afectado: <strong style="color: #1e3a8a; font-size: 22px;">${idModificar}</strong></p>
-              
-              <table style="width: 100%; border-collapse: collapse; font-size: 16px; background-color: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-                <tr style="background-color: #ffedd5;"><th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Campo</th><th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Valor Modificado</th></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Nuevo Nombre:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; color: #c2410c; font-weight: bold;">${datosModificar.nombre || 'No modificado'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Nuevo Hotel / Recogida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.hotel || 'No modificado'} (Zona ${datosModificar.zonaNueva})</td></tr>
-                ${avisoPagoExtra}
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Fecha Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.fechaLlegada || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Aerolínea Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.aerolineaLlegada || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Número de Vuelo:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.vueloLlegada || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Hora de Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.horaLlegada || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Fecha Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.fechaSalida || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Aerolínea Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.aerolineaSalida || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Número de Vuelo Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.vueloSalida || 'N/A'}</td></tr>
-                <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Hora de Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.horaSalida || 'N/A'}</td></tr>
-                <tr style="background-color: #fffbeb;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309;">⏰ NUEVA HORA PICK-UP:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309; font-size: 18px;">${datosModificar.horaPickUp || 'N/A'}</td></tr>
+          <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: 0 auto; border: 1px solid #ea580c; padding: 30px; border-radius: 12px; background-color: #fff7ed;">
+            <h2 style="color: #ea580c; margin-top: 0; font-size: 26px;">🚨 ¡El Cliente Modificó su Reserva!</h2>
+            <p style="font-size: 18px; border-bottom: 2px solid #fed7aa; padding-bottom: 15px;">Código afectado: <strong style="color: #1e3a8a; font-size: 22px;">${idModificar}</strong></p>
+            
+            <table style="width: 100%; border-collapse: collapse; font-size: 16px; background-color: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
+              <tr style="background-color: #ffedd5;"><th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Campo</th><th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Valor Modificado</th></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Nuevo Nombre:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; color: #c2410c; font-weight: bold;">${datosModificar.nombre || 'No modificado'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Nuevo Hotel / Recogida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.hotel || 'No modificado'} (Zona ${datosModificar.zonaNueva})</td></tr>
+              ${avisoPagoExtra}
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Fecha Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.fechaLlegada || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Aerolínea Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.aerolineaLlegada || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Número de Vuelo:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.vueloLlegada || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Hora de Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.horaLlegada || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Fecha Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.fechaSalida || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Aerolínea Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.aerolineaSalida || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Número de Vuelo Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.vueloSalida || 'N/A'}</td></tr>
+              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Hora de Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.horaSalida || 'N/A'}</td></tr>
+              <tr style="background-color: #fffbeb;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309;">⏰ NUEVA HORA PICK-UP:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309; font-size: 18px;">${datosModificar.horaPickUp || 'N/A'}</td></tr>
               </table>
-            </div>
+          </div>
           `
         }
       });
+      // 👆 FIN DEL CÓDIGO NUEVO DE FIREBASE 👆
 
       setGuardadoExitoso(true);
 
-      // REDIRECCIÓN A PAYPAL
-
     } catch (e) {
-      console.error("Error al guardar cambios:", e);
+      console.error("Error al preparar cambios de correo:", e);
     }
     setCargandoModificar(false);
   };
