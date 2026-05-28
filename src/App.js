@@ -38,9 +38,8 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
   const telefonoCliente = datosCliente.clienteTelefono || 'N/A';
   const metodoPago = datosCliente.paymentMethod === 'paypal' ? 'PayPal (Pagado)' : 'Efectivo al llegar';
   
-  // 2. Extraer origen/destino y horas dependiendo del tipo de servicio
-  const hotel = item.config?.hotelId || item.extrasEspeciales?.hotelOrigen || item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || 'N/A';
-  const pasajeros = item.config?.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hotelPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax || 'N/A';
+  // 2. Extraer datos generales
+  const pasajeros = item.config?.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hotelPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax || item.config?.hhPax || 'N/A';
   
   const aerolineaLlegada = item.flightInfo?.aerolineaLlegada || 'N/A';
   const vueloLlegada = item.flightInfo?.vueloLlegada || 'N/A';
@@ -50,7 +49,7 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
   const vueloSalida = item.flightInfo?.vueloSalida || 'N/A';
   const horaSalida = item.flightInfo?.horaSalida || 'N/A';
   
-  const pickup = item.flightInfo?.horaPickUp || item.extrasEspeciales?.cenaHora || item.extrasEspeciales?.hotelHora || item.extrasEspeciales?.golfHora || item.extrasEspeciales?.nightlifeHora || 'N/A';
+  const pickup = item.flightInfo?.horaPickUp || item.extrasEspeciales?.cenaHora || item.extrasEspeciales?.hotelHora || item.extrasEspeciales?.golfHora || item.extrasEspeciales?.nightlifeHora || item.config?.hhHora || item.config?.cenaHora || item.config?.golfHora || item.config?.nightlifeHora || 'N/A';
 
   // 3. Generar la tabla de pasajeros SI ES UN TOUR
   let pasajerosTourHtml = '';
@@ -74,7 +73,120 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
     `;
   }
 
-  // 4. Retornar el HTML con el diseño que proporcionaste
+  // 4. Construcción Inteligente de "Detalles Logísticos"
+  let logisticaHtml = '';
+
+  // A) RUTAS DE SERVICIOS ESPECIALES O HOTEL NORMAL
+  if (item.tipoEspecial) {
+      let origenEspecial = item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || item.extrasEspeciales?.hotelOrigen || item.config?.hhOrigen || item.config?.hotelId || 'N/A';
+      if (origenEspecial.includes('|')) origenEspecial = origenEspecial.split('|')[0];
+      
+      let destinoLugar = item.extrasEspeciales?.cenaRestauranteNombre || item.extrasEspeciales?.golfNombre || item.extrasEspeciales?.nightlifeLugarNombre || item.extrasEspeciales?.hotelNombre || item.config?.hhDestino || 'N/A';
+      
+      let detallesHorarios = '';
+      if (item.tipoEspecial === 'cena') {
+          detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Hora Reserva: ${item.extrasEspeciales?.cenaHoraReserva || item.config?.cenaHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.cenaHoraRegreso || item.config?.cenaHoraRegreso || 'N/A'}</span>`;
+      } else if (item.tipoEspecial === 'golf') {
+          detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Tee Time: ${item.extrasEspeciales?.golfHoraReserva || item.config?.golfHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.golfHoraRegreso || item.config?.golfHoraRegreso || 'N/A'}</span>`;
+      } else if (item.tipoEspecial === 'nightlife') {
+          detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Llegada: ${item.extrasEspeciales?.nightlifeHoraReserva || item.config?.nightlifeHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.nightlifeHoraRegreso || item.config?.nightlifeHoraRegreso || 'N/A'}</span>`;
+      }
+
+      logisticaHtml += `
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Cuadro de Recogida (Ruta):</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">
+            <span style="color: #1e3a8a;">Origen:</span> ${origenEspecial}<br>
+            <span style="color: #ea580c;">Destino:</span> ${destinoLugar}
+            ${detallesHorarios}
+          </td>
+        </tr>
+      `;
+  } else if (item.servicio !== 'tours') {
+      let hotelNormal = item.config?.hotelId || 'N/A';
+      if (hotelNormal.includes('|')) hotelNormal = hotelNormal.split('|')[0];
+      logisticaHtml += `
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hotel / Destino:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${hotelNormal}</td>
+        </tr>
+      `;
+  }
+
+  // B) COMENTARIOS / LUGAR DE RECOGIDA (Especialmente para Tours)
+  if (item.config?.comentarios) {
+      logisticaHtml += `
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Lugar de Recogida / Comentarios:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right; font-style: italic;">
+            "${item.config.comentarios}"
+          </td>
+        </tr>
+      `;
+  }
+
+  // C) EXTRAS: Sillas, Compras, Amenidades de Cena
+  const extrasList = [];
+  if (item.config?.carSeat > 0) extrasList.push(`${item.config.carSeat}x Silla de Auto (Car Seat)`);
+  if (item.config?.babySeat > 0) extrasList.push(`${item.config.babySeat}x Silla de Bebé (Baby Seat)`);
+  if (item.config?.boosterSeat > 0) extrasList.push(`${item.config.boosterSeat}x Asiento Elevador (Booster)`);
+  if (item.config?.shoppingStop) extrasList.push(`🛒 Parada de Compras (Shopping Stop)`);
+  if (item.config?.rosas) extrasList.push(`🌹 Rosas`);
+  if (item.config?.vino) extrasList.push(`🍷 Botella de Vino`);
+  if (item.config?.vinoEspumoso) extrasList.push(`🥂 Vino Espumoso`);
+
+  if (extrasList.length > 0) {
+      logisticaHtml += `
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Extras Solicitados:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">
+            <ul style="margin: 0; padding: 0; list-style: none;">
+              ${extrasList.map(extra => `<li style="margin-bottom: 4px; color: #047857;">+ ${extra}</li>`).join('')}
+            </ul>
+          </td>
+        </tr>
+      `;
+  }
+
+  // D) PASAJEROS TOTALES
+  logisticaHtml += `
+    <tr style="border-bottom: 1px solid #f8fafc;">
+      <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Pasajeros Totales:</td>
+      <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${pasajeros}</td>
+    </tr>
+  `;
+
+  // E) VUELOS (Solo si es traslado de Aeropuerto)
+  if (['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo'].includes(item.servicio)) {
+      logisticaHtml += `
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Llegada:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaLlegada} (Vuelo: ${vueloLlegada})</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hora Llegada Vuelo:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${horaLlegada}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Salida:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaSalida} (Vuelo: ${vueloSalida})</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f8fafc;">
+          <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hora Salida Vuelo:</td>
+          <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${horaSalida}</td>
+        </tr>
+      `;
+  }
+
+  // F) HORA EXACTA DE RECOGIDA (Para todos)
+  logisticaHtml += `
+    <tr style="border-bottom: 1px solid #f8fafc;">
+      <td style="padding: 10px 0; font-size: 14px; color: #ea580c; font-weight: bold; width: 40%; vertical-align: top;">Hora Pick-Up / Servicio:</td>
+      <td style="padding: 10px 0; font-size: 16px; font-weight: 900; color: #ea580c; width: 60%; vertical-align: top; text-align: right;">${pickup}</td>
+    </tr>
+  `;
+
+  // 5. Retornar el HTML final ensamblado
   return `
     <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; padding: 30px 15px; color: #1e293b; display: block; width: 100%; box-sizing: border-box;">
       <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
@@ -124,36 +236,7 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
           <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Detalles Logísticos</h2>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
             <tbody>
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hotel / Origen:</td>
-                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${hotel}</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Pasajeros Totales:</td>
-                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${pasajeros}</td>
-              </tr>
-              ${item.servicio !== 'tours' ? `
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Llegada:</td>
-                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaLlegada} (Vuelo: ${vueloLlegada})</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hora Llegada Vuelo:</td>
-                <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${horaLlegada}</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Salida:</td>
-                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaSalida} (Vuelo: ${vueloSalida})</td>
-              </tr>
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hora Salida Vuelo:</td>
-                <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${horaSalida}</td>
-              </tr>
-              ` : ''}
-              <tr style="border-bottom: 1px solid #f8fafc;">
-                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top; color: #ea580c; font-weight: bold;">Hora Pick-Up / Servicio:</td>
-                <td style="padding: 10px 0; font-size: 16px; font-weight: 900; color: #ea580c; width: 60%; vertical-align: top; text-align: right;">${pickup}</td>
-              </tr>
+              ${logisticaHtml}
             </tbody>
           </table>
 
