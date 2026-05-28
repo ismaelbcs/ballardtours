@@ -308,7 +308,7 @@ const generarHtmlCorreoCliente = (item, datosCliente, numConfirmacion) => {
   }
 
   // IMPORTANTE: Cambia "https://tudominio.com" por la URL real de tu página web
-  const linkModificacion = `https://www.loscabosprivatetrips.com/?id=${numConfirmacion}`;
+  const linkModificacion = `https://ballardtours.com/?id=${numConfirmacion}`;
   const linkWhatsApp = `https://wa.me/526121943286?text=Hola,%20tengo%20una%20duda%20sobre%20mi%20reserva%20${numConfirmacion}`;
 
   return `
@@ -1141,12 +1141,20 @@ export default function App() {
   }, [nightlifeHoraReserva, nightlifeHoraRegreso]);
 
   const seleccionarTourDesdeInicio = (tourId) => {
-    setServicioSeleccionado('tours');
     const tour = tours.find(t => t.id === tourId);
-    setReserva(prev => ({ ...prev, tourId, pasajeros: Math.max(prev.pasajeros, tour.minPax), shoppingStop: false }));
-    setImagenTourDestacada(tour.imagenUrl);
-    setPaso(2);
-    window.scrollTo(0, 0);
+    
+    // Si el tour tiene un enlace SEO (slug), lo mandamos a su landing page
+    if (tour && tour.slug) {
+      navigate(`/tours/${tour.slug}`);
+      window.scrollTo(0, 0);
+    } else {
+      // Sistema de respaldo: si no tiene slug, abre el formulario normal
+      setServicioSeleccionado('tours');
+      setReserva(prev => ({ ...prev, tourId, pasajeros: Math.max(prev.pasajeros, tour.minPax), shoppingStop: false }));
+      setImagenTourDestacada(tour?.imagenUrl);
+      setPaso(2);
+      window.scrollTo(0, 0);
+    }
   };
 
   const handleAuthSubmit = async (e) => {
@@ -2884,14 +2892,20 @@ export default function App() {
             {servicioSeleccionado === 'tours' && !reserva.tourId && subCategoria === 'tours' && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {tours.filter(tr => tr.activo).map(tr => (
-                  <div key={tr.id} onClick={() => {
-                    setReserva(prev => ({ ...prev, tourId: tr.id, pasajeros: Math.max(prev.pasajeros, tr.minPax) }));
-                    setImagenTourDestacada(tr.imagenUrl);
-                  }} className="group cursor-pointer border border-gray-200 rounded-2xl overflow-hidden hover:border-blue-900 hover:shadow-lg transition-all">
-                    <div className="h-32 overflow-hidden relative"><img src={tr.imageUrl} alt={tr.nombre} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent flex items-end p-3"><span className="text-white font-bold text-lg">{tr.nombre[lang]}</span></div></div>
-                    <div className="p-3 flex justify-between items-center bg-white"><span className="text-sm font-bold text-blue-900">${tr.precioPx} USD</span></div>
-                  </div>
-                ))}
+              <div key={tr.id} onClick={() => {
+                // Redirigir a la URL SEO si existe
+                if (tr.slug) {
+                  navigate(`/tours/${tr.slug}`);
+                  window.scrollTo(0, 0);
+                } else {
+                  setReserva(prev => ({ ...prev, tourId: tr.id, pasajeros: Math.max(prev.pasajeros, tr.minPax) }));
+                  setImagenTourDestacada(tr.imagenUrl);
+                }
+              }} className="group cursor-pointer border border-gray-200 rounded-2xl overflow-hidden hover:border-blue-900 hover:shadow-lg transition-all">
+                <div className="h-32 overflow-hidden relative"><img src={tr.imageUrl || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent flex items-end p-3"><span className="text-white font-bold text-lg">{tr.nombre[lang]}</span></div></div>
+                <div className="p-3 flex justify-between items-center bg-white"><span className="text-sm font-bold text-blue-900">${tr.precioPx} USD</span></div>
+              </div>
+            ))}
               </div>
             )}
           </div>
