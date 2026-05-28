@@ -935,7 +935,7 @@ export default function App() {
     try {
       console.log("Preparando datos de correos para Firebase...");
       
-      // Apuntamos a la colección 'correos' que usa la extensión Trigger Email
+      // 👇 SOLO SE DECLARA UNA VEZ AQUÍ:
       const correosRef = collection(db, "correos");
 
       // ==========================================
@@ -946,24 +946,19 @@ export default function App() {
           to: emailCliente || "reservationballard@gmail.com",
           message: {
             subject: `Confirmación de Reserva: ${item.titulo} - Ballard Tours`,
-            // Llamamos a la nueva función que diseñamos para el cliente
             html: generarHtmlCorreoCliente(item, datosCliente, nuevoNumConfirmacion) 
           }
         });
       }
 
-      
       // ==========================================
       // CORREO 2: PARA LA EMPRESA (UNO POR CADA PRODUCTO)
       // ==========================================
-      
-      // Usamos un bucle for...of para enviar un documento a Firebase por cada item en el carrito
       for (const item of carrito) {
         await addDoc(correosRef, {
           to: "reservationballard@gmail.com",
           message: {
             subject: `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`,
-            // Aquí llamamos a la función que creamos en el Paso 1
             html: generarHtmlCorreoAdmin(item, datosCliente, nuevoNumConfirmacion) 
           }
         });
