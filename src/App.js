@@ -28,6 +28,165 @@ const VEHICULOS = [
   { id: 'sprinter', nombre: 'Van', maxPax: 10, descripcion: { es: 'Amplitud y lujo para grupos grandes.', en: 'Spaciousness and luxury for large groups.' } },
 ];
 
+// =========================================================
+// GENERADOR DE PLANTILLA HTML PARA ADMIN (FIREBASE)
+// =========================================================
+const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
+  // 1. Manejo de "N/A" para campos vacíos
+  const nombreCliente = `${datosCliente.clienteNombre || ''} ${datosCliente.clienteApellidos || ''}`.trim() || 'N/A';
+  const correoCliente = datosCliente.clienteEmail || 'N/A';
+  const telefonoCliente = datosCliente.clienteTelefono || 'N/A';
+  const metodoPago = datosCliente.paymentMethod === 'paypal' ? 'PayPal (Pagado)' : 'Efectivo al llegar';
+  
+  // 2. Extraer origen/destino y horas dependiendo del tipo de servicio
+  const hotel = item.config?.hotelId || item.extrasEspeciales?.hotelOrigen || item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || 'N/A';
+  const pasajeros = item.config?.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hotelPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax || 'N/A';
+  
+  const aerolineaLlegada = item.flightInfo?.aerolineaLlegada || 'N/A';
+  const vueloLlegada = item.flightInfo?.vueloLlegada || 'N/A';
+  const horaLlegada = item.flightInfo?.horaLlegada || 'N/A';
+  
+  const aerolineaSalida = item.flightInfo?.aerolineaSalida || 'N/A';
+  const vueloSalida = item.flightInfo?.vueloSalida || 'N/A';
+  const horaSalida = item.flightInfo?.horaSalida || 'N/A';
+  
+  const pickup = item.flightInfo?.horaPickUp || item.extrasEspeciales?.cenaHora || item.extrasEspeciales?.hotelHora || item.extrasEspeciales?.golfHora || item.extrasEspeciales?.nightlifeHora || 'N/A';
+
+  // 3. Generar la tabla de pasajeros SI ES UN TOUR
+  let pasajerosTourHtml = '';
+  if (item.servicio === 'tours' && item.config?.participantes && item.config.participantes.length > 0) {
+    pasajerosTourHtml = `
+      <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
+        Lista de Pasajeros (Tour)
+      </h2>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+        <tbody>
+          ${item.config.participantes.map((p, index) => `
+            <tr style="border-bottom: 1px solid #f8fafc;">
+              <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Pasajero ${index + 1}:</td>
+              <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">
+                ${p.nombre || 'N/A'} <span style="color: #1e3a8a;">(Edad: ${p.edad || 'N/A'})</span>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
+  // 4. Retornar el HTML con el diseño que proporcionaste
+  return `
+    <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; padding: 30px 15px; color: #1e293b; display: block; width: 100%; box-sizing: border-box;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+        
+        <div style="background-color: #1e3a8a; padding: 35px 30px; text-align: center; color: #ffffff;">
+          <span style="display: inline-block; background-color: rgba(255, 255, 255, 0.2); color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Notificación de Web</span>
+          <h1 style="margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">¡Nuevo Servicio Recibido!</h1>
+          <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">${item.titulo || 'N/A'}</p>
+        </div>
+
+        <div style="padding: 30px;">
+          
+          <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Información General</h2>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">N° de Confirmación:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${numConfirmacion}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Tipo de Servicio:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${item.subtitulo || 'N/A'}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Datos del Cliente</h2>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Nombre Completo:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${nombreCliente}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Teléfono:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${telefonoCliente}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Correo Electrónico:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 500; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${correoCliente}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          ${pasajerosTourHtml}
+
+          <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Detalles Logísticos</h2>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hotel / Origen:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${hotel}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Pasajeros Totales:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${pasajeros}</td>
+              </tr>
+              ${item.servicio !== 'tours' ? `
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Llegada:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaLlegada} (Vuelo: ${vueloLlegada})</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hora Llegada Vuelo:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${horaLlegada}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Salida:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaSalida} (Vuelo: ${vueloSalida})</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hora Salida Vuelo:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; vertical-align: top; text-align: right;">${horaSalida}</td>
+              </tr>
+              ` : ''}
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top; color: #ea580c; font-weight: bold;">Hora Pick-Up / Servicio:</td>
+                <td style="padding: 10px 0; font-size: 16px; font-weight: 900; color: #ea580c; width: 60%; vertical-align: top; text-align: right;">${pickup}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Resumen de Pago</h2>
+          <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tbody>
+                <tr>
+                  <td style="font-size: 14px; color: #64748b;">Método de Pago:</td>
+                  <td style="font-size: 14px; font-weight: 600; text-align: right;">${metodoPago}</td>
+                </tr>
+                <tr>
+                  <td style="font-size: 16px; font-weight: 700; padding-top: 10px; color: #1e293b;">Valor de este servicio:</td>
+                  <td style="font-size: 20px; font-weight: 700; text-align: right; padding-top: 10px; color: #1e3a8a;">$${item.precio.toFixed(2)} USD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a href="mailto:${correoCliente}?subject=Consulta sobre su reserva ${numConfirmacion}" style="display: block; text-align: center; background-color: #ffffff; color: #1e3a8a; border: 2px solid #1e3a8a; padding: 12px 24px; border-radius: 8px; font-size: 15px; font-weight: 600; text-decoration: none; margin-bottom: 15px;">
+            💬 Contactar con el Cliente
+          </a>
+
+          <p style="text-align: center; font-size: 12px; color: #64748b; margin-top: 25px; line-height: 1.5;">
+            Este es un correo automático generado por el nuevo sistema de reservas.<br />
+            Por favor, revisa la información y agenda el servicio.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  `;
+};
 
 export default function App() {
 
@@ -550,23 +709,22 @@ export default function App() {
         }
       });
 
+      
       // ==========================================
-      // CORREO 2: PARA LA EMPRESA
+      // CORREO 2: PARA LA EMPRESA (UNO POR CADA PRODUCTO)
       // ==========================================
-      await addDoc(correosRef, {
-        to: "reservationballard@gmail.com",
-        message: {
-          subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
-          html: `
-            <div style="font-family: Arial, sans-serif; padding: 20px;">
-              <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
-              <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
-              <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
-              <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
-              <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
-            </div>`
-        }
-      });
+      
+      // Usamos un bucle for...of para enviar un documento a Firebase por cada item en el carrito
+      for (const item of carrito) {
+        await addDoc(correosRef, {
+          to: "reservationballard@gmail.com",
+          message: {
+            subject: `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`,
+            // Aquí llamamos a la función que creamos en el Paso 1
+            html: generarHtmlCorreoAdmin(item, datosCliente, nuevoNumConfirmacion) 
+          }
+        });
+      }
 
       console.log("✅ Correos registrados en Firebase exitosamente.");
 
