@@ -4370,7 +4370,7 @@ export default function App() {
                           <ul className="space-y-3">
                             <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Private & VIP Focus:</strong> Avoid massive, crowded buses. We focus on small groups and personalized attention.</span></li>
                             <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Certified Guides:</strong> Bilingual experts who prioritize your safety and deliver unmatched local knowledge.</span></li>
-                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Seamless Transportation:</strong> Add our luxury SUV pick-up from your hotel directly to the activity location.</span></li>
+                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Round-Trip Transportation:</strong> Hotel pick-up and drop-off included to the activity location.</span></li>
                           </ul>
                         </div>
                       </div>
