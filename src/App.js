@@ -549,7 +549,7 @@ export default function App() {
       </div>
     </div>`
     }
-  });
+  }).catch(err => console.error("🚨 Error en correo cliente:", err));
 
   // ==========================================
   // CORREO 2: PARA LA EMPRESA
@@ -567,7 +567,7 @@ export default function App() {
       <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
     </div>`
     }
-  });
+  }).catch(err => console.error("🚨 Error en correo empresa:", err));
 
    } catch (error) {
   console.error("Error al enviar los correos:", error);
