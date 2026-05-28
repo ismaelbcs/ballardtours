@@ -920,18 +920,17 @@ export default function App() {
   .catch(error => console.error("❌ Error en la API de Meta:", error));
   // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
       // Guardamos en Firebase que este usuario ya usó este código para bloquearlo en el futuro
+      // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
       if (appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA") {
-        try {
-          const historialRef = collection(db, "cupones_usados");
-          await addDoc(historialRef, {
-            correo: emailCliente, 
-            codigo: appliedPromo.codigo
-          });
-          console.log("✅ Código registrado como usado por este cliente.");
-        } catch (err) {
-          console.error("❌ Error al registrar el código como usado:", err);
-        }
+        const historialRef = collection(db, "cupones_usados");
+        addDoc(historialRef, {
+          correo: emailCliente, 
+          codigo: appliedPromo.codigo
+        })
+        .then(() => console.log("✅ Código registrado como usado por este cliente."))
+        .catch(err => console.error("❌ Error al registrar el código como usado:", err));
       }
+      // 👆 HASTA AQUÍ 👆
       // 👆 HASTA AQUÍ 👆
  } 
  setProcesandoPago(true);
