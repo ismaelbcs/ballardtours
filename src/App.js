@@ -4490,6 +4490,35 @@ export default function App() {
             </Routes>
           </main>
 
+                    {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
+          <div className="bg-gray-100 py-10 border-t border-gray-200">
+            <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
+              <h3 className="text-xl font-bold text-blue-900 mb-6 uppercase tracking-wider">
+                Síguenos en Facebook
+              </h3>
+              
+              {/* Contenedor del Plugin */}
+              <div className="bg-white p-2 rounded-lg shadow-md">
+                <div 
+                  className="fb-page" 
+                  data-href="https://www.facebook.com/ballardtourservices" // 👈 REEMPLAZA ESTO CON TU URL
+                  data-tabs="timeline" 
+                  data-width="340" 
+                  data-height="500" 
+                  data-small-header="false" 
+                  data-adapt-container-width="true" 
+                  data-hide-cover="false" 
+                  data-show-facepile="true"
+                >
+                  <blockquote cite="https://www.facebook.com/ballardtourservices" className="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/ballardtourservices">Ballard Tours</a>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           <footer className="mt-24 py-8 border-t border-gray-200 text-center text-gray-400 text-sm">
             <p>© {new Date().getFullYear()} Ballard Tours Los Cabos. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
           </footer>
