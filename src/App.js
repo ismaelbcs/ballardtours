@@ -4259,10 +4259,11 @@ export default function App() {
                     {/* 👇 HEADER BLINDADO CON ETIQUETA IMG 👇 */}
                     <header className="relative bg-gray-900 text-white py-28 md:py-36 px-4 text-center overflow-hidden">
 
-                      {/* 1. IMAGEN BLINDADA (Usando etiqueta img en vez de background-image) */}
+                     {/* 1. IMAGEN BLINDADA (Usando etiqueta img en vez de background-image) */}
                       <div className="absolute inset-0 z-0">
                         <img
-                          src={tour.imageUrl}
+                          // Le decimos que busque imageUrl, si no está busque imagenUrl, y si no hay nada ponga una foto general de Cabo por defecto
+                          src={tour.imageUrl || tour.imagenUrl || 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000'}
                           alt={tour.nombre}
                           className="w-full h-full object-cover opacity-60"
                         />
