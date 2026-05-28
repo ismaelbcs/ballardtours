@@ -4305,115 +4305,256 @@ export default function App() {
               } />
               {/* 🌊 GENERADOR DINÁMICO DE TOURS ESTRELLA */}
               {toursLandingPages.map((tour) => (
-                <Route key={tour.slug} path={`/tours/${tour.slug}`} element={
-                  <div className="animate-fade-in bg-white pb-20 text-gray-700">
-                    <Helmet>
-                      <title>{tour.nombre} in Los Cabos | Ballard Tours</title>
-                      <meta name="description" content={`Book the best ${tour.nombre} in Los Cabos. ${tour.desc} VIP service, certified guides, and best rates guaranteed.`} />
-                      <script type="application/ld+json">
-                        {`
-                          {
-                            "@context": "https://schema.org",
-                            "@type": "TouristAttraction",
-                            "name": "${tour.nombre}",
-                            "description": "${tour.desc}",
-                            "provider": {
-                              "@type": "LocalBusiness",
-                              "name": "Ballard Tours Los Cabos"
-                            }
-                          }
-                        `}
-                      </script>
-                    </Helmet>
+  <Route key={tour.slug} path={`/tours/${tour.slug}`} element={
+    <div className="animate-fade-in bg-white pb-20 text-gray-700">
+      <Helmet>
+        <title>{tour.nombre} in Los Cabos | Ballard Tours</title>
+        <meta name="description" content={`Book the best ${tour.nombre} in Los Cabos. ${tour.desc} VIP service, certified guides, and best rates guaranteed.`} />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "TouristAttraction",
+              "name": "${tour.nombre}",
+              "description": "${tour.desc}",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Ballard Tours Los Cabos"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
 
-                    {/* 👇 ACTUALIZA ESTE HEADER EN EL MAP 👇 */}
-                    {/* 👇 HEADER BLINDADO CON ETIQUETA IMG 👇 */}
-                    <header className="relative bg-gray-900 text-white py-28 md:py-36 px-4 text-center overflow-hidden">
+      {/* 👇 HEADER BLINDADO CON ETIQUETA IMG 👇 */}
+      <header className="relative bg-gray-900 text-white py-28 md:py-36 px-4 text-center overflow-hidden">
+        {/* 1. IMAGEN BLINDADA */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={tour.imageUrl || tour.imagenUrl || 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000'}
+            alt={tour.nombre}
+            className="w-full h-full object-cover opacity-60"
+          />
+        </div>
 
-                     {/* 1. IMAGEN BLINDADA (Usando etiqueta img en vez de background-image) */}
-                      <div className="absolute inset-0 z-0">
-                        <img
-                          // Le decimos que busque imageUrl, si no está busque imagenUrl, y si no hay nada ponga una foto general de Cabo por defecto
-                          src={tour.imageUrl || tour.imagenUrl || 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000'}
-                          alt={tour.nombre}
-                          className="w-full h-full object-cover opacity-60"
-                        />
-                      </div>
+        {/* 2. OVERLAY AZUL */}
+        <div className="absolute inset-0 bg-blue-950/60 z-10"></div>
 
-                      {/* 2. OVERLAY AZUL PARA QUE RESALTE EL TEXTO */}
-                      <div className="absolute inset-0 bg-blue-950/60 z-10"></div>
+        {/* 3. CONTENIDO DEL HERO */}
+        <div className="relative max-w-4xl mx-auto z-20">
+          <span className="inline-block bg-blue-600/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest border border-blue-400/30">
+            {tour.tipo}
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight drop-shadow-xl">
+            {tour.nombre}
+          </h1>
+          <p className="text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md">
+            {tour.desc}
+          </p>
+        </div>
+      </header>
 
-                      {/* 3. CONTENIDO DEL HERO */}
-                      <div className="relative max-w-4xl mx-auto z-20">
-                        <span className="inline-block bg-blue-600/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest border border-blue-400/30">
-                          {tour.tipo}
-                        </span>
-                        <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight drop-shadow-xl">
-                          {tour.nombre}
-                        </h1>
-                        <p className="text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md">
-                          {tour.desc}
-                        </p>
-                      </div>
-                    </header>
-                    {/* 👆 FIN DEL HEADER ACTUALIZADO 👆 */}
+      {/* CONTENIDO Y CONVERSIÓN */}
+      <main className="max-w-5xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-8 text-lg leading-relaxed text-gray-600">
+          <h2 className="text-3xl font-black text-gray-900 border-b pb-4">Tour Overview</h2>
+          <p>{tour.detalle}</p>
 
-                    {/* CONTENIDO Y CONVERSIÓN */}
-                    <main className="max-w-5xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 mt-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Why Book This Experience With Us?</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Private & VIP Focus:</strong> Avoid massive, crowded buses. We focus on small groups and personalized attention.</span></li>
+              <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Certified Guides:</strong> Bilingual experts who prioritize your safety and deliver unmatched local knowledge.</span></li>
+              <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Round-Trip Transportation:</strong> Hotel pick-up and drop-off included to the activity location.</span></li>
+            </ul>
+          </div>
+        </div>
 
-                      <div className="lg:col-span-2 space-y-8 text-lg leading-relaxed text-gray-600">
-                        <h2 className="text-3xl font-black text-gray-900 border-b pb-4">Tour Overview</h2>
-                        <p>{tour.detalle}</p>
+        {/* WIDGET DE RESERVA FLOTANTE */}
+        <div className="lg:col-span-1">
+          <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28">
+            <h3 className="text-2xl font-black text-gray-900 mb-2">Reserve Your Spot</h3>
+            <p className="text-gray-500 mb-6 text-sm">High demand for 2026 season. Secure your date now.</p>
 
-                        <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 mt-8">
-                          <h3 className="text-xl font-bold text-gray-900 mb-4">Why Book This Experience With Us?</h3>
-                          <ul className="space-y-3">
-                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Private & VIP Focus:</strong> Avoid massive, crowded buses. We focus on small groups and personalized attention.</span></li>
-                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Certified Guides:</strong> Bilingual experts who prioritize your safety and deliver unmatched local knowledge.</span></li>
-                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Round-Trip Transportation:</strong> Hotel pick-up and drop-off included to the activity location.</span></li>
-                          </ul>
-                        </div>
-                      </div>
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex justify-between items-center mb-8">
+              <span className="font-bold text-blue-900">Starting at</span>
+              <span className="font-black text-blue-900 text-2xl">${tour.precio} <span className="text-sm font-normal">USD</span></span>
+            </div>
 
-                      {/* WIDGET DE RESERVA FLOTANTE */}
-                      <div className="lg:col-span-1">
-                        <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28">
-                          <h3 className="text-2xl font-black text-gray-900 mb-2">Reserve Your Spot</h3>
-                          <p className="text-gray-500 mb-6 text-sm">High demand for 2026 season. Secure your date now.</p>
+            <button
+              onClick={() => {
+                setServicioSeleccionado('tours');
+                const matchedTour = tours.find(t => t.slug === tour.slug);
+                if (matchedTour) {
+                  setReserva(prev => ({ ...prev, tourId: matchedTour.id, pasajeros: Math.max(prev.pasajeros || 1, matchedTour.minPax), shoppingStop: false }));
+                  setImagenTourDestacada(matchedTour.imagenUrl || matchedTour.imageUrl);
+                }
+                setPaso(2);
+                navigate("/");
+                window.scrollTo(0, 0);
+              }}
+              className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 uppercase tracking-wide"
+            >
+              Book This Tour <ChevronRight size={20} />
+            </button>
 
-                          <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex justify-between items-center mb-8">
-                            <span className="font-bold text-blue-900">Starting at</span>
-                            <span className="font-black text-blue-900 text-2xl">${tour.precio} <span className="text-sm font-normal">USD</span></span>
-                          </div>
+            <p className="text-center text-xs text-gray-400 mt-4 font-bold flex justify-center items-center gap-1">
+              <CheckCircle size={14} className="text-green-500" /> Instant Confirmation
+            </p>
+          </div>
+        </div>
+      </main>
 
-                          <button
-                            onClick={() => {
-                              setServicioSeleccionado('tours');
-                              // Encontramos el tour exacto en la base de datos principal
-                              const matchedTour = tours.find(t => t.slug === tour.slug);
-                              if (matchedTour) {
-                                setReserva(prev => ({ ...prev, tourId: matchedTour.id, pasajeros: Math.max(prev.pasajeros || 1, matchedTour.minPax), shoppingStop: false }));
-                                setImagenTourDestacada(matchedTour.imagenUrl || matchedTour.imageUrl);
-                              }
-                              setPaso(2);
-                              navigate("/");
-                              window.scrollTo(0, 0);
-                            }}
-                            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 uppercase tracking-wide"
-                          >
-                            Book This Tour <ChevronRight size={20} />
-                          </button>
+      {/* ========================================================================= */}
+      {/* 🦈 CONDICIONAL 1: GUÍA DE TEXTO EXCLUSIVA PARA EL TIBURÓN BALLENA 🦈 */}
+      {/* ========================================================================= */}
+      {tour.slug === 'swim-with-whale-sharks-la-paz-cabo' && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            The Ultimate Guide to Private Whale Shark Tours in La Paz: <span className="text-blue-600">A VIP Experience</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>For travelers seeking the extraordinary, few marine encounters match the sheer majesty of swimming alongside the largest fish in the ocean. A private whale shark excursion from Cabo San Lucas to the tranquil waters of La Paz is more than a simple day trip—it is a bucket-list journey into a pristine marine sanctuary.</p>
+            <p>When you book a premium experience, you bypass the crowded commercial boats and strict constraints of standard group travel. At <strong>Ballard Tours</strong>, we transform this ecological marvel into a seamlessly coordinated, luxury excursion. From your private resort pick-up in a late-model luxury SUV to stepping aboard a certified private vessel, every detail is engineered for safety, comfort, and absolute exclusivity.</p>
+          </div>
 
-                          <p className="text-center text-xs text-gray-400 mt-4 font-bold flex justify-center items-center gap-1">
-                            <CheckCircle size={14} className="text-green-500" /> Instant Confirmation
-                          </p>
-                        </div>
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                The Sea of Cortez is internationally recognized as the "Aquarium of the World." Within this rich ecosystem, the Bay of La Paz serves as a critical feeding ground for juvenile whale sharks. Choosing a private tour ensures that your encounter with these magnificent filter-feeders is intimate and respectful of local conservation laws.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Encounter Step-by-Step</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Once a whale shark is sighted, your marine biologist guide coordinates a controlled, soft water entry. Slipping into the calm, emerald water, you will find yourself swimming alongside a creature the size of a school bus. Following your aquatic session, your driver will escort you to a hand-picked restaurant along the historic Malecón.
+              </p>
+            </div>
+          </div>
 
-                    </main>
-                  </div>
-                } />
-              ))}
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Best Time for Whale Shark Tours La Paz</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Peak Season</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">November to April</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Early Season</span>
+                <span className="text-gray-400">October</span>
+              </div>
+              <div className="flex justify-between items-center text-red-400">
+                <span className="font-bold">Off-Season</span>
+                <span className="italic">May to September (Closed for Regeneration)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">How much does a private tour cost?</h4>
+                  <p className="text-sm text-gray-500">Excursions vary by group size. We provide transparent flat rates covering luxury private transport, park fees, boat charters, and premium gear.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can children participate?</h4>
+                  <p className="text-sm text-gray-500">Yes. Children aged 4 and older who are comfortable in open water can safely participate under the close supervision of our expert guides.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Is it safe to swim next to them?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. Despite being sharks, whale sharks are entirely harmless filter-feeders. They have no sharp teeth, move at peaceful speeds, and display a calm nature.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can I combine tours?</h4>
+                  <p className="text-sm text-gray-500">Yes, pairing your whale shark swim with an Isla Espiritu Santo Private Tour is the ultimate way to maximize a single-day expedition into Baja's sanctuaries.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 🏝️ CONDICIONAL 2: GUÍA DE TEXTO EXCLUSIVA PARA ISLA ESPÍRITU SANTO 🏝️ */}
+      {/* ========================================================================= */}
+      {(tour.slug === 'espiritu-santo-island-tour-from-cabo' || tour.slug === 'espiritu-santo-island-tour-from-la-paz') && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            Isla Espiritu Santo Private Tour: <span className="text-blue-600">The Ultimate Luxury Day Trip from Cabo</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>For discerning travelers seeking an untouched marine paradise, a journey to Espiritu Santo Island is the crown jewel of Baja California Sur. Located in the Sea of Cortez, this UNESCO World Heritage bio-reserve is a majestic sanctuary of dramatic red volcanic cliffs, turquoise waters, and thriving marine life.</p>
+            <p>An Isla Espiritu Santo private tour from Cabo San Lucas is not just an excursion—it is an exclusive luxury day trip designed for those who demand privacy, premium comfort, and world-class eco-adventure. At <strong>Ballard Tours</strong>, we handle the entire day's logistics seamlessly.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Espiritu Santo Island is widely considered the most beautiful island in the Sea of Cortez. Choosing a private tour instead of a crowded public boat is critical for a high-end experience. A private boat charter grants you absolute freedom to swim at your own pace and enjoy a secluded gourmet beach picnic.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Luxury Private Transport</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Your expedition begins with a morning pick-up directly at your hotel's motor lobby. A professional, bilingual private driver from Ballard Tours will arrive in a late-model, climate-controlled luxury SUV, ensuring gate clearance at high-end resorts like Nobu or Hard Rock Hotel.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Best Time for an Isla Espiritu Santo Day Trip</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Summer & Autumn (July to October)</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Pristine clarity & Warm waters (85°F)</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Winter & Spring (November to May)</span>
+                <span className="text-gray-400">Pleasant weather (Wetsuits provided)</span>
+              </div>
+              <div className="flex justify-between items-center text-amber-400">
+                <span className="font-bold">Sea Lion Nursery Note</span>
+                <span className="italic">Closed for swimming June/July (Island stays open)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can I combine it with a whale shark swim?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. Many clients choose to pair this island cruise with our Whale Shark Tours La Paz into a custom multi-activity private day trip.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">How long is the boat ride?</h4>
+                  <p className="text-sm text-gray-500">It takes approximately 45 to 60 minutes to reach the island from La Paz marina. The entire charter portion lasts between 5 to 6 hours.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Is this tour suitable for families?</h4>
+                  <p className="text-sm text-gray-500">Yes. Because our tours are 100% private, we customize the pace. Shallow, wave-free waters like Ensenada Grande act as a safe natural pool.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">What is included in the excursion?</h4>
+                  <p className="text-sm text-gray-500">Round-trip private transport in a premium SUV, certified marine guide, private boat charter, park permits, snorkeling gear, and gourmet lunch.</p>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    } />
+  ))}
 
               {/* 🚀 URL 8: LA JOYA DE LA CORONA SEO - MEGA PILLAR PAGE (tudominio.com/things-to-do-in-cabo-san-lucas) */}
               <Route path="/things-to-do-in-cabo-san-lucas" element={
