@@ -1750,50 +1750,87 @@ export default function App() {
 
     return (
       <div className="animate-fade-in max-w-7xl mx-auto">
-        <div className="text-center mb-10 max-w-3xl mx-auto mt-4">
+  <div className="text-center mb-10 max-w-3xl mx-auto mt-4">
+    {/* 🔥 GATILLO MENTAL DE URGENCIA Y PRUEBA SOCIAL 🔥 */}
+    <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 animate-pulse shadow-sm">
+      <span className="relative flex h-3 w-3">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+      </span>
+      High Demand: 85% of our Luxury SUVs are booked for this week.
+    </div>
 
-          {/* 🔥 GATILLO MENTAL DE URGENCIA Y PRUEBA SOCIAL 🔥 */}
-          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 animate-pulse shadow-sm">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-            High Demand: 85% of our Luxury SUVs are booked for this week.
-          </div>
+    {/* El único H1 de tu página */}
+    <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">{t.step1.title}</h1>
+    <p className="text-gray-500 text-lg">{t.step1.subtitle}</p>
+  </div>
 
-          {/* El único H1 de tu página */}
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">{t.step1.title}</h1>
-          <p className="text-gray-500 text-lg">{t.step1.subtitle}</p>
+  {/* CONTENEDOR PRINCIPAL: Divide la pantalla en 4 columnas en computadoras */}
+  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-24 items-start">
+    
+    {/* COLUMNA IZQUIERDA: Testimonios Sutiles de Facebook (Ocupa 1 columna) */}
+    <div className="lg:col-span-1 bg-gradient-to-b from-gray-50 to-white p-5 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-4 sticky top-6">
+      <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
+        <span className="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black tracking-tighter">fb</span>
+        <div>
+          <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider">Opiniones reales</h4>
+          <div className="flex text-yellow-400 text-xs">★★★★★</div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
-          {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
-            const isTour = srv === 'tours';
-            const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
-            const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
-            const k = keys[srv];
+      {/* Comentario 1 */}
+      <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
+        <p className="text-gray-600 italic leading-relaxed">"Excellent service! The clear boat tour to the Arch was stunning and the airport shuttle was right on time. Highly recommended!"</p>
+        <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— Sarah M.</span>
+      </div>
 
-            return (
-              <button key={srv} onClick={() => { setServicioSeleccionado(srv); setSubCategoria(''); avanzarPaso(); }} className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}>
-                {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-                <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
-                  {icons[srv]}
-                </div>
-                {/* Cambiado de H3 a H2 porque son categorías principales */}
-                <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-                <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
-                <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
-                  {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
-                </div>
-              </button>
-            )
-          })}
-        </div>
-        {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
-        <section className="bg-gray-900 text-white rounded-[2rem] p-8 md:p-12 mb-24 max-w-6xl mx-auto shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            <div className="lg:col-span-1">
+      {/* Comentario 2 */}
+      <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
+        <p className="text-gray-600 italic leading-relaxed">"Ballard Tours made our vacation seamless. Very clean luxury SUVs and friendly drivers. 5 stars!"</p>
+        <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— John D.</span>
+      </div>
+
+      <a 
+        href="https://www.facebook.com/ballardtours" // 👈 Ajusta si tienes link directo de reviews
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="text-center text-[11px] font-bold text-blue-900 hover:text-blue-700 transition-colors mt-1 underline"
+      >
+        Ver más en Facebook →
+      </a>
+    </div>
+
+    {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Ocupa 3 columnas) */}
+    <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
+      {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
+        const isTour = srv === 'tours';
+        const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
+        const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
+        const k = keys[srv];
+
+        return (
+          <button key={srv} onClick={() => { setServicioSeleccionado(srv); setSubCategoria(''); avanzarPaso(); }} className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}>
+            {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
+            <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
+              {icons[srv]}
+            </div>
+            <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
+            <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+            <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
+              {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
+            </div>
+          </button>
+        )
+      })}
+    </div>
+
+  </div>
+
+  {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
+  <section className="bg-gray-900 text-white rounded-[2rem] p-8 md:p-12 mb-24 max-w-6xl mx-auto shadow-2xl relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+      <div className="lg:col-span-1">
               <h2 className="text-3xl font-black mb-4">Why Trust Ballard Tours?</h2>
               <p className="text-gray-400 mb-6">We are not just a booking platform. We are a locally-owned, fully licensed luxury transportation company based in Los Cabos, Mexico.</p>
               <div className="inline-flex items-center gap-2 bg-blue-900/50 text-blue-300 font-bold px-4 py-2 rounded-lg border border-blue-800">
