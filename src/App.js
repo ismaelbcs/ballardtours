@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { collection, addDoc, query, where, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from './firebase';
@@ -1802,20 +1803,43 @@ export default function App() {
 
     {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Ocupa 3 columnas) */}
     <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
-      {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
+            {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
         const isTour = srv === 'tours';
         const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
         const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
         const k = keys[srv];
 
+        // Definimos las URLs exactas para cada botón de transporte
+        const transportUrls = {
+          aeropuerto_hotel: '/tours/private-shuttle-cabo-airport-to-hotel',
+          hotel_aeropuerto: '/tours/private-shuttle-hotel-to-cabo-airport',
+          redondo: '/tours/round-trip-private-shuttle-cabo-airport'
+        };
+
         return (
-          <button key={srv} onClick={() => { setServicioSeleccionado(srv); setSubCategoria(''); avanzarPaso(); }} className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}>
+          <button 
+            key={srv} 
+            onClick={() => { 
+              if (!isTour) {
+                // Si es transporte, lo mandamos directo a su nueva página URL
+                navigate(transportUrls[srv]);
+              } else {
+                // Si es Tours, mantiene tu lógica original de abrir el catálogo
+                setServicioSeleccionado(srv); 
+                setSubCategoria(''); 
+                avanzarPaso(); 
+              }
+            }} 
+            className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
+          >
             {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
             <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
               {icons[srv]}
             </div>
+            
             <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
             <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+            
             <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
               {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
             </div>
