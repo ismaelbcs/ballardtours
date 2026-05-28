@@ -3160,7 +3160,6 @@ export default function App() {
       // 👇 AQUÍ EMPIEZA EL CÓDIGO NUEVO DE FIREBASE 👇
       const correosRef = collection(db, "correos");
       
-      const correosRef = collection(db, "correos");
       
       await addDoc(correosRef, {
         to: "reservationballard@gmail.com",
