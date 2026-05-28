@@ -1826,31 +1826,65 @@ export default function App() {
 
   </div>
 
-  {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
-  <section className="bg-gray-900 text-white rounded-[2rem] p-8 md:p-12 mb-24 max-w-6xl mx-auto shadow-2xl relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-      <div className="lg:col-span-1">
-              <h2 className="text-3xl font-black mb-4">Why Trust Ballard Tours?</h2>
-              <p className="text-gray-400 mb-6">We are not just a booking platform. We are a locally-owned, fully licensed luxury transportation company based in Los Cabos, Mexico.</p>
-              <div className="inline-flex items-center gap-2 bg-blue-900/50 text-blue-300 font-bold px-4 py-2 rounded-lg border border-blue-800">
-                <CheckCircle size={18} /> Federal SCT Licensed
+            {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
+            {/* 🔥 SECCIÓN DE CONFIANZA LUXURY GOLD 🔥 */}
+            <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-24 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
+              
+              {/* El Sello Dorado en la esquina superior derecha */}
+              <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
+                <img 
+                  src="/logo-sello-dorado.png" // 👈 Asegúrate de subir tu logo circular aquí
+                  className="w-full h-full object-contain filter brightness-110" 
+                  alt="Seal of Trust"
+                />
               </div>
-            </div>
-            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-                <div className="text-blue-400 mb-3"><Users size={28} /></div>
-                <h3 className="font-bold text-lg mb-2">Certified Local Experts</h3>
-                <p className="text-sm text-gray-400">Our bilingual chauffeurs undergo rigorous safety training and have years of experience navigating the Baja highways.</p>
+
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+                
+                {/* Columna de Texto Principal */}
+                <div className="lg:col-span-1">
+                  <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
+                    Why Trust Ballard Tours?
+                  </h2>
+                  <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
+                    Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
+                  </p>
+                  
+                  {/* Botón Estilo Metálico */}
+                  <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
+                    <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
+                    <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
+                  </div>
+                </div>
+
+                {/* Columna de Tarjetas de Beneficios */}
+                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Tarjeta 1: Certified Experts */}
+                  <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
+                    <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
+                      <Users size={40} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-light">
+                      Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.
+                    </p>
+                  </div>
+
+                  {/* Tarjeta 2: Luxury Fleet */}
+                  <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
+                    <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
+                      <Car size={40} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-light">
+                      Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.
+                    </p>
+                  </div>
+
+                </div>
               </div>
-              <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-                <div className="text-blue-400 mb-3"><Car size={28} /></div>
-                <h3 className="font-bold text-lg mb-2">Immaculate Luxury Fleet</h3>
-                <p className="text-sm text-gray-400">We own our modern fleet of Chevrolet Suburbans and Sprinter vans. Insured, daily inspected, and kept in pristine condition.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
 
 
