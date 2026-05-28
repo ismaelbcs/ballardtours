@@ -519,57 +519,59 @@ export default function App() {
       // 1️⃣ Avanzamos de paso INMEDIATAMENTE para liberar al cliente
       avanzarPaso();
 
-      try {
-        const correosRef = collection(db, 'correos');
-        console.log("Enviando notificaciones en segundo plano...");
+      const correosRef = collection(db, 'correos');
+      console.log("Enviando notificaciones en segundo plano...");
 
-        // 2️⃣ Regresamos el await. Como ya avanzamos de pantalla, esto corre invisible de fondo.
-        
-        // CORREO 1: PARA EL CLIENTE
-        await addDoc(correosRef, {
-          to: emailCliente || "reservationballard@gmail.com",
-          message: {
-            subject: "Confirmación de Reserva - Ballard Tours",
-            html: `
-                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
-                  <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
-                    <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
-                    <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
+      // 2️⃣ Lanzamos los correos SIMULTÁNEAMENTE sin "await"
+      
+      // ==========================================
+      // CORREO 1: PARA EL CLIENTE
+      // ==========================================
+      addDoc(correosRef, {
+        to: emailCliente || "reservationballard@gmail.com",
+        message: {
+          subject: "Confirmación de Reserva - Ballard Tours",
+          html: `
+              <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
+                <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
+                  <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
+                  <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
+                </div>
+                <div style="padding: 30px; background-color: white;">
+                  <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
+                  <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
+                    <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
                   </div>
-                  <div style="padding: 30px; background-color: white;">
-                    <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
-                    <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
-                      <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
-                    </div>
-                    <ul style="font-size: 14px; color: #1e40af;">
-                        ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
-                    </ul>
-                  </div>
-                </div>`
-          }
-        });
-        console.log("✅ Correo 1 (Cliente) guardado en Firebase con éxito.");
+                  <ul style="font-size: 14px; color: #1e40af;">
+                      ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
+                  </ul>
+                </div>
+              </div>`
+        }
+      })
+      .then(() => console.log("✅ Correo 1 (Cliente) guardado en Firebase con éxito."))
+      .catch((error) => console.error("🚨 ERROR en Correo 1:", error));
 
-        // CORREO 2: PARA LA EMPRESA
-        await addDoc(correosRef, {
-          to: "reservationballard@gmail.com",
-          message: {
-            subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
-            html: `
-                <div style="font-family: Arial, sans-serif; padding: 20px;">
-                  <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
-                  <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
-                  <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
-                  <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
-                  <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
-                </div>`
-          }
-        });
-        console.log("✅ Correo 2 (Empresa) guardado en Firebase con éxito.");
+      // ==========================================
+      // CORREO 2: PARA LA EMPRESA
+      // ==========================================
+      addDoc(correosRef, {
+        to: "reservationballard@gmail.com",
+        message: {
+          subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
+          html: `
+              <div style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
+                <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
+                <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
+                <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
+                <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
+              </div>`
+        }
+      })
+      .then(() => console.log("✅ Correo 2 (Empresa) guardado en Firebase con éxito."))
+      .catch((error) => console.error("🚨 ERROR en Correo 2:", error));
 
-      } catch (error) {
-        console.error("🚨 ERROR FATAL AL GUARDAR CORREOS EN FIREBASE:", error);
-      }
     }, 500);
   };
 
