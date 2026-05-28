@@ -453,126 +453,127 @@ export default function App() {
   };
 
   const procesarConfirmacion = (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+ if (e && e.preventDefault) e.preventDefault();
 
-    // RASTREADORES PARA LA CONSOLA
-    console.log("🚨 PASO 1: ¡El clic del botón sí funciona!");
-    console.log("🚨 PASO 2: Los datos del cliente son:", datosCliente);
+ // RASTREADORES PARA LA CONSOLA
+ console.log("🚨 PASO 1: ¡El clic del botón sí funciona!");
+ console.log("🚨 PASO 2: Los datos del cliente son:", datosCliente);
 
+ // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
+ const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
+ const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
+ const emailCliente = datosCliente.clienteEmail || datosCliente.email;
 
-    // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
-    const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
-    const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
-    const emailCliente = datosCliente.clienteEmail || datosCliente.email;
+ // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
+ if (appliedPromo) {
+   const comision = carritoTotal * 0.10;
+   const servicios = carrito.map(item => item.titulo).join(', ');
+   const fechaTour = carrito[0]?.flightInfo?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.flightInfo?.fechaSalida || 'Fecha en sistema';
 
-    // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
-    if (appliedPromo) {
-      const comision = carritoTotal * 0.10;
-      const servicios = carrito.map(item => item.titulo).join(', ');
-      const fechaTour = carrito[0]?.flightInfo?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.flightInfo?.fechaSalida || 'Fecha en sistema';
+   const tokenMeta = "EAAOP0FJrKocBRm2Tv0NyYwZBBexDxEQSlBvHWMwXFESBQbFyqQTI4QzFy1GaG3HyeZBm6DpiLwNdlZCyakJLW7yHS2wrdlTqqNc4cjqj5DQtbsXcZAMy39t0wypXJwUUijtEb07SXMUfmGZBGZBIGDF3ueIspAjZAZBmfJZCmGqulcaZCdqvNzogyGETGFfWueKUUp4duZC8lrBUQ4xPVBzZBwbVqSmZCHl0nGopgtXaBd5z8H0suMlONrfbZCbmusMbHzC1SbIgIUjOM8Y9lRmbre3zhyH2vmkaL1xVir8AZDZD";
+   const idTelefonoMeta = "1146460171892849";
 
-      const tokenMeta = "EAAOP0FJrKocBRm2Tv0NyYwZBBexDxEQSlBvHWMwXFESBQbFyqQTI4QzFy1GaG3HyeZBm6DpiLwNdlZCyakJLW7yHS2wrdlTqqNc4cjqj5DQtbsXcZAMy39t0wypXJwUUijtEb07SXMUfmGZBGZBIGDF3ueIspAjZAZBmfJZCmGqulcaZCdqvNzogyGETGFfWueKUUp4duZC8lrBUQ4xPVBzZBwbVqSmZCHl0nGopgtXaBd5z8H0suMlONrfbZCbmusMbHzC1SbIgIUjOM8Y9lRmbre3zhyH2vmkaL1xVir8AZDZD";
-      const idTelefonoMeta = "1146460171892849";
+   const datosEnvio = {
+  messaging_product: "whatsapp",
+  to: appliedPromo.phone,
+  type: "template",
+  template: {
+    name: "notificacion_comision_chofer",
+    language: { code: "es" },
+    components: [
+   {
+     type: "body",
+     parameters: [
+    { type: "text", text: `${nombreCliente} ${apellidosCliente}` },
+    { type: "text", text: servicios },
+    { type: "text", text: fechaTour },
+    { type: "text", text: `$${comision.toFixed(2)} USD` }
+     ]
+   }
+    ]
+  }
+   };
 
-      const datosEnvio = {
-        messaging_product: "whatsapp",
-        to: appliedPromo.phone,
-        type: "template",
-        template: {
-          name: "notificacion_comision_chofer",
-          language: { code: "es" },
-          components: [
-            {
-              type: "body",
-              parameters: [
-                { type: "text", text: `${nombreCliente} ${apellidosCliente}` },
-                { type: "text", text: servicios },
-                { type: "text", text: fechaTour },
-                { type: "text", text: `$${comision.toFixed(2)} USD` }
-              ]
-            }
-          ]
-        }
-      };
+   fetch(`https://graph.facebook.com/v25.0/${idTelefonoMeta}/messages`, {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${tokenMeta}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(datosEnvio)
+   })
+  .then(response => response.json())
+  .then(data => console.log("✅ Notificación oficial de Meta enviada:", data))
+  .catch(error => console.error("❌ Error en la API de Meta:", error));
+ } 
+ setProcesandoPago(true);
 
-      fetch(`https://graph.facebook.com/v25.0/${idTelefonoMeta}/messages`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${tokenMeta}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(datosEnvio)
-      })
-        .then(response => response.json())
-        .then(data => console.log("✅ Notificación oficial de Meta enviada:", data))
-        .catch(error => console.error("❌ Error en la API de Meta:", error));
-    } 
-    setProcesandoPago(true);
+    // 👇 AQUÍ ESTÁ LA MAGIA: Quitamos el "async" y reordenamos
+ setTimeout(() => {
+   setProcesandoPago(false);
 
-    setTimeout(async () => {
-      setProcesandoPago(false);
+   const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
+   setNumConfirmacionGlobal(nuevoNumConfirmacion);
+   setCorreoAdminEnviado(false);
 
-      const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
-      setNumConfirmacionGlobal(nuevoNumConfirmacion);
-      setCorreoAdminEnviado(false);
+   // 1️⃣ ¡EL TRUCO! Avanzamos de paso INMEDIATAMENTE para no trabar al cliente
+   avanzarPaso();
 
-      try {
-        const correosRef = collection(db, 'correos');
-        console.log("Enviando notificaciones...");
+   try {
+  const correosRef = collection(db, 'correos');
+  console.log("Enviando notificaciones en segundo plano...");
 
-        // ==========================================
-        // CORREO 1: PARA EL CLIENTE
-        // ==========================================
-        await addDoc(correosRef, {
-          to: emailCliente || "reservationballard@gmail.com", // Envía al email detectado
-          message: {
-            subject: "Confirmación de Reserva - Ballard Tours",
-            html: `
-                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
-                  <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
-                    <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
-                    <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
-                  </div>
-                  <div style="padding: 30px; background-color: white;">
-                    <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
-                    <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
-                      <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
-                    </div>
-                    <ul style="font-size: 14px; color: #1e40af;">
-                        ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
-                    </ul>
-                  </div>
-                </div>`
-          }
-        });
+  // 2️⃣ Quitamos los "await" para que Firebase trabaje en el fondo
+  
+  // ==========================================
+  // CORREO 1: PARA EL CLIENTE
+  // ==========================================
+  addDoc(correosRef, {
+    to: emailCliente || "reservationballard@gmail.com",
+    message: {
+   subject: "Confirmación de Reserva - Ballard Tours",
+   html: `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
+      <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
+     <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
+     <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
+      </div>
+      <div style="padding: 30px; background-color: white;">
+     <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
+     <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
+       <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
+     </div>
+     <ul style="font-size: 14px; color: #1e40af;">
+      ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
+     </ul>
+      </div>
+    </div>`
+    }
+  });
 
-        // ==========================================
-        // CORREO 2: PARA LA EMPRESA
-        // ==========================================
-        await addDoc(correosRef, {
-          to: "reservationballard@gmail.com",
-          message: {
-            subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
-            html: `
-                <div style="font-family: Arial, sans-serif; padding: 20px;">
-                  <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
-                  <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
-                  <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
-                  <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
-                  <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
-                </div>`
-          }
-        });
+  // ==========================================
+  // CORREO 2: PARA LA EMPRESA
+  // ==========================================
+  addDoc(correosRef, {
+    to: "reservationballard@gmail.com",
+    message: {
+   subject: `🚨 NUEVA RESERVA: ${nombreCliente} (${nuevoNumConfirmacion})`,
+   html: `
+    <div style="font-family: Arial, sans-serif; padding: 20px;">
+      <h2>Nuevo Servicio: ${carrito.map(item => item.titulo).join(' + ')}</h2>
+      <p><strong>Cliente:</strong> ${nombreCliente} ${apellidosCliente}</p>
+      <p><strong>Email del Cliente:</strong> ${emailCliente || 'No proporcionado'}</p>
+      <p><strong>Total:</strong> $${carritoTotal.toFixed(2)} USD</p>
+      <p><strong>Método:</strong> ${datosCliente.paymentMethod === 'paypal' ? 'PayPal (PAGADO)' : 'Efectivo al llegar'}</p>
+    </div>`
+    }
+  });
 
-      } catch (error) {
-        console.error("Error al enviar los correos:", error);
-      }
-
-      setTimeout(() => {
-        avanzarPaso();
-      }, 1500);
-    }, 500); 
-};
+   } catch (error) {
+  console.error("Error al enviar los correos:", error);
+   }
+ }, 500); 
+  };
 
   const regresarPaso = () => {
     if (paso === 2 && servicioSeleccionado === 'tours' && reserva.tourId) {
