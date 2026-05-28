@@ -1203,7 +1203,11 @@ export default function App() {
 
             <Link
               to="/"
-              onClick={() => window.scrollTo(0, 0)}
+              onClick={() => { 
+                setPaso(1); 
+                limpiarFormularioActivo(); 
+                window.scrollTo(0, 0); 
+              }}
               className="hover:text-blue-900 transition-colors cursor-pointer"
             >
               Inicio
@@ -1218,8 +1222,13 @@ export default function App() {
             </Link>
 
             <Link
-              to="/tours"
-              onClick={() => window.scrollTo(0, 0)}
+              to="/"
+              onClick={() => {
+                limpiarFormularioActivo();
+                setServicioSeleccionado('tours');
+                setPaso(2);
+                window.scrollTo(0, 0);
+              }}
               className="hover:text-blue-900 transition-colors cursor-pointer"
             >
               Experiencias
