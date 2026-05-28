@@ -4548,13 +4548,372 @@ export default function App() {
                   <p className="text-sm text-gray-500">Round-trip private transport in a premium SUV, certified marine guide, private boat charter, park permits, snorkeling gear, and gourmet lunch.</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 🎨 CONDICIONAL 3: GUÍA DE TEXTO EXCLUSIVA PARA EL ART WALK 🎨 */}
+      {/* ========================================================================= */}
+      {tour.slug === 'san-jose-del-cabo-art-walk' && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            San Jose del Cabo Art Walk Guide: <span className="text-blue-600">The Ultimate Private Cultural Tour</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>For luxury travelers seeking an elegant escape from the high-energy marina of Cabo San Lucas, the historic Gallery District of San Jose del Cabo offers a sophisticated cultural sanctuary. Every Thursday evening between November and May, the cobblestone streets behind the town’s iconic 18th-century mission church come alive with world-class artists, sculptors, and musicians.</p>
+            <p>Experiencing the famous San Jose del Cabo Art Walk via a private cultural tour is the definitive way to immerse yourself in Baja’s elite art scene. At Ballard Tours, we elevate this evening stroll into a flawlessly curated VIP experience. From private door-to-door luxury transportation in a pristine SUV to having a dedicated local guide who connects you with gallery owners and master artists, we ensure your cultural evening is intimate, safe, and deeply inspiring.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                The San Jose del Cabo Art Walk is recognized as the premier cultural event in Baja California Sur. The Gallery District serves as a vibrant hub for high-end contemporary art, traditional Mexican folk art, fine jewelry, and large-scale sculptures. During this weekly event, vehicular traffic is completely closed on the main streets, transforming the neighborhood into an open-air pedestrian gallery.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Luxury Logistics</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Our private door-to-door service is highly valued by guests staying at exclusive luxury resorts in the Pacific Zone, such as Nobu Hotel Los Cabos or Hard Rock Hotel Los Cabos. Having a dedicated private driver completely eliminates travel fatigue, ensuring gate clearance and a relaxing ride back to your hotel at midnight.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Official Art Walk Calendar</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Official Art Walk Season</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Thursday Nights (5:00 PM - 9:00 PM) From November to May</span>
+              </div>
+              <div className="flex justify-between items-center text-amber-400">
+                <span className="font-bold">Summer Off-Season Note</span>
+                <span className="italic">June to October (Galleries open inside for private viewings)</span>
               </div>
             </div>
           </div>
-        )}
-      </div>
-    } />
-  ))}
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can I combine it with an adventure tour?</h4>
+                  <p className="text-sm text-gray-500">Yes. Many guests spend their morning experiencing a high-octane Off-Road ATV Tour, return to their resort to refresh, and then have our private driver pick them up for an elegant evening at the Art Walk.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Is it suitable for families?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. The pedestrian-only streets create a safe, welcoming family environment. Children thoroughly enjoy the colorful street performers, live musicians, and ice cream shops.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">What happens if I buy a large artwork?</h4>
+                  <p className="text-sm text-gray-500">The high-end galleries handle professional packing, customs paperwork, and secure international shipping directly to your home. Our vehicles also have ample cargo space.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">How long is the private cultural excursion?</h4>
+                  <p className="text-sm text-gray-500">The typical private Art Walk experience lasts between 4 to 6 hours, covering round-trip private transit, gallery exploration, and fine dining time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* ⛵ CONDICIONAL 4: GUÍA DE TEXTO EXCLUSIVA PARA EL BOTE TRANSPARENTE ⛵ */}
+      {/* ========================================================================= */}
+      {tour.slug === 'clear-boat-tour-cabo-san-lucas-arch' && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            Cabo San Lucas Arch Boat Tour: <span className="text-blue-600">The Ultimate Private Clear Boat Experience</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>No journey to the edge of the Baja Peninsula is truly complete without witnessing the majestic stone monolithic arch where the Sea of Cortez officially meets the Pacific Ocean. Known globally as Land's End, this dramatic geographical marvel is the undisputed icon of Los Cabos.</p>
+            <p>While there are countless standard water taxis crowding the marina, experiencing a Cabo San Lucas Arch boat tour via an exclusive, 100% private clear boat tour is the definitive way to elevate this landmark excursion into a luxury adventure. At Ballard Tours, we remove the friction of public crowds. From private door-to-door transportation in a late-model luxury SUV to stepping onto a cutting-edge vessel completely crafted from transparent military-grade crystal polymers, we ensure your voyage to El Arco is intimate, sophisticated, and visually stunning.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Unlike traditional glass-bottom boats that only offer a small window beneath your feet, our premium vessels are entirely transparent, offering a true 360-degree panoramic view of both the surrounding rock formations and the rich marine world bustling directly beneath your seat.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Pristine Sightlines</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Instead of fighting for a viewing angle on a packed public boat, you have exclusive access to the vessel's deck. Your expert captain can position the boat smoothly to catch the perfect lighting, pausing at each landmark so you can absorb the raw energy at an unhurried pace.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Best Light & Ocean Conditions</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Morning Charters (8:00 AM - 11:00 AM)</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Optimal visibility & Calmer sea conditions</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Sunset Cruises (4:30 PM - 6:30 PM)</span>
+                <span className="text-gray-400">Ideal for romance & dramatic photography</span>
+              </div>
+              <div className="flex justify-between items-center text-amber-400">
+                <span className="font-bold">Winter Whale Bonus</span>
+                <span className="italic">December to April (Humpback whales frequently breach outside the bay)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can I get off at Lovers Beach?</h4>
+                  <p className="text-sm text-gray-500">Federal regulations restrict transparent clear boats from beach landings to protect the hull from sand scratching. Our tour is a smooth, continuous private cruise providing panoramic views safely from the vessel.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with snorkeling?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. You can view the iconic Land's End landmark from our transparent clear boat and then proceed directly to swimmable bays like Chileno or Santa Maria for a guided underwater exploration.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Is it safe for passengers prone to seasickness?</h4>
+                  <p className="text-sm text-gray-500">Yes. The waters inside Cabo San Lucas bay are generally calm. Our experienced captains monitor local conditions constantly and keep the vessel in stable, secure waters throughout the tour.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">How long does the tour last?</h4>
+                  <p className="text-sm text-gray-500">The boat cruise itself lasts approximately 45 to 60 minutes. Including the round-trip private transport from your luxury resort, the entire door-to-door excursion spans roughly 2 to 3 hours.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 🤿 CONDICIONAL 5: GUÍA DE TEXTO EXCLUSIVA PARA SNORKEL 🤿 */}
+      {/* ========================================================================= */}
+      {tour.slug === 'vip-snorkeling-sea-scooter-cabo-san-lucas' && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            Best Snorkeling in Los Cabos: <span className="text-blue-600">The Ultimate Private Snorkel Charter Guide</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>For travelers wanting to immerse themselves in the pristine marine life of Baja California Sur, exploring the calm, azure bays of the Sea of Cortez is an absolute must. Dubbed the "Aquarium of the World" by legendary oceanographer Jacques Cousteau, the coastal waters of Los Cabos boast an incredible biodiversity, home to hundreds of species of tropical fish, sea fans, and bright coral reefs.</p>
+            <p>While public catamaran tours pack dozens of tourists onto a single deck, experiencing the best snorkeling in Los Cabos via an exclusive, private snorkel charter ensures unmatched comfort, privacy, and flexibility. At Ballard Tours, we remove the stress of rigid commercial scheduling. From round-trip transportation to having a certified private marine guide custom-tailor the aquatic session to your swimming level, we guarantee a sophisticated 5-star ocean safari.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Protected Marine Sanctuaries</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                The destination features two world-renowned coves: Santa Maria Bay and Chileno Bay. Both are certified with international Blue Flag status, meaning they boast crystal-clear water conditions, immaculate white sand, and strict ecological protections.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Private vs Public</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                On a public vessel, water entries are often rushed and noisy, scaring away wildlife. A private Ballard Tours excursion grants your party exclusive attention from our bilingual marine naturalists, ensuring non-swimmers or children feel completely secure with top-tier flotation equipment.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Optimizing for Water Clarity</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Autumn Peak (September to November)</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Ocean hit 80°F to 85°F & Visibility exceeds 100 feet</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Winter & Spring (December to April)</span>
+                <span className="text-gray-400">Cooler waters (wetsuits provided) with humpback whale songs echoing underwater</span>
+              </div>
+              <div className="flex justify-between items-center text-amber-400">
+                <span className="font-bold">Summer Transition (May to August)</span>
+                <span className="italic">High air temperatures and incredibly calm bays, perfect for families</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can non-swimmers participate?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. We move completely at your family's pace and provide specialized high-buoyancy vests, snorkel belts, and clear-bottom floating boogie boards for small children.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Chileno Bay or Santa Maria Bay?</h4>
+                  <p className="text-sm text-gray-500">Santa Maria features dramatic rocky walls attracting massive schools of fish, while Chileno features a shallow reef bed famous for sea turtles. Our charter safely covers both bays.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">What is the difference with public tours?</h4>
+                  <p className="text-sm text-gray-500">Public tours operate with 50+ passengers and strict time limits. A Ballard Tours excursion provides round-trip transport, zero waiting lines, a dedicated guide, and full control over your swim time.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with the Arch?</h4>
+                  <p className="text-sm text-gray-500">Yes, it is highly popular. You can view the iconic Land's End landmark from our transparent clear boat and then proceed directly to the swimmable bays for a guided underwater exploration.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 🐫 CONDICIONAL 6: GUÍA DE TEXTO EXCLUSIVA PARA CAMELLOS 🐫 */}
+      {/* ========================================================================= */}
+      {tour.slug === 'camel-safari-tour-cabo-san-lucas' && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            Cabo Camel Ride Desert Safari: <span className="text-blue-600">The Ultimate Private Eco-Adventure</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>For luxury travelers seeking an extraordinary contrast to the typical beach resort lifestyle, venturing deep into the Baja outback presents a captivating opportunity. Where towering cacti and desert canyons dramatically roll into the rolling swells of the Pacific Ocean, Los Cabos offers a breathtaking desert landscape found nowhere else in the world.</p>
+            <p>While standard group tours crowd dozens of tourists onto large buses, experiencing a Cabo camel ride desert safari via an exclusive, private charter ensures pristine comfort, privacy, and full schedule flexibility. At Ballard Tours, we remove the friction of commercial crowds. From round-trip transportation to a dedicated bilingual guide who orchestrates an intimate desert exploration paired with premium tequila tastings, we guarantee a sophisticated 5-star safari.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Unique Ecological Journey</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                A camel beach ride in Cabo San Lucas stands out as one of the most unique excursions in North America. These gentle dromedaries are perfectly adapted to the desert climate, offering a serene, elevated vantage point along the pristine sand dunes of the Pacific shoreline.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Desert Safari Step-by-Step</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Mount your assigned dromedary for a peaceful caravan trail ride, traverse magnificent desert paths lined with cacti, and open directly onto an isolated Pacific beach. Conclude your safari with an expert-led tasting of ultra-premium artisanal tequilas beautifully paired with a gourmet buffet.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Capitalizing on Perfect Desert Breezes</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Winter & Spring Peak (November to April)</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Crisp & pleasantly cool desert air (Whale tracking bonus from saddle)</span>
+              </div>
+              <div className="flex justify-between items-center text-amber-400">
+                <span className="font-bold">Summer & Autumn (May to October)</span>
+                <span className="italic">Morning charters ensure exploration during the coolest hours with a refreshing Pacific wind</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Are there weight or age limits?</h4>
+                  <p className="text-sm text-gray-500">Yes, there is a maximum weight limit of 265 lbs (120 kg) per passenger to ensure animal welfare. The minimum age to participate is 5 years old.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with ATVs?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. Many clients pair this safari with our Off-Road ATV adventure. Since both launch from the same terrain, combining them lets you conquer dunes and shorelines seamlessly.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Do camels bite or spit during the tour?</h4>
+                  <p className="text-sm text-gray-500">Not at all. Our dromedaries are raised from birth with constant human interaction, making them docile, gentle, and incredibly friendly animals who love posing for safari photos.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">What is included in the package?</h4>
+                  <p className="text-sm text-gray-500">Our private day excursion covers round-trip transport, park entrance fees, private guided camel ride, eco-walk, premium tequila tasting, and a traditional gourmet buffet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 🏁 CONDICIONAL 7: GUÍA DE TEXTO EXCLUSIVA PARA ATVS 🏁 */}
+      {/* ========================================================================= */}
+      {tour.slug === 'atv-off-road-adventure-cabo' && (
+        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+            Off-Road ATV Tours Cabo: <span className="text-blue-600">The Ultimate Private Desert & Dunes Adventure</span>
+          </h2>
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+            <p>For adrenaline seekers and luxury travelers who want to conquer the rugged, untamed landscapes of Baja California Sur, nothing compares to the thrill of a premium off-road expedition. Where pristine white-sand dunes and deep desert canyons dramatically collide with the crashing waves of the Pacific Ocean, Los Cabos provides the ultimate natural playground for an all-terrain vehicle safari.</p>
+            <p>While standard commercial tours force you into massive, dusty convoys with strict speed restrictions and slow-moving rental lines, experiencing off-road ATV tours in Cabo via an exclusive, private charter ensures unmatched freedom, premium safety, and full schedule flexibility. At Ballard Tours, we eliminate the friction of public tourist crowds. From round-trip transportation to a dedicated bilingual guide who custom-tailors the trail speed and terrain to your driving experience, we guarantee a prestigious 5-star off-road adventure.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Outback Adrenaline</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                The coastal desert, specifically the world-famous Migriño Beach and canyon trails, features a shifting matrix of soft sand dunes, dry riverbeds, and narrow mountain passes lined with exotic rock formations and giant Cardón cacti.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Off-Road Safari Step-by-Step</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Fit yourself with premium safety gear, throttle through deep canyons, and navigate rocky mountain paths. Arrive at the spectacular Pacific sand dunes to experience drifting before cruising directly onto the isolated shores of Migriño Beach.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+            <h3 className="text-xl font-bold mb-6 text-blue-400">Strategic Trail Optimization</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span className="font-bold">Winter & Spring Peak (November to April)</span>
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Pleasantly cool desert air minimizing dust (Sunset whale watching bonus)</span>
+              </div>
+              <div className="flex justify-between items-center text-amber-400">
+                <span className="font-bold">Summer & Autumn (May to October)</span>
+                <span className="italic">Morning charters explore before peak midday sun, utilizing the refreshing Pacific breeze</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Do I need a driver's license?</h4>
+                  <p className="text-sm text-gray-500">Yes, to operate an ATV as a primary driver, a valid international driver's license is required. Passengers can safely ride on the back of a double ATV or inside multi-passenger side-by-sides.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with camels?</h4>
+                  <p className="text-sm text-gray-500">Absolutely. This is the most popular combo. Many clients choose to pair this trail ride with our Camel Desert Safari to experience both speed and peace during a single private day deal.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">What is the minimum age for kids?</h4>
+                  <p className="text-sm text-gray-500">To ride as a passenger on a double ATV or a side-by-side vehicle, children must be at least 8 years old and accompanied by an adult. Custom safety helmets are provided.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">What is included in the package?</h4>
+                  <p className="text-sm text-gray-500">Our all-inclusive package covers round-trip transit, outback trail permits, late-model vehicle rental, safety equipment (helmets, goggles, protectors), a certified guide, and refreshments.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  } />
+))}
 
               {/* 🚀 URL 8: LA JOYA DE LA CORONA SEO - MEGA PILLAR PAGE (tudominio.com/things-to-do-in-cabo-san-lucas) */}
               <Route path="/things-to-do-in-cabo-san-lucas" element={
