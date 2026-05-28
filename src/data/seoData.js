@@ -60,7 +60,7 @@ export const toursLandingPages = [
             tipo: 'Ocean Adventure',
             precio: '45', 
             // 👇 AGREGA EL SLASH INICIAL AQUI 👇
-            imageUrl: 'B2.webp', // Asegúrate de que el nombre coincida con tu imagen real
+            imageUrl: '/B2.webp', // Asegúrate de que el nombre coincida con tu imagen real
             desc: 'Explore the Sea of Cortez and the famous Arch in a completely transparent boat.',
             detalle: 'Enjoy unparalleled views of the marine life, Pelican Rock, and Land\'s End from our 100% clear boat. Perfect for all ages to experience the vibrant underwater world without getting wet.'
           },
@@ -70,7 +70,7 @@ export const toursLandingPages = [
             tipo: 'Cultural & Walking Tour',
             precio: '65', 
             // 👇 AGREGA EL SLASH INICIAL AQUI 👇
-            imageUrl: 'downtown-san-jose-del-cabo-art-walk-los-cabos.webp', // Asegúrate de que el nombre coincida con tu imagen real
+            imageUrl: '/downtown-san-jose-del-cabo-art-walk-los-cabos.webp', // Asegúrate de que el nombre coincida con tu imagen real
             desc: 'Stroll through the colorful streets of San Jose del Cabo and discover local art, culture, and gastronomy.',
             detalle: 'Join our guided Art Walk tour. Visit prestigious galleries, taste local flavors, and soak up the historic charm of downtown San Jose del Cabo in a beautiful evening setting.'
           },
