@@ -75,8 +75,8 @@ export const toursLandingPages = [
             detalle: 'Join our guided Art Walk tour. Visit prestigious galleries, taste local flavors, and soak up the historic charm of downtown San Jose del Cabo in a beautiful evening setting.'
           },
           { 
-            slug: 'espiritu-santo-island-tour-from-cabo', 
-            nombre: 'Isla Espiritu Santo VIP Expedition', 
+            slug: 'espiritu-santo-island-tour-from-la-paz', 
+            nombre: 'Isla Espiritu Santo Expedition', 
             tipo: 'Nature & Snorkeling', 
             precio: '190', 
             // 👇 AGREGA EL SLASH INICIAL AQUI 👇
@@ -298,6 +298,7 @@ export const toursData = [
       },
       {
         id: 'isla_espiritu_santo', img: '🏝️', minPax: 2, precioPx: 330, activo: true, especial: false,
+        slug: 'espiritu-santo-island-tour-from-la-paz',
         imagenUrl: 'espiritu-santo-island-tour-la-paz-baja.webp',
         galeria: [
           "/espiritu-santo-island-tour-la-paz-baja.webp",
