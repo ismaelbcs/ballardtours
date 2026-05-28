@@ -308,7 +308,7 @@ const generarHtmlCorreoCliente = (item, datosCliente, numConfirmacion) => {
   }
 
   // IMPORTANTE: Cambia "https://tudominio.com" por la URL real de tu página web
-  const linkModificacion = `https://tudominio.com/?id=${numConfirmacion}`;
+  const linkModificacion = `https://www.loscabosprivatetrips.com/?id=${numConfirmacion}`;
   const linkWhatsApp = `https://wa.me/526121943286?text=Hola,%20tengo%20una%20duda%20sobre%20mi%20reserva%20${numConfirmacion}`;
 
   return `
