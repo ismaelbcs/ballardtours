@@ -2,8 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
-// Asegúrate de importar 'db' desde tu archivo de configuración de Firebase
-import { db } from './tu-archivo-de-firebase';
+import { db } from './firebase';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { translations } from './data/translations';
 import {
