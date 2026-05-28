@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { obtenerEmailChofer, } from './utils/firebaseutils';
 import { translations } from './data/translations';
 import {
   landingPagesSEO,
