@@ -271,6 +271,178 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
   `;
 };
 
+// =========================================================
+// 1. GENERADOR DE PLANTILLA HTML PARA CLIENTE (DINÁMICO)
+// =========================================================
+const generarHtmlCorreoCliente = (item, datosCliente, numConfirmacion) => {
+  const nombreCliente = `${datosCliente.clienteNombre || ''} ${datosCliente.clienteApellidos || ''}`.trim() || 'Pasajero';
+  const metodoPago = datosCliente.paymentMethod === 'paypal' ? 'PayPal (Pagado)' : 'Efectivo al llegar';
+  
+  // Extraemos la logística general (reutilizamos la lógica del admin)
+  const hotel = item.config?.hotelId || item.extrasEspeciales?.hotelOrigen || item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || 'N/A';
+  const pasajeros = item.config?.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hotelPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax || item.config?.hhPax || 'N/A';
+  const pickup = item.flightInfo?.horaPickUp || item.extrasEspeciales?.cenaHora || item.extrasEspeciales?.hotelHora || item.extrasEspeciales?.golfHora || item.extrasEspeciales?.nightlifeHora || item.config?.hhHora || 'N/A';
+
+  // --- LÓGICA DEL ENCABEZADO VISUAL ---
+  let bgStyle = `background-color: #1e3a8a;`; // Fondo azul por defecto
+  let headerText = `
+    <h1 style="margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">¡Gracias por reservar con nosotros!</h1>
+    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">${item.titulo || 'N/A'}</p>
+  `;
+
+  // Si es un Tour o Servicio Especial, ponemos una imagen de fondo según la categoría
+  if (item.servicio === 'tours' || item.tipoEspecial) {
+    // Imágenes por defecto de alta calidad (puedes cambiar las URLs por las tuyas)
+    let bgImg = 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=800'; // Default Cabo
+    if (item.tipoEspecial === 'cena') bgImg = 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800';
+    else if (item.tipoEspecial === 'golf') bgImg = 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=800';
+    else if (item.tipoEspecial === 'nightlife') bgImg = 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=800';
+    else if (item.servicio === 'tours') bgImg = 'https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?q=80&w=800';
+
+    bgStyle = `background: linear-gradient(to bottom, rgba(30,58,138,0.7), rgba(30,58,138,0.85)), url('${bgImg}') center/cover no-repeat;`;
+    
+    headerText = `
+      <span style="font-size: 14px; font-weight: 500; opacity: 0.9;">Gracias por reservar con nosotros tu producto de</span><br/>
+      <span style="font-size: 26px; font-weight: 900; letter-spacing: -0.5px; display: inline-block; margin-top: 5px;">${item.titulo}</span>
+    `;
+  }
+
+  // IMPORTANTE: Cambia "https://tudominio.com" por la URL real de tu página web
+  const linkModificacion = `https://tudominio.com/?id=${numConfirmacion}`;
+  const linkWhatsApp = `https://wa.me/526121943286?text=Hola,%20tengo%20una%20duda%20sobre%20mi%20reserva%20${numConfirmacion}`;
+
+  return `
+    <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; padding: 30px 15px; color: #1e293b; display: block; width: 100%; box-sizing: border-box;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+        
+        <div style="${bgStyle} padding: 40px 30px; text-align: center; color: #ffffff;">
+          <span style="display: inline-block; background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Confirmación Oficial</span><br/>
+          ${headerText}
+        </div>
+
+        <div style="padding: 30px;">
+          <p style="font-size: 16px; margin-top: 0; color: #334155;">Hola <strong>${nombreCliente}</strong>,</p>
+          <p style="font-size: 15px; color: #64748b; line-height: 1.5; margin-bottom: 25px;">Hemos recibido tu solicitud y tu transporte/experiencia en Los Cabos está asegurado. Aquí tienes los detalles de este servicio:</p>
+          
+          <h2 style="font-size: 14px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Resumen del Servicio</h2>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%;">N° de Confirmación:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 700; color: #1e3a8a; width: 60%; text-align: right;">${numConfirmacion}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%;">Servicio:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; text-align: right;">${item.subtitulo || 'N/A'}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%;">Pasajeros:</td>
+                <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; text-align: right;">${pasajeros}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f8fafc;">
+                <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%;">Hora Sugerida/Pick-Up:</td>
+                <td style="padding: 10px 0; font-size: 15px; font-weight: 900; color: #ea580c; width: 60%; text-align: right;">${pickup}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tbody>
+                <tr>
+                  <td style="font-size: 14px; color: #64748b;">Método de Pago:</td>
+                  <td style="font-size: 14px; font-weight: 600; text-align: right;">${metodoPago}</td>
+                </tr>
+                <tr>
+                  <td style="font-size: 16px; font-weight: 700; padding-top: 10px; color: #1e293b;">Total:</td>
+                  <td style="font-size: 20px; font-weight: 700; text-align: right; padding-top: 10px; color: #1e3a8a;">$${item.precio.toFixed(2)} USD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="text-align: center; margin-top: 20px;">
+            <a href="${linkModificacion}" style="display: block; background-color: #1e3a8a; color: #ffffff; text-decoration: none; padding: 14px 20px; border-radius: 8px; font-weight: bold; margin-bottom: 12px; box-shadow: 0 4px 6px rgba(30,58,138,0.2);">
+              ✏️ Modificar mi Reserva
+            </a>
+            <a href="${linkWhatsApp}" target="_blank" style="display: block; background-color: #ffffff; color: #059669; border: 2px solid #059669; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: bold;">
+              💬 Chat con el Proveedor
+            </a>
+          </div>
+
+          <p style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 30px; line-height: 1.5;">
+            Ballard Tours Los Cabos<br/>
+            Si necesitas asistencia urgente, responde a este correo.
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+// =========================================================
+// 2. GENERADOR DE PLANTILLA HTML PARA MODIFICACIONES (ADMIN)
+// =========================================================
+const generarHtmlModificacionAdmin = (idModificar, datosModificar, costoDiferencia) => {
+  const avisoCosto = costoDiferencia > 0 
+    ? `<tr style="background-color: #fef08a;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309; width: 40%;">⚠️ PAGO EXTRA POR ZONA:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309; text-align: right;">$${costoDiferencia} USD (${datosModificar.metodoPagoExtra})</td></tr>` 
+    : '';
+
+  return `
+    <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; padding: 30px 15px; color: #1e293b; display: block; width: 100%; box-sizing: border-box;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+        
+        <div style="background-color: #ea580c; padding: 35px 30px; text-align: center; color: #ffffff;">
+          <span style="display: inline-block; background-color: rgba(255, 255, 255, 0.2); color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Alerta de Actualización</span>
+          <h1 style="margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">El Cliente Modificó su Reserva</h1>
+          <p style="margin: 5px 0 0 0; font-weight: 900; font-size: 18px; tracking-widest">${idModificar}</p>
+        </div>
+
+        <div style="padding: 30px;">
+          <p style="font-size: 15px; color: #64748b; margin-bottom: 25px;">El cliente ha utilizado el enlace de autogestión para actualizar sus datos. Por favor, revisa la información resaltada a continuación:</p>
+          
+          <h2 style="font-size: 14px; font-weight: 700; color: #ea580c; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 15px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Nuevos Datos Guardados</h2>
+          
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; background-color: #fff7ed; border-radius: 8px;">
+            <tbody>
+              ${avisoCosto}
+              <tr style="border-bottom: 1px solid #fed7aa;">
+                <td style="padding: 12px 10px; font-size: 14px; color: #9a3412; width: 40%; font-weight: bold;">Nuevo Nombre:</td>
+                <td style="padding: 12px 10px; font-size: 14px; font-weight: 700; color: #7c2d12; width: 60%; text-align: right;">${datosModificar.nombre || 'N/A'}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #fed7aa;">
+                <td style="padding: 12px 10px; font-size: 14px; color: #9a3412; width: 40%; font-weight: bold;">Nuevo Hotel/Zona:</td>
+                <td style="padding: 12px 10px; font-size: 14px; font-weight: 700; color: #7c2d12; width: 60%; text-align: right;">${datosModificar.hotel || 'N/A'} (Zona ${datosModificar.zonaNueva})</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #fed7aa;">
+                <td style="padding: 12px 10px; font-size: 14px; color: #9a3412; width: 40%; font-weight: bold;">🛬 Llegada (Fecha/Vuelo):</td>
+                <td style="padding: 12px 10px; font-size: 14px; font-weight: 600; color: #9a3412; width: 60%; text-align: right;">${datosModificar.fechaLlegada} | ${datosModificar.aerolineaLlegada} ${datosModificar.vueloLlegada}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #fed7aa;">
+                <td style="padding: 12px 10px; font-size: 14px; color: #9a3412; width: 40%; font-weight: bold;">🛬 Hora Llegada:</td>
+                <td style="padding: 12px 10px; font-size: 14px; font-weight: 700; color: #7c2d12; width: 60%; text-align: right;">${datosModificar.horaLlegada || 'N/A'}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #fed7aa;">
+                <td style="padding: 12px 10px; font-size: 14px; color: #9a3412; width: 40%; font-weight: bold;">🛫 Salida (Fecha/Vuelo):</td>
+                <td style="padding: 12px 10px; font-size: 14px; font-weight: 600; color: #9a3412; width: 60%; text-align: right;">${datosModificar.fechaSalida} | ${datosModificar.aerolineaSalida} ${datosModificar.vueloSalida}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #fed7aa;">
+                <td style="padding: 12px 10px; font-size: 14px; color: #9a3412; width: 40%; font-weight: bold;">🛫 Hora Salida:</td>
+                <td style="padding: 12px 10px; font-size: 14px; font-weight: 700; color: #7c2d12; width: 60%; text-align: right;">${datosModificar.horaSalida || 'N/A'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 10px; font-size: 14px; color: #c2410c; width: 40%; font-weight: 900;">⏰ NUEVA HORA PICK-UP:</td>
+                <td style="padding: 12px 10px; font-size: 16px; font-weight: 900; color: #c2410c; width: 60%; text-align: right;">${datosModificar.horaPickUp || 'N/A'}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  `;
+};
+
 export default function App() {
 
   const navigate = useNavigate();
@@ -767,30 +939,18 @@ export default function App() {
       const correosRef = collection(db, "correos");
 
       // ==========================================
-      // CORREO 1: PARA EL CLIENTE
+      // CORREO 1: PARA EL CLIENTE (UNO POR CADA PRODUCTO)
       // ==========================================
-      await addDoc(correosRef, {
-        to: emailCliente || "reservationballard@gmail.com",
-        message: {
-          subject: "Confirmación de Reserva - Ballard Tours",
-          html: `
-            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
-              <div style="background: linear-gradient(to right, #22c55e, #10b981); padding: 30px; text-align: center; color: white;">
-                <h1 style="margin: 0; font-size: 26px;">¡Reserva Confirmada!</h1>
-                <p style="margin: 10px 0 0 0; opacity: 0.9;">Tu transporte en Los Cabos está listo</p>
-              </div>
-              <div style="padding: 30px; background-color: white;">
-                <p style="font-size: 16px; margin-top: 0;">¡Hola <strong>${nombreCliente}</strong>!,</p>
-                <div style="background-color: #eff6ff; border-left: 4px solid #1e3a8a; padding: 20px; margin: 25px 0;">
-                  <h3 style="margin: 0;">N° de Confirmación: ${nuevoNumConfirmacion}</h3>
-                </div>
-                <ul style="font-size: 14px; color: #1e40af;">
-                  ${carrito.map(item => `<li><strong>${item.titulo}</strong></li>`).join('')}
-                </ul>
-              </div>
-            </div>`
-        }
-      });
+      for (const item of carrito) {
+        await addDoc(correosRef, {
+          to: emailCliente || "reservationballard@gmail.com",
+          message: {
+            subject: `Confirmación de Reserva: ${item.titulo} - Ballard Tours`,
+            // Llamamos a la nueva función que diseñamos para el cliente
+            html: generarHtmlCorreoCliente(item, datosCliente, nuevoNumConfirmacion) 
+          }
+        });
+      }
 
       
       // ==========================================
@@ -3005,32 +3165,14 @@ export default function App() {
       // 👇 AQUÍ EMPIEZA EL CÓDIGO NUEVO DE FIREBASE 👇
       const correosRef = collection(db, "correos");
       
+      const correosRef = collection(db, "correos");
+      
       await addDoc(correosRef, {
         to: "reservationballard@gmail.com",
         message: {
           subject: `⚠️ MODIFICACIÓN DE RESERVA: (${idModificar})`,
-          html: `
-          <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: 0 auto; border: 1px solid #ea580c; padding: 30px; border-radius: 12px; background-color: #fff7ed;">
-            <h2 style="color: #ea580c; margin-top: 0; font-size: 26px;">🚨 ¡El Cliente Modificó su Reserva!</h2>
-            <p style="font-size: 18px; border-bottom: 2px solid #fed7aa; padding-bottom: 15px;">Código afectado: <strong style="color: #1e3a8a; font-size: 22px;">${idModificar}</strong></p>
-            
-            <table style="width: 100%; border-collapse: collapse; font-size: 16px; background-color: white; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-              <tr style="background-color: #ffedd5;"><th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Campo</th><th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Valor Modificado</th></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Nuevo Nombre:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; color: #c2410c; font-weight: bold;">${datosModificar.nombre || 'No modificado'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">Nuevo Hotel / Recogida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.hotel || 'No modificado'} (Zona ${datosModificar.zonaNueva})</td></tr>
-              ${avisoPagoExtra}
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Fecha Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.fechaLlegada || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Aerolínea Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.aerolineaLlegada || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Número de Vuelo:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.vueloLlegada || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛬 Hora de Llegada:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.horaLlegada || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Fecha Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.fechaSalida || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Aerolínea Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.aerolineaSalida || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Número de Vuelo Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.vueloSalida || 'N/A'}</td></tr>
-              <tr><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0;">🛫 Hora de Salida:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">${datosModificar.horaSalida || 'N/A'}</td></tr>
-              <tr style="background-color: #fffbeb;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309;">⏰ NUEVA HORA PICK-UP:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309; font-size: 18px;">${datosModificar.horaPickUp || 'N/A'}</td></tr>
-              </table>
-          </div>
-          `
+          // Llamamos a la nueva función de modificaciones
+          html: generarHtmlModificacionAdmin(idModificar, datosModificar, costoDiferencia)
         }
       });
       // 👆 FIN DEL CÓDIGO NUEVO DE FIREBASE 👆
