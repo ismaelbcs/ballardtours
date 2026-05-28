@@ -79,6 +79,7 @@ export const toursLandingPages = [
 export const toursData = [
     { 
         id: 'camellos', img: '🐪', minPax: 2, precioPx: 190, precioAdulto: 190, precioNino: 120, activo: true, especial: true,
+        slug: 'camel-safari-tour-cabo-san-lucas',
         imagenUrl: 'camello4.webp',
         galeria: [
           "/camello1.webp",
@@ -111,6 +112,7 @@ export const toursData = [
       },
       { 
         id: 'atv', img: '🏜️', minPax: 2, precioPx: 190, activo: true, especial: false,
+        slug: 'atv-off-road-adventure-cabo',
         imagenUrl: '2.webp',
         galeria: [
           "/1.webp",
@@ -129,6 +131,7 @@ export const toursData = [
        },
       {
         id: 'arco', img: '⛵', minPax: 2, precioPx: 100, precioAdulto: 100, precioNino: 100, edadNinoMin: 4, edadMinima: 0, activo: true,
+        slug: 'clear-boat-tour-cabo-arch',
         imagenUrl: 'B7.webp',
         galeria: [
       "/B2.webp",
@@ -159,6 +162,7 @@ export const toursData = [
         edadNinoMax: 11, // Rango de precio de niño
         edadMinima: 5, 
         activo: true,
+        slug: 'vip-snorkeling-sea-scooter-cabo-san-lucas',
         imagenUrl: '/snorkeling-trip-cabo-san-lucas.webp', // Asegúrate de que este nombre coincida con tu carpeta public
         galeria: [
           "/snorkeling-trip-cabo-san-lucas.webp",
@@ -227,6 +231,7 @@ export const toursData = [
       },
       {
         id: 'artwalk', img: '🎨', minPax: 2, precioPx: 180, activo: true, especial: false,
+        slug: 'san-jose-del-cabo-art-walk-tour',
         imagenUrl: 'downtown-san-jose-del-cabo-art-walk-los-cabos.webp',
         galeria: [
           "/downtown-san-jose-del-cabo-art-walk-los-cabos.webp",
@@ -249,6 +254,7 @@ export const toursData = [
       },
       {
         id: 'tiburon_ballena', img: '🦈', minPax: 2, precioPx: 330, activo: true, especial: false,
+        slug: 'swim-with-whale-sharks-la-paz-cabo',
         imagenUrl: 'swimming-whale-shark-la-paz.webp',
         galeria: [
           "/swimming-whale-shark-la-paz.webp",
