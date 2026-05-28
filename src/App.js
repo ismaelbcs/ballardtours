@@ -918,6 +918,21 @@ export default function App() {
   .then(response => response.json())
   .then(data => console.log("✅ Notificación oficial de Meta enviada:", data))
   .catch(error => console.error("❌ Error en la API de Meta:", error));
+  // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
+      // Guardamos en Firebase que este usuario ya usó este código para bloquearlo en el futuro
+      if (appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA") {
+        try {
+          const historialRef = collection(db, "cupones_usados");
+          await addDoc(historialRef, {
+            correo: emailCliente, 
+            codigo: appliedPromo.codigo
+          });
+          console.log("✅ Código registrado como usado por este cliente.");
+        } catch (err) {
+          console.error("❌ Error al registrar el código como usado:", err);
+        }
+      }
+      // 👆 HASTA AQUÍ 👆
  } 
  setProcesandoPago(true);
 
@@ -1044,17 +1059,28 @@ export default function App() {
       return;
     }
 
-    // 👇 NUEVA REGLA: Si no hay usuario, forzamos inicio de sesión/registro
     if (!userLogueado) {
-      setPendingPromoCode(codigo); // Guardamos el código escrito en memoria
-      setShowPromoModal(false);    // Ocultamos la ventana del código
-      setShowAuthModal(true);      // Abrimos la ventana de login
-      return;                      // Detenemos la validación por ahora
+      setPendingPromoCode(codigo);
+      setShowPromoModal(false);
+      setShowAuthModal(true);
+      return;
     }
 
     setPromoError(''); // Limpiamos errores previos
 
     try {
+      // 👇 NUEVA REGLA: Verificamos en el historial si el usuario ya compró con este código
+      const historialRef = collection(db, "cupones_usados");
+      const qHistorial = query(historialRef, where("correo", "==", userLogueado.email), where("codigo", "==", codigo));
+      const historialSnap = await getDocs(qHistorial);
+      
+      if (!historialSnap.empty) {
+        setPromoError('Ya has utilizado este código de descuento anteriormente.');
+        setShowPromoModal(true);
+        return; // Detenemos aquí, ya no le dejamos usarlo
+      }
+      // 👆 FIN DE LA NUEVA REGLA
+
       // 1. Apuntamos a la colección 'codigos_descuento'
       const codigosRef = collection(db, "codigos_descuento");
 
@@ -1066,7 +1092,6 @@ export default function App() {
 
       // 4. Si la búsqueda regresó vacía, es que el código no existe
       if (querySnapshot.empty) {
-        // Como ya inició sesión pero el código era malo, volvemos a abrir la ventana de promo
         setShowPromoModal(true);
         setPromoError('Código inválido o no existe.');
         return;
