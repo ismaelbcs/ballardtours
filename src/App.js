@@ -964,6 +964,58 @@ export default function App() {
         });
       }
 
+      // ==========================================
+      // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
+      // ==========================================
+      // Verificamos si hay un código aplicado y si ese código tiene un correo guardado
+      if (appliedPromo && (appliedPromo.CORREO || appliedPromo.correo)) {
+        const correoChofer = appliedPromo.CORREO || appliedPromo.correo;
+        const nombreChofer = appliedPromo.NOMBRE || appliedPromo.nombre || "Chofer";
+        const comision = carritoTotal * 0.10; // Calcula el 10%
+        const serviciosResumen = carrito.map(item => item.titulo).join(', ');
+        const fechaServicio = carrito[0]?.config?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
+        
+        await addDoc(correosRef, {
+          to: correoChofer,
+          message: {
+            subject: `¡Nueva Venta! Comisión Generada - Ballard Tours`,
+            html: `
+              <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                  
+                  <div style="background-color: #15803d; padding: 25px; text-align: center; color: white;">
+                    <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombreChofer}! 🎉</h2>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Has generado una nueva comisión de venta</p>
+                  </div>
+
+                  <div style="padding: 30px;">
+                    <p style="font-size: 16px; color: #334155;">Un cliente acaba de realizar una reserva utilizando tu código de descuento (<strong>${appliedPromo.codigo || 'Tu Código'}</strong>).</p>
+                    
+                    <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
+                      <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
+                      <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
+                      <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s) reservados:</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
+                    </div>
+
+                    <div style="background-color: #dcfce3; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bbf7d0;">
+                      <p style="margin: 0; font-size: 14px; color: #166534; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Generada (10%)</p>
+                      <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #15803d;">$${comision.toFixed(2)} USD</p>
+                    </div>
+
+                    <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
+                      <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
+                        ⚠️ La comisión se pagará el día del servicio.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            `
+          }
+        });
+      }
+
       console.log("✅ Correos registrados en Firebase exitosamente.");
 
     } catch (error) {
@@ -986,10 +1038,18 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  const procesarCodigo = async (codigo) => {
+  const procesarCodigo = async (codigo, userLogueado = currentUser) => {
     if (!codigo) {
       setPromoError('Ingresa un código por favor.');
       return;
+    }
+
+    // 👇 NUEVA REGLA: Si no hay usuario, forzamos inicio de sesión/registro
+    if (!userLogueado) {
+      setPendingPromoCode(codigo); // Guardamos el código escrito en memoria
+      setShowPromoModal(false);    // Ocultamos la ventana del código
+      setShowAuthModal(true);      // Abrimos la ventana de login
+      return;                      // Detenemos la validación por ahora
     }
 
     setPromoError(''); // Limpiamos errores previos
@@ -1006,6 +1066,8 @@ export default function App() {
 
       // 4. Si la búsqueda regresó vacía, es que el código no existe
       if (querySnapshot.empty) {
+        // Como ya inició sesión pero el código era malo, volvemos a abrir la ventana de promo
+        setShowPromoModal(true);
         setPromoError('Código inválido o no existe.');
         return;
       }
@@ -1025,6 +1087,7 @@ export default function App() {
     } catch (err) {
       console.error("Error al conectar con Firebase:", err);
       setPromoError('Error de conexión con Firebase. Intenta de nuevo.');
+      setShowPromoModal(true);
     }
   };
 
