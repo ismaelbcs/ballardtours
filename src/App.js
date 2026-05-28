@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { obtenerEmailChofer, registrarNotificacionMail } from './utils/firebaseutils';
 import { translations } from './data/translations';
 import {
   landingPagesSEO,
@@ -16,9 +15,8 @@ import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import {
   PlaneLanding, PlaneTakeoff, RefreshCw, Map as MapIcon, Car, Users,
   Calendar, Clock, ChevronRight, ChevronLeft, CheckCircle, Info, User,
-  Phone, Mail, MapPin, ShieldCheck, Palmtree, Search, Compass, Check,
-  ArrowLeft, Settings, LayoutDashboard, Edit, Trash2, Plus, X, Image as ImageIcon,
-  Save, EyeOff, Globe, CreditCard, Banknote, ShoppingBag, Baby, ShoppingCart,
+  Phone, Mail, MapPin, ShieldCheck, Search, Compass, Check,
+  ArrowLeft, Trash2, Plus, X, Image as ImageIcon, Globe, CreditCard, Banknote, ShoppingBag, Baby, ShoppingCart,
   LogIn, LogOut, Gift
 } from 'lucide-react';
 
