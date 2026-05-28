@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from './firebase';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { translations } from './data/translations';
@@ -914,47 +914,51 @@ export default function App() {
     try {
       console.log("Preparando datos de correos para Firebase...");
       
-      // 👇 SOLO SE DECLARA UNA VEZ AQUÍ:
-      const correosRef = collection(db, "correos");
-
       // ==========================================
-      // CORREO 1: PARA EL CLIENTE (UNO POR CADA PRODUCTO)
+      // CORREO 1: PARA EL CLIENTE
       // ==========================================
+      let indexCliente = 1;
       for (const item of carrito) {
-        await addDoc(correosRef, {
+        const docIdCliente = `${nuevoNumConfirmacion}_cliente_${indexCliente}`;
+        await setDoc(doc(db, "correos", docIdCliente), {
           to: emailCliente || "reservationballard@gmail.com",
           message: {
             subject: `Confirmación de Reserva: ${item.titulo} - Ballard Tours`,
             html: generarHtmlCorreoCliente(item, datosCliente, nuevoNumConfirmacion) 
           }
         });
+        indexCliente++;
       }
 
       // ==========================================
-      // CORREO 2: PARA LA EMPRESA (UNO POR CADA PRODUCTO)
+      // CORREO 2: PARA LA EMPRESA
       // ==========================================
+      let indexAdmin = 1;
       for (const item of carrito) {
-        await addDoc(correosRef, {
+        const docIdAdmin = `${nuevoNumConfirmacion}_admin_${indexAdmin}`;
+        await setDoc(doc(db, "correos", docIdAdmin), {
           to: "reservationballard@gmail.com",
           message: {
             subject: `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`,
             html: generarHtmlCorreoAdmin(item, datosCliente, nuevoNumConfirmacion) 
           }
         });
+        indexAdmin++;
       }
 
       // ==========================================
       // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
       // ==========================================
-      // Verificamos si hay un código aplicado y si ese código tiene un correo guardado
       if (appliedPromo && (appliedPromo.CORREO || appliedPromo.correo)) {
         const correoChofer = appliedPromo.CORREO || appliedPromo.correo;
         const nombreChofer = appliedPromo.NOMBRE || appliedPromo.nombre || "Chofer";
-        const comision = carritoTotal * 0.10; // Calcula el 10%
+        const comision = carritoTotal * 0.10;
         const serviciosResumen = carrito.map(item => item.titulo).join(', ');
         const fechaServicio = carrito[0]?.config?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
         
-        await addDoc(correosRef, {
+        const docIdChofer = `${nuevoNumConfirmacion}_chofer_${appliedPromo.codigo}`;
+        
+        await setDoc(doc(db, "correos", docIdChofer), {
           to: correoChofer,
           message: {
             subject: `¡Nueva Venta! Comisión Generada - Ballard Tours`,
@@ -996,6 +1000,23 @@ export default function App() {
       }
 
       console.log("✅ Correos registrados en Firebase exitosamente.");
+
+      // 👇 REGISTRO DE CUPONES USADOS 👇
+      if (appliedPromo && appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentUser) {
+        const emailUsuario = String(currentUser.email || currentUser.correo || "").trim().toLowerCase();
+        const codigoLimpio = String(appliedPromo.codigo).trim().toUpperCase();
+        
+        // ID: correo_codigo (ej. frasfit@gmail.com_ISMAEL)
+        const docIdCupon = `${emailUsuario}_${codigoLimpio}`;
+
+        setDoc(doc(db, "cupones_usados", docIdCupon), {
+          correo: emailUsuario, 
+          codigo: codigoLimpio
+        })
+        .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
+        .catch(err => console.error("❌ Error al registrar el código como usado:", err));
+      }
+      // 👆 HASTA AQUÍ 👆
 
     } catch (error) {
       console.error("❌ Error al registrar los correos en Firebase:", error);
@@ -1188,8 +1209,15 @@ export default function App() {
         return;
       }
 
-      // Guardamos en la base de datos
-      await addDoc(usuariosRef, {
+      // Guardamos en la base de datos con ID personalizado (ej. ismaelalvarez28052026)
+      const fechaActual = new Date();
+      const dia = String(fechaActual.getDate()).padStart(2, '0');
+      const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+      const anio = fechaActual.getFullYear();
+      const nombreLimpio = authForm.nombre.replace(/\s+/g, '').toLowerCase(); // Quita espacios y pone minúsculas
+      const docIdUsuario = `${nombreLimpio}${dia}${mes}${anio}`;
+
+      await setDoc(doc(db, "Usuarios", docIdUsuario), {
         nombre: authForm.nombre,
         correo: authForm.email,
         contrasena: authForm.password
