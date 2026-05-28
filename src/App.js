@@ -879,60 +879,25 @@ export default function App() {
 
  // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
  if (appliedPromo) {
-   const comision = carritoTotal * 0.10;
-   const servicios = carrito.map(item => item.titulo).join(', ');
-   const fechaTour = carrito[0]?.flightInfo?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.flightInfo?.fechaSalida || 'Fecha en sistema';
-
-   const tokenMeta = "EAAOP0FJrKocBRm2Tv0NyYwZBBexDxEQSlBvHWMwXFESBQbFyqQTI4QzFy1GaG3HyeZBm6DpiLwNdlZCyakJLW7yHS2wrdlTqqNc4cjqj5DQtbsXcZAMy39t0wypXJwUUijtEb07SXMUfmGZBGZBIGDF3ueIspAjZAZBmfJZCmGqulcaZCdqvNzogyGETGFfWueKUUp4duZC8lrBUQ4xPVBzZBwbVqSmZCHl0nGopgtXaBd5z8H0suMlONrfbZCbmusMbHzC1SbIgIUjOM8Y9lRmbre3zhyH2vmkaL1xVir8AZDZD";
-   const idTelefonoMeta = "1146460171892849";
-
-   const datosEnvio = {
-  messaging_product: "whatsapp",
-  to: appliedPromo.phone,
-  type: "template",
-  template: {
-    name: "notificacion_comision_chofer",
-    language: { code: "es" },
-    components: [
-   {
-     type: "body",
-     parameters: [
-    { type: "text", text: `${nombreCliente} ${apellidosCliente}` },
-    { type: "text", text: servicios },
-    { type: "text", text: fechaTour },
-    { type: "text", text: `$${comision.toFixed(2)} USD` }
-     ]
-   }
-    ]
-  }
-   };
-
-   fetch(`https://graph.facebook.com/v25.0/${idTelefonoMeta}/messages`, {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${tokenMeta}`,
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(datosEnvio)
-   })
-  .then(response => response.json())
-  .then(data => console.log("✅ Notificación oficial de Meta enviada:", data))
-  .catch(error => console.error("❌ Error en la API de Meta:", error));
+   
   // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
       // Guardamos en Firebase que este usuario ya usó este código para bloquearlo en el futuro
       // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
-      if (appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA") {
+      // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
+      if (appliedPromo && appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentUser) {
+        const emailUsuario = String(currentUser.email || currentUser.correo || "").trim().toLowerCase();
+        const codigoLimpio = String(appliedPromo.codigo).trim().toUpperCase();
+
         const historialRef = collection(db, "cupones_usados");
         addDoc(historialRef, {
-          correo: emailCliente, 
-          codigo: appliedPromo.codigo
+          correo: emailUsuario, 
+          codigo: codigoLimpio
         })
-        .then(() => console.log("✅ Código registrado como usado por este cliente."))
+        .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
         .catch(err => console.error("❌ Error al registrar el código como usado:", err));
       }
       // 👆 HASTA AQUÍ 👆
-      // 👆 HASTA AQUÍ 👆
- } 
+ }
  setProcesandoPago(true);
 
     // 👇 AQUÍ ESTÁ LA MAGIA: Quitamos el "async" y reordenamos
@@ -1068,15 +1033,18 @@ export default function App() {
     setPromoError(''); // Limpiamos errores previos
 
     try {
-      // 👇 NUEVA REGLA: Verificamos en el historial si el usuario ya compró con este código
+      // 👇 REGLA MEJORADA: Limpiamos espacios y mayúsculas para evitar errores
+      const emailUsuario = String(userLogueado.email || userLogueado.correo || "").trim().toLowerCase();
+      const codigoLimpio = String(codigo).trim().toUpperCase();
+
       const historialRef = collection(db, "cupones_usados");
-      const qHistorial = query(historialRef, where("correo", "==", userLogueado.email), where("codigo", "==", codigo));
+      const qHistorial = query(historialRef, where("correo", "==", emailUsuario), where("codigo", "==", codigoLimpio));
       const historialSnap = await getDocs(qHistorial);
       
       if (!historialSnap.empty) {
         setPromoError('Ya has utilizado este código de descuento anteriormente.');
         setShowPromoModal(true);
-        return; // Detenemos aquí, ya no le dejamos usarlo
+        return; 
       }
       // 👆 FIN DE LA NUEVA REGLA
 
@@ -1084,19 +1052,17 @@ export default function App() {
       const codigosRef = collection(db, "codigos_descuento");
 
       // 2. Creamos la consulta buscando donde 'codigo' sea exactamente igual al escrito
-      const q = query(codigosRef, where("codigo", "==", codigo));
-
-      // 3. Ejecutamos la búsqueda en Firebase
+      const q = query(codigosRef, where("codigo", "==", codigoLimpio));
       const querySnapshot = await getDocs(q);
 
-      // 4. Si la búsqueda regresó vacía, es que el código no existe
+      // 3. Si la búsqueda regresó vacía, es que el código no existe
       if (querySnapshot.empty) {
         setShowPromoModal(true);
         setPromoError('Código inválido o no existe.');
         return;
       }
 
-      // 5. Si lo encontró, extraemos los datos del primer resultado
+      // 4. Si lo encontró, extraemos los datos del primer resultado
       let dataResult = null;
       querySnapshot.forEach((doc) => {
         dataResult = doc.data();
@@ -1104,7 +1070,7 @@ export default function App() {
 
       console.log("¡Código encontrado con éxito en Firebase!", dataResult);
 
-      // 6. Aplicamos el descuento y cerramos la ventana
+      // 5. Aplicamos el descuento y cerramos la ventana
       setAppliedPromo(dataResult);
       setShowPromoModal(false);
 
