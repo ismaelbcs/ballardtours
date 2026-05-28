@@ -519,9 +519,9 @@ export default function App() {
     avanzarPaso();
 
     try {
-      console.log("Preparando datos de correos para Firebase Trigger Email...");
+      console.log("Preparando datos de correos para Firebase...");
       
-      // Apuntamos a la colección que configuraste en la extensión
+      // Apuntamos a la colección 'correos' que usa la extensión Trigger Email
       const correosRef = collection(db, "correos");
 
       // ==========================================
