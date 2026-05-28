@@ -26,7 +26,7 @@ export const landingPagesSEO = [
 
 export const toursLandingPages = [
       { 
-            slug: 'atv-off-road-baja', 
+            slug: 'atv-off-road-adventure-cabo', 
             nombre: 'ATV Desert & Beach Adventure', 
             tipo: 'Adrenaline & Off-Road', 
             precio: '120', 
@@ -36,7 +36,7 @@ export const toursLandingPages = [
             detalle: 'Our Cabo ATV tours offer the ultimate off-road experience. Feel the adrenaline as you navigate through dry riverbeds, desert canyons, and pristine beaches.' 
           },
            { 
-            slug: 'cabo-snorkeling-tours', 
+            slug: 'vip-snorkeling-sea-scooter-cabo-san-lucas', 
             nombre: 'Pelican Rock & Arch Snorkeling Tour', 
             tipo: 'Ocean Adventure', 
             precio: '85', 
@@ -45,7 +45,7 @@ export const toursLandingPages = [
             detalle: 'Experience the best cabo snorkeling tours available. Jump into the crystal-clear waters of the marine sanctuary next to Land’s End. Swim alongside schools of tropical fish, sea turtles, and beautiful coral reefs. Includes premium snorkeling gear, certified marine guides, and a scenic boat ride past the Lovers Beach.' 
           },
           { 
-            slug: 'camel-safari-cabo', 
+            slug: 'camel-safari-tour-cabo-san-lucas', 
             nombre: 'Outback Camel Safari & Tequila', 
             tipo: 'Eco-Tour & Cultural', 
             precio: '115', 
@@ -54,8 +54,28 @@ export const toursLandingPages = [
             desc: 'Discover the Baja outback on a gentle camel ride along the beach, followed by authentic Mexican cuisine and tequila tasting.', 
             detalle: 'A truly unique Cabo excursion. Ride rescue camels along the breathtaking Pacific coastline.' 
           },
+          {
+            slug: 'clear-boat-tour-cabo-arch',
+            nombre: 'Clear Boat & Glass Bottom Tour',
+            tipo: 'Ocean Adventure',
+            precio: '45', 
+            // 👇 AGREGA EL SLASH INICIAL AQUI 👇
+            imageUrl: '/clear-boat-tour-cabo.webp', // Asegúrate de que el nombre coincida con tu imagen real
+            desc: 'Explore the Sea of Cortez and the famous Arch in a completely transparent boat.',
+            detalle: 'Enjoy unparalleled views of the marine life, Pelican Rock, and Land\'s End from our 100% clear boat. Perfect for all ages to experience the vibrant underwater world without getting wet.'
+          },
+          {
+            slug: 'san-jose-del-cabo-art-walk-tour',
+            nombre: 'San Jose del Cabo Art Walk',
+            tipo: 'Cultural & Walking Tour',
+            precio: '65', 
+            // 👇 AGREGA EL SLASH INICIAL AQUI 👇
+            imageUrl: '/art-walk-san-jose-del-cabo.webp', // Asegúrate de que el nombre coincida con tu imagen real
+            desc: 'Stroll through the colorful streets of San Jose del Cabo and discover local art, culture, and gastronomy.',
+            detalle: 'Join our guided Art Walk tour. Visit prestigious galleries, taste local flavors, and soak up the historic charm of downtown San Jose del Cabo in a beautiful evening setting.'
+          },
           { 
-            slug: 'isla-espiritu-santo-tour', 
+            slug: 'espiritu-santo-island-tour-from-cabo', 
             nombre: 'Isla Espiritu Santo VIP Expedition', 
             tipo: 'Nature & Snorkeling', 
             precio: '190', 
@@ -65,7 +85,7 @@ export const toursLandingPages = [
             detalle: 'Known as the "Aquarium of the World", Isla Espiritu Santo in La Paz is a UNESCO protected biosphere.' 
           },
           { 
-            slug: 'whale-shark-encounter-la-paz', 
+            slug: 'swim-with-whale-sharks-la-paz-cabo', 
             nombre: 'Whale Shark Encounter', 
             tipo: 'Wildlife Snorkeling', 
             precio: '210', 

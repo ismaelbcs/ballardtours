@@ -4317,8 +4317,14 @@ export default function App() {
                           <button
                             onClick={() => {
                               setServicioSeleccionado('tours');
+                              // Encontramos el tour exacto en la base de datos principal
+                              const matchedTour = tours.find(t => t.slug === tour.slug);
+                              if (matchedTour) {
+                                setReserva(prev => ({ ...prev, tourId: matchedTour.id, pasajeros: Math.max(prev.pasajeros || 1, matchedTour.minPax), shoppingStop: false }));
+                                setImagenTourDestacada(matchedTour.imagenUrl || matchedTour.imageUrl);
+                              }
                               setPaso(2);
-                              navigate('/');
+                              navigate("/");
                               window.scrollTo(0, 0);
                             }}
                             className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 uppercase tracking-wide"
