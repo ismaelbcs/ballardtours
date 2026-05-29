@@ -1809,13 +1809,6 @@ export default function App() {
         const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
         const k = keys[srv];
 
-        // Definimos las URLs exactas para cada botón de transporte
-        const transportUrls = {
-          aeropuerto_hotel: '/tours/private-shuttle-cabo-airport-to-hotel',
-          hotel_aeropuerto: '/tours/private-shuttle-hotel-to-cabo-airport',
-          redondo: '/tours/round-trip-private-shuttle-cabo-airport'
-        };
-
         return (
           <button 
             key={srv} 
