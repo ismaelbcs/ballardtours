@@ -1814,8 +1814,6 @@ export default function App() {
             key={srv} 
             onClick={() => { 
               if (!isTour) {
-                // Si es transporte, lo mandamos directo a su nueva página URL
-                navigate(transportUrls[srv]);
               } else {
                 // Si es Tours, mantiene tu lógica original de abrir el catálogo
                 setServicioSeleccionado(srv); 
