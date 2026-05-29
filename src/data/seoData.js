@@ -93,30 +93,6 @@ export const toursLandingPages = [
     imageUrl: '/whale-shark-tour-la-paz.webp', // Asegúrate de que el nombre sea el mismo que en tu carpeta public
     desc: 'Swim alongside the gentle giants of the ocean in La Paz. A once-in-a-lifetime ecological adventure.',
     detalle: 'Experience the magic of swimming beside the largest fish in the sea.'
-  },
-  {
-    slug: 'private-shuttle-cabo-airport-to-hotel',
-    nombre: 'Private Airport to Hotel Shuttle',
-    tipo: 'AIRPORT TRANSPORT',
-    imageUrl: 'https://images.unsplash.com/photo-1559067515-bf7d799b6d4d?q=80&w=2000',
-    desc: 'Luxury private transportation from Los Cabos International Airport (SJD) directly to your resort.',
-    detalle: 'Start your vacation with zero stress. Our professional chauffeur will be waiting for you at the airport arrivals with a personalized sign, ready to escort you to a late-model luxury SUV. Avoid long lines and shared shuttles.'
-  },
-  {
-    slug: 'private-shuttle-hotel-to-cabo-airport',
-    nombre: 'Private Hotel to Airport Shuttle',
-    tipo: 'AIRPORT TRANSPORT',
-    imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2000',
-    desc: 'Seamless private transfer from your hotel lobby back to Los Cabos Airport.',
-    detalle: 'We ensure you arrive at the airport on time for your flight. Our driver will meet you at your resort lobby at the scheduled time, providing a smooth, climate-controlled ride in a premium vehicle.'
-  },
-  {
-    slug: 'round-trip-private-shuttle-cabo-airport',
-    nombre: 'Round-Trip Private Airport Shuttle',
-    tipo: 'AIRPORT TRANSPORT',
-    imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000',
-    desc: 'The complete luxury transport solution for your stay in Los Cabos.',
-    detalle: 'Book your arrival and departure together for total peace of mind. Experience the Ballard Tours standard of excellence with door-to-door service, bilingual drivers, and premium refreshments on both legs of your journey.'
   }
 ];
 

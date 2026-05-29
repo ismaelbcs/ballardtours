@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { collection, addDoc, query, where, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from './firebase';
@@ -1811,9 +1810,9 @@ export default function App() {
 
         // Definimos las URLs exactas para cada botón de transporte
         const transportUrls = {
-          aeropuerto_hotel: '/private-shuttle-cabo-airport-to-hotel',
-          hotel_aeropuerto: '/private-shuttle-hotel-to-cabo-airport',
-          redondo: '/round-trip-private-shuttle-cabo-airport'
+          aeropuerto_hotel: '/tours/private-shuttle-cabo-airport-to-hotel',
+          hotel_aeropuerto: '/tours/private-shuttle-hotel-to-cabo-airport',
+          redondo: '/tours/round-trip-private-shuttle-cabo-airport'
         };
 
         return (
