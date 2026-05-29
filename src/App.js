@@ -1804,39 +1804,38 @@ export default function App() {
     {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Ocupa 3 columnas) */}
     <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
             {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
-        const isTour = srv === 'tours';
-        const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
-        const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
-        const k = keys[srv];
+  const isTour = srv === 'tours';
+  const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
+  const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
+  const k = keys[srv];
 
-        return (
-          <button 
-            key={srv} 
-            onClick={() => { 
-              if (!isTour) {
-              } else {
-                // Si es Tours, mantiene tu lógica original de abrir el catálogo
-                setServicioSeleccionado(srv); 
-                setSubCategoria(''); 
-                avanzarPaso(); 
-              }
-            }} 
-            className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
-          >
-            {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-            <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
-              {icons[srv]}
-            </div>
-            
-            <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-            <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
-            
-            <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
-              {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
-            </div>
-          </button>
-        )
-      })}
+  return (
+    <button 
+      key={srv} 
+      onClick={() => { 
+        // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
+        setServicioSeleccionado(srv); 
+        // 2. Resetea subcategorías si aplica
+        setSubCategoria(''); 
+        // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
+        avanzarPaso(); 
+      }} 
+      className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
+    >
+      {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
+      <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
+        {icons[srv]}
+      </div>
+      
+      <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
+      <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+      
+      <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
+        {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
+      </div>
+    </button>
+  )
+})}
     </div>
 
   </div>
