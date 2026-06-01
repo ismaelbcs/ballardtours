@@ -38,18 +38,18 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
   const correoCliente = datosCliente.clienteEmail || 'N/A';
   const telefonoCliente = datosCliente.clienteTelefono || 'N/A';
   const metodoPago = datosCliente.paymentMethod === 'paypal' ? 'PayPal (Pagado)' : 'Efectivo al llegar';
-  
+
   // 2. Extraer datos generales
   const pasajeros = item.config?.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hotelPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax || item.config?.hhPax || 'N/A';
-  
+
   const aerolineaLlegada = item.flightInfo?.aerolineaLlegada || 'N/A';
   const vueloLlegada = item.flightInfo?.vueloLlegada || 'N/A';
   const horaLlegada = item.flightInfo?.horaLlegada || 'N/A';
-  
+
   const aerolineaSalida = item.flightInfo?.aerolineaSalida || 'N/A';
   const vueloSalida = item.flightInfo?.vueloSalida || 'N/A';
   const horaSalida = item.flightInfo?.horaSalida || 'N/A';
-  
+
   const pickup = item.flightInfo?.horaPickUp || item.extrasEspeciales?.cenaHora || item.extrasEspeciales?.hotelHora || item.extrasEspeciales?.golfHora || item.extrasEspeciales?.nightlifeHora || item.config?.hhHora || item.config?.cenaHora || item.config?.golfHora || item.config?.nightlifeHora || 'N/A';
 
   // 3. Generar la tabla de pasajeros SI ES UN TOUR
@@ -79,21 +79,21 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
 
   // A) RUTAS DE SERVICIOS ESPECIALES O HOTEL NORMAL
   if (item.tipoEspecial) {
-      let origenEspecial = item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || item.extrasEspeciales?.hotelOrigen || item.config?.hhOrigen || item.config?.hotelId || 'N/A';
-      if (origenEspecial.includes('|')) origenEspecial = origenEspecial.split('|')[0];
-      
-      let destinoLugar = item.extrasEspeciales?.cenaRestauranteNombre || item.extrasEspeciales?.golfNombre || item.extrasEspeciales?.nightlifeLugarNombre || item.extrasEspeciales?.hotelNombre || item.config?.hhDestino || 'N/A';
-      
-      let detallesHorarios = '';
-      if (item.tipoEspecial === 'cena') {
-          detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Hora Reserva: ${item.extrasEspeciales?.cenaHoraReserva || item.config?.cenaHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.cenaHoraRegreso || item.config?.cenaHoraRegreso || 'N/A'}</span>`;
-      } else if (item.tipoEspecial === 'golf') {
-          detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Tee Time: ${item.extrasEspeciales?.golfHoraReserva || item.config?.golfHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.golfHoraRegreso || item.config?.golfHoraRegreso || 'N/A'}</span>`;
-      } else if (item.tipoEspecial === 'nightlife') {
-          detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Llegada: ${item.extrasEspeciales?.nightlifeHoraReserva || item.config?.nightlifeHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.nightlifeHoraRegreso || item.config?.nightlifeHoraRegreso || 'N/A'}</span>`;
-      }
+    let origenEspecial = item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || item.extrasEspeciales?.hotelOrigen || item.config?.hhOrigen || item.config?.hotelId || 'N/A';
+    if (origenEspecial.includes('|')) origenEspecial = origenEspecial.split('|')[0];
 
-      logisticaHtml += `
+    let destinoLugar = item.extrasEspeciales?.cenaRestauranteNombre || item.extrasEspeciales?.golfNombre || item.extrasEspeciales?.nightlifeLugarNombre || item.extrasEspeciales?.hotelNombre || item.config?.hhDestino || 'N/A';
+
+    let detallesHorarios = '';
+    if (item.tipoEspecial === 'cena') {
+      detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Hora Reserva: ${item.extrasEspeciales?.cenaHoraReserva || item.config?.cenaHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.cenaHoraRegreso || item.config?.cenaHoraRegreso || 'N/A'}</span>`;
+    } else if (item.tipoEspecial === 'golf') {
+      detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Tee Time: ${item.extrasEspeciales?.golfHoraReserva || item.config?.golfHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.golfHoraRegreso || item.config?.golfHoraRegreso || 'N/A'}</span>`;
+    } else if (item.tipoEspecial === 'nightlife') {
+      detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Llegada: ${item.extrasEspeciales?.nightlifeHoraReserva || item.config?.nightlifeHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.nightlifeHoraRegreso || item.config?.nightlifeHoraRegreso || 'N/A'}</span>`;
+    }
+
+    logisticaHtml += `
         <tr style="border-bottom: 1px solid #f8fafc;">
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Cuadro de Recogida (Ruta):</td>
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">
@@ -104,9 +104,9 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
         </tr>
       `;
   } else if (item.servicio !== 'tours') {
-      let hotelNormal = item.config?.hotelId || 'N/A';
-      if (hotelNormal.includes('|')) hotelNormal = hotelNormal.split('|')[0];
-      logisticaHtml += `
+    let hotelNormal = item.config?.hotelId || 'N/A';
+    if (hotelNormal.includes('|')) hotelNormal = hotelNormal.split('|')[0];
+    logisticaHtml += `
         <tr style="border-bottom: 1px solid #f8fafc;">
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hotel / Destino:</td>
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${hotelNormal}</td>
@@ -116,7 +116,7 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
 
   // B) COMENTARIOS / LUGAR DE RECOGIDA (Especialmente para Tours)
   if (item.config?.comentarios) {
-      logisticaHtml += `
+    logisticaHtml += `
         <tr style="border-bottom: 1px solid #f8fafc;">
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Lugar de Recogida / Comentarios:</td>
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right; font-style: italic;">
@@ -137,7 +137,7 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
   if (item.config?.vinoEspumoso) extrasList.push(`🥂 Vino Espumoso`);
 
   if (extrasList.length > 0) {
-      logisticaHtml += `
+    logisticaHtml += `
         <tr style="border-bottom: 1px solid #f8fafc;">
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Extras Solicitados:</td>
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">
@@ -159,7 +159,7 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
 
   // E) VUELOS (Solo si es traslado de Aeropuerto)
   if (['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo'].includes(item.servicio)) {
-      logisticaHtml += `
+    logisticaHtml += `
         <tr style="border-bottom: 1px solid #f8fafc;">
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Aerolínea Llegada:</td>
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${aerolineaLlegada} (Vuelo: ${vueloLlegada})</td>
@@ -278,7 +278,7 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
 const generarHtmlCorreoCliente = (item, datosCliente, numConfirmacion) => {
   const nombreCliente = `${datosCliente.clienteNombre || ''} ${datosCliente.clienteApellidos || ''}`.trim() || 'Pasajero';
   const metodoPago = datosCliente.paymentMethod === 'paypal' ? 'PayPal (Pagado)' : 'Efectivo al llegar';
-  
+
   // Extraemos la logística general (reutilizamos la lógica del admin)
   const hotel = item.config?.hotelId || item.extrasEspeciales?.hotelOrigen || item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || 'N/A';
   const pasajeros = item.config?.pasajeros || item.extrasEspeciales?.cenaPax || item.extrasEspeciales?.hotelPax || item.extrasEspeciales?.golfPax || item.extrasEspeciales?.nightlifePax || item.config?.hhPax || 'N/A';
@@ -301,7 +301,7 @@ const generarHtmlCorreoCliente = (item, datosCliente, numConfirmacion) => {
     else if (item.servicio === 'tours') bgImg = 'https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?q=80&w=800';
 
     bgStyle = `background: linear-gradient(to bottom, rgba(30,58,138,0.7), rgba(30,58,138,0.85)), url('${bgImg}') center/cover no-repeat;`;
-    
+
     headerText = `
       <span style="font-size: 14px; font-weight: 500; opacity: 0.9;">Gracias por reservar con nosotros tu producto de</span><br/>
       <span style="font-size: 26px; font-weight: 900; letter-spacing: -0.5px; display: inline-block; margin-top: 5px;">${item.titulo}</span>
@@ -385,8 +385,8 @@ const generarHtmlCorreoCliente = (item, datosCliente, numConfirmacion) => {
 // 2. GENERADOR DE PLANTILLA HTML PARA MODIFICACIONES (ADMIN)
 // =========================================================
 const generarHtmlModificacionAdmin = (idModificar, datosModificar, costoDiferencia) => {
-  const avisoCosto = costoDiferencia > 0 
-    ? `<tr style="background-color: #fef08a;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309; width: 40%;">⚠️ PAGO EXTRA POR ZONA:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309; text-align: right;">$${costoDiferencia} USD (${datosModificar.metodoPagoExtra})</td></tr>` 
+  const avisoCosto = costoDiferencia > 0
+    ? `<tr style="background-color: #fef08a;"><td style="padding: 12px; font-weight: bold; border-bottom: 1px solid #e2e8f0; color: #b45309; width: 40%;">⚠️ PAGO EXTRA POR ZONA:</td><td style="padding: 12px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #b45309; text-align: right;">$${costoDiferencia} USD (${datosModificar.metodoPagoExtra})</td></tr>`
     : '';
 
   return `
@@ -867,21 +867,21 @@ export default function App() {
   };
 
   const procesarConfirmacion = (e) => {
- if (e && e.preventDefault) e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
 
- // RASTREADORES PARA LA CONSOLA
- console.log("🚨 PASO 1: ¡El clic del botón sí funciona!");
- console.log("🚨 PASO 2: Los datos del cliente son:", datosCliente);
+    // RASTREADORES PARA LA CONSOLA
+    console.log("🚨 PASO 1: ¡El clic del botón sí funciona!");
+    console.log("🚨 PASO 2: Los datos del cliente son:", datosCliente);
 
- // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
- const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
- const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
- const emailCliente = datosCliente.clienteEmail || datosCliente.email;
+    // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
+    const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
+    const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
+    const emailCliente = datosCliente.clienteEmail || datosCliente.email;
 
- // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
- if (appliedPromo) {
-   
-  // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
+    // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
+    if (appliedPromo) {
+
+      // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
       // Guardamos en Firebase que este usuario ya usó este código para bloquearlo en el futuro
       // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
       // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
@@ -891,79 +891,79 @@ export default function App() {
 
         const historialRef = collection(db, "cupones_usados");
         addDoc(historialRef, {
-          correo: emailUsuario, 
+          correo: emailUsuario,
           codigo: codigoLimpio
         })
-        .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
-        .catch(err => console.error("❌ Error al registrar el código como usado:", err));
+          .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
+          .catch(err => console.error("❌ Error al registrar el código como usado:", err));
       }
       // 👆 HASTA AQUÍ 👆
- }
- setProcesandoPago(true);
+    }
+    setProcesandoPago(true);
 
     // 👇 AQUÍ ESTÁ LA MAGIA: Quitamos el "async" y reordenamos
- setTimeout(async() => {
-    setProcesandoPago(false);
+    setTimeout(async () => {
+      setProcesandoPago(false);
 
-    const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
-    setNumConfirmacionGlobal(nuevoNumConfirmacion);
-    setCorreoAdminEnviado(false);
+      const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
+      setNumConfirmacionGlobal(nuevoNumConfirmacion);
+      setCorreoAdminEnviado(false);
 
-    // 1️⃣ ¡EL TRUCO! Avanzamos de paso INMEDIATAMENTE para no trabar al cliente
-    avanzarPaso();
+      // 1️⃣ ¡EL TRUCO! Avanzamos de paso INMEDIATAMENTE para no trabar al cliente
+      avanzarPaso();
 
-    try {
-      console.log("Preparando datos de correos para Firebase...");
-      
-      // ==========================================
-      // CORREO 1: PARA EL CLIENTE
-      // ==========================================
-      let indexCliente = 1;
-      for (const item of carrito) {
-        const docIdCliente = `${nuevoNumConfirmacion}_cliente_${indexCliente}`;
-        await setDoc(doc(db, "correos", docIdCliente), {
-          to: emailCliente || "reservationballard@gmail.com",
-          message: {
-            subject: `Confirmación de Reserva: ${item.titulo} - Ballard Tours`,
-            html: generarHtmlCorreoCliente(item, datosCliente, nuevoNumConfirmacion) 
-          }
-        });
-        indexCliente++;
-      }
+      try {
+        console.log("Preparando datos de correos para Firebase...");
 
-      // ==========================================
-      // CORREO 2: PARA LA EMPRESA
-      // ==========================================
-      let indexAdmin = 1;
-      for (const item of carrito) {
-        const docIdAdmin = `${nuevoNumConfirmacion}_admin_${indexAdmin}`;
-        await setDoc(doc(db, "correos", docIdAdmin), {
-          to: "reservationballard@gmail.com",
-          message: {
-            subject: `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`,
-            html: generarHtmlCorreoAdmin(item, datosCliente, nuevoNumConfirmacion) 
-          }
-        });
-        indexAdmin++;
-      }
+        // ==========================================
+        // CORREO 1: PARA EL CLIENTE
+        // ==========================================
+        let indexCliente = 1;
+        for (const item of carrito) {
+          const docIdCliente = `${nuevoNumConfirmacion}_cliente_${indexCliente}`;
+          await setDoc(doc(db, "correos", docIdCliente), {
+            to: emailCliente || "reservationballard@gmail.com",
+            message: {
+              subject: `Confirmación de Reserva: ${item.titulo} - Ballard Tours`,
+              html: generarHtmlCorreoCliente(item, datosCliente, nuevoNumConfirmacion)
+            }
+          });
+          indexCliente++;
+        }
 
-      // ==========================================
-      // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
-      // ==========================================
-      if (appliedPromo && (appliedPromo.CORREO || appliedPromo.correo)) {
-        const correoChofer = appliedPromo.CORREO || appliedPromo.correo;
-        const nombreChofer = appliedPromo.NOMBRE || appliedPromo.nombre || "Chofer";
-        const comision = carritoTotal * 0.10;
-        const serviciosResumen = carrito.map(item => item.titulo).join(', ');
-        const fechaServicio = carrito[0]?.config?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
-        
-        const docIdChofer = `${nuevoNumConfirmacion}_chofer_${appliedPromo.codigo}`;
-        
-        await setDoc(doc(db, "correos", docIdChofer), {
-          to: correoChofer,
-          message: {
-            subject: `¡Nueva Venta! Comisión Generada - Ballard Tours`,
-            html: `
+        // ==========================================
+        // CORREO 2: PARA LA EMPRESA
+        // ==========================================
+        let indexAdmin = 1;
+        for (const item of carrito) {
+          const docIdAdmin = `${nuevoNumConfirmacion}_admin_${indexAdmin}`;
+          await setDoc(doc(db, "correos", docIdAdmin), {
+            to: "reservationballard@gmail.com",
+            message: {
+              subject: `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`,
+              html: generarHtmlCorreoAdmin(item, datosCliente, nuevoNumConfirmacion)
+            }
+          });
+          indexAdmin++;
+        }
+
+        // ==========================================
+        // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
+        // ==========================================
+        if (appliedPromo && (appliedPromo.CORREO || appliedPromo.correo)) {
+          const correoChofer = appliedPromo.CORREO || appliedPromo.correo;
+          const nombreChofer = appliedPromo.NOMBRE || appliedPromo.nombre || "Chofer";
+          const comision = carritoTotal * 0.10;
+          const serviciosResumen = carrito.map(item => item.titulo).join(', ');
+          const fechaServicio = carrito[0]?.config?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
+
+          const docIdChofer = `${nuevoNumConfirmacion}_chofer_${appliedPromo.codigo}`;
+
+          await setDoc(doc(db, "correos", docIdChofer), {
+            to: correoChofer,
+            message: {
+              subject: `¡Nueva Venta! Comisión Generada - Ballard Tours`,
+              html: `
               <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
                 <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
                   
@@ -996,33 +996,33 @@ export default function App() {
                 </div>
               </div>
             `
-          }
-        });
+            }
+          });
+        }
+
+        console.log("✅ Correos registrados en Firebase exitosamente.");
+
+        // 👇 REGISTRO DE CUPONES USADOS 👇
+        if (appliedPromo && appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentUser) {
+          const emailUsuario = String(currentUser.email || currentUser.correo || "").trim().toLowerCase();
+          const codigoLimpio = String(appliedPromo.codigo).trim().toUpperCase();
+
+          // ID: correo_codigo (ej. frasfit@gmail.com_ISMAEL)
+          const docIdCupon = `${emailUsuario}_${codigoLimpio}`;
+
+          setDoc(doc(db, "cupones_usados", docIdCupon), {
+            correo: emailUsuario,
+            codigo: codigoLimpio
+          })
+            .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
+            .catch(err => console.error("❌ Error al registrar el código como usado:", err));
+        }
+        // 👆 HASTA AQUÍ 👆
+
+      } catch (error) {
+        console.error("❌ Error al registrar los correos en Firebase:", error);
       }
-
-      console.log("✅ Correos registrados en Firebase exitosamente.");
-
-      // 👇 REGISTRO DE CUPONES USADOS 👇
-      if (appliedPromo && appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentUser) {
-        const emailUsuario = String(currentUser.email || currentUser.correo || "").trim().toLowerCase();
-        const codigoLimpio = String(appliedPromo.codigo).trim().toUpperCase();
-        
-        // ID: correo_codigo (ej. frasfit@gmail.com_ISMAEL)
-        const docIdCupon = `${emailUsuario}_${codigoLimpio}`;
-
-        setDoc(doc(db, "cupones_usados", docIdCupon), {
-          correo: emailUsuario, 
-          codigo: codigoLimpio
-        })
-        .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
-        .catch(err => console.error("❌ Error al registrar el código como usado:", err));
-      }
-      // 👆 HASTA AQUÍ 👆
-
-    } catch (error) {
-      console.error("❌ Error al registrar los correos en Firebase:", error);
-    }
-  }, 500);
+    }, 500);
   };
 
   const regresarPaso = () => {
@@ -1062,11 +1062,11 @@ export default function App() {
       const historialRef = collection(db, "cupones_usados");
       const qHistorial = query(historialRef, where("correo", "==", emailUsuario), where("codigo", "==", codigoLimpio));
       const historialSnap = await getDocs(qHistorial);
-      
+
       if (!historialSnap.empty) {
         setPromoError('Ya has utilizado este código de descuento anteriormente.');
         setShowPromoModal(true);
-        return; 
+        return;
       }
       // 👆 FIN DE LA NUEVA REGLA
 
@@ -1143,7 +1143,7 @@ export default function App() {
 
   const seleccionarTourDesdeInicio = (tourId) => {
     const tour = tours.find(t => t.id === tourId);
-    
+
     // Si el tour tiene un enlace SEO (slug), lo mandamos a su landing page
     if (tour && tour.slug) {
       navigate(`/tours/${tour.slug}`);
@@ -1293,10 +1293,10 @@ export default function App() {
 
             <Link
               to="/"
-              onClick={() => { 
-                setPaso(1); 
-                limpiarFormularioActivo(); 
-                window.scrollTo(0, 0); 
+              onClick={() => {
+                setPaso(1);
+                limpiarFormularioActivo();
+                window.scrollTo(0, 0);
               }}
               className="hover:text-blue-900 transition-colors cursor-pointer"
             >
@@ -1751,154 +1751,154 @@ export default function App() {
 
     return (
       <div className="animate-fade-in max-w-7xl mx-auto">
-  <div className="text-center mb-10 max-w-3xl mx-auto mt-4">
-    {/* 🔥 GATILLO MENTAL DE URGENCIA Y PRUEBA SOCIAL 🔥 */}
-    <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 animate-pulse shadow-sm">
-      <span className="relative flex h-3 w-3">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-      </span>
-      High Demand: 85% of our Luxury SUVs are booked for this week.
-    </div>
+        <div className="text-center mb-10 max-w-3xl mx-auto mt-4">
+          {/* 🔥 GATILLO MENTAL DE URGENCIA Y PRUEBA SOCIAL 🔥 */}
+          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 animate-pulse shadow-sm">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            High Demand: 85% of our Luxury SUVs are booked for this week.
+          </div>
 
-    {/* El único H1 de tu página */}
-    <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">{t.step1.title}</h1>
-    <p className="text-gray-500 text-lg">{t.step1.subtitle}</p>
-  </div>
-
-  {/* CONTENEDOR PRINCIPAL: Divide la pantalla en 4 columnas en computadoras */}
-  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-24 items-start">
-    
-    {/* COLUMNA IZQUIERDA: Testimonios Sutiles de Facebook (Ocupa 1 columna) */}
-    <div className="lg:col-span-1 bg-gradient-to-b from-gray-50 to-white p-5 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-4 sticky top-6">
-      <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
-        <span className="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black tracking-tighter">fb</span>
-        <div>
-          <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider">Opiniones reales</h4>
-          <div className="flex text-yellow-400 text-xs">★★★★★</div>
+          {/* El único H1 de tu página */}
+          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">{t.step1.title}</h1>
+          <p className="text-gray-500 text-lg">{t.step1.subtitle}</p>
         </div>
-      </div>
 
-      {/* Comentario 1 */}
-      <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
-        <p className="text-gray-600 italic leading-relaxed">"Excellent service! The clear boat tour to the Arch was stunning and the airport shuttle was right on time. Highly recommended!"</p>
-        <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— Sarah M.</span>
-      </div>
+        {/* CONTENEDOR PRINCIPAL: Divide la pantalla en 4 columnas en computadoras */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-24 items-start">
 
-      {/* Comentario 2 */}
-      <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
-        <p className="text-gray-600 italic leading-relaxed">"Ballard Tours made our vacation seamless. Very clean luxury SUVs and friendly drivers. 5 stars!"</p>
-        <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— John D.</span>
-      </div>
+          {/* COLUMNA IZQUIERDA: Testimonios Sutiles de Facebook (Ocupa 1 columna) */}
+          <div className="lg:col-span-1 bg-gradient-to-b from-gray-50 to-white p-5 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-4 sticky top-6">
+            <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
+              <span className="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black tracking-tighter">fb</span>
+              <div>
+                <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider">Opiniones reales</h4>
+                <div className="flex text-yellow-400 text-xs">★★★★★</div>
+              </div>
+            </div>
 
-      <a 
-        href="https://www.facebook.com/ballardtours" // 👈 Ajusta si tienes link directo de reviews
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="text-center text-[11px] font-bold text-blue-900 hover:text-blue-700 transition-colors mt-1 underline"
-      >
-        Ver más en Facebook →
-      </a>
-    </div>
+            {/* Comentario 1 */}
+            <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
+              <p className="text-gray-600 italic leading-relaxed">"Excellent service! The clear boat tour to the Arch was stunning and the airport shuttle was right on time. Highly recommended!"</p>
+              <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— Sarah M.</span>
+            </div>
 
-    {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Ocupa 3 columnas) */}
-    <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
+            {/* Comentario 2 */}
+            <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
+              <p className="text-gray-600 italic leading-relaxed">"Ballard Tours made our vacation seamless. Very clean luxury SUVs and friendly drivers. 5 stars!"</p>
+              <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— John D.</span>
+            </div>
+
+            <a
+              href="https://www.facebook.com/ballardtours" // 👈 Ajusta si tienes link directo de reviews
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-center text-[11px] font-bold text-blue-900 hover:text-blue-700 transition-colors mt-1 underline"
+            >
+              Ver más en Facebook →
+            </a>
+          </div>
+
+          {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Ocupa 3 columnas) */}
+          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
             {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
-  const isTour = srv === 'tours';
-  const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
-  const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
-  const k = keys[srv];
+              const isTour = srv === 'tours';
+              const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
+              const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
+              const k = keys[srv];
 
-  return (
-    <button 
-      key={srv} 
-      onClick={() => { 
-        // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
-        setServicioSeleccionado(srv); 
-        // 2. Resetea subcategorías si aplica
-        setSubCategoria(''); 
-        // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
-        avanzarPaso(); 
-      }} 
-      className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
-    >
-      {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-      <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
-        {icons[srv]}
-      </div>
-      
-      <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-      <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
-      
-      <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
-        {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
-      </div>
-    </button>
-  )
-})}
-    </div>
+              return (
+                <button
+                  key={srv}
+                  onClick={() => {
+                    // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
+                    setServicioSeleccionado(srv);
+                    // 2. Resetea subcategorías si aplica
+                    setSubCategoria('');
+                    // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
+                    avanzarPaso();
+                  }}
+                  className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
+                >
+                  {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
+                  <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
+                    {icons[srv]}
+                  </div>
 
-  </div>
+                  <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
+                  <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
 
-            {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
-            {/* 🔥 SECCIÓN DE CONFIANZA LUXURY GOLD 🔥 */}
-            <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-24 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
-              
-              {/* El Sello Dorado en la esquina superior derecha */}
-              <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
-                <img 
-                  src="/logo-sello-dorado.png" // 👈 Asegúrate de subir tu logo circular aquí
-                  className="w-full h-full object-contain filter brightness-110" 
-                  alt="Seal of Trust"
-                />
+                  <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
+                    {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+
+        </div>
+
+        {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
+        {/* 🔥 SECCIÓN DE CONFIANZA LUXURY GOLD 🔥 */}
+        <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-24 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
+
+          {/* El Sello Dorado en la esquina superior derecha */}
+          <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
+            <img
+              src="/logo-sello-dorado.png" // 👈 Asegúrate de subir tu logo circular aquí
+              className="w-full h-full object-contain filter brightness-110"
+              alt="Seal of Trust"
+            />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+
+            {/* Columna de Texto Principal */}
+            <div className="lg:col-span-1">
+              <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
+                Why Trust Ballard Tours?
+              </h2>
+              <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
+                Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
+              </p>
+
+              {/* Botón Estilo Metálico */}
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
+                <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
+                <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
+              </div>
+            </div>
+
+            {/* Columna de Tarjetas de Beneficios */}
+            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              {/* Tarjeta 1: Certified Experts */}
+              <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
+                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
+                  <Users size={40} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
+                <p className="text-slate-400 text-sm leading-relaxed font-light">
+                  Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.
+                </p>
               </div>
 
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-                
-                {/* Columna de Texto Principal */}
-                <div className="lg:col-span-1">
-                  <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
-                    Why Trust Ballard Tours?
-                  </h2>
-                  <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
-                    Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
-                  </p>
-                  
-                  {/* Botón Estilo Metálico */}
-                  <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
-                    <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
-                    <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
-                  </div>
+              {/* Tarjeta 2: Luxury Fleet */}
+              <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
+                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
+                  <Car size={40} strokeWidth={1.5} />
                 </div>
-
-                {/* Columna de Tarjetas de Beneficios */}
-                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                  
-                  {/* Tarjeta 1: Certified Experts */}
-                  <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-                    <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
-                      <Users size={40} strokeWidth={1.5} />
-                    </div>
-                    <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed font-light">
-                      Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.
-                    </p>
-                  </div>
-
-                  {/* Tarjeta 2: Luxury Fleet */}
-                  <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-                    <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
-                      <Car size={40} strokeWidth={1.5} />
-                    </div>
-                    <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed font-light">
-                      Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.
-                    </p>
-                  </div>
-
-                </div>
+                <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
+                <p className="text-slate-400 text-sm leading-relaxed font-light">
+                  Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.
+                </p>
               </div>
-            </section>
+
+            </div>
+          </div>
+        </section>
 
 
 
@@ -2101,8 +2101,8 @@ export default function App() {
                             value={part.edad}
                             onChange={(e) => handleParticipanteChange(index, 'edad', e.target.value)}
                             className={`col-span-2 bg-white border rounded-lg p-2 text-sm outline-none transition-all ${part.edad && parseInt(part.edad) < (reserva.tourData?.edadMinima || 0)
-                                ? 'bg-red-50 border-red-500'
-                                : 'border-gray-200'
+                              ? 'bg-red-50 border-red-500'
+                              : 'border-gray-200'
                               }`}
                           />
                         </div>
@@ -2977,20 +2977,20 @@ export default function App() {
             {servicioSeleccionado === 'tours' && !reserva.tourId && subCategoria === 'tours' && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {tours.filter(tr => tr.activo).map(tr => (
-              <div key={tr.id} onClick={() => {
-                // Redirigir a la URL SEO si existe
-                if (tr.slug) {
-                  navigate(`/tours/${tr.slug}`);
-                  window.scrollTo(0, 0);
-                } else {
-                  setReserva(prev => ({ ...prev, tourId: tr.id, pasajeros: Math.max(prev.pasajeros, tr.minPax) }));
-                  setImagenTourDestacada(tr.imagenUrl);
-                }
-              }} className="group cursor-pointer border border-gray-200 rounded-2xl overflow-hidden hover:border-blue-900 hover:shadow-lg transition-all">
-                <div className="h-32 overflow-hidden relative"><img src={tr.imageUrl || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent flex items-end p-3"><span className="text-white font-bold text-lg">{tr.nombre[lang]}</span></div></div>
-                <div className="p-3 flex justify-between items-center bg-white"><span className="text-sm font-bold text-blue-900">${tr.precioPx} USD</span></div>
-              </div>
-            ))}
+                  <div key={tr.id} onClick={() => {
+                    // Redirigir a la URL SEO si existe
+                    if (tr.slug) {
+                      navigate(`/tours/${tr.slug}`);
+                      window.scrollTo(0, 0);
+                    } else {
+                      setReserva(prev => ({ ...prev, tourId: tr.id, pasajeros: Math.max(prev.pasajeros, tr.minPax) }));
+                      setImagenTourDestacada(tr.imagenUrl);
+                    }
+                  }} className="group cursor-pointer border border-gray-200 rounded-2xl overflow-hidden hover:border-blue-900 hover:shadow-lg transition-all">
+                    <div className="h-32 overflow-hidden relative"><img src={tr.imageUrl || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent flex items-end p-3"><span className="text-white font-bold text-lg">{tr.nombre[lang]}</span></div></div>
+                    <div className="p-3 flex justify-between items-center bg-white"><span className="text-sm font-bold text-blue-900">${tr.precioPx} USD</span></div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -3076,15 +3076,15 @@ export default function App() {
             </button>
             {showPaymentSelection ? (
               <>
-          {datosCliente.paymentMethod === 'cash' && (
-            <button
-              onClick={procesarConfirmacion}
-              disabled={procesandoPago}
-              className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex justify-center items-center transition shadow-lg disabled:opacity-50"
-            >
-              {procesandoPago ? t.step4.processing : t.step4.confirm_cash}
-            </button>
-          )}
+                {datosCliente.paymentMethod === 'cash' && (
+                  <button
+                    onClick={procesarConfirmacion}
+                    disabled={procesandoPago}
+                    className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex justify-center items-center transition shadow-lg disabled:opacity-50"
+                  >
+                    {procesandoPago ? t.step4.processing : t.step4.confirm_cash}
+                  </button>
+                )}
               </>
             ) : (
               <button
@@ -3348,8 +3348,8 @@ export default function App() {
 
       // 👇 AQUÍ EMPIEZA EL CÓDIGO NUEVO DE FIREBASE 👇
       const correosRef = collection(db, "correos");
-      
-      
+
+
       await addDoc(correosRef, {
         to: "reservationballard@gmail.com",
         message: {
@@ -4044,10 +4044,26 @@ export default function App() {
 
                           <button
                             onClick={() => {
+                              // 1. Seleccionamos el tipo de servicio
                               setServicioSeleccionado('aeropuerto_hotel');
-                              setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: 'suburban' }));
+
+                              // 2. Pre-cargamos los datos del hotel actual en el estado global
+                              setReserva(prev => ({
+                                ...prev,
+                                hotelId: hotel.nombre,
+                                zonaId: hotel.zona,
+                                vehiculo: 'suburban'
+                              }));
+
+                              // 3. Llenamos el input visual de búsqueda
                               setBusquedaHotelPrincipal(hotel.nombre);
-                              avanzarPaso();
+
+                              // --- ESTA ES LA SOLUCIÓN ---
+                              setPaso(2);       // 4. Forzamos la apertura del paso 2
+                              navigate('/');    // 5. Lo enviamos al Home donde vive el formulario
+                              // ---------------------------
+
+                              // 6. Subimos la pantalla arriba
                               window.scrollTo(0, 0);
                             }}
                             className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30"
@@ -4319,13 +4335,13 @@ export default function App() {
               } />
               {/* 🌊 GENERADOR DINÁMICO DE TOURS ESTRELLA */}
               {toursLandingPages.map((tour) => (
-  <Route key={tour.slug} path={`/tours/${tour.slug}`} element={
-    <div className="animate-fade-in bg-white pb-20 text-gray-700">
-      <Helmet>
-        <title>{tour.nombre} in Los Cabos | Ballard Tours</title>
-        <meta name="description" content={`Book the best ${tour.nombre} in Los Cabos. ${tour.desc} VIP service, certified guides, and best rates guaranteed.`} />
-        <script type="application/ld+json">
-          {`
+                <Route key={tour.slug} path={`/tours/${tour.slug}`} element={
+                  <div className="animate-fade-in bg-white pb-20 text-gray-700">
+                    <Helmet>
+                      <title>{tour.nombre} in Los Cabos | Ballard Tours</title>
+                      <meta name="description" content={`Book the best ${tour.nombre} in Los Cabos. ${tour.desc} VIP service, certified guides, and best rates guaranteed.`} />
+                      <script type="application/ld+json">
+                        {`
             {
               "@context": "https://schema.org",
               "@type": "TouristAttraction",
@@ -4337,597 +4353,597 @@ export default function App() {
               }
             }
           `}
-        </script>
-      </Helmet>
+                      </script>
+                    </Helmet>
 
-      {/* 👇 HEADER BLINDADO CON ETIQUETA IMG 👇 */}
-      <header className="relative bg-gray-900 text-white py-28 md:py-36 px-4 text-center overflow-hidden">
-        {/* 1. IMAGEN BLINDADA */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={tour.imageUrl || tour.imagenUrl || 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000'}
-            alt={tour.nombre}
-            className="w-full h-full object-cover opacity-60"
-          />
-        </div>
+                    {/* 👇 HEADER BLINDADO CON ETIQUETA IMG 👇 */}
+                    <header className="relative bg-gray-900 text-white py-28 md:py-36 px-4 text-center overflow-hidden">
+                      {/* 1. IMAGEN BLINDADA */}
+                      <div className="absolute inset-0 z-0">
+                        <img
+                          src={tour.imageUrl || tour.imagenUrl || 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000'}
+                          alt={tour.nombre}
+                          className="w-full h-full object-cover opacity-60"
+                        />
+                      </div>
 
-        {/* 2. OVERLAY AZUL */}
-        <div className="absolute inset-0 bg-blue-950/60 z-10"></div>
+                      {/* 2. OVERLAY AZUL */}
+                      <div className="absolute inset-0 bg-blue-950/60 z-10"></div>
 
-        {/* 3. CONTENIDO DEL HERO */}
-        <div className="relative max-w-4xl mx-auto z-20">
-          <span className="inline-block bg-blue-600/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest border border-blue-400/30">
-            {tour.tipo}
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight drop-shadow-xl">
-            {tour.nombre}
-          </h1>
-          <p className="text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md">
-            {tour.desc}
-          </p>
-        </div>
-      </header>
+                      {/* 3. CONTENIDO DEL HERO */}
+                      <div className="relative max-w-4xl mx-auto z-20">
+                        <span className="inline-block bg-blue-600/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest border border-blue-400/30">
+                          {tour.tipo}
+                        </span>
+                        <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight drop-shadow-xl">
+                          {tour.nombre}
+                        </h1>
+                        <p className="text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md">
+                          {tour.desc}
+                        </p>
+                      </div>
+                    </header>
 
-      {/* CONTENIDO Y CONVERSIÓN */}
-      <main className="max-w-5xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <div className="lg:col-span-2 space-y-8 text-lg leading-relaxed text-gray-600">
-          <h2 className="text-3xl font-black text-gray-900 border-b pb-4">Tour Overview</h2>
-          <p>{tour.detalle}</p>
+                    {/* CONTENIDO Y CONVERSIÓN */}
+                    <main className="max-w-5xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+                      <div className="lg:col-span-2 space-y-8 text-lg leading-relaxed text-gray-600">
+                        <h2 className="text-3xl font-black text-gray-900 border-b pb-4">Tour Overview</h2>
+                        <p>{tour.detalle}</p>
 
-          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 mt-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Why Book This Experience With Us?</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Private & VIP Focus:</strong> Avoid massive, crowded buses. We focus on small groups and personalized attention.</span></li>
-              <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Certified Guides:</strong> Bilingual experts who prioritize your safety and deliver unmatched local knowledge.</span></li>
-              <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Round-Trip Transportation:</strong> Hotel pick-up and drop-off included to the activity location.</span></li>
-            </ul>
-          </div>
-        </div>
+                        <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 mt-8">
+                          <h3 className="text-xl font-bold text-gray-900 mb-4">Why Book This Experience With Us?</h3>
+                          <ul className="space-y-3">
+                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Private & VIP Focus:</strong> Avoid massive, crowded buses. We focus on small groups and personalized attention.</span></li>
+                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Certified Guides:</strong> Bilingual experts who prioritize your safety and deliver unmatched local knowledge.</span></li>
+                            <li className="flex items-start gap-3"><CheckCircle className="text-green-500 shrink-0 mt-1" size={20} /> <span><strong>Round-Trip Transportation:</strong> Hotel pick-up and drop-off included to the activity location.</span></li>
+                          </ul>
+                        </div>
+                      </div>
 
-        {/* WIDGET DE RESERVA FLOTANTE */}
-        <div className="lg:col-span-1">
-          <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28">
-            <h3 className="text-2xl font-black text-gray-900 mb-2">Reserve Your Spot</h3>
-            <p className="text-gray-500 mb-6 text-sm">High demand for 2026 season. Secure your date now.</p>
+                      {/* WIDGET DE RESERVA FLOTANTE */}
+                      <div className="lg:col-span-1">
+                        <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28">
+                          <h3 className="text-2xl font-black text-gray-900 mb-2">Reserve Your Spot</h3>
+                          <p className="text-gray-500 mb-6 text-sm">High demand for 2026 season. Secure your date now.</p>
 
-            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex justify-between items-center mb-8">
-              <span className="font-bold text-blue-900">Starting at</span>
-              <span className="font-black text-blue-900 text-2xl">${tour.precio} <span className="text-sm font-normal">USD</span></span>
-            </div>
+                          <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex justify-between items-center mb-8">
+                            <span className="font-bold text-blue-900">Starting at</span>
+                            <span className="font-black text-blue-900 text-2xl">${tour.precio} <span className="text-sm font-normal">USD</span></span>
+                          </div>
 
-            <button
-              onClick={() => {
-                setServicioSeleccionado('tours');
-                const matchedTour = tours.find(t => t.slug === tour.slug);
-                if (matchedTour) {
-                  setReserva(prev => ({ ...prev, tourId: matchedTour.id, pasajeros: Math.max(prev.pasajeros || 1, matchedTour.minPax), shoppingStop: false }));
-                  setImagenTourDestacada(matchedTour.imagenUrl || matchedTour.imageUrl);
-                }
-                setPaso(2);
-                navigate("/");
-                window.scrollTo(0, 0);
-              }}
-              className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 uppercase tracking-wide"
-            >
-              Book This Tour <ChevronRight size={20} />
-            </button>
+                          <button
+                            onClick={() => {
+                              setServicioSeleccionado('tours');
+                              const matchedTour = tours.find(t => t.slug === tour.slug);
+                              if (matchedTour) {
+                                setReserva(prev => ({ ...prev, tourId: matchedTour.id, pasajeros: Math.max(prev.pasajeros || 1, matchedTour.minPax), shoppingStop: false }));
+                                setImagenTourDestacada(matchedTour.imagenUrl || matchedTour.imageUrl);
+                              }
+                              setPaso(2);
+                              navigate("/");
+                              window.scrollTo(0, 0);
+                            }}
+                            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 uppercase tracking-wide"
+                          >
+                            Book This Tour <ChevronRight size={20} />
+                          </button>
 
-            <p className="text-center text-xs text-gray-400 mt-4 font-bold flex justify-center items-center gap-1">
-              <CheckCircle size={14} className="text-green-500" /> Instant Confirmation
-            </p>
-          </div>
-        </div>
-      </main>
+                          <p className="text-center text-xs text-gray-400 mt-4 font-bold flex justify-center items-center gap-1">
+                            <CheckCircle size={14} className="text-green-500" /> Instant Confirmation
+                          </p>
+                        </div>
+                      </div>
+                    </main>
 
-      {/* ========================================================================= */}
-      {/* 🦈 CONDICIONAL 1: GUÍA DE TEXTO EXCLUSIVA PARA EL TIBURÓN BALLENA 🦈 */}
-      {/* ========================================================================= */}
-      {tour.slug === 'swim-with-whale-sharks-la-paz-cabo' && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            The Ultimate Guide to Private Whale Shark Tours in La Paz: <span className="text-blue-600">A VIP Experience</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>For travelers seeking the extraordinary, few marine encounters match the sheer majesty of swimming alongside the largest fish in the ocean. A private whale shark excursion from Cabo San Lucas to the tranquil waters of La Paz is more than a simple day trip—it is a bucket-list journey into a pristine marine sanctuary.</p>
-            <p>When you book a premium experience, you bypass the crowded commercial boats and strict constraints of standard group travel. At <strong>Ballard Tours</strong>, we transform this ecological marvel into a seamlessly coordinated, luxury excursion. From your private resort pick-up in a late-model luxury SUV to stepping aboard a certified private vessel, every detail is engineered for safety, comfort, and absolute exclusivity.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* 🦈 CONDICIONAL 1: GUÍA DE TEXTO EXCLUSIVA PARA EL TIBURÓN BALLENA 🦈 */}
+                    {/* ========================================================================= */}
+                    {tour.slug === 'swim-with-whale-sharks-la-paz-cabo' && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          The Ultimate Guide to Private Whale Shark Tours in La Paz: <span className="text-blue-600">A VIP Experience</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>For travelers seeking the extraordinary, few marine encounters match the sheer majesty of swimming alongside the largest fish in the ocean. A private whale shark excursion from Cabo San Lucas to the tranquil waters of La Paz is more than a simple day trip—it is a bucket-list journey into a pristine marine sanctuary.</p>
+                          <p>When you book a premium experience, you bypass the crowded commercial boats and strict constraints of standard group travel. At <strong>Ballard Tours</strong>, we transform this ecological marvel into a seamlessly coordinated, luxury excursion. From your private resort pick-up in a late-model luxury SUV to stepping aboard a certified private vessel, every detail is engineered for safety, comfort, and absolute exclusivity.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                The Sea of Cortez is internationally recognized as the "Aquarium of the World." Within this rich ecosystem, the Bay of La Paz serves as a critical feeding ground for juvenile whale sharks. Choosing a private tour ensures that your encounter with these magnificent filter-feeders is intimate and respectful of local conservation laws.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Encounter Step-by-Step</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Once a whale shark is sighted, your marine biologist guide coordinates a controlled, soft water entry. Slipping into the calm, emerald water, you will find yourself swimming alongside a creature the size of a school bus. Following your aquatic session, your driver will escort you to a hand-picked restaurant along the historic Malecón.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              The Sea of Cortez is internationally recognized as the "Aquarium of the World." Within this rich ecosystem, the Bay of La Paz serves as a critical feeding ground for juvenile whale sharks. Choosing a private tour ensures that your encounter with these magnificent filter-feeders is intimate and respectful of local conservation laws.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Encounter Step-by-Step</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Once a whale shark is sighted, your marine biologist guide coordinates a controlled, soft water entry. Slipping into the calm, emerald water, you will find yourself swimming alongside a creature the size of a school bus. Following your aquatic session, your driver will escort you to a hand-picked restaurant along the historic Malecón.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Best Time for Whale Shark Tours La Paz</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Peak Season</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">November to April</span>
-              </div>
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Early Season</span>
-                <span className="text-gray-400">October</span>
-              </div>
-              <div className="flex justify-between items-center text-red-400">
-                <span className="font-bold">Off-Season</span>
-                <span className="italic">May to September (Closed for Regeneration)</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Best Time for Whale Shark Tours La Paz</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Peak Season</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">November to April</span>
+                            </div>
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Early Season</span>
+                              <span className="text-gray-400">October</span>
+                            </div>
+                            <div className="flex justify-between items-center text-red-400">
+                              <span className="font-bold">Off-Season</span>
+                              <span className="italic">May to September (Closed for Regeneration)</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">How much does a private tour cost?</h4>
-                  <p className="text-sm text-gray-500">Excursions vary by group size. We provide transparent flat rates covering luxury private transport, park fees, boat charters, and premium gear.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can children participate?</h4>
-                  <p className="text-sm text-gray-500">Yes. Children aged 4 and older who are comfortable in open water can safely participate under the close supervision of our expert guides.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Is it safe to swim next to them?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. Despite being sharks, whale sharks are entirely harmless filter-feeders. They have no sharp teeth, move at peaceful speeds, and display a calm nature.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can I combine tours?</h4>
-                  <p className="text-sm text-gray-500">Yes, pairing your whale shark swim with an Isla Espiritu Santo Private Tour is the ultimate way to maximize a single-day expedition into Baja's sanctuaries.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">How much does a private tour cost?</h4>
+                                <p className="text-sm text-gray-500">Excursions vary by group size. We provide transparent flat rates covering luxury private transport, park fees, boat charters, and premium gear.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can children participate?</h4>
+                                <p className="text-sm text-gray-500">Yes. Children aged 4 and older who are comfortable in open water can safely participate under the close supervision of our expert guides.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Is it safe to swim next to them?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. Despite being sharks, whale sharks are entirely harmless filter-feeders. They have no sharp teeth, move at peaceful speeds, and display a calm nature.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can I combine tours?</h4>
+                                <p className="text-sm text-gray-500">Yes, pairing your whale shark swim with an Isla Espiritu Santo Private Tour is the ultimate way to maximize a single-day expedition into Baja's sanctuaries.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-      {/* ========================================================================= */}
-      {/* 🏝️ CONDICIONAL 2: GUÍA DE TEXTO EXCLUSIVA PARA ISLA ESPÍRITU SANTO 🏝️ */}
-      {/* ========================================================================= */}
-      {(tour.slug === 'espiritu-santo-island-tour-from-cabo' || tour.slug === 'espiritu-santo-island-tour-from-la-paz') && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            Isla Espiritu Santo Private Tour: <span className="text-blue-600">The Ultimate Luxury Day Trip from Cabo</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>For discerning travelers seeking an untouched marine paradise, a journey to Espiritu Santo Island is the crown jewel of Baja California Sur. Located in the Sea of Cortez, this UNESCO World Heritage bio-reserve is a majestic sanctuary of dramatic red volcanic cliffs, turquoise waters, and thriving marine life.</p>
-            <p>An Isla Espiritu Santo private tour from Cabo San Lucas is not just an excursion—it is an exclusive luxury day trip designed for those who demand privacy, premium comfort, and world-class eco-adventure. At <strong>Ballard Tours</strong>, we handle the entire day's logistics seamlessly.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* 🏝️ CONDICIONAL 2: GUÍA DE TEXTO EXCLUSIVA PARA ISLA ESPÍRITU SANTO 🏝️ */}
+                    {/* ========================================================================= */}
+                    {(tour.slug === 'espiritu-santo-island-tour-from-cabo' || tour.slug === 'espiritu-santo-island-tour-from-la-paz') && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          Isla Espiritu Santo Private Tour: <span className="text-blue-600">The Ultimate Luxury Day Trip from Cabo</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>For discerning travelers seeking an untouched marine paradise, a journey to Espiritu Santo Island is the crown jewel of Baja California Sur. Located in the Sea of Cortez, this UNESCO World Heritage bio-reserve is a majestic sanctuary of dramatic red volcanic cliffs, turquoise waters, and thriving marine life.</p>
+                          <p>An Isla Espiritu Santo private tour from Cabo San Lucas is not just an excursion—it is an exclusive luxury day trip designed for those who demand privacy, premium comfort, and world-class eco-adventure. At <strong>Ballard Tours</strong>, we handle the entire day's logistics seamlessly.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Espiritu Santo Island is widely considered the most beautiful island in the Sea of Cortez. Choosing a private tour instead of a crowded public boat is critical for a high-end experience. A private boat charter grants you absolute freedom to swim at your own pace and enjoy a secluded gourmet beach picnic.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Luxury Private Transport</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Your expedition begins with a morning pick-up directly at your hotel's motor lobby. A professional, bilingual private driver from Ballard Tours will arrive in a late-model, climate-controlled luxury SUV, ensuring gate clearance at high-end resorts like Nobu or Hard Rock Hotel.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Espiritu Santo Island is widely considered the most beautiful island in the Sea of Cortez. Choosing a private tour instead of a crowded public boat is critical for a high-end experience. A private boat charter grants you absolute freedom to swim at your own pace and enjoy a secluded gourmet beach picnic.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Luxury Private Transport</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Your expedition begins with a morning pick-up directly at your hotel's motor lobby. A professional, bilingual private driver from Ballard Tours will arrive in a late-model, climate-controlled luxury SUV, ensuring gate clearance at high-end resorts like Nobu or Hard Rock Hotel.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Best Time for an Isla Espiritu Santo Day Trip</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Summer & Autumn (July to October)</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Pristine clarity & Warm waters (85°F)</span>
-              </div>
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Winter & Spring (November to May)</span>
-                <span className="text-gray-400">Pleasant weather (Wetsuits provided)</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-400">
-                <span className="font-bold">Sea Lion Nursery Note</span>
-                <span className="italic">Closed for swimming June/July (Island stays open)</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Best Time for an Isla Espiritu Santo Day Trip</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Summer & Autumn (July to October)</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Pristine clarity & Warm waters (85°F)</span>
+                            </div>
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Winter & Spring (November to May)</span>
+                              <span className="text-gray-400">Pleasant weather (Wetsuits provided)</span>
+                            </div>
+                            <div className="flex justify-between items-center text-amber-400">
+                              <span className="font-bold">Sea Lion Nursery Note</span>
+                              <span className="italic">Closed for swimming June/July (Island stays open)</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can I combine it with a whale shark swim?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. Many clients choose to pair this island cruise with our Whale Shark Tours La Paz into a custom multi-activity private day trip.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">How long is the boat ride?</h4>
-                  <p className="text-sm text-gray-500">It takes approximately 45 to 60 minutes to reach the island from La Paz marina. The entire charter portion lasts between 5 to 6 hours.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Is this tour suitable for families?</h4>
-                  <p className="text-sm text-gray-500">Yes. Because our tours are 100% private, we customize the pace. Shallow, wave-free waters like Ensenada Grande act as a safe natural pool.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">What is included in the excursion?</h4>
-                  <p className="text-sm text-gray-500">Round-trip private transport in a premium SUV, certified marine guide, private boat charter, park permits, snorkeling gear, and gourmet lunch.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can I combine it with a whale shark swim?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. Many clients choose to pair this island cruise with our Whale Shark Tours La Paz into a custom multi-activity private day trip.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">How long is the boat ride?</h4>
+                                <p className="text-sm text-gray-500">It takes approximately 45 to 60 minutes to reach the island from La Paz marina. The entire charter portion lasts between 5 to 6 hours.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Is this tour suitable for families?</h4>
+                                <p className="text-sm text-gray-500">Yes. Because our tours are 100% private, we customize the pace. Shallow, wave-free waters like Ensenada Grande act as a safe natural pool.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">What is included in the excursion?</h4>
+                                <p className="text-sm text-gray-500">Round-trip private transport in a premium SUV, certified marine guide, private boat charter, park permits, snorkeling gear, and gourmet lunch.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-      {/* ========================================================================= */}
-      {/* 🎨 CONDICIONAL 3: GUÍA DE TEXTO EXCLUSIVA PARA EL ART WALK 🎨 */}
-      {/* ========================================================================= */}
-      {tour.slug === 'san-jose-del-cabo-art-walk' && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            San Jose del Cabo Art Walk Guide: <span className="text-blue-600">The Ultimate Private Cultural Tour</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>For luxury travelers seeking an elegant escape from the high-energy marina of Cabo San Lucas, the historic Gallery District of San Jose del Cabo offers a sophisticated cultural sanctuary. Every Thursday evening between November and May, the cobblestone streets behind the town’s iconic 18th-century mission church come alive with world-class artists, sculptors, and musicians.</p>
-            <p>Experiencing the famous San Jose del Cabo Art Walk via a private cultural tour is the definitive way to immerse yourself in Baja’s elite art scene. At Ballard Tours, we elevate this evening stroll into a flawlessly curated VIP experience. From private door-to-door luxury transportation in a pristine SUV to having a dedicated local guide who connects you with gallery owners and master artists, we ensure your cultural evening is intimate, safe, and deeply inspiring.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* 🎨 CONDICIONAL 3: GUÍA DE TEXTO EXCLUSIVA PARA EL ART WALK 🎨 */}
+                    {/* ========================================================================= */}
+                    {tour.slug === 'san-jose-del-cabo-art-walk' && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          San Jose del Cabo Art Walk Guide: <span className="text-blue-600">The Ultimate Private Cultural Tour</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>For luxury travelers seeking an elegant escape from the high-energy marina of Cabo San Lucas, the historic Gallery District of San Jose del Cabo offers a sophisticated cultural sanctuary. Every Thursday evening between November and May, the cobblestone streets behind the town’s iconic 18th-century mission church come alive with world-class artists, sculptors, and musicians.</p>
+                          <p>Experiencing the famous San Jose del Cabo Art Walk via a private cultural tour is the definitive way to immerse yourself in Baja’s elite art scene. At Ballard Tours, we elevate this evening stroll into a flawlessly curated VIP experience. From private door-to-door luxury transportation in a pristine SUV to having a dedicated local guide who connects you with gallery owners and master artists, we ensure your cultural evening is intimate, safe, and deeply inspiring.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                The San Jose del Cabo Art Walk is recognized as the premier cultural event in Baja California Sur. The Gallery District serves as a vibrant hub for high-end contemporary art, traditional Mexican folk art, fine jewelry, and large-scale sculptures. During this weekly event, vehicular traffic is completely closed on the main streets, transforming the neighborhood into an open-air pedestrian gallery.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Luxury Logistics</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Our private door-to-door service is highly valued by guests staying at exclusive luxury resorts in the Pacific Zone, such as Nobu Hotel Los Cabos or Hard Rock Hotel Los Cabos. Having a dedicated private driver completely eliminates travel fatigue, ensuring gate clearance and a relaxing ride back to your hotel at midnight.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              The San Jose del Cabo Art Walk is recognized as the premier cultural event in Baja California Sur. The Gallery District serves as a vibrant hub for high-end contemporary art, traditional Mexican folk art, fine jewelry, and large-scale sculptures. During this weekly event, vehicular traffic is completely closed on the main streets, transforming the neighborhood into an open-air pedestrian gallery.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Luxury Logistics</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Our private door-to-door service is highly valued by guests staying at exclusive luxury resorts in the Pacific Zone, such as Nobu Hotel Los Cabos or Hard Rock Hotel Los Cabos. Having a dedicated private driver completely eliminates travel fatigue, ensuring gate clearance and a relaxing ride back to your hotel at midnight.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Official Art Walk Calendar</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Official Art Walk Season</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Thursday Nights (5:00 PM - 9:00 PM) From November to May</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-400">
-                <span className="font-bold">Summer Off-Season Note</span>
-                <span className="italic">June to October (Galleries open inside for private viewings)</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Official Art Walk Calendar</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Official Art Walk Season</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Thursday Nights (5:00 PM - 9:00 PM) From November to May</span>
+                            </div>
+                            <div className="flex justify-between items-center text-amber-400">
+                              <span className="font-bold">Summer Off-Season Note</span>
+                              <span className="italic">June to October (Galleries open inside for private viewings)</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can I combine it with an adventure tour?</h4>
-                  <p className="text-sm text-gray-500">Yes. Many guests spend their morning experiencing a high-octane Off-Road ATV Tour, return to their resort to refresh, and then have our private driver pick them up for an elegant evening at the Art Walk.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Is it suitable for families?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. The pedestrian-only streets create a safe, welcoming family environment. Children thoroughly enjoy the colorful street performers, live musicians, and ice cream shops.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">What happens if I buy a large artwork?</h4>
-                  <p className="text-sm text-gray-500">The high-end galleries handle professional packing, customs paperwork, and secure international shipping directly to your home. Our vehicles also have ample cargo space.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">How long is the private cultural excursion?</h4>
-                  <p className="text-sm text-gray-500">The typical private Art Walk experience lasts between 4 to 6 hours, covering round-trip private transit, gallery exploration, and fine dining time.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can I combine it with an adventure tour?</h4>
+                                <p className="text-sm text-gray-500">Yes. Many guests spend their morning experiencing a high-octane Off-Road ATV Tour, return to their resort to refresh, and then have our private driver pick them up for an elegant evening at the Art Walk.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Is it suitable for families?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. The pedestrian-only streets create a safe, welcoming family environment. Children thoroughly enjoy the colorful street performers, live musicians, and ice cream shops.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">What happens if I buy a large artwork?</h4>
+                                <p className="text-sm text-gray-500">The high-end galleries handle professional packing, customs paperwork, and secure international shipping directly to your home. Our vehicles also have ample cargo space.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">How long is the private cultural excursion?</h4>
+                                <p className="text-sm text-gray-500">The typical private Art Walk experience lasts between 4 to 6 hours, covering round-trip private transit, gallery exploration, and fine dining time.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-      {/* ========================================================================= */}
-      {/* ⛵ CONDICIONAL 4: GUÍA DE TEXTO EXCLUSIVA PARA EL BOTE TRANSPARENTE ⛵ */}
-      {/* ========================================================================= */}
-      {tour.slug === 'clear-boat-tour-cabo-san-lucas-arch' && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            Cabo San Lucas Arch Boat Tour: <span className="text-blue-600">The Ultimate Private Clear Boat Experience</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>No journey to the edge of the Baja Peninsula is truly complete without witnessing the majestic stone monolithic arch where the Sea of Cortez officially meets the Pacific Ocean. Known globally as Land's End, this dramatic geographical marvel is the undisputed icon of Los Cabos.</p>
-            <p>While there are countless standard water taxis crowding the marina, experiencing a Cabo San Lucas Arch boat tour via an exclusive, 100% private clear boat tour is the definitive way to elevate this landmark excursion into a luxury adventure. At Ballard Tours, we remove the friction of public crowds. From private door-to-door transportation in a late-model luxury SUV to stepping onto a cutting-edge vessel completely crafted from transparent military-grade crystal polymers, we ensure your voyage to El Arco is intimate, sophisticated, and visually stunning.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* ⛵ CONDICIONAL 4: GUÍA DE TEXTO EXCLUSIVA PARA EL BOTE TRANSPARENTE ⛵ */}
+                    {/* ========================================================================= */}
+                    {tour.slug === 'clear-boat-tour-cabo-san-lucas-arch' && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          Cabo San Lucas Arch Boat Tour: <span className="text-blue-600">The Ultimate Private Clear Boat Experience</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>No journey to the edge of the Baja Peninsula is truly complete without witnessing the majestic stone monolithic arch where the Sea of Cortez officially meets the Pacific Ocean. Known globally as Land's End, this dramatic geographical marvel is the undisputed icon of Los Cabos.</p>
+                          <p>While there are countless standard water taxis crowding the marina, experiencing a Cabo San Lucas Arch boat tour via an exclusive, 100% private clear boat tour is the definitive way to elevate this landmark excursion into a luxury adventure. At Ballard Tours, we remove the friction of public crowds. From private door-to-door transportation in a late-model luxury SUV to stepping onto a cutting-edge vessel completely crafted from transparent military-grade crystal polymers, we ensure your voyage to El Arco is intimate, sophisticated, and visually stunning.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Unlike traditional glass-bottom boats that only offer a small window beneath your feet, our premium vessels are entirely transparent, offering a true 360-degree panoramic view of both the surrounding rock formations and the rich marine world bustling directly beneath your seat.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Pristine Sightlines</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Instead of fighting for a viewing angle on a packed public boat, you have exclusive access to the vessel's deck. Your expert captain can position the boat smoothly to catch the perfect lighting, pausing at each landmark so you can absorb the raw energy at an unhurried pace.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Experience Overview</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Unlike traditional glass-bottom boats that only offer a small window beneath your feet, our premium vessels are entirely transparent, offering a true 360-degree panoramic view of both the surrounding rock formations and the rich marine world bustling directly beneath your seat.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Pristine Sightlines</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Instead of fighting for a viewing angle on a packed public boat, you have exclusive access to the vessel's deck. Your expert captain can position the boat smoothly to catch the perfect lighting, pausing at each landmark so you can absorb the raw energy at an unhurried pace.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Best Light & Ocean Conditions</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Morning Charters (8:00 AM - 11:00 AM)</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Optimal visibility & Calmer sea conditions</span>
-              </div>
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Sunset Cruises (4:30 PM - 6:30 PM)</span>
-                <span className="text-gray-400">Ideal for romance & dramatic photography</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-400">
-                <span className="font-bold">Winter Whale Bonus</span>
-                <span className="italic">December to April (Humpback whales frequently breach outside the bay)</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Best Light & Ocean Conditions</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Morning Charters (8:00 AM - 11:00 AM)</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Optimal visibility & Calmer sea conditions</span>
+                            </div>
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Sunset Cruises (4:30 PM - 6:30 PM)</span>
+                              <span className="text-gray-400">Ideal for romance & dramatic photography</span>
+                            </div>
+                            <div className="flex justify-between items-center text-amber-400">
+                              <span className="font-bold">Winter Whale Bonus</span>
+                              <span className="italic">December to April (Humpback whales frequently breach outside the bay)</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can I get off at Lovers Beach?</h4>
-                  <p className="text-sm text-gray-500">Federal regulations restrict transparent clear boats from beach landings to protect the hull from sand scratching. Our tour is a smooth, continuous private cruise providing panoramic views safely from the vessel.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with snorkeling?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. You can view the iconic Land's End landmark from our transparent clear boat and then proceed directly to swimmable bays like Chileno or Santa Maria for a guided underwater exploration.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Is it safe for passengers prone to seasickness?</h4>
-                  <p className="text-sm text-gray-500">Yes. The waters inside Cabo San Lucas bay are generally calm. Our experienced captains monitor local conditions constantly and keep the vessel in stable, secure waters throughout the tour.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">How long does the tour last?</h4>
-                  <p className="text-sm text-gray-500">The boat cruise itself lasts approximately 45 to 60 minutes. Including the round-trip private transport from your luxury resort, the entire door-to-door excursion spans roughly 2 to 3 hours.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can I get off at Lovers Beach?</h4>
+                                <p className="text-sm text-gray-500">Federal regulations restrict transparent clear boats from beach landings to protect the hull from sand scratching. Our tour is a smooth, continuous private cruise providing panoramic views safely from the vessel.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can we combine it with snorkeling?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. You can view the iconic Land's End landmark from our transparent clear boat and then proceed directly to swimmable bays like Chileno or Santa Maria for a guided underwater exploration.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Is it safe for passengers prone to seasickness?</h4>
+                                <p className="text-sm text-gray-500">Yes. The waters inside Cabo San Lucas bay are generally calm. Our experienced captains monitor local conditions constantly and keep the vessel in stable, secure waters throughout the tour.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">How long does the tour last?</h4>
+                                <p className="text-sm text-gray-500">The boat cruise itself lasts approximately 45 to 60 minutes. Including the round-trip private transport from your luxury resort, the entire door-to-door excursion spans roughly 2 to 3 hours.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-      {/* ========================================================================= */}
-      {/* 🤿 CONDICIONAL 5: GUÍA DE TEXTO EXCLUSIVA PARA SNORKEL 🤿 */}
-      {/* ========================================================================= */}
-      {tour.slug === 'vip-snorkeling-sea-scooter-cabo-san-lucas' && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            Best Snorkeling in Los Cabos: <span className="text-blue-600">The Ultimate Private Snorkel Charter Guide</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>For travelers wanting to immerse themselves in the pristine marine life of Baja California Sur, exploring the calm, azure bays of the Sea of Cortez is an absolute must. Dubbed the "Aquarium of the World" by legendary oceanographer Jacques Cousteau, the coastal waters of Los Cabos boast an incredible biodiversity, home to hundreds of species of tropical fish, sea fans, and bright coral reefs.</p>
-            <p>While public catamaran tours pack dozens of tourists onto a single deck, experiencing the best snorkeling in Los Cabos via an exclusive, private snorkel charter ensures unmatched comfort, privacy, and flexibility. At Ballard Tours, we remove the stress of rigid commercial scheduling. From round-trip transportation to having a certified private marine guide custom-tailor the aquatic session to your swimming level, we guarantee a sophisticated 5-star ocean safari.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* 🤿 CONDICIONAL 5: GUÍA DE TEXTO EXCLUSIVA PARA SNORKEL 🤿 */}
+                    {/* ========================================================================= */}
+                    {tour.slug === 'vip-snorkeling-sea-scooter-cabo-san-lucas' && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          Best Snorkeling in Los Cabos: <span className="text-blue-600">The Ultimate Private Snorkel Charter Guide</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>For travelers wanting to immerse themselves in the pristine marine life of Baja California Sur, exploring the calm, azure bays of the Sea of Cortez is an absolute must. Dubbed the "Aquarium of the World" by legendary oceanographer Jacques Cousteau, the coastal waters of Los Cabos boast an incredible biodiversity, home to hundreds of species of tropical fish, sea fans, and bright coral reefs.</p>
+                          <p>While public catamaran tours pack dozens of tourists onto a single deck, experiencing the best snorkeling in Los Cabos via an exclusive, private snorkel charter ensures unmatched comfort, privacy, and flexibility. At Ballard Tours, we remove the stress of rigid commercial scheduling. From round-trip transportation to having a certified private marine guide custom-tailor the aquatic session to your swimming level, we guarantee a sophisticated 5-star ocean safari.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Protected Marine Sanctuaries</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                The destination features two world-renowned coves: Santa Maria Bay and Chileno Bay. Both are certified with international Blue Flag status, meaning they boast crystal-clear water conditions, immaculate white sand, and strict ecological protections.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Private vs Public</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                On a public vessel, water entries are often rushed and noisy, scaring away wildlife. A private Ballard Tours excursion grants your party exclusive attention from our bilingual marine naturalists, ensuring non-swimmers or children feel completely secure with top-tier flotation equipment.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Protected Marine Sanctuaries</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              The destination features two world-renowned coves: Santa Maria Bay and Chileno Bay. Both are certified with international Blue Flag status, meaning they boast crystal-clear water conditions, immaculate white sand, and strict ecological protections.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">Private vs Public</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              On a public vessel, water entries are often rushed and noisy, scaring away wildlife. A private Ballard Tours excursion grants your party exclusive attention from our bilingual marine naturalists, ensuring non-swimmers or children feel completely secure with top-tier flotation equipment.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Optimizing for Water Clarity</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Autumn Peak (September to November)</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Ocean hit 80°F to 85°F & Visibility exceeds 100 feet</span>
-              </div>
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Winter & Spring (December to April)</span>
-                <span className="text-gray-400">Cooler waters (wetsuits provided) with humpback whale songs echoing underwater</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-400">
-                <span className="font-bold">Summer Transition (May to August)</span>
-                <span className="italic">High air temperatures and incredibly calm bays, perfect for families</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Optimizing for Water Clarity</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Autumn Peak (September to November)</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Ocean hit 80°F to 85°F & Visibility exceeds 100 feet</span>
+                            </div>
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Winter & Spring (December to April)</span>
+                              <span className="text-gray-400">Cooler waters (wetsuits provided) with humpback whale songs echoing underwater</span>
+                            </div>
+                            <div className="flex justify-between items-center text-amber-400">
+                              <span className="font-bold">Summer Transition (May to August)</span>
+                              <span className="italic">High air temperatures and incredibly calm bays, perfect for families</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can non-swimmers participate?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. We move completely at your family's pace and provide specialized high-buoyancy vests, snorkel belts, and clear-bottom floating boogie boards for small children.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Chileno Bay or Santa Maria Bay?</h4>
-                  <p className="text-sm text-gray-500">Santa Maria features dramatic rocky walls attracting massive schools of fish, while Chileno features a shallow reef bed famous for sea turtles. Our charter safely covers both bays.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">What is the difference with public tours?</h4>
-                  <p className="text-sm text-gray-500">Public tours operate with 50+ passengers and strict time limits. A Ballard Tours excursion provides round-trip transport, zero waiting lines, a dedicated guide, and full control over your swim time.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with the Arch?</h4>
-                  <p className="text-sm text-gray-500">Yes, it is highly popular. You can view the iconic Land's End landmark from our transparent clear boat and then proceed directly to the swimmable bays for a guided underwater exploration.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can non-swimmers participate?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. We move completely at your family's pace and provide specialized high-buoyancy vests, snorkel belts, and clear-bottom floating boogie boards for small children.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Chileno Bay or Santa Maria Bay?</h4>
+                                <p className="text-sm text-gray-500">Santa Maria features dramatic rocky walls attracting massive schools of fish, while Chileno features a shallow reef bed famous for sea turtles. Our charter safely covers both bays.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">What is the difference with public tours?</h4>
+                                <p className="text-sm text-gray-500">Public tours operate with 50+ passengers and strict time limits. A Ballard Tours excursion provides round-trip transport, zero waiting lines, a dedicated guide, and full control over your swim time.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can we combine it with the Arch?</h4>
+                                <p className="text-sm text-gray-500">Yes, it is highly popular. You can view the iconic Land's End landmark from our transparent clear boat and then proceed directly to the swimmable bays for a guided underwater exploration.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-      {/* ========================================================================= */}
-      {/* 🐫 CONDICIONAL 6: GUÍA DE TEXTO EXCLUSIVA PARA CAMELLOS 🐫 */}
-      {/* ========================================================================= */}
-      {tour.slug === 'camel-safari-tour-cabo-san-lucas' && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            Cabo Camel Ride Desert Safari: <span className="text-blue-600">The Ultimate Private Eco-Adventure</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>For luxury travelers seeking an extraordinary contrast to the typical beach resort lifestyle, venturing deep into the Baja outback presents a captivating opportunity. Where towering cacti and desert canyons dramatically roll into the rolling swells of the Pacific Ocean, Los Cabos offers a breathtaking desert landscape found nowhere else in the world.</p>
-            <p>While standard group tours crowd dozens of tourists onto large buses, experiencing a Cabo camel ride desert safari via an exclusive, private charter ensures pristine comfort, privacy, and full schedule flexibility. At Ballard Tours, we remove the friction of commercial crowds. From round-trip transportation to a dedicated bilingual guide who orchestrates an intimate desert exploration paired with premium tequila tastings, we guarantee a sophisticated 5-star safari.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* 🐫 CONDICIONAL 6: GUÍA DE TEXTO EXCLUSIVA PARA CAMELLOS 🐫 */}
+                    {/* ========================================================================= */}
+                    {tour.slug === 'camel-safari-tour-cabo-san-lucas' && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          Cabo Camel Ride Desert Safari: <span className="text-blue-600">The Ultimate Private Eco-Adventure</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>For luxury travelers seeking an extraordinary contrast to the typical beach resort lifestyle, venturing deep into the Baja outback presents a captivating opportunity. Where towering cacti and desert canyons dramatically roll into the rolling swells of the Pacific Ocean, Los Cabos offers a breathtaking desert landscape found nowhere else in the world.</p>
+                          <p>While standard group tours crowd dozens of tourists onto large buses, experiencing a Cabo camel ride desert safari via an exclusive, private charter ensures pristine comfort, privacy, and full schedule flexibility. At Ballard Tours, we remove the friction of commercial crowds. From round-trip transportation to a dedicated bilingual guide who orchestrates an intimate desert exploration paired with premium tequila tastings, we guarantee a sophisticated 5-star safari.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Unique Ecological Journey</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                A camel beach ride in Cabo San Lucas stands out as one of the most unique excursions in North America. These gentle dromedaries are perfectly adapted to the desert climate, offering a serene, elevated vantage point along the pristine sand dunes of the Pacific shoreline.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Desert Safari Step-by-Step</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Mount your assigned dromedary for a peaceful caravan trail ride, traverse magnificent desert paths lined with cacti, and open directly onto an isolated Pacific beach. Conclude your safari with an expert-led tasting of ultra-premium artisanal tequilas beautifully paired with a gourmet buffet.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Unique Ecological Journey</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              A camel beach ride in Cabo San Lucas stands out as one of the most unique excursions in North America. These gentle dromedaries are perfectly adapted to the desert climate, offering a serene, elevated vantage point along the pristine sand dunes of the Pacific shoreline.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Desert Safari Step-by-Step</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Mount your assigned dromedary for a peaceful caravan trail ride, traverse magnificent desert paths lined with cacti, and open directly onto an isolated Pacific beach. Conclude your safari with an expert-led tasting of ultra-premium artisanal tequilas beautifully paired with a gourmet buffet.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Capitalizing on Perfect Desert Breezes</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Winter & Spring Peak (November to April)</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Crisp & pleasantly cool desert air (Whale tracking bonus from saddle)</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-400">
-                <span className="font-bold">Summer & Autumn (May to October)</span>
-                <span className="italic">Morning charters ensure exploration during the coolest hours with a refreshing Pacific wind</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Capitalizing on Perfect Desert Breezes</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Winter & Spring Peak (November to April)</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Crisp & pleasantly cool desert air (Whale tracking bonus from saddle)</span>
+                            </div>
+                            <div className="flex justify-between items-center text-amber-400">
+                              <span className="font-bold">Summer & Autumn (May to October)</span>
+                              <span className="italic">Morning charters ensure exploration during the coolest hours with a refreshing Pacific wind</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Are there weight or age limits?</h4>
-                  <p className="text-sm text-gray-500">Yes, there is a maximum weight limit of 265 lbs (120 kg) per passenger to ensure animal welfare. The minimum age to participate is 5 years old.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with ATVs?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. Many clients pair this safari with our Off-Road ATV adventure. Since both launch from the same terrain, combining them lets you conquer dunes and shorelines seamlessly.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Do camels bite or spit during the tour?</h4>
-                  <p className="text-sm text-gray-500">Not at all. Our dromedaries are raised from birth with constant human interaction, making them docile, gentle, and incredibly friendly animals who love posing for safari photos.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">What is included in the package?</h4>
-                  <p className="text-sm text-gray-500">Our private day excursion covers round-trip transport, park entrance fees, private guided camel ride, eco-walk, premium tequila tasting, and a traditional gourmet buffet.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Are there weight or age limits?</h4>
+                                <p className="text-sm text-gray-500">Yes, there is a maximum weight limit of 265 lbs (120 kg) per passenger to ensure animal welfare. The minimum age to participate is 5 years old.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can we combine it with ATVs?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. Many clients pair this safari with our Off-Road ATV adventure. Since both launch from the same terrain, combining them lets you conquer dunes and shorelines seamlessly.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Do camels bite or spit during the tour?</h4>
+                                <p className="text-sm text-gray-500">Not at all. Our dromedaries are raised from birth with constant human interaction, making them docile, gentle, and incredibly friendly animals who love posing for safari photos.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">What is included in the package?</h4>
+                                <p className="text-sm text-gray-500">Our private day excursion covers round-trip transport, park entrance fees, private guided camel ride, eco-walk, premium tequila tasting, and a traditional gourmet buffet.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-      {/* ========================================================================= */}
-      {/* 🏁 CONDICIONAL 7: GUÍA DE TEXTO EXCLUSIVA PARA ATVS 🏁 */}
-      {/* ========================================================================= */}
-      {tour.slug === 'atv-off-road-adventure-cabo' && (
-        <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-            Off-Road ATV Tours Cabo: <span className="text-blue-600">The Ultimate Private Desert & Dunes Adventure</span>
-          </h2>
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
-            <p>For adrenaline seekers and luxury travelers who want to conquer the rugged, untamed landscapes of Baja California Sur, nothing compares to the thrill of a premium off-road expedition. Where pristine white-sand dunes and deep desert canyons dramatically collide with the crashing waves of the Pacific Ocean, Los Cabos provides the ultimate natural playground for an all-terrain vehicle safari.</p>
-            <p>While standard commercial tours force you into massive, dusty convoys with strict speed restrictions and slow-moving rental lines, experiencing off-road ATV tours in Cabo via an exclusive, private charter ensures unmatched freedom, premium safety, and full schedule flexibility. At Ballard Tours, we eliminate the friction of public tourist crowds. From round-trip transportation to a dedicated bilingual guide who custom-tailors the trail speed and terrain to your driving experience, we guarantee a prestigious 5-star off-road adventure.</p>
-          </div>
+                    {/* ========================================================================= */}
+                    {/* 🏁 CONDICIONAL 7: GUÍA DE TEXTO EXCLUSIVA PARA ATVS 🏁 */}
+                    {/* ========================================================================= */}
+                    {tour.slug === 'atv-off-road-adventure-cabo' && (
+                      <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
+                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                          Off-Road ATV Tours Cabo: <span className="text-blue-600">The Ultimate Private Desert & Dunes Adventure</span>
+                        </h2>
+                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12">
+                          <p>For adrenaline seekers and luxury travelers who want to conquer the rugged, untamed landscapes of Baja California Sur, nothing compares to the thrill of a premium off-road expedition. Where pristine white-sand dunes and deep desert canyons dramatically collide with the crashing waves of the Pacific Ocean, Los Cabos provides the ultimate natural playground for an all-terrain vehicle safari.</p>
+                          <p>While standard commercial tours force you into massive, dusty convoys with strict speed restrictions and slow-moving rental lines, experiencing off-road ATV tours in Cabo via an exclusive, private charter ensures unmatched freedom, premium safety, and full schedule flexibility. At Ballard Tours, we eliminate the friction of public tourist crowds. From round-trip transportation to a dedicated bilingual guide who custom-tailors the trail speed and terrain to your driving experience, we guarantee a prestigious 5-star off-road adventure.</p>
+                        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Outback Adrenaline</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                The coastal desert, specifically the world-famous Migriño Beach and canyon trails, features a shifting matrix of soft sand dunes, dry riverbeds, and narrow mountain passes lined with exotic rock formations and giant Cardón cacti.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Off-Road Safari Step-by-Step</h3>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                Fit yourself with premium safety gear, throttle through deep canyons, and navigate rocky mountain paths. Arrive at the spectacular Pacific sand dunes to experience drifting before cruising directly onto the isolated shores of Migriño Beach.
-              </p>
-            </div>
-          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                          <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                            <h3 className="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Outback Adrenaline</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              The coastal desert, specifically the world-famous Migriño Beach and canyon trails, features a shifting matrix of soft sand dunes, dry riverbeds, and narrow mountain passes lined with exotic rock formations and giant Cardón cacti.
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">The Off-Road Safari Step-by-Step</h3>
+                            <p className="text-sm text-gray-700 leading-relaxed">
+                              Fit yourself with premium safety gear, throttle through deep canyons, and navigate rocky mountain paths. Arrive at the spectacular Pacific sand dunes to experience drifting before cruising directly onto the isolated shores of Migriño Beach.
+                            </p>
+                          </div>
+                        </div>
 
-          <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-blue-400">Strategic Trail Optimization</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span className="font-bold">Winter & Spring Peak (November to April)</span>
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Pleasantly cool desert air minimizing dust (Sunset whale watching bonus)</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-400">
-                <span className="font-bold">Summer & Autumn (May to October)</span>
-                <span className="italic">Morning charters explore before peak midday sun, utilizing the refreshing Pacific breeze</span>
-              </div>
-            </div>
-          </div>
+                        <div className="bg-slate-900 text-white p-8 rounded-3xl mb-16 shadow-xl">
+                          <h3 className="text-xl font-bold mb-6 text-blue-400">Strategic Trail Optimization</h3>
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                              <span className="font-bold">Winter & Spring Peak (November to April)</span>
+                              <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Pleasantly cool desert air minimizing dust (Sunset whale watching bonus)</span>
+                            </div>
+                            <div className="flex justify-between items-center text-amber-400">
+                              <span className="font-bold">Summer & Autumn (May to October)</span>
+                              <span className="italic">Morning charters explore before peak midday sun, utilizing the refreshing Pacific breeze</span>
+                            </div>
+                          </div>
+                        </div>
 
-          <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
-            <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Do I need a driver's license?</h4>
-                  <p className="text-sm text-gray-500">Yes, to operate an ATV as a primary driver, a valid international driver's license is required. Passengers can safely ride on the back of a double ATV or inside multi-passenger side-by-sides.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Can we combine it with camels?</h4>
-                  <p className="text-sm text-gray-500">Absolutely. This is the most popular combo. Many clients choose to pair this trail ride with our Camel Desert Safari to experience both speed and peace during a single private day deal.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">What is the minimum age for kids?</h4>
-                  <p className="text-sm text-gray-500">To ride as a passenger on a double ATV or a side-by-side vehicle, children must be at least 8 years old and accompanied by an adult. Custom safety helmets are provided.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">What is included in the package?</h4>
-                  <p className="text-sm text-gray-500">Our all-inclusive package covers round-trip transit, outback trail permits, late-model vehicle rental, safety equipment (helmets, goggles, protectors), a certified guide, and refreshments.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                        <div className="bg-white border border-gray-100 p-10 rounded-[2.5rem] shadow-sm mb-16">
+                          <h3 className="text-2xl font-black text-gray-900 mb-8 border-b pb-4">Frequently Asked Questions</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Do I need a driver's license?</h4>
+                                <p className="text-sm text-gray-500">Yes, to operate an ATV as a primary driver, a valid international driver's license is required. Passengers can safely ride on the back of a double ATV or inside multi-passenger side-by-sides.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">Can we combine it with camels?</h4>
+                                <p className="text-sm text-gray-500">Absolutely. This is the most popular combo. Many clients choose to pair this trail ride with our Camel Desert Safari to experience both speed and peace during a single private day deal.</p>
+                              </div>
+                            </div>
+                            <div className="space-y-6">
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">What is the minimum age for kids?</h4>
+                                <p className="text-sm text-gray-500">To ride as a passenger on a double ATV or a side-by-side vehicle, children must be at least 8 years old and accompanied by an adult. Custom safety helmets are provided.</p>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-900 mb-1">What is included in the package?</h4>
+                                <p className="text-sm text-gray-500">Our all-inclusive package covers round-trip transit, outback trail permits, late-model vehicle rental, safety equipment (helmets, goggles, protectors), a certified guide, and refreshments.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-    </div>
-  } />
-))}
+                  </div>
+                } />
+              ))}
 
               {/* 🚀 URL 8: LA JOYA DE LA CORONA SEO - MEGA PILLAR PAGE (tudominio.com/things-to-do-in-cabo-san-lucas) */}
               <Route path="/things-to-do-in-cabo-san-lucas" element={
@@ -5075,24 +5091,24 @@ export default function App() {
             </Routes>
           </main>
 
-                    {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
+          {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
           <div className="bg-gray-100 py-10 border-t border-gray-200">
             <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
               <h3 className="text-xl font-bold text-blue-900 mb-6 uppercase tracking-wider">
                 Síguenos en Facebook
               </h3>
-              
+
               {/* Contenedor del Plugin */}
               <div className="bg-white p-2 rounded-lg shadow-md">
-                <div 
-                  className="fb-page" 
+                <div
+                  className="fb-page"
                   data-href="https://www.facebook.com/ballardtourservices" // 👈 REEMPLAZA ESTO CON TU URL
-                  data-tabs="timeline" 
-                  data-width="340" 
-                  data-height="500" 
-                  data-small-header="false" 
-                  data-adapt-container-width="true" 
-                  data-hide-cover="false" 
+                  data-tabs="timeline"
+                  data-width="340"
+                  data-height="500"
+                  data-small-header="false"
+                  data-adapt-container-width="true"
+                  data-hide-cover="false"
                   data-show-facepile="true"
                 >
                   <blockquote cite="https://www.facebook.com/ballardtourservices" className="fb-xfbml-parse-ignore">
