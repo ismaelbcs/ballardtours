@@ -21,6 +21,7 @@ export const landingPagesSEO = [
   { slug: 'sjd-to-villa-del-arco', nombre: 'Villa del Arco Beach Resort', zona: 3, zonaText: 'Cabo San Lucas (Zone 3)', tiempo: '40 to 45 minutes', dist: '42 km (26 miles)', desc: 'a fantastic family-friendly beachfront luxury resort on Medano Beach' },
   { slug: 'sjd-to-villa-la-estancia', nombre: 'Villa La Estancia Beach Resort', zona: 3, zonaText: 'Cabo San Lucas (Zone 3)', tiempo: '40 to 45 minutes', dist: '42 km (26 miles)', desc: 'a sophisticated and quiet luxury retreat situated on Medano Beach' },
   { slug: 'sjd-to-pueblo-bonito-sunset', nombre: 'Pueblo Bonito Sunset Beach', zona: 4, zonaText: 'Pacific Zone (Zone 4)', tiempo: '55 to 60 minutes', dist: '52 km (32 miles)', desc: 'an expansive luxury retreat perched on the Pacific cliffside' },
+  { slug: 'sjd-to-las-ventanas', nombre: 'Las Ventanas', zona: 2, zonaText: 'Tourist Corridor (Zone 2)', tiempo: '30 to 35 minutes', dist: '29 km (18 miles)', desc: 'a modern luxury haven located on Cabo’s best swimmable beach' },
   { slug: 'sjd-to-breathless', nombre: 'Breathless Cabo San Lucas', zona: 3, zonaText: 'Cabo San Lucas (Zone 3)', tiempo: '45 to 50 minutes', dist: '45 km (28 miles)', desc: 'a vibrant adults-only resort located perfectly on the Cabo Marina' }
 ];
 
