@@ -1469,9 +1469,15 @@ export default function App() {
                     </h4>
 
                     {/* Carrusel horizontal miniatura */}
-                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-
-                      {/* 👇 AQUÍ QUITAMOS EL .slice() PARA QUE RENDERICE TODOS LOS ACTIVOS 👇 */}
+                    <div
+                      className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                      onWheel={(e) => {
+                        // 👇 Convierte el scroll vertical del ratón en horizontal
+                        if (e.deltaY !== 0) {
+                          e.currentTarget.scrollLeft += e.deltaY;
+                        }
+                      }}
+                    >
                       {tours.filter(tr => tr.activo).map((tr) => (
 
                         <div
@@ -1520,11 +1526,20 @@ export default function App() {
                 {lang === 'es' ? 'Transporte Especial' : 'Special Transfers'}
               </h4>
 
-              <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+              <div
+                className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                onWheel={(e) => {
+                  // 👇 Convierte el scroll vertical del ratón en horizontal
+                  if (e.deltaY !== 0) {
+                    e.currentTarget.scrollLeft += e.deltaY;
+                  }
+                }}
+              >
                 {[
                   { id: 'cenas', title: { es: 'Cenas y Restaurantes', en: 'Dinner Transfers' }, price: '120', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=500' },
                   { id: 'nightlife', title: { es: 'Nightlife', en: 'Nightlife' }, price: '200', img: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=500' },
-                  { id: 'hotel', title: { es: 'Hotel a Hotel', en: 'Hotel to Hotel' }, price: '50', img: 'https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=500' },
+                  // 👇 AQUÍ ESTÁ LA NUEVA FOTO DE RESORT PARA HOTEL A HOTEL 👇
+                  { id: 'hotel', title: { es: 'Hotel a Hotel', en: 'Hotel to Hotel' }, price: '50', img: 'private-transportation-sjd-airport-los-cabos-luxury.webp' },
                   { id: 'golf', title: { es: 'Campos de Golf', en: 'Golf Transfers' }, price: '60', img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=500' }
                 ].map((sp) => (
                   <div
