@@ -1425,7 +1425,7 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 bg-gray-50/50">
+            <div className="flex-1 overflow-y-auto p-6 bg-white">
               {carrito.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
                   <ShoppingCart size={64} className="text-gray-300 mb-4" />
@@ -1435,29 +1435,79 @@ export default function App() {
                   </button>
                 </div>
               ) : (
-                <div className="space-y-4">
-                  {carrito.map((item) => (
-                    <div key={item.id} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex gap-4 group relative overflow-hidden">
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-900"></div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-gray-900 leading-tight pr-8">{item.titulo}</h4>
-                        <p className="text-xs text-gray-500 mt-1">{item.subtitulo}</p>
-                        {item.config.shoppingStop && (
-                          <p className="text-[10px] font-semibold text-blue-600 mt-2 bg-blue-50 inline-block px-2 py-0.5 rounded-full">+ Shopping Stop</p>
-                        )}
-                        <div className="mt-3 flex items-center justify-between">
-                          <p className="font-extrabold text-blue-900">${item.precio.toFixed(2)}</p>
+                <>
+                  {/* 🛒 LISTA DE COMPRAS ACTUAL */}
+                  <div className="space-y-4">
+                    {carrito.map((item) => (
+                      <div key={item.id} className="bg-gray-50 p-4 rounded-2xl shadow-sm border border-gray-100 flex gap-4 group relative overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-900"></div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-gray-900 leading-tight pr-8">{item.titulo}</h4>
+                          <p className="text-xs text-gray-500 mt-1">{item.subtitulo}</p>
+                          {item.config.shoppingStop && (
+                            <p className="text-[10px] font-semibold text-blue-600 mt-2 bg-blue-50 inline-block px-2 py-0.5 rounded-full">+ Shopping Stop</p>
+                          )}
+                          <div className="mt-3 flex items-center justify-between">
+                            <p className="font-extrabold text-blue-900">${item.precio.toFixed(2)}</p>
+                          </div>
                         </div>
+                        <button
+                          onClick={() => eliminarDelCombo(item.id)}
+                          className="absolute top-2 right-2 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        >
+                          <Trash2 size={16} />
+                        </button>
                       </div>
-                      <button
-                        onClick={() => eliminarDelCombo(item.id)}
-                        className="absolute top-2 right-2 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                    ))}
+                  </div>
+
+                  {/* 👇 MAGIA UX/SEO: SECCIÓN DE CROSS-SELLING (COMPRA POR IMPULSO) 👇 */}
+                  <div className="mt-8 mb-2 pt-6 border-t border-gray-100">
+                    <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <Palmtree className="text-blue-600" size={18} /> 
+                      {lang === 'es' ? 'Completa tu experiencia' : 'Enhance your trip'}
+                    </h4>
+                    
+                    {/* Carrusel horizontal miniatura */}
+                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                      {tours.filter(tr => tr.activo).slice(0, 5).map((tr) => (
+                        <div 
+                          key={tr.id}
+                          onClick={() => {
+                            // Acción sin fricción: Cierra el carrito y lo lleva directo a llenar los datos del tour
+                            setVerCarrito(false);
+                            setServicioSeleccionado('tours');
+                            setSubCategoria('');
+                            setReserva(prev => ({ 
+                              ...prev, 
+                              tourId: tr.id, 
+                              pasajeros: Math.max(prev.pasajeros || 1, tr.minPax), 
+                              shoppingStop: false 
+                            }));
+                            setImagenTourDestacada(tr.imagenUrl || tr.imageUrl);
+                            setPaso(2);
+                            window.scrollTo(0, 0);
+                          }}
+                          className="snap-center shrink-0 w-[140px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer group hover:border-blue-400 transition-all"
+                        >
+                          <div className="h-20 relative overflow-hidden">
+                            <img src={tr.imagenUrl || tr.imageUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
+                              <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{tr.nombre[lang]}</span>
+                            </div>
+                          </div>
+                          <div className="p-2.5 flex justify-between items-center bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                            <span className="text-[10px] font-black text-blue-900 flex items-center gap-1 uppercase tracking-wider">
+                              <Plus size={12} strokeWidth={3} /> {lang === 'es' ? 'Añadir' : 'Add'}
+                            </span>
+                            <span className="text-xs font-black text-gray-900">${tr.precioPx}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                  {/* 👆 FIN SECCIÓN CROSS-SELLING 👆 */}
+                </>
               )}
             </div>
 
@@ -1471,7 +1521,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-3">
-                  <button onClick={procederAlPago} className="w-full py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2">
+                  <button onClick={procederAlPago} className="w-full py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
                     {t.cart.checkout} <ChevronRight size={20} />
                   </button>
                 </div>
