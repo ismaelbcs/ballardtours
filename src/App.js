@@ -1464,25 +1464,27 @@ export default function App() {
                   {/* 👇 MAGIA UX/SEO: SECCIÓN DE CROSS-SELLING (COMPRA POR IMPULSO) 👇 */}
                   <div className="mt-8 mb-2 pt-6 border-t border-gray-100">
                     <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <Palmtree className="text-blue-600" size={18} /> 
+                      <Palmtree className="text-blue-600" size={18} />
                       {lang === 'es' ? 'Completa tu experiencia' : 'Enhance your trip'}
                     </h4>
-                    
+
                     {/* Carrusel horizontal miniatura */}
                     <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-                      {tours.filter(tr => tr.activo).slice(0, 5).map((tr) => (
-                        <div 
+
+                      {/* 👇 AQUÍ QUITAMOS EL .slice() PARA QUE RENDERICE TODOS LOS ACTIVOS 👇 */}
+                      {tours.filter(tr => tr.activo).map((tr) => (
+
+                        <div
                           key={tr.id}
                           onClick={() => {
-                            // Acción sin fricción: Cierra el carrito y lo lleva directo a llenar los datos del tour
                             setVerCarrito(false);
                             setServicioSeleccionado('tours');
                             setSubCategoria('');
-                            setReserva(prev => ({ 
-                              ...prev, 
-                              tourId: tr.id, 
-                              pasajeros: Math.max(prev.pasajeros || 1, tr.minPax), 
-                              shoppingStop: false 
+                            setReserva(prev => ({
+                              ...prev,
+                              tourId: tr.id,
+                              pasajeros: Math.max(prev.pasajeros || 1, tr.minPax),
+                              shoppingStop: false
                             }));
                             setImagenTourDestacada(tr.imagenUrl || tr.imageUrl);
                             setPaso(2);
