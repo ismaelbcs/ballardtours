@@ -720,7 +720,39 @@ export default function App() {
         });
         subtotalBase = costoTotal;
       } else {
-        subtotalBase = (tour?.precioPx || 0) * pasajeros;
+        // 👇 NUEVO CÁLCULO INTELIGENTE (ADULTOS Y NIÑOS PARA NUEVOS TOURS) 👇
+        let costoTotal = 0;
+        const tieneTarifaNino = tour?.precioNino !== undefined;
+
+        (reserva?.participantes || []).forEach(p => {
+          const edad = parseInt(p?.edad);
+
+          // 1. Si no han puesto la edad en el formulario, cobramos tarifa de adulto por seguridad
+          if (isNaN(edad)) {
+            costoTotal += (tour?.precioAdulto || tour?.precioPx || 0);
+            return;
+          }
+
+          // 2. Regla especial: Barco Pirata (0 a 5 años entran GRATIS)
+          if (tour?.id === 'pirate_show_cruise' && edad <= 5) {
+            costoTotal += 0;
+          }
+          // 3. Tarifa de niños (6 a 11 años) si el tour la tiene
+          else if (edad >= 6 && edad <= 11 && tieneTarifaNino) {
+            costoTotal += tour.precioNino;
+          }
+          // 4. Tarifa de niños para los de 5 años en los Sunset Cruises (que empiezan desde 5 años)
+          else if (edad === 5 && tieneTarifaNino) {
+            costoTotal += tour.precioNino;
+          }
+          // 5. De 12 años en adelante, o si el tour no configuró tarifa de niño (Ej. adultos solamente)
+          else {
+            costoTotal += (tour?.precioAdulto || tour?.precioPx || 0);
+          }
+        });
+
+        subtotalBase = costoTotal;
+        // 👆 FIN DEL NUEVO CÁLCULO 👆
       }
       detalle = `${pasajeros}x ${tour?.nombre ? tour.nombre[lang] : ''}`;
     }

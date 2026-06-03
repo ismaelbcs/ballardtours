@@ -94,6 +94,42 @@ export const toursLandingPages = [
     imageUrl: '/whale-shark-tour-la-paz.webp', // Asegúrate de que el nombre sea el mismo que en tu carpeta public
     desc: 'Swim alongside the gentle giants of the ocean in La Paz. A once-in-a-lifetime ecological adventure.',
     detalle: 'Experience the magic of swimming beside the largest fish in the sea.'
+  },
+  {
+    slug: 'sunset-fajita-cruise-cabo',
+    nombre: 'Sunset Fajita Cruise',
+    tipo: 'Dinner Cruise',
+    desc: 'An unforgettable evening sailing past Land’s End with fresh fajitas, open bar, and vibrant music.',
+    detalle: 'Set sail aboard Cabo Escape for a lively sunset experience starting with check-in at La Terminal de Cabo. Cruise past Land’s End and the iconic Arch, getting up-close views as the sun dips into the Pacific. Relax on the open-air upper deck, dance with the crew, or unwind to music below as the energy builds. Enjoy freshly prepared chicken or beef fajitas cooked right on deck, paired with a bottomless open bar and signature cocktails. Perfect for those looking for a fun, social atmosphere, this cruise blends great food, stunning views, and vibrant Cabo vibes into one unforgettable night.',
+    precio: '150',
+    imageUrl: 'https://images.unsplash.com/photo-1534008897995-27a23e859048?q=80&w=2000'
+  },
+  {
+    slug: 'sunset-sessions-cabo-cruise',
+    nombre: 'Sunset Sessions Cruise',
+    tipo: 'Dinner Cruise',
+    desc: 'A perfect blend of culture, flavor, and live music. Enjoy a Mexican buffet and signature cocktails at sunset.',
+    detalle: 'Step aboard Cabo Wave for a vibrant yet laid-back sunset experience. Settle into the comfortable upper deck lounge as you cruise toward Land’s End and the iconic Arch, surrounded by Cabo’s stunning coastline. As the sky transforms into a multicolor sunset, enjoy live music, signature cocktails, and an international open bar. Indulge in a rich Mexican buffet-style dinner featuring regional favorites like tamales, homemade flautas, empanadas, and seasonal fajitas. Blending culture, flavor, music, and scenery, Sunset Sessions delivers a complete Cabo evening experience.',
+    precio: '150',
+    imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2000'
+  },
+  {
+    slug: 'pirate-ship-sunset-tour-cabo',
+    nombre: 'Yo Ho Ho Sunset & Pirate Show',
+    tipo: 'Family Entertainment',
+    desc: 'A thrilling evening aboard the Buccaneer Queen featuring a BBQ dinner, open bar, and an interactive pirate spectacle.',
+    detalle: 'Set sail aboard the Buccaneer Queen for an extraordinary pirate adventure! Cruise past El Arco and Land’s End, following the stunning Pacific coastline as the sun sets in spectacular fashion. As you return to the bay, the ship transforms into a stage for an immersive pirate experience filled with games, contests, and high-energy entertainment. The evening culminates in the legendary Pirate Show—a thrilling story of a fallen captain seeking to reclaim his ship and treasure, brought to life with lights, sound effects, and nonstop fun.',
+    precio: '150',
+    imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000'
+  },
+  {
+    slug: 'cabo-san-lucas-snorkel-tour',
+    nombre: 'Cabo San Lucas Snorkel Tour',
+    tipo: 'Ocean Adventure',
+    desc: 'Snorkel in crystal-clear waters aboard the Baja Blast, complete with unlimited fajitas and an ice-cold open bar.',
+    detalle: 'Embark on a scenic coastal cruise aboard the Baja Blast toward the stunning, protected waters of Santa Maria Bay. This tour offers the perfect balance of relaxation and adventure. Dive into the crystal-clear waters for a guided snorkeling session where you will encounter vibrant tropical fish and marine life. After your swim, rinse off with fresh water on deck and indulge in an all-you-can-eat feast of chicken and steak fajita tacos. Sip on unlimited drinks from the open bar as you enjoy the ocean breeze and cruise back to the marina.',
+    precio: '140',
+    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2000'
   }
 ];
 
@@ -321,6 +357,134 @@ export const toursData = [
       en: ['Minimum age: 4 years', 'Comfortable clothing', 'Sunscreen', 'Hat or cap', 'Comfortable shoes', 'Bag to store personal items']
     }
   },
+  {
+    id: 'sunset_fajita_cruise',
+    slug: 'sunset-fajita-cruise-cabo',
+    activo: true,
+    minPax: 1,
+    precioPx: 150, 
+    precioAdulto: 150,
+    precioNino: 130, // 6 a 11 años
+    edadMinima: 5,
+    imagenUrl: 'https://images.unsplash.com/photo-1534008897995-27a23e859048?q=80&w=1000',
+    nombre: {
+      en: 'Sunset Fajita Cruise',
+      es: 'Crucero Sunset con Fajitas'
+    },
+    descripcion: {
+      en: 'Set sail aboard Cabo Escape for a lively sunset experience. Enjoy freshly prepared fajitas, a bottomless open bar, and breathtaking views of the iconic Arch as you dance into the evening.',
+      es: 'Zarpa a bordo de Cabo Escape para una animada experiencia al atardecer. Disfruta de fajitas recién hechas, barra libre y vistas impresionantes de El Arco mientras bailas hacia el anochecer.'
+    },
+    duracion: { en: '2 Hours (5:00 PM - 7:00 PM)', es: '2 Horas (17:00 - 19:00)' },
+    incluye: {
+      en: ['On-deck chicken or beef fajitas', 'Bottomless open bar and signature cocktails', 'Access to open-air upper deck', 'Music and crew-hosted entertainment', 'Round-trip transportation'],
+      es: ['Fajitas de pollo o res preparadas en cubierta', 'Barra libre ilimitada y cócteles', 'Acceso a la cubierta superior al aire libre', 'Música y entretenimiento por la tripulación', 'Transporte redondo desde tu hotel']
+    },
+    requisitos: {
+      en: ['Minimum age: 5 years old.', 'Check-in: Arrive 30 minutes early at La Terminal de Cabo.'],
+      es: ['Edad mínima: 5 años.', 'Check-in: Llegar 30 minutos antes a La Terminal de Cabo.']
+    },
+    recomendaciones: {
+      en: ['Sunscreen and Sunglasses', 'Hat or cap for sun protection', 'Camera for sunset photos'],
+      es: ['Protector solar y gafas de sol', 'Sombrero o gorra para el sol', 'Cámara para fotos del atardecer']
+    }
+  },
+  {
+    id: 'sunset_sessions',
+    slug: 'sunset-sessions-cabo-cruise',
+    activo: true,
+    minPax: 1,
+    precioPx: 150,
+    precioAdulto: 150,
+    precioNino: 130,
+    edadMinima: 5,
+    imagenUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1000',
+    nombre: {
+      en: 'Sunset Sessions Cruise',
+      es: 'Crucero Sunset Sessions'
+    },
+    descripcion: {
+      en: 'Step aboard Cabo Wave for a vibrant yet laid-back evening. Savor a Mexican buffet, sip international cocktails, and listen to live music as the sky transforms over Land’s End.',
+      es: 'Sube a bordo del Cabo Wave para una velada vibrante pero relajada. Saborea un buffet mexicano, cócteles internacionales y música en vivo mientras el cielo se transforma sobre el Fin de la Tierra.'
+    },
+    duracion: { en: '2 Hours (6:00 PM - 8:00 PM)', es: '2 Horas (18:00 - 20:00)' },
+    incluye: {
+      en: ['Mexican buffet dinner (tamales, flautas, empanadas, fajitas)', 'International open bar & signature cocktails', 'Live music onboard', 'Access to upper deck lounge', 'Round-trip transportation'],
+      es: ['Cena buffet mexicano (tamales, flautas, empanadas, fajitas)', 'Barra libre internacional y cócteles', 'Música en vivo a bordo', 'Acceso al lounge de la cubierta superior', 'Transporte redondo desde tu hotel']
+    },
+    requisitos: {
+      en: ['Minimum age: 5 years old.', 'Check-in: Arrive 30 minutes early at La Terminal de Cabo.'],
+      es: ['Edad mínima: 5 años.', 'Check-in: Llegar 30 minutos antes a La Terminal de Cabo.']
+    },
+    recomendaciones: {
+      en: ['Sunscreen and Sunglasses', 'Hat or cap', 'Camera'],
+      es: ['Protector solar y gafas de sol', 'Sombrero o gorra', 'Cámara fotográfica']
+    }
+  },
+  {
+    id: 'pirate_show_cruise',
+    slug: 'pirate-ship-sunset-tour-cabo',
+    activo: true,
+    minPax: 1,
+    precioPx: 150,
+    precioAdulto: 150,
+    precioNino: 130, // Solo cobra a partir de los 6 años
+    edadMinima: 0,
+    imagenUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000',
+    nombre: {
+      en: 'Yo Ho Ho Sunset & Pirate Show',
+      es: 'Crucero Sunset y Show Pirata Yo Ho Ho'
+    },
+    descripcion: {
+      en: 'Set sail on the Buccaneer Queen! Enjoy a BBQ dinner, open bar, and sail past El Arco before the ship transforms into an immersive, high-energy Pirate Show with games and contests.',
+      es: '¡Zarpa en el Buccaneer Queen! Disfruta de una cena BBQ, barra libre y navega por El Arco antes de que el barco se transforme en un espectacular Show Pirata lleno de juegos y concursos.'
+    },
+    duracion: { en: '2 Hours', es: '2 Horas' },
+    incluye: {
+      en: ['BBQ Dinner onboard', 'Open Bar', 'Live music and entertainment', 'Buccaneer Queen Pirate Show', 'Round-trip transportation'],
+      es: ['Cena BBQ a bordo', 'Barra libre', 'Música en vivo y entretenimiento', 'Show Pirata Buccaneer Queen', 'Transporte redondo desde tu hotel']
+    },
+    requisitos: {
+      en: ['All ages welcome (Children 0-5 are free).', 'Check-in: Arrive 30 minutes early at La Terminal de Cabo.'],
+      es: ['Todas las edades son bienvenidas (Niños de 0-5 años no pagan).', 'Check-in: Llegar 30 minutos antes a La Terminal de Cabo.']
+    },
+    recomendaciones: {
+      en: ['Sunscreen and Sunglasses', 'Hat or cap', 'Camera for the show'],
+      es: ['Protector solar y gafas de sol', 'Sombrero o gorra', 'Cámara para grabar el show']
+    }
+  },
+  {
+    id: 'snorkeling_cabo_bay',
+    slug: 'cabo-san-lucas-snorkel-tour',
+    activo: true,
+    minPax: 1,
+    precioPx: 140,
+    precioAdulto: 140,
+    precioNino: 125,
+    edadMinima: 6,
+    imagenUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1000',
+    nombre: {
+      en: 'Cabo San Lucas Snorkel Tour',
+      es: 'Tour de Snorkel en Cabo San Lucas'
+    },
+    descripcion: {
+      en: 'Board the Baja Blast for a scenic cruise toward Santa Maria Bay. Enjoy guided snorkeling in crystal-clear waters, followed by unlimited fajitas and an ice-cold open bar.',
+      es: 'Sube al Baja Blast para un viaje panorámico hacia la Bahía Santa María. Disfruta de snorkel guiado en aguas cristalinas, seguido de fajitas ilimitadas y barra libre fría.'
+    },
+    duracion: { en: '3.5 Hours', es: '3.5 Horas' },
+    incluye: {
+      en: ['Open bar (liquor, wine, ice-cold beer, juice, soda)', 'Unlimited chicken & steak fajita tacos', 'Fins, mask, and snorkel gear', 'Life preserver & fresh water rinse', 'Round-trip transportation'],
+      es: ['Barra libre (licor, vino, cerveza fría, jugos y refrescos)', 'Tacos ilimitados de fajitas de pollo y res', 'Aletas, máscara y tubo de snorkel', 'Chaleco salvavidas y enjuague de agua dulce', 'Transporte redondo desde tu hotel']
+    },
+    requisitos: {
+      en: ['Minimum age: 6 years old.', 'Check-in: Arrive 30 minutes early at La Terminal de Cabo.'],
+      es: ['Edad mínima: 6 años.', 'Check-in: Llegar 30 minutos antes a La Terminal de Cabo.']
+    },
+    recomendaciones: {
+      en: ['Towel', 'Sunglasses', 'Sunscreen'],
+      es: ['Toalla', 'Gafas de sol', 'Protector solar']
+    }
+  }
 ];
 
 export const catalogoHoteles = [
