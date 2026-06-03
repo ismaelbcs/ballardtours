@@ -102,7 +102,7 @@ export const toursLandingPages = [
     desc: 'An unforgettable evening sailing past Land’s End with fresh fajitas, open bar, and vibrant music.',
     detalle: 'Set sail aboard Cabo Escape for a lively sunset experience starting with check-in at La Terminal de Cabo. Cruise past Land’s End and the iconic Arch, getting up-close views as the sun dips into the Pacific. Relax on the open-air upper deck, dance with the crew, or unwind to music below as the energy builds. Enjoy freshly prepared chicken or beef fajitas cooked right on deck, paired with a bottomless open bar and signature cocktails. Perfect for those looking for a fun, social atmosphere, this cruise blends great food, stunning views, and vibrant Cabo vibes into one unforgettable night.',
     precio: '150',
-    imageUrl: 'https://images.unsplash.com/photo-1534008897995-27a23e859048?q=80&w=2000'
+    imageUrl: '/Sunset-Fajitas-1.webp',
   },
   {
     slug: 'sunset-sessions-cabo-cruise',
@@ -111,7 +111,7 @@ export const toursLandingPages = [
     desc: 'A perfect blend of culture, flavor, and live music. Enjoy a Mexican buffet and signature cocktails at sunset.',
     detalle: 'Step aboard Cabo Wave for a vibrant yet laid-back sunset experience. Settle into the comfortable upper deck lounge as you cruise toward Land’s End and the iconic Arch, surrounded by Cabo’s stunning coastline. As the sky transforms into a multicolor sunset, enjoy live music, signature cocktails, and an international open bar. Indulge in a rich Mexican buffet-style dinner featuring regional favorites like tamales, homemade flautas, empanadas, and seasonal fajitas. Blending culture, flavor, music, and scenery, Sunset Sessions delivers a complete Cabo evening experience.',
     precio: '150',
-    imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2000'
+    imageUrl: '/Sunset-Sessions-5.webp',
   },
   {
     slug: 'pirate-ship-sunset-tour-cabo',
@@ -120,7 +120,7 @@ export const toursLandingPages = [
     desc: 'A thrilling evening aboard the Buccaneer Queen featuring a BBQ dinner, open bar, and an interactive pirate spectacle.',
     detalle: 'Set sail aboard the Buccaneer Queen for an extraordinary pirate adventure! Cruise past El Arco and Land’s End, following the stunning Pacific coastline as the sun sets in spectacular fashion. As you return to the bay, the ship transforms into a stage for an immersive pirate experience filled with games, contests, and high-energy entertainment. The evening culminates in the legendary Pirate Show—a thrilling story of a fallen captain seeking to reclaim his ship and treasure, brought to life with lights, sound effects, and nonstop fun.',
     precio: '150',
-    imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000'
+    imageUrl: '/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-5.webp',
   },
   {
     slug: 'cabo-san-lucas-snorkel-tour',
@@ -129,7 +129,7 @@ export const toursLandingPages = [
     desc: 'Snorkel in crystal-clear waters aboard the Baja Blast, complete with unlimited fajitas and an ice-cold open bar.',
     detalle: 'Embark on a scenic coastal cruise aboard the Baja Blast toward the stunning, protected waters of Santa Maria Bay. This tour offers the perfect balance of relaxation and adventure. Dive into the crystal-clear waters for a guided snorkeling session where you will encounter vibrant tropical fish and marine life. After your swim, rinse off with fresh water on deck and indulge in an all-you-can-eat feast of chicken and steak fajita tacos. Sip on unlimited drinks from the open bar as you enjoy the ocean breeze and cruise back to the marina.',
     precio: '140',
-    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2000'
+    imageUrl: '/Cabo-San-Lucas-Snorkel-Tour-2.webp',
   }
 ];
 
@@ -366,7 +366,13 @@ export const toursData = [
     precioAdulto: 150,
     precioNino: 130, // 6 a 11 años
     edadMinima: 5,
-    imagenUrl: 'https://images.unsplash.com/photo-1534008897995-27a23e859048?q=80&w=1000',
+    imagenUrl: 'Sunset-Fajitas-1.webp',
+    galeria: [
+      "/Sunset-Fajitas-1.webp",
+      "/Sunset-Fajitas-2.webp",
+      "/Sunset-Fajitas-3.webp",
+      "/Sunset-Fajitas-4.webp",
+    ],
     nombre: {
       en: 'Sunset Fajita Cruise',
       es: 'Crucero Sunset con Fajitas'
@@ -398,7 +404,14 @@ export const toursData = [
     precioAdulto: 150,
     precioNino: 130,
     edadMinima: 5,
-    imagenUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1000',
+    imagenUrl: 'Sunset-Sessions-5.webp',
+    galeria: [
+      "/Sunset-Sessions-1.webp",
+      "/Sunset-Sessions-2.webp",
+      "/Sunset-Sessions-3.webp",
+      "/Sunset-Sessions-4.webp",
+      "/Sunset-Sessions-5.webp",
+    ],
     nombre: {
       en: 'Sunset Sessions Cruise',
       es: 'Crucero Sunset Sessions'
@@ -430,7 +443,15 @@ export const toursData = [
     precioAdulto: 150,
     precioNino: 130, // Solo cobra a partir de los 6 años
     edadMinima: 0,
-    imagenUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000',
+    imagenUrl: 'Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-4.webp',
+    galeria: [
+      "/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-1.webp",
+      "/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-2.webp",
+      "/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-3.webp",
+      "/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-4.webp",
+      "/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-5.webp",
+      "/Yo-Ho-Ho-Sunset-Dinner-&-Pirate-Show-Cruise-6.webp",
+    ],
     nombre: {
       en: 'Yo Ho Ho Sunset & Pirate Show',
       es: 'Crucero Sunset y Show Pirata Yo Ho Ho'
@@ -462,7 +483,13 @@ export const toursData = [
     precioAdulto: 140,
     precioNino: 125,
     edadMinima: 6,
-    imagenUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1000',
+    imagenUrl: 'Cabo-San-Lucas-Snorkel-Tour-2.webp',
+    galeria: [
+      "/Cabo-San-Lucas-Snorkel-Tour-1.webp",
+      "/Cabo-San-Lucas-Snorkel-Tour-2.webp",
+      "/Cabo-San-Lucas-Snorkel-Tour-3.webp",
+      "/Cabo-San-Lucas-Snorkel-Tour-4.webp",
+    ],
     nombre: {
       en: 'Cabo San Lucas Snorkel Tour',
       es: 'Tour de Snorkel en Cabo San Lucas'
