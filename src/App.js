@@ -21,6 +21,9 @@ import {
   Save, EyeOff, Globe, CreditCard, Banknote, ShoppingBag, Baby, ShoppingCart,
   LogIn, LogOut, Gift
 } from 'lucide-react';
+import { Drawer } from 'vaul';
+import { Toaster, toast } from 'sonner';
+
 
 
 
@@ -837,7 +840,9 @@ export default function App() {
     };
 
     setCarrito([...carrito, newItem]);
+    toast.info('Servicio eliminado del combo');
     limpiarFormularioActivo();
+    toast.success('¡Servicio añadido a tu combo!');
     setPaso(1);
     setVerCarrito(true);
   };
@@ -1137,6 +1142,7 @@ export default function App() {
       // 5. Aplicamos el descuento y cerramos la ventana
       setAppliedPromo(dataResult);
       setShowPromoModal(false);
+      toast.success(`¡Código ${codigoLimpio} aplicado con éxito!`);
 
     } catch (err) {
       console.error("Error al conectar con Firebase:", err);
@@ -1402,116 +1408,78 @@ export default function App() {
   );
 
   const DrawerCombo = () => {
-    if (!verCarrito) return null;
-
     return (
-      <div className="fixed inset-0 z-50 overflow-hidden">
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={() => setVerCarrito(false)}></div>
+      <Drawer.Root open={verCarrito} onOpenChange={setVerCarrito}>
+        <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" />
+          <Drawer.Content className="bg-gray-50 flex flex-col rounded-t-[2rem] mt-24 h-[85vh] fixed bottom-0 left-0 right-0 z-[101] max-w-md mx-auto shadow-2xl outline-none">
+            {/* Manija de arrastre (Drag handle) */}
+            <div className="p-4 bg-white rounded-t-[2rem] flex justify-center border-b border-gray-100 shrink-0">
+              <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
+            </div>
 
-        <div className="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out translate-x-0">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
-            <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-2">
-              <ShoppingBag className="text-blue-900" size={24} />
-              {t.cart.title}
-            </h2>
-            <button onClick={() => setVerCarrito(false)} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full transition-colors">
-              <X size={20} />
-            </button>
-          </div>
+            <div className="flex items-center justify-between px-6 py-4 bg-white shrink-0">
+              <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-2">
+                <ShoppingBag className="text-blue-900" size={24} />
+                {t.cart.title}
+              </h2>
+            </div>
 
-          <div className="flex-1 overflow-y-auto p-6 bg-gray-50/50">
-            {carrito.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
-                <ShoppingCart size={64} className="text-gray-300 mb-4" />
-                <p className="text-gray-500 font-medium">{t.cart.empty}</p>
-                <button onClick={() => setVerCarrito(false)} className="mt-6 px-6 py-2 bg-blue-100 text-blue-900 font-bold rounded-xl hover:bg-blue-200 transition-colors">
-                  {t.cart.build}
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {carrito.map((item) => (
-                  <div key={item.id} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex gap-4 animate-fade-in group relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-900"></div>
-                    <div className="flex-1">
-                      <h4 className="font-bold text-gray-900 leading-tight pr-8">{item.titulo}</h4>
-                      <p className="text-xs text-gray-500 mt-1">{item.subtitulo}</p>
-
-                      {item.config.shoppingStop && (
-                        <p className="text-[10px] font-semibold text-blue-600 mt-2 bg-blue-50 inline-block px-2 py-0.5 rounded-full">+ Shopping Stop</p>
-                      )}
-                      {(item.config.carSeat > 0 || item.config.babySeat > 0 || item.config.boosterSeat > 0) && (
-                        <p className="text-[10px] font-semibold text-gray-500 mt-1">
-                          Incluye Sillas Bebé
-                        </p>
-                      )}
-
-                      <div className="mt-3 flex items-center justify-between">
-                        {carritoDescuento > 0 ? (
-                          <div className="flex flex-col">
-                            <span className="text-xs text-gray-400 line-through">${(item.precioBase || item.precio).toFixed(2)}</span>
-                            <span className="font-extrabold text-blue-900">${item.precio.toFixed(2)}</span>
-                          </div>
-                        ) : (
-                          <p className="font-extrabold text-blue-900">${item.precio.toFixed(2)}</p>
+            <div className="flex-1 overflow-y-auto p-6 bg-gray-50/50">
+              {carrito.length === 0 ? (
+                <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
+                  <ShoppingCart size={64} className="text-gray-300 mb-4" />
+                  <p className="text-gray-500 font-medium">{t.cart.empty}</p>
+                  <button onClick={() => setVerCarrito(false)} className="mt-6 px-6 py-2 bg-blue-100 text-blue-900 font-bold rounded-xl hover:bg-blue-200 transition-colors">
+                    {t.cart.build}
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {carrito.map((item) => (
+                    <div key={item.id} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex gap-4 group relative overflow-hidden">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-900"></div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-gray-900 leading-tight pr-8">{item.titulo}</h4>
+                        <p className="text-xs text-gray-500 mt-1">{item.subtitulo}</p>
+                        {item.config.shoppingStop && (
+                          <p className="text-[10px] font-semibold text-blue-600 mt-2 bg-blue-50 inline-block px-2 py-0.5 rounded-full">+ Shopping Stop</p>
                         )}
+                        <div className="mt-3 flex items-center justify-between">
+                          <p className="font-extrabold text-blue-900">${item.precio.toFixed(2)}</p>
+                        </div>
                       </div>
+                      <button
+                        onClick={() => eliminarDelCombo(item.id)}
+                        className="absolute top-2 right-2 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
-                    <button
-                      onClick={() => eliminarDelCombo(item.id)}
-                      className="absolute top-2 right-2 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                      title={t.cart.remove}
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          {carrito.length > 0 && (
-            <div className="border-t border-gray-100 p-6 bg-white shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)]">
-              <div className="flex flex-col gap-1 mb-4">
-                {carritoDescuento > 0 && (
-                  <>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">Subtotal</span>
-                      <span className="font-semibold">${carritoSubtotal.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between items-center text-sm text-green-600">
-                      <span className="font-bold">{discountLabel}</span>
-                      <span className="font-bold">-${carritoDescuento.toFixed(2)}</span>
-                    </div>
-                  </>
-                )}
-                <div className="flex justify-between items-end mt-2">
+            {carrito.length > 0 && (
+              <div className="border-t border-gray-100 p-6 bg-white shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)] shrink-0">
+                <div className="flex justify-between items-end mb-4">
                   <p className="text-gray-500 font-semibold">{t.cart.total}</p>
                   <div className="text-right">
                     <p className="text-3xl font-extrabold text-gray-900">${carritoTotal.toFixed(2)}</p>
                     <p className="text-[10px] text-gray-400">USD, impuestos incluidos</p>
                   </div>
                 </div>
+                <div className="flex flex-col gap-3">
+                  <button onClick={procederAlPago} className="w-full py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2">
+                    {t.cart.checkout} <ChevronRight size={20} />
+                  </button>
+                </div>
               </div>
-
-              <div className="flex flex-col gap-3">
-                <button
-                  onClick={procederAlPago}
-                  className="w-full py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-900/30 flex items-center justify-center gap-2"
-                >
-                  {t.cart.checkout} <ChevronRight size={20} />
-                </button>
-                <button
-                  onClick={() => setVerCarrito(false)}
-                  className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-bold transition-colors text-sm"
-                >
-                  {t.cart.continue_shopping}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+            )}
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
     );
   };
 
@@ -3584,95 +3552,88 @@ export default function App() {
 
   // --- MODALES Y OVERLAYS ---
   const PromoModal = () => {
-    if (!showPromoModal) return null;
     return (
-      <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div className="bg-white rounded-[2rem] p-8 max-w-sm w-full relative shadow-2xl animate-fade-in text-center">
-          <button onClick={() => setShowPromoModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><X size={20} /></button>
-          <div className="w-16 h-16 bg-blue-100 text-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6 transform -rotate-12"><Gift size={32} /></div>
-          <h3 className="text-2xl font-black text-gray-900 mb-2">¿Tienes un Código de Chofer?</h3>
-          <p className="text-gray-500 text-sm mb-6">Ingresa el código proporcionado por tu chofer para obtener un <strong className="text-blue-900">10% de descuento</strong> en todo tu combo.</p>
+      <Drawer.Root open={showPromoModal} onOpenChange={setShowPromoModal}>
+        <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" />
+          <Drawer.Content className="bg-white flex flex-col rounded-t-[2rem] fixed bottom-0 left-0 right-0 z-[101] max-w-md mx-auto shadow-2xl outline-none">
+            <div className="p-4 flex justify-center shrink-0">
+              <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
+            </div>
+            <div className="p-8 pt-0 text-center overflow-y-auto">
+              <div className="w-16 h-16 bg-blue-100 text-blue-900 rounded-2xl flex items-center justify-center mx-auto mb-6 transform -rotate-12"><Gift size={32} /></div>
+              <h3 className="text-2xl font-black text-gray-900 mb-2">¿Tienes un Código?</h3>
+              <p className="text-gray-500 text-sm mb-6">Ingresa el código proporcionado por tu chofer para obtener un <strong className="text-blue-900">10% de descuento</strong>.</p>
 
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={promoInput}
-              onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
-              placeholder="Ej. CHOFER10"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  procesarCodigo(promoInput);
-                }
-              }}
-              className="flex-1 border-2 border-gray-200 rounded-xl px-4 py-3 font-bold text-gray-900 focus:border-blue-900 focus:ring-0 outline-none text-center tracking-widest"
-            />
-          </div>
-          {promoError && <p className="text-red-500 text-xs font-bold mt-2 text-left">{promoError}</p>}
+              <input
+                type="text"
+                value={promoInput}
+                onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                placeholder="Ej. CHOFER10"
+                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 font-bold text-gray-900 focus:border-blue-900 focus:ring-0 outline-none text-center tracking-widest"
+              />
+              {promoError && <p className="text-red-500 text-xs font-bold mt-2 text-left">{promoError}</p>}
 
-          <button
-            onClick={() => procesarCodigo(promoInput)}
-            className="w-full mt-4 bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-xl transition-colors"
-          >
-            Aplicar Código
-          </button>
-          <button onClick={() => setShowPromoModal(false)} className="text-gray-400 text-xs font-bold mt-4 hover:text-gray-600 transition-colors">
-            No tengo código, continuar
-          </button>
-        </div>
-      </div>
+              <button onClick={() => procesarCodigo(promoInput)} className="w-full mt-4 bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-xl transition-colors">
+                Aplicar Código
+              </button>
+            </div>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
     );
   };
 
-  // --- MODALES Y OVERLAYS ---
-
-
   const AuthModal = () => {
-    if (!showAuthModal) return null;
     return (
-      <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div className="bg-white rounded-[2rem] p-8 max-w-sm w-full relative shadow-2xl animate-fade-in">
-          <button onClick={() => setShowAuthModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><X size={20} /></button>
-
-          <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-blue-900 text-white flex items-center justify-center rounded-xl mx-auto mb-4"><User size={24} /></div>
-            <h3 className="text-2xl font-black text-gray-900">{authMode === 'login' ? t.auth.login_title : t.auth.register_title}</h3>
-            {pendingPromoCode && <p className="text-xs text-blue-600 font-bold mt-2 bg-blue-50 py-1 px-2 rounded-lg inline-block">Inicia sesión para aplicar tu descuento</p>}
-          </div>
-
-          <form onSubmit={handleAuthSubmit} className="space-y-4">
-            {authMode === 'register' && (
-              <div>
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t.auth.name}</label>
-                <input type="text" required value={authForm.nombre} onChange={(e) => setAuthForm({ ...authForm, nombre: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900" />
+      <Drawer.Root open={showAuthModal} onOpenChange={setShowAuthModal}>
+        <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" />
+          <Drawer.Content className="bg-white flex flex-col rounded-t-[2rem] fixed bottom-0 left-0 right-0 z-[101] max-w-md mx-auto shadow-2xl outline-none max-h-[90vh]">
+            <div className="p-4 flex justify-center shrink-0">
+              <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
+            </div>
+            <div className="p-8 pt-0 overflow-y-auto custom-scrollbar">
+              <div className="text-center mb-8">
+                <div className="w-12 h-12 bg-blue-900 text-white flex items-center justify-center rounded-xl mx-auto mb-4"><User size={24} /></div>
+                <h3 className="text-2xl font-black text-gray-900">{authMode === 'login' ? t.auth.login_title : t.auth.register_title}</h3>
               </div>
-            )}
-            <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t.auth.email}</label>
-              <input type="email" required value={authForm.email} onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900" />
+
+              <form onSubmit={handleAuthSubmit} className="space-y-4">
+                {authMode === 'register' && (
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t.auth.name}</label>
+                    <input type="text" required value={authForm.nombre} onChange={(e) => setAuthForm({ ...authForm, nombre: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900" />
+                  </div>
+                )}
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t.auth.email}</label>
+                  <input type="email" required value={authForm.email} onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t.auth.pass}</label>
+                  <input type="password" required value={authForm.password} onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900" />
+                </div>
+
+                {authError && <p className="text-red-500 text-xs font-bold text-center">{authError}</p>}
+
+                <button type="submit" className="w-full bg-blue-900 text-white font-bold py-4 rounded-xl mt-6">
+                  {authMode === 'login' ? t.auth.login_btn : t.auth.register_btn}
+                </button>
+              </form>
+
+              <div className="text-center mt-6 border-t border-gray-100 pt-6">
+                <p className="text-sm text-gray-500">
+                  {authMode === 'login' ? t.auth.no_account : t.auth.has_account}{' '}
+                  <button type="button" onClick={() => { setAuthMode(authMode === 'login' ? 'register' : 'login'); setAuthError(''); }} className="text-blue-600 font-bold hover:underline">
+                    {authMode === 'login' ? t.auth.register_title : t.auth.login_title}
+                  </button>
+                </p>
+              </div>
             </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{t.auth.pass}</label>
-              <input type="password" required value={authForm.password} onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900" />
-            </div>
-
-            {authError && <p className="text-red-500 text-xs font-bold text-center">{authError}</p>}
-
-            <button type="submit" className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 rounded-xl transition-colors mt-6">
-              {authMode === 'login' ? t.auth.login_btn : t.auth.register_btn}
-            </button>
-          </form>
-
-          <div className="text-center mt-6 border-t border-gray-100 pt-6">
-            <p className="text-sm text-gray-500">
-              {authMode === 'login' ? t.auth.no_account : t.auth.has_account}{' '}
-              <button onClick={() => { setAuthMode(authMode === 'login' ? 'register' : 'login'); setAuthError(''); }} className="text-blue-600 font-bold hover:underline">
-                {authMode === 'login' ? t.auth.register_title : t.auth.login_title}
-              </button>
-            </p>
-          </div>
-        </div>
-      </div>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
     );
   };
 
@@ -3681,6 +3642,8 @@ export default function App() {
 
 
       <HelmetProvider>
+        {/* 👇 AÑADE ESTA LÍNEA AQUÍ 👇 */}
+        <Toaster position="bottom-center" richColors />
         <div className="min-h-screen bg-gray-50 font-sans text-gray-900 pb-20 selection:bg-blue-200 selection:text-blue-900">
           <Header />
           <DrawerCombo />
