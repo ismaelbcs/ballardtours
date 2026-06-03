@@ -860,10 +860,20 @@ export default function App() {
   const puedeAvanzarPaso2 = () => {
     if (reserva.tipoEspecial) return true;
     if (servicioSeleccionado === 'tours') {
+      const tourActual = tours.find(t => t.id === reserva.tourId);
+      if (!tourActual) return false;
+
       const tieneFecha = reserva.fechaLlegada || reserva.fechaTour;
-      const minimoPasajeros = reserva.pasajeros >= 2;
+      // Usamos el minPax del tour o 1 por defecto
+      const minimoPasajeros = reserva.pasajeros >= (tourActual.minPax || 1);
+
+      // Verificamos dinámicamente que nadie tenga menos de la edad permitida
       const edadesValidas = reserva.participantes && reserva.participantes.length > 0 &&
-        reserva.participantes.every(p => parseInt(p.edad) >= (reserva.tourId === 'arco' || reserva.tourId === 'artwalk' ? 0 : reserva.tourId === 'tiburon_ballena' || reserva.tourId === 'isla_espiritu_santo' ? 4 : reserva.tourId === 'camellos' ? 5 : reserva.tourId === 'atv' || reserva.tourId === 'snorkeling-adventure-cabo' ? 8 : 10));
+        reserva.participantes.every(p => {
+          const edadNum = parseInt(p.edad);
+          return !isNaN(edadNum) && edadNum >= (tourActual.edadMinima || 0);
+        });
+
       return tieneFecha && minimoPasajeros && edadesValidas;
     } else {
       if (!reserva.hotelId || !reserva.vehiculo || !reserva.fechaLlegada) return false;
@@ -2109,7 +2119,14 @@ export default function App() {
 
             <div className="w-full lg:w-[400px] flex-shrink-0 animate-fade-in">
               <div className="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 md:p-8 sticky top-28">
-                <h3 className="font-bold text-gray-800 mb-4">Participantes {(reserva.tourId !== 'arco' && reserva.tourId !== 'artwalk') && <span className="text-sm text-red-500 font-normal">(Edad mínima: {reserva.tourId === 'tiburon_ballena' || reserva.tourId === 'isla_espiritu_santo' ? 4 : reserva.tourId === 'camellos' ? 5 : reserva.tourId === 'atv' ? 8 : 10} años)</span>}</h3>
+                <h3 className="font-bold text-gray-800 mb-4">
+                  Participantes
+                  {tr.edadMinima > 0 && (
+                    <span className="text-sm text-red-500 font-normal ml-2">
+                      (Edad mínima: {tr.edadMinima} años)
+                    </span>
+                  )}
+                </h3>
                 <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.tour_date}</label>
@@ -2132,9 +2149,9 @@ export default function App() {
                             min="1"
                             value={part.edad}
                             onChange={(e) => handleParticipanteChange(index, 'edad', e.target.value)}
-                            className={`col-span-2 bg-white border rounded-lg p-2 text-sm outline-none transition-all ${part.edad && parseInt(part.edad) < (reserva.tourData?.edadMinima || 0)
-                              ? 'bg-red-50 border-red-500'
-                              : 'border-gray-200'
+                            className={`col-span-2 bg-white border rounded-lg p-2 text-sm outline-none transition-all ${part.edad && parseInt(part.edad) < (tr.edadMinima || 0)
+                                ? 'bg-red-50 border-red-500 text-red-700 font-bold'
+                                : 'border-gray-200 text-gray-800'
                               }`}
                           />
                         </div>
