@@ -1408,11 +1408,14 @@ export default function App() {
   );
 
   const DrawerCombo = () => {
+    if (!verCarrito) return null;
+
     return (
       <Drawer.Root open={verCarrito} onOpenChange={setVerCarrito}>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" />
-          <Drawer.Content className="bg-gray-50 flex flex-col rounded-t-[2rem] mt-24 h-[85vh] fixed bottom-0 left-0 right-0 z-[101] max-w-md mx-auto shadow-2xl outline-none">
+          {/* 👇 FIX: overflow-hidden agregado aquí para cortar las imágenes que se salen 👇 */}
+          <Drawer.Content className="bg-gray-50 flex flex-col rounded-t-[2rem] mt-24 h-[85vh] fixed bottom-0 left-0 right-0 z-[101] max-w-md mx-auto shadow-2xl outline-none overflow-hidden">
             {/* Manija de arrastre (Drag handle) */}
             <div className="p-4 bg-white rounded-t-[2rem] flex justify-center border-b border-gray-100 shrink-0">
               <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
@@ -1425,7 +1428,8 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 bg-white">
+            {/* 👇 FIX: overflow-x-hidden agregado aquí también por seguridad 👇 */}
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 bg-white">
               {carrito.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
                   <ShoppingCart size={64} className="text-gray-300 mb-4" />
@@ -1461,36 +1465,34 @@ export default function App() {
                     ))}
                   </div>
 
-                  {/* 👇 MAGIA UX/SEO: SECCIÓN DE CROSS-SELLING (COMPRA POR IMPULSO) 👇 */}
+                  {/* 👇 SECCIÓN DE CROSS-SELLING (TOURS) 👇 */}
                   <div className="mt-8 mb-2 pt-6 border-t border-gray-100">
                     <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <Palmtree className="text-blue-600" size={18} />
+                      <Palmtree className="text-blue-600" size={18} /> 
                       {lang === 'es' ? 'Completa tu experiencia' : 'Enhance your trip'}
                     </h4>
-
+                    
                     {/* Carrusel horizontal miniatura */}
-                    <div
+                    <div 
                       className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                       onWheel={(e) => {
-                        // 👇 Convierte el scroll vertical del ratón en horizontal
                         if (e.deltaY !== 0) {
                           e.currentTarget.scrollLeft += e.deltaY;
                         }
                       }}
                     >
                       {tours.filter(tr => tr.activo).map((tr) => (
-
-                        <div
+                        <div 
                           key={tr.id}
                           onClick={() => {
                             setVerCarrito(false);
                             setServicioSeleccionado('tours');
                             setSubCategoria('');
-                            setReserva(prev => ({
-                              ...prev,
-                              tourId: tr.id,
-                              pasajeros: Math.max(prev.pasajeros || 1, tr.minPax),
-                              shoppingStop: false
+                            setReserva(prev => ({ 
+                              ...prev, 
+                              tourId: tr.id, 
+                              pasajeros: Math.max(prev.pasajeros || 1, tr.minPax), 
+                              shoppingStop: false 
                             }));
                             setImagenTourDestacada(tr.imagenUrl || tr.imageUrl);
                             setPaso(2);
@@ -1514,66 +1516,60 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                  {/* 👆 FIN SECCIÓN CROSS-SELLING 👆 */}
+
+                  {/* 👇 SECCIÓN DE SERVICIOS ESPECIALES 👇 */}
+                  <div className="mt-2 mb-2 pt-6 border-t border-gray-100">
+                    <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <Car className="text-blue-600" size={18} /> 
+                      {lang === 'es' ? 'Transporte Especial' : 'Special Transfers'}
+                    </h4>
+                    
+                    <div 
+                      className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                      onWheel={(e) => {
+                        if (e.deltaY !== 0) {
+                          e.currentTarget.scrollLeft += e.deltaY;
+                        }
+                      }}
+                    >
+                      {[
+                        { id: 'cenas', title: { es: 'Cenas y Restaurantes', en: 'Dinner Transfers' }, price: '120', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=500' },
+                        { id: 'nightlife', title: { es: 'Nightlife', en: 'Nightlife' }, price: '200', img: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=500' },
+                        { id: 'hotel', title: { es: 'Hotel a Hotel', en: 'Hotel to Hotel' }, price: '50', img: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=500' },
+                        { id: 'golf', title: { es: 'Campos de Golf', en: 'Golf Transfers' }, price: '60', img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=500' }
+                      ].map((sp) => (
+                        <div 
+                          key={sp.id}
+                          onClick={() => {
+                            setVerCarrito(false);
+                            setServicioSeleccionado('tours');
+                            setSubCategoria('especiales');
+                            setVistaEspecial(sp.id); 
+                            setPaso(2);
+                            window.scrollTo(0, 0);
+                          }}
+                          className="snap-center shrink-0 w-[140px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer group hover:border-blue-400 transition-all"
+                        >
+                          <div className="h-20 relative overflow-hidden">
+                            <img src={sp.img} alt={sp.title[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
+                              <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{sp.title[lang]}</span>
+                            </div>
+                          </div>
+                          <div className="p-2.5 flex justify-between items-center bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                            <span className="text-[10px] font-black text-blue-900 flex items-center gap-1 uppercase tracking-wider">
+                              <Plus size={12} strokeWidth={3} /> {lang === 'es' ? 'Añadir' : 'Add'}
+                            </span>
+                            <span className="text-xs font-black text-gray-900">${sp.price}+</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </>
               )}
             </div>
 
-            {/* 👇 NUEVA SECCIÓN DE SERVICIOS ESPECIALES 👇 */}
-            <div className="mt-2 mb-2 pt-6 border-t border-gray-100">
-              <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Car className="text-blue-600" size={18} />
-                {lang === 'es' ? 'Transporte Especial' : 'Special Transfers'}
-              </h4>
-
-              <div
-                className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-                onWheel={(e) => {
-                  // 👇 Convierte el scroll vertical del ratón en horizontal
-                  if (e.deltaY !== 0) {
-                    e.currentTarget.scrollLeft += e.deltaY;
-                  }
-                }}
-              >
-                {[
-                  { id: 'cenas', title: { es: 'Cenas y Restaurantes', en: 'Dinner Transfers' }, price: '120', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=500' },
-                  { id: 'nightlife', title: { es: 'Nightlife', en: 'Nightlife' }, price: '200', img: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=500' },
-                  // 👇 AQUÍ ESTÁ LA NUEVA FOTO DE RESORT PARA HOTEL A HOTEL 👇
-                  { id: 'hotel', title: { es: 'Hotel a Hotel', en: 'Hotel to Hotel' }, price: '50', img: 'private-transportation-sjd-airport-los-cabos-luxury.webp' },
-                  { id: 'golf', title: { es: 'Campos de Golf', en: 'Golf Transfers' }, price: '60', img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=500' }
-                ].map((sp) => (
-                  <div
-                    key={sp.id}
-                    onClick={() => {
-                      // Cierra el carrito y lo lleva directo al formulario especial
-                      setVerCarrito(false);
-                      setServicioSeleccionado('tours');
-                      setSubCategoria('especiales');
-                      setVistaEspecial(sp.id);
-                      setPaso(2);
-                      window.scrollTo(0, 0);
-                    }}
-                    className="snap-center shrink-0 w-[140px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer group hover:border-blue-400 transition-all"
-                  >
-                    <div className="h-20 relative overflow-hidden">
-                      <img src={sp.img} alt={sp.title[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
-                        <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{sp.title[lang]}</span>
-                      </div>
-                    </div>
-                    <div className="p-2.5 flex justify-between items-center bg-gray-50 group-hover:bg-blue-50 transition-colors">
-                      <span className="text-[10px] font-black text-blue-900 flex items-center gap-1 uppercase tracking-wider">
-                        <Plus size={12} strokeWidth={3} /> {lang === 'es' ? 'Añadir' : 'Add'}
-                      </span>
-                      <span className="text-xs font-black text-gray-900">${sp.price}+</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* 👆 FIN SECCIÓN SERVICIOS ESPECIALES 👆 */}
-
-            {/* 👇 TU CÓDIGO ORIGINAL DEL CARRITO QUEDA INTACTO AQUÍ 👇 */}
             {carrito.length > 0 && (
               <div className="border-t border-gray-100 p-6 bg-white shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)] shrink-0">
                 <div className="flex justify-between items-end mb-4">
