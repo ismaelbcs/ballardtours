@@ -3835,29 +3835,26 @@ export default function App() {
           <main>
             {paso > 1 && paso <= 4 && <Stepper />}
             <Routes>
-              {/* 🏠 URL 1: INICIO (tudominio.com/) */}
+              {/* 🏠 URL 1: INICIO */}
               <Route path="/" element={
                 <>
                   <Helmet>
-                    {/* Básicos */}
                     <title>Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours</title>
                     <meta name="description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
 
-                    {/* Canonical - Evita contenido duplicado */}
+                    {/* Etiquetas Canónicas y Open Graph (Redes Sociales) */}
                     <link rel="canonical" href="https://www.ballardtours.com/" />
-
-                    {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours" />
                     <meta property="og:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
-                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
                     <meta property="og:url" content="https://www.ballardtours.com/" />
                     <meta property="og:type" content="website" />
 
-                    {/* Twitter / X Cards */}
+                    {/* Twitter Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:title" content="Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours" />
+                    <meta name="twitter:title" content="Premium Private Transportation & Luxury Tours in Los Cabos" />
                     <meta name="twitter:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
-                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
                   </Helmet>
 
                   <div className="px-4">
@@ -4636,6 +4633,24 @@ export default function App() {
                     <Helmet>
                       <title>{tour.nombre} in Los Cabos | Ballard Tours</title>
                       <meta name="description" content={`Book the best ${tour.nombre} in Los Cabos. ${tour.desc} VIP service, certified guides, and best rates guaranteed.`} />
+
+                      {/* URL Absoluta Canónica */}
+                      <link rel="canonical" href={`https://www.ballardtours.com/tours/${tour.slug}`} />
+
+                      {/* Tarjetas Visuales para Facebook y WhatsApp */}
+                      <meta property="og:title" content={`${tour.nombre} in Los Cabos | Ballard Tours`} />
+                      <meta property="og:description" content={tour.desc} />
+                      <meta property="og:image" content={tour.imageUrl || tour.imagenUrl} />
+                      <meta property="og:url" content={`https://www.ballardtours.com/tours/${tour.slug}`} />
+                      <meta property="og:type" content="article" />
+
+                      {/* Twitter Cards */}
+                      <meta name="twitter:card" content="summary_large_image" />
+                      <meta name="twitter:title" content={`${tour.nombre} in Los Cabos`} />
+                      <meta name="twitter:description" content={tour.desc} />
+                      <meta name="twitter:image" content={tour.imageUrl || tour.imagenUrl} />
+
+                      {/* Datos Estructurados (Punto 7 de la auditoría) */}
                       <script type="application/ld+json">
                         {`
             {
@@ -4643,6 +4658,8 @@ export default function App() {
               "@type": "TouristAttraction",
               "name": "${tour.nombre}",
               "description": "${tour.desc}",
+              "image": "${tour.imageUrl || tour.imagenUrl}",
+              "url": "https://www.ballardtours.com/tours/${tour.slug}",
               "provider": {
                 "@type": "LocalBusiness",
                 "name": "Ballard Tours Los Cabos"
@@ -5411,6 +5428,23 @@ export default function App() {
                     Volver al Inicio
                   </button>
                 </div>
+              } />
+              {/* RUTA 404 CATCH-ALL */}
+              <Route path="*" element={
+                <>
+                  <Helmet>
+                    <title>404 - Página No Encontrada | Ballard Tours</title>
+                    <meta name="robots" content="noindex" />
+                  </Helmet>
+                  <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+                    <h1 className="text-6xl font-black text-blue-900 mb-4">404</h1>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Oops! We can't find that page</h2>
+                    <p className="text-gray-600 mb-8">It seems you've wandered off the map. Let's get you back on track.</p>
+                    <button onClick={() => { setPaso(1); navigate('/'); window.scrollTo(0,0); }} className="bg-blue-900 text-white font-bold py-3 px-8 rounded-xl shadow-lg">
+                      Return to Home
+                    </button>
+                  </div>
+                </>
               } />
 
             </Routes>
