@@ -1811,44 +1811,52 @@ export default function App() {
             </a>
           </div>
 
-          {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Ocupa 3 columnas) */}
-          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
-            {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
-              const isTour = srv === 'tours';
-              const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
-              const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
-              const k = keys[srv];
+          {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Carrusel Swipeable) */}
+    <div className="lg:col-span-3 w-full relative">
+      
+      {/* Contenedor con Scroll Horizontal Nativo y Magnético (Snap) */}
+      <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+        
+        {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
+          const isTour = srv === 'tours';
+          const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
+          const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
+          const k = keys[srv];
 
-              return (
-                <button
-                  key={srv}
-                  onClick={() => {
-                    // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
-                    setServicioSeleccionado(srv);
-                    // 2. Resetea subcategorías si aplica
-                    setSubCategoria('');
-                    // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
-                    avanzarPaso();
-                  }}
-                  className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden h-full flex flex-col ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
-                >
-                  {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-                  <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
-                    {icons[srv]}
-                  </div>
+          return (
+            <button 
+              key={srv} 
+              onClick={() => { 
+                // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
+                setServicioSeleccionado(srv); 
+                // 2. Resetea subcategorías si aplica
+                setSubCategoria(''); 
+                // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
+                avanzarPaso(); 
+              }} 
+              // 👇 AQUÍ ESTÁ LA MAGIA: shrink-0 w-[82vw] y snap-center 👇
+              className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
+            >
+              {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
+              <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
+                {icons[srv]}
+              </div>
+              
+              <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
+              <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+              
+              <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
+                {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
+              </div>
+            </button>
+          )
+        })}
+      </div>
 
-                  <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-                  <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+    </div>
 
-                  <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
-                    {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
-                  </div>
-                </button>
-              )
-            })}
-          </div>
-
-        </div>
+    {/* ESTE ES EL DIV DEL CONTENEDOR PADRE QUE TE FALTABA CERRAR 👇 */}
+</div>
 
         {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
         {/* 🔥 SECCIÓN DE CONFIANZA LUXURY GOLD 🔥 */}
@@ -1915,14 +1923,25 @@ export default function App() {
         {/* TOURS DESTACADOS */}
         {toursActivos.length > 0 && (
           <div id="tours" className="mb-24 scroll-mt-24">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 px-4 lg:px-0">
               {/* Ya era H2, está perfecto */}
-              <div><h2 className="text-3xl font-extrabold text-gray-900">{t.step1.featured_title}</h2><p className="text-gray-500 mt-2">{t.step1.featured_sub}</p></div>
+              <div>
+                <h2 className="text-3xl font-extrabold text-gray-900">{t.step1.featured_title}</h2>
+                <p className="text-gray-500 mt-2">{t.step1.featured_sub}</p>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            {/* 👇 CONTENEDOR CARRUSEL SWIPEABLE DE TOURS 👇 */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+              
               {toursActivos.slice(0, 6).map((tr) => (
-                <div key={tr.id} onClick={() => seleccionarTourDesdeInicio(tr.id)} className="group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full">
-                  <div className="relative h-56 overflow-hidden">
+                <div 
+                  key={tr.id} 
+                  onClick={() => seleccionarTourDesdeInicio(tr.id)} 
+                  // 👇 APLICAMOS EL MISMO TRUCO: shrink-0 w-[85vw] y snap-center 👇
+                  className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-auto group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[400px]"
+                >
+                  <div className="relative h-56 overflow-hidden shrink-0">
                     <div className="absolute inset-0 bg-gray-900/20 group-hover:bg-transparent transition-colors z-10"></div>
                     <div className="relative w-full h-full group cursor-pointer" onClick={(e) => {
                       e.stopPropagation();
@@ -1937,19 +1956,26 @@ export default function App() {
                         <ImageIcon size={16} /> Ver fotos en grande
                       </div>
                     </div>
-                    <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-900 flex items-center gap-1 shadow-lg"><Clock size={12} /> {tr.duracion[lang]}</div>
+                    <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-900 flex items-center gap-1 shadow-lg">
+                      <Clock size={12} /> {tr.duracion[lang]}
+                    </div>
                   </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    {/* Cambiado de H3 a H3 porque está anidado bajo Tours Destacados (H2) */}
+                  <div className="p-6 flex flex-col flex-grow bg-white">
                     <h3 className="text-xl font-bold text-gray-900 mb-2 leading-tight">{tr.nombre[lang]}</h3>
                     <p className="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">{tr.descripcion[lang]}</p>
                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                      <div><p className="text-xs text-gray-400 font-medium">{t.step1.price_from}</p><p className="text-lg font-extrabold text-blue-900">${tr.precioPx} <span className="text-xs font-normal">USD</span></p></div>
-                      <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors"><ChevronRight size={20} /></div>
+                      <div>
+                        <p className="text-xs text-gray-400 font-medium">{t.step1.price_from}</p>
+                        <p className="text-lg font-extrabold text-blue-900">${tr.precioPx} <span className="text-xs font-normal">USD</span></p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                        <ChevronRight size={20} />
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
+
             </div>
           </div>
         )}
