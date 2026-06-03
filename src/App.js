@@ -3844,11 +3844,18 @@ export default function App() {
 
                     {/* Etiquetas Canónicas y Open Graph (Redes Sociales) */}
                     <link rel="canonical" href="https://www.ballardtours.com/" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
                     <meta property="og:title" content="Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours" />
                     <meta property="og:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
                     <meta property="og:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
                     <meta property="og:url" content="https://www.ballardtours.com/" />
                     <meta property="og:type" content="website" />
+                    {/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -3879,6 +3886,10 @@ export default function App() {
 
                     {/* Canonical */}
                     <link rel="canonical" href="https://www.ballardtours.com/transportation" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Private Transportation & Airport Transfers Los Cabos | Ballard Tours" />
@@ -3886,6 +3897,9 @@ export default function App() {
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                     <meta property="og:url" content="https://www.ballardtours.com/transportation" />
                     <meta property="og:type" content="website" />
+                    {/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter / X Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -4053,13 +4067,19 @@ export default function App() {
 
                     {/* Canonical */}
                     <link rel="canonical" href="https://www.ballardtours.com/airport-transportation" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours" />
                     <meta property="og:description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                     <meta property="og:url" content="https://www.ballardtours.com/airport-transportation" />
-                    <meta property="og:type" content="website" />
+                    <meta property="og:type" content="website" />{/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter / X Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -4335,6 +4355,10 @@ export default function App() {
 
                     {/* Canonical */}
                     <link rel="canonical" href="https://www.ballardtours.com/travel-guide" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Los Cabos Travel Guide, Tips & Insider News | Ballard Tours" />
@@ -4342,6 +4366,9 @@ export default function App() {
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                     <meta property="og:url" content="https://www.ballardtours.com/travel-guide" />
                     <meta property="og:type" content="website" />
+                    {/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter / X Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -4391,6 +4418,10 @@ export default function App() {
 
                     {/* Canonical - ¡Ojo! Cambia la URL por la ruta real de tu artículo */}
                     <link rel="canonical" href="https://www.ballardtours.com/blog/uber-vs-private-transportation-los-cabos" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Uber vs. Private Transportation in Los Cabos: What You Need to Know (2026)" />
@@ -4398,6 +4429,9 @@ export default function App() {
                     <meta property="og:image" content="https://www.ballardtours.com/uber-vs-private-transportation-los-cabos.webp" />
                     <meta property="og:url" content="https://www.ballardtours.com/blog/uber-vs-private-transportation-los-cabos" />
                     <meta property="og:type" content="article" /> {/* 👈 Cambiado a "article" para blogs */}
+                    {/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter / X Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -4477,6 +4511,10 @@ export default function App() {
 
                     {/* Canonical - Ajusta la URL según la ruta exacta de esta landing page */}
                     <link rel="canonical" href="https://www.ballardtours.com/cabo-airport-transportation" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Cabo Airport Transportation | Private Airport Transfer Los Cabos" />
@@ -4484,6 +4522,9 @@ export default function App() {
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                     <meta property="og:url" content="https://www.ballardtours.com/cabo-airport-transportation" />
                     <meta property="og:type" content="website" />
+                    {/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter / X Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -4636,6 +4677,10 @@ export default function App() {
 
                       {/* URL Absoluta Canónica */}
                       <link rel="canonical" href={`https://www.ballardtours.com/tours/${tour.slug}`} />
+                      {/* hreflang para SEO Internacional */}
+                      <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                      <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                      <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                       {/* Tarjetas Visuales para Facebook y WhatsApp */}
                       <meta property="og:title" content={`${tour.nombre} in Los Cabos | Ballard Tours`} />
@@ -4643,6 +4688,9 @@ export default function App() {
                       <meta property="og:image" content={tour.imageUrl || tour.imagenUrl} />
                       <meta property="og:url" content={`https://www.ballardtours.com/tours/${tour.slug}`} />
                       <meta property="og:type" content="article" />
+                      {/* Idioma y Región */}
+                      <meta property="og:locale" content="en_US" />
+                      <meta property="og:locale:alternate" content="es_MX" />
 
                       {/* Twitter Cards */}
                       <meta name="twitter:card" content="summary_large_image" />
@@ -5268,6 +5316,10 @@ export default function App() {
 
                     {/* Canonical - Ajusta la URL según la ruta exacta de tu artículo */}
                     <link rel="canonical" href="https://www.ballardtours.com/blog/top-10-things-to-do-in-cabo-san-lucas" />
+                    {/* hreflang para SEO Internacional */}
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
+                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
                     <meta property="og:title" content="Top 10 Things to Do in Cabo San Lucas | Best Cabo Tours & Excursions" />
@@ -5275,6 +5327,9 @@ export default function App() {
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                     <meta property="og:url" content="https://www.ballardtours.com/blog/top-10-things-to-do-in-cabo-san-lucas" />
                     <meta property="og:type" content="article" /> {/* 👈 Declarado como artículo */}
+                    {/* Idioma y Región */}
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:locale:alternate" content="es_MX" />
 
                     {/* Twitter / X Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
@@ -5440,7 +5495,7 @@ export default function App() {
                     <h1 className="text-6xl font-black text-blue-900 mb-4">404</h1>
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">Oops! We can't find that page</h2>
                     <p className="text-gray-600 mb-8">It seems you've wandered off the map. Let's get you back on track.</p>
-                    <button onClick={() => { setPaso(1); navigate('/'); window.scrollTo(0,0); }} className="bg-blue-900 text-white font-bold py-3 px-8 rounded-xl shadow-lg">
+                    <button onClick={() => { setPaso(1); navigate('/'); window.scrollTo(0, 0); }} className="bg-blue-900 text-white font-bold py-3 px-8 rounded-xl shadow-lg">
                       Return to Home
                     </button>
                   </div>
