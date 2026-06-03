@@ -3839,8 +3839,25 @@ export default function App() {
               <Route path="/" element={
                 <>
                   <Helmet>
+                    {/* Básicos */}
                     <title>Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours</title>
                     <meta name="description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
+
+                    {/* Canonical - Evita contenido duplicado */}
+                    <link rel="canonical" href="https://www.ballardtours.com/" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours" />
+                    <meta property="og:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
+                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/" />
+                    <meta property="og:type" content="website" />
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours" />
+                    <meta name="twitter:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                   </Helmet>
 
                   <div className="px-4">
@@ -3859,8 +3876,25 @@ export default function App() {
               <Route path="/transportation" element={
                 <div className="animate-fade-in pb-10">
                   <Helmet>
+                    {/* Básicos */}
                     <title>Private Transportation & Airport Transfers Los Cabos | Ballard Tours</title>
                     <meta name="description" content="Reliable private transportation in Los Cabos. Premium airport transfers, luxury SUVs, and group shuttles from SJD to any resort. Best rates, book online!" />
+
+                    {/* Canonical */}
+                    <link rel="canonical" href="https://www.ballardtours.com/transportation" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Private Transportation & Airport Transfers Los Cabos | Ballard Tours" />
+                    <meta property="og:description" content="Reliable private transportation in Los Cabos. Premium airport transfers, luxury SUVs, and group shuttles from SJD to any resort. Best rates, book online!" />
+                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/transportation" />
+                    <meta property="og:type" content="website" />
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Private Transportation & Airport Transfers Los Cabos | Ballard Tours" />
+                    <meta name="twitter:description" content="Reliable private transportation in Los Cabos. Premium airport transfers, luxury SUVs, and group shuttles from SJD to any resort. Best rates, book online!" />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
 
                     {/* 🔥 ALIMENTO PARA CHATGPT Y GOOGLE SGE (FAQ Schema) 🔥 */}
                     <script type="application/ld+json">
@@ -4016,8 +4050,25 @@ export default function App() {
               <Route path="/transportation/airport-shuttle-sjd" element={
                 <div className="animate-fade-in pb-10 bg-white">
                   <Helmet>
+                    {/* Básicos */}
                     <title>Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours</title>
                     <meta name="description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
+
+                    {/* Canonical */}
+                    <link rel="canonical" href="https://www.ballardtours.com/airport-transportation" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours" />
+                    <meta property="og:description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
+                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/airport-transportation" />
+                    <meta property="og:type" content="website" />
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours" />
+                    <meta name="twitter:description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                   </Helmet>
 
                   {/* HEADER INTERNO */}
@@ -4281,8 +4332,25 @@ export default function App() {
               <Route path="/blog" element={
                 <div className="animate-fade-in pb-20 bg-gray-50">
                   <Helmet>
+                    {/* Básicos */}
                     <title>Los Cabos Travel Guide, Tips & Insider News | Ballard Tours</title>
                     <meta name="description" content="Discover the best travel tips, transportation guides, and luxury experiences in Los Cabos. Expert advice from Ballard Tours." />
+
+                    {/* Canonical */}
+                    <link rel="canonical" href="https://www.ballardtours.com/travel-guide" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Los Cabos Travel Guide, Tips & Insider News | Ballard Tours" />
+                    <meta property="og:description" content="Discover the best travel tips, transportation guides, and luxury experiences in Los Cabos. Expert advice from Ballard Tours." />
+                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/travel-guide" />
+                    <meta property="og:type" content="website" />
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Los Cabos Travel Guide, Tips & Insider News | Ballard Tours" />
+                    <meta name="twitter:description" content="Discover the best travel tips, transportation guides, and luxury experiences in Los Cabos. Expert advice from Ballard Tours." />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                   </Helmet>
 
                   <div className="bg-blue-900 text-white pt-24 pb-16 px-4 text-center rounded-b-[3rem] shadow-xl">
@@ -4320,8 +4388,25 @@ export default function App() {
               <Route path="/blog/uber-vs-private-transportation-cabo" element={
                 <div className="animate-fade-in bg-white pb-20">
                   <Helmet>
+                    {/* Básicos */}
                     <title>Uber vs. Private Transportation in Los Cabos: What You Need to Know (2026)</title>
                     <meta name="description" content="Wondering if you can use Uber at the Cabo Airport? Compare prices, safety, and reliability between Uber and private transportation in Los Cabos." />
+
+                    {/* Canonical - ¡Ojo! Cambia la URL por la ruta real de tu artículo */}
+                    <link rel="canonical" href="https://www.ballardtours.com/blog/uber-vs-private-transportation-los-cabos" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Uber vs. Private Transportation in Los Cabos: What You Need to Know (2026)" />
+                    <meta property="og:description" content="Wondering if you can use Uber at the Cabo Airport? Compare prices, safety, and reliability between Uber and private transportation in Los Cabos." />
+                    <meta property="og:image" content="https://www.ballardtours.com/uber-vs-private-transportation-los-cabos.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/blog/uber-vs-private-transportation-los-cabos" />
+                    <meta property="og:type" content="article" /> {/* 👈 Cambiado a "article" para blogs */}
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Uber vs. Private Transportation in Los Cabos: What You Need to Know (2026)" />
+                    <meta name="twitter:description" content="Wondering if you can use Uber at the Cabo Airport? Compare prices, safety, and reliability between Uber and private transportation in Los Cabos." />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/uber-vs-private-transportation-los-cabos.webp" />
                   </Helmet>
 
                   {/* Header del Artículo */}
@@ -4389,8 +4474,25 @@ export default function App() {
               <Route path="/cabo-airport-transportation" element={
                 <div className="animate-fade-in bg-white pb-20 text-gray-700">
                   <Helmet>
+                    {/* Básicos */}
                     <title>Cabo Airport Transportation | Private Airport Transfer Los Cabos</title>
                     <meta name="description" content="Looking for reliable Cabo airport transportation? Book a premium private airport transfer los cabos or experience luxury transportation cabo san lucas with flat rates." />
+
+                    {/* Canonical - Ajusta la URL según la ruta exacta de esta landing page */}
+                    <link rel="canonical" href="https://www.ballardtours.com/cabo-airport-transportation" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Cabo Airport Transportation | Private Airport Transfer Los Cabos" />
+                    <meta property="og:description" content="Looking for reliable Cabo airport transportation? Book a premium private airport transfer los cabos or experience luxury transportation cabo san lucas with flat rates." />
+                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/cabo-airport-transportation" />
+                    <meta property="og:type" content="website" />
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Cabo Airport Transportation | Private Airport Transfer Los Cabos" />
+                    <meta name="twitter:description" content="Looking for reliable Cabo airport transportation? Book a premium private airport transfer los cabos or experience luxury transportation cabo san lucas with flat rates." />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                   </Helmet>
 
                   {/* HERO SECTION */}
@@ -5143,8 +5245,25 @@ export default function App() {
               <Route path="/things-to-do-in-cabo-san-lucas" element={
                 <div className="animate-fade-in bg-white pb-20 text-gray-700">
                   <Helmet>
+                    {/* Básicos */}
                     <title>Top 10 Things to Do in Cabo San Lucas | Best Cabo Tours & Excursions</title>
                     <meta name="description" content="Discover the ultimate list of things to do in cabo san lucas. Book top-rated cabo tours, ocean excursions, and unlock the best cabo activities for 2026." />
+
+                    {/* Canonical - Ajusta la URL según la ruta exacta de tu artículo */}
+                    <link rel="canonical" href="https://www.ballardtours.com/blog/top-10-things-to-do-in-cabo-san-lucas" />
+
+                    {/* Open Graph (Facebook/WhatsApp) */}
+                    <meta property="og:title" content="Top 10 Things to Do in Cabo San Lucas | Best Cabo Tours & Excursions" />
+                    <meta property="og:description" content="Discover the ultimate list of things to do in cabo san lucas. Book top-rated cabo tours, ocean excursions, and unlock the best cabo activities for 2026." />
+                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
+                    <meta property="og:url" content="https://www.ballardtours.com/blog/top-10-things-to-do-in-cabo-san-lucas" />
+                    <meta property="og:type" content="article" /> {/* 👈 Declarado como artículo */}
+
+                    {/* Twitter / X Cards */}
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:title" content="Top 10 Things to Do in Cabo San Lucas | Best Cabo Tours & Excursions" />
+                    <meta name="twitter:description" content="Discover the ultimate list of things to do in cabo san lucas. Book top-rated cabo tours, ocean excursions, and unlock the best cabo activities for 2026." />
+                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                   </Helmet>
 
                   {/* HERO MAJESTUOSO */}
@@ -5279,6 +5398,18 @@ export default function App() {
                     </footer>
 
                   </main>
+                </div>
+              } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
+
+              {/* 👇 NUEVA RUTA 404 (Debe ir estrictamente al final) 👇 */}
+              <Route path="*" element={
+                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+                  <h1 className="text-6xl font-black text-blue-900 mb-4">404</h1>
+                  <h2 className="text-2xl font-bold text-gray-800 mb-4">Página no encontrada</h2>
+                  <p className="text-gray-600 mb-8">Lo sentimos, la ruta que buscas no existe o fue movida.</p>
+                  <button onClick={() => window.location.href = '/'} className="bg-blue-900 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-800 transition-colors">
+                    Volver al Inicio
+                  </button>
                 </div>
               } />
 
