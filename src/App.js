@@ -1618,14 +1618,15 @@ export default function App() {
       }
 
       return (
-        <div className="w-full lg:w-96 flex-shrink-0 animate-fade-in">
-          <div className="bg-gray-900 rounded-2xl shadow-xl p-6 text-white sticky top-28 border border-gray-700">
+        // Añadimos un mb-24 en móvil para que el contenido no quede oculto detrás de la barra flotante
+        <div className="w-full lg:w-96 flex-shrink-0 animate-fade-in mb-24 lg:mb-0">
+          <div className="bg-gray-900 rounded-2xl shadow-xl p-6 text-white lg:sticky lg:top-28 border border-gray-700">
             <h3 className="text-xl font-bold mb-6 border-b border-gray-700 pb-4">Resumen de Cotización</h3>
 
             <div className="space-y-4 text-sm mb-6 text-gray-300">
               <div className="flex justify-between border-b border-gray-800 pb-2">
                 <span className="font-semibold text-gray-400">Servicio:</span>
-                <span className="text-right font-bold text-white">{titleEspecial}</span>
+                <span className="text-right font-bold text-white">{titleEspecial || t.services[servicioSeleccionado]}</span>
               </div>
               {detailsBlock}
               {reserva.fechaLlegada && (
@@ -1634,57 +1635,43 @@ export default function App() {
                   <span className="text-right font-bold text-white">{reserva.fechaLlegada}</span>
                 </div>
               )}
-              {(reserva.carSeat > 0 || reserva.babySeat > 0 || reserva.boosterSeat > 0) && (
-                <div className="flex justify-between border-b border-gray-800 pb-2">
-                  <span className="font-semibold text-gray-400">Sillas Bebé:</span>
-                  <span className="text-right font-bold text-white text-xs">
-                    {reserva.carSeat > 0 && `${reserva.carSeat}x Car `}
-                    {reserva.babySeat > 0 && `${reserva.babySeat}x Baby `}
-                    {reserva.boosterSeat > 0 && `${reserva.boosterSeat}x Boost`}
-                  </span>
-                </div>
-              )}
-              {reserva.shoppingStop && (
-                <div className="flex justify-between border-b border-gray-800 pb-2">
-                  <span className="font-semibold text-gray-400">Extras:</span>
-                  <span className="text-right font-bold text-green-400">Shopping Stop (+ $30)</span>
-                </div>
-              )}
-              {paso === 4 && (
-                <div className="flex justify-between border-t border-gray-800 pt-2 text-green-400 font-bold">
-                  <span>{t.summary.payment}</span> <span>{datosCliente.paymentMethod === 'paypal' ? 'PayPal' : t.step4.cash}</span>
-                </div>
-              )}
             </div>
 
             <div className="mt-6 pt-4 border-t border-gray-800">
               <p className="text-sm text-gray-400 mb-1">{paso === 4 ? t.step4.total_pay : t.step2.total}</p>
-              {(currentUser?.role === 'agency' || appliedPromo) && (
-                <p className="text-sm text-green-400 mb-1 line-through">${detallesPrecio.precioBase?.toFixed(2)}</p>
-              )}
               <p className="text-4xl font-black text-white">${detallesPrecio.total?.toFixed(2)}</p>
-              {(currentUser?.role === 'agency' || appliedPromo) && (
-                <p className="text-xs text-green-400 font-bold mt-2 flex items-center">
-                  <CheckCircle size={14} className="mr-1" /> {discountLabel} aplicado
-                </p>
-              )}
               <p className="text-xs text-gray-400 mt-1 flex items-center">
                 <CheckCircle size={14} className="mr-1" /> Impuestos incluidos
               </p>
             </div>
-            {conBoton && (
-              <div className="flex gap-3 mt-6">
-                <button onClick={regresarPaso} className="px-5 py-4 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition flex items-center font-bold gap-1"><ChevronLeft size={20} /> <span className="hidden sm:inline">{t.step2.back}</span></button>
+          </div>
+
+          {/* 👇 MAGIA UX: BARRA FLOTANTE NATIVA PARA CELULARES 👇 */}
+          {conBoton && (
+            <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-xl border-t border-gray-200 shadow-[0_-20px_40px_rgba(0,0,0,0.08)] z-50 lg:static lg:bg-transparent lg:border-none lg:p-0 lg:shadow-none lg:mt-6">
+              <div className="flex gap-3 max-w-7xl mx-auto">
+                <button
+                  onClick={regresarPaso}
+                  // active:scale-95 da esa sensación de "botón físico" al tocar la pantalla
+                  className="px-5 py-4 bg-gray-100 lg:bg-gray-800 text-gray-700 lg:text-white rounded-xl hover:bg-gray-200 lg:hover:bg-gray-700 transition flex items-center font-bold gap-1 active:scale-95"
+                >
+                  <ChevronLeft size={20} /> <span className="hidden sm:inline">{t.step2.back}</span>
+                </button>
                 <button
                   disabled={disabledBtn}
                   onClick={onContinue}
-                  className={`flex-1 py-4 rounded-xl font-bold flex justify-center items-center transition ${disabledBtn ? 'bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20'}`}
+                  className={`flex-1 py-4 rounded-xl font-bold flex justify-center items-center transition-all active:scale-[0.98] ${disabledBtn ? 'bg-gray-300 lg:bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 text-white shadow-lg shadow-blue-900/30'}`}
                 >
-                  {btnText} {paso === 2 ? <Plus size={20} className="ml-1" /> : <ChevronRight size={20} className="ml-1" />}
+                  <div className="flex items-center justify-between w-full px-4">
+                    <span>{btnText}</span>
+                    <span className="flex items-center bg-white/20 px-2 py-1 rounded-lg text-sm">
+                      ${detallesPrecio.total?.toFixed(2)} {paso === 2 ? <Plus size={16} className="ml-1" /> : <ChevronRight size={16} className="ml-1" />}
+                    </span>
+                  </div>
                 </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       );
     }
@@ -1812,51 +1799,51 @@ export default function App() {
           </div>
 
           {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Carrusel Swipeable) */}
-    <div className="lg:col-span-3 w-full relative">
-      
-      {/* Contenedor con Scroll Horizontal Nativo y Magnético (Snap) */}
-      <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-        
-        {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
-          const isTour = srv === 'tours';
-          const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
-          const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
-          const k = keys[srv];
+          <div className="lg:col-span-3 w-full relative">
 
-          return (
-            <button 
-              key={srv} 
-              onClick={() => { 
-                // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
-                setServicioSeleccionado(srv); 
-                // 2. Resetea subcategorías si aplica
-                setSubCategoria(''); 
-                // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
-                avanzarPaso(); 
-              }} 
-              // 👇 AQUÍ ESTÁ LA MAGIA: shrink-0 w-[82vw] y snap-center 👇
-              className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
-            >
-              {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-              <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
-                {icons[srv]}
-              </div>
-              
-              <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-              <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
-              
-              <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
-                {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
-              </div>
-            </button>
-          )
-        })}
-      </div>
+            {/* Contenedor con Scroll Horizontal Nativo y Magnético (Snap) */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
 
-    </div>
+              {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
+                const isTour = srv === 'tours';
+                const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
+                const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
+                const k = keys[srv];
 
-    {/* ESTE ES EL DIV DEL CONTENEDOR PADRE QUE TE FALTABA CERRAR 👇 */}
-</div>
+                return (
+                  <button
+                    key={srv}
+                    onClick={() => {
+                      // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
+                      setServicioSeleccionado(srv);
+                      // 2. Resetea subcategorías si aplica
+                      setSubCategoria('');
+                      // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
+                      avanzarPaso();
+                    }}
+                    // 👇 AQUÍ ESTÁ LA MAGIA: shrink-0 w-[82vw] y snap-center 👇
+                    className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
+                  >
+                    {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
+                    <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
+                      {icons[srv]}
+                    </div>
+
+                    <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
+                    <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+
+                    <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
+                      {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+
+          </div>
+
+          {/* ESTE ES EL DIV DEL CONTENEDOR PADRE QUE TE FALTABA CERRAR 👇 */}
+        </div>
 
         {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
         {/* 🔥 SECCIÓN DE CONFIANZA LUXURY GOLD 🔥 */}
@@ -1930,14 +1917,14 @@ export default function App() {
                 <p className="text-gray-500 mt-2">{t.step1.featured_sub}</p>
               </div>
             </div>
-            
+
             {/* 👇 CONTENEDOR CARRUSEL SWIPEABLE DE TOURS 👇 */}
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-              
+
               {toursActivos.slice(0, 6).map((tr) => (
-                <div 
-                  key={tr.id} 
-                  onClick={() => seleccionarTourDesdeInicio(tr.id)} 
+                <div
+                  key={tr.id}
+                  onClick={() => seleccionarTourDesdeInicio(tr.id)}
                   // 👇 APLICAMOS EL MISMO TRUCO: shrink-0 w-[85vw] y snap-center 👇
                   className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-auto group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[400px]"
                 >
@@ -2144,8 +2131,8 @@ export default function App() {
                             value={part.edad}
                             onChange={(e) => handleParticipanteChange(index, 'edad', e.target.value)}
                             className={`col-span-2 bg-white border rounded-lg p-2 text-sm outline-none transition-all ${part.edad && parseInt(part.edad) < (tr.edadMinima || 0)
-                                ? 'bg-red-50 border-red-500 text-red-700 font-bold'
-                                : 'border-gray-200 text-gray-800'
+                              ? 'bg-red-50 border-red-500 text-red-700 font-bold'
+                              : 'border-gray-200 text-gray-800'
                               }`}
                           />
                         </div>
@@ -3123,9 +3110,16 @@ export default function App() {
                   <button
                     onClick={procesarConfirmacion}
                     disabled={procesandoPago}
-                    className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex justify-center items-center transition shadow-lg disabled:opacity-50"
+                    className="flex-1 py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold flex justify-center items-center transition-all shadow-xl shadow-blue-900/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    {procesandoPago ? t.step4.processing : t.step4.confirm_cash}
+                    {procesandoPago ? (
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : (
+                      t.step4.confirm_cash
+                    )}
                   </button>
                 )}
               </>
