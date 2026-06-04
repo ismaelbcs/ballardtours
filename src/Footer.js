@@ -8,13 +8,83 @@ const Footer = () => {
                 {/* 1. Datos Visibles (NAP: Name, Address, Phone) */}
                 <div>
                     <h3 className="text-3xl font-black mb-6">Ballard Tours</h3>
-                    <p className="text-blue-200 mb-3">
-                        <strong>Address:</strong> Cabo San Lucas, Baja California Sur, Mexico
-                    </p>
-                    <p className="text-blue-200 mb-3">
-                        {/* Recuerda cambiar este número por el tuyo si es diferente */}
-                        <strong>Phone / WhatsApp:</strong> <a href="tel:+526121943286" className="hover:text-white transition-colors">+52 612 194 3286</a>
-                    </p>
+                    {/* ================= INFORMACIÓN DE CONTACTO (AZUL CORPORATIVO) ================= */}
+                    <div className="bg-blue-900 text-white p-8 sm:p-10 rounded-lg max-w-md w-full shadow-xl">
+
+                        <h2 className="text-3xl font-bold border-b border-blue-700 pb-3 mb-6">
+                            Contact Information
+                        </h2>
+
+                        <h3 className="text-2xl font-bold mb-6">
+                            Get in Touch
+                        </h3>
+
+                        <div className="space-y-4 text-lg">
+
+                            {/* --- UBICACIÓN (Abre Google Maps) --- */}
+                            <a
+                                href="https://maps.app.goo.gl/1bmFeQCRgwVfs9GZ9"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-start gap-4 hover:text-blue-200 transition-colors duration-300 group"
+                            >
+                                <svg className="w-6 h-6 text-red-500 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                </svg>
+                                <span>Cabo San Lucas, Baja California Sur, Mexico.</span>
+                            </a>
+
+                            {/* --- LLAMADA TELEFÓNICA (Abre la app de teléfono) --- */}
+                            <a
+                                href="tel:+526241393497"
+                                className="flex items-center gap-4 hover:text-blue-200 transition-colors duration-300 group"
+                            >
+                                <svg className="w-6 h-6 text-green-400 flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                                </svg>
+                                <span>+52 (624) 139-3497</span>
+                            </a>
+
+                            {/* --- WHATSAPP 1 (Abre chat directo) --- */}
+                            <a
+                                href="https://wa.me/526241393497"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-4 hover:text-blue-200 transition-colors duration-300 group"
+                            >
+                                <svg className="w-6 h-6 text-white flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.46 14.15c-.23.64-1.33 1.23-1.84 1.34-.48.11-1.12.23-3.23-.64-2.52-1.04-4.14-3.61-4.26-3.78-.13-.17-1.02-1.36-1.02-2.6 0-1.24.64-1.85.87-2.1.22-.24.48-.3.64-.3h.46c.16 0 .38-.06.59.43.23.55.77 1.88.84 2.02.06.14.11.3.02.49-.09.18-.13.3-.26.46-.13.15-.27.32-.38.44-.13.13-.26.28-.11.54.15.26.68 1.13 1.46 1.83.99.9 1.85 1.19 2.11 1.32.26.13.41.11.57-.08.15-.2.67-.78.85-1.04.18-.26.36-.22.6-.13.24.09 1.54.73 1.81.86.26.13.44.2.5.31.06.11.06.66-.17 1.3z" />
+                                </svg>
+                                <span>+52 (624) 139-3497</span>
+                            </a>
+
+                            {/* --- WHATSAPP 2 (Abre chat directo) --- */}
+                            <a
+                                href="https://wa.me/526121943286"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-4 hover:text-blue-200 transition-colors duration-300 group"
+                            >
+                                <svg className="w-6 h-6 text-white flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.46 14.15c-.23.64-1.33 1.23-1.84 1.34-.48.11-1.12.23-3.23-.64-2.52-1.04-4.14-3.61-4.26-3.78-.13-.17-1.02-1.36-1.02-2.6 0-1.24.64-1.85.87-2.1.22-.24.48-.3.64-.3h.46c.16 0 .38-.06.59.43.23.55.77 1.88.84 2.02.06.14.11.3.02.49-.09.18-.13.3-.26.46-.13.15-.27.32-.38.44-.13.13-.26.28-.11.54.15.26.68 1.13 1.46 1.83.99.9 1.85 1.19 2.11 1.32.26.13.41.11.57-.08.15-.2.67-.78.85-1.04.18-.26.36-.22.6-.13.24.09 1.54.73 1.81.86.26.13.44.2.5.31.06.11.06.66-.17 1.3z" />
+                                </svg>
+                                <span>+52 (612) 194-3286</span>
+                            </a>
+
+                            {/* --- CORREO ELECTRÓNICO (Abre app de correo) --- */}
+                            <a
+                                href="mailto:reservationballard@gmail.com"
+                                className="flex items-center gap-4 hover:text-blue-200 transition-colors duration-300 group"
+                            >
+                                <svg className="w-6 h-6 text-white flex-shrink-0 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                    <polyline points="22,6 12,13 2,6" />
+                                </svg>
+                                <span className="truncate">reservationballard@gmail.com</span>
+                            </a>
+
+                        </div>
+                    </div>
                     {/* ================= REDES SOCIALES ================= */}
                     <div className="flex flex-col items-center mt-10 mb-6">
                         <h3 className="text-lg font-bold text-gray-800 mb-4 tracking-wide">
