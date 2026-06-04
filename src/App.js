@@ -3838,30 +3838,78 @@ export default function App() {
               {/* 🏠 URL 1: INICIO */}
               <Route path="/" element={
                 <>
-                  <Helmet>
-                    <title>Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours</title>
-                    <meta name="description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
+                  <Helmet htmlAttributes={{ lang: lang === 'es' ? 'es-MX' : 'en-US' }}>
+                    {/* 👇 TÍTULO Y DESCRIPCIÓN CON PALABRAS CLAVE ESTRATÉGICAS 👇 */}
+                    <title>Los Cabos Private Transportation & Best Tours | Ballard Tours</title>
+                    <meta name="description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours. VIP service to Nobu, Hard Rock & Cabo resorts." />
 
-                    {/* Etiquetas Canónicas y Open Graph (Redes Sociales) */}
+                    {/* 👇 Etiquetas Canónicas y hreflang (SEO Internacional) 👇 */}
                     <link rel="canonical" href="https://www.ballardtours.com/" />
-                    {/* hreflang para SEO Internacional */}
                     <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
                     <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
                     <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
-                    <meta property="og:title" content="Premium Private Transportation & Luxury Tours in Los Cabos | Ballard Tours" />
-                    <meta property="og:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
+
+                    {/* 👇 Open Graph (Facebook/WhatsApp) 👇 */}
+                    <meta property="og:title" content="Los Cabos Private Transportation & Best Tours | Ballard Tours" />
+                    <meta property="og:description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours. VIP service to Nobu, Hard Rock & Cabo resorts." />
                     <meta property="og:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
                     <meta property="og:url" content="https://www.ballardtours.com/" />
                     <meta property="og:type" content="website" />
-                    {/* Idioma y Región */}
+
+                    {/* 👇 Idioma y Región 👇 */}
                     <meta property="og:locale" content="en_US" />
                     <meta property="og:locale:alternate" content="es_MX" />
 
-                    {/* Twitter Cards */}
+                    {/* 👇 Twitter Cards 👇 */}
                     <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:title" content="Premium Private Transportation & Luxury Tours in Los Cabos" />
-                    <meta name="twitter:description" content="Book premium private airport transportation, luxury SUV transfers, and exclusive private tours in Los Cabos." />
+                    <meta name="twitter:title" content="Los Cabos Private Transportation & Luxury Tours" />
+                    <meta name="twitter:description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours." />
                     <meta name="twitter:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
+
+                    {/* 👇 SCHEMA DE EMPRESA Y SITIO WEB (E-E-A-T) 👇 */}
+                    <script type="application/ld+json">
+                      {`
+                        {
+                          "@context": "https://schema.org",
+                          "@graph": [
+                            {
+                              "@type": "WebSite",
+                              "@id": "https://www.ballardtours.com/#website",
+                              "url": "https://www.ballardtours.com/",
+                              "name": "Ballard Tours Los Cabos",
+                              "description": "Los Cabos Private Transportation and Luxury Tours",
+                              "potentialAction": {
+                                "@type": "SearchAction",
+                                "target": "https://www.ballardtours.com/?search={search_term_string}",
+                                "query-input": "required name=search_term_string"
+                              }
+                            },
+                            {
+                              "@type": "TravelAgency",
+                              "@id": "https://www.ballardtours.com/#organization",
+                              "name": "Ballard Tours",
+                              "url": "https://www.ballardtours.com/",
+                              "logo": "https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png",
+                              "image": "https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png",
+                              "description": "Premium private transportation and tour provider in Los Cabos, Mexico.",
+                              "address": {
+                                "@type": "PostalAddress",
+                                "addressLocality": "Cabo San Lucas",
+                                "addressRegion": "Baja California Sur",
+                                "addressCountry": "MX"
+                              },
+                              "contactPoint": {
+                                "@type": "ContactPoint",
+                                "telephone": "+52-612-194-3286", /* 👈 CAMBIA ESTO POR TU WHATSAPP REAL */
+                                "contactType": "customer service",
+                                "areaServed": "MX",
+                                "availableLanguage": ["en", "es"]
+                              }
+                            }
+                          ]
+                        }
+                      `}
+                    </script>
                   </Helmet>
 
                   <div className="px-4">
@@ -4714,6 +4762,34 @@ export default function App() {
               }
             }
           `}
+                        {/* Schema de Breadcrumb (Fase 3) */}
+                        <script type="application/ld+json">
+                          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://www.ballardtours.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Tours",
+                  "item": "https://www.ballardtours.com/tours"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "${tour.nombre}"
+                }
+              ]
+            }
+          `}
+                        </script>
                       </script>
                     </Helmet>
 
