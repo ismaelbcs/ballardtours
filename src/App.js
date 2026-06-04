@@ -515,6 +515,20 @@ export default function App() {
   const [promoError, setPromoError] = useState('');
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [pendingPromoCode, setPendingPromoCode] = useState('');
+  // =========================================================
+  // LECTOR MÁGICO DE CÓDIGOS QR (PARÁMETRO ?promo=)
+  // =========================================================
+  useEffect(() => {
+    // Leemos la URL actual buscando la palabra "promo"
+    const params = new URLSearchParams(window.location.search);
+    const codigoPromoUrl = params.get('promo');
+
+    // Si encontramos un código en el link (ej: ?promo=CHOFER10)
+    if (codigoPromoUrl) {
+      setPromoInput(codigoPromoUrl.toUpperCase()); // Lo escribimos en el campo
+      setShowPromoModal(true); // Abrimos la ventana de inmediato sin esperar 5 segundos
+    }
+  }, []);
 
   // ESTADOS DEL CARRITO (COMBO) Y CLIENTE
   const [carrito, setCarrito] = useState([]);
