@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Footer from './Footer';
+import TermsAndConditions from './TermsAndConditions';
+import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -5555,6 +5557,9 @@ export default function App() {
                   </main>
                 </div>
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+              
+              <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
               {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
