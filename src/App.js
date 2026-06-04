@@ -1978,31 +1978,47 @@ export default function App() {
                 const k = keys[srv];
 
                 return (
-                  <button
+                  <div
                     key={srv}
-                    onClick={() => {
-                      // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
-                      setServicioSeleccionado(srv);
-                      // 2. Resetea subcategorías si aplica
-                      setSubCategoria('');
-                      // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
-                      avanzarPaso();
-                    }}
-                    // 👇 AQUÍ ESTÁ LA MAGIA: shrink-0 w-[82vw] y snap-center 👇
+                    // 👇 Cambiamos <button> a <div> aquí 👇
                     className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
                   >
                     {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
+                    
                     <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
                       {icons[srv]}
                     </div>
 
                     <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-                    <p className={`relative z-10 text-sm flex-grow ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
+                    
+                    {/* 👇 Añadimos mb-6 para empujar el botón hacia abajo 👇 */}
+                    <p className={`relative z-10 text-sm flex-grow mb-6 ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
 
-                    <div className={`relative z-10 mt-4 flex items-center font-bold text-sm group-hover:translate-x-2 transition-transform ${isTour ? 'text-white' : 'text-blue-900'}`}>
-                      {isTour ? t.step1.catalog : t.step1.book} <ChevronRight size={18} />
-                    </div>
-                  </button>
+                    {/* 👇 EL NUEVO BOTÓN ANIMADO CON TU ONCLICK ORIGINAL 👇 */}
+                    <button
+                      onClick={() => {
+                        // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
+                        setServicioSeleccionado(srv);
+                        // 2. Resetea subcategorías si aplica
+                        setSubCategoria('');
+                        // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
+                        avanzarPaso();
+                      }}
+                      className={`relative z-10 mt-auto w-full font-bold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:animate-none animate-[pulse_2s_ease-in-out_infinite] active:scale-95 ${
+                        isTour
+                          ? 'bg-white text-blue-900 shadow-[0_4px_15px_rgba(255,255,255,0.2)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.4)]'
+                          : 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)]'
+                      }`}
+                    >
+                      {/* Mantiene tus traducciones (Catalog o Book) */}
+                      <span>{isTour ? t.step1.catalog : t.step1.book}</span>
+                      
+                      {/* Flechita SVG */}
+                      <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </button>
+                  </div>
                 )
               })}
             </div>
