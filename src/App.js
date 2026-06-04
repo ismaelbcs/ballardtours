@@ -5579,6 +5579,8 @@ export default function App() {
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
+              <Route path="/about-us" element={<AboutUs />} />
+
               <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
@@ -5608,8 +5610,7 @@ export default function App() {
 
           {/* 👇 AQUÍ VA TU NUEVO FOOTER GLOBAL 👇 */}
           <Footer />
-          
-          <Route path="/about-us" element={<AboutUs />} />
+
 
           {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
           <div className="bg-gray-100 py-10 border-t border-gray-200">
