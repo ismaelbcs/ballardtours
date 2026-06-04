@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="bg-blue-900 text-white py-16 mt-20">
-            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
 
                 {/* 1. Datos Visibles (NAP: Name, Address, Phone) */}
                 <div>
@@ -141,33 +141,41 @@ const Footer = () => {
 
                 {/* 2. Páginas de Confianza */}
                 <div>
-                    <h4 className="text-xl font-bold mb-6 border-b border-blue-800 pb-2 inline-block">Company</h4>
-                    <ul className="space-y-3">
+                    <h4 className="text-2xl font-bold text-white mb-6 border-b border-blue-700 pb-3 inline-block w-full">
+                        Company
+                    </h4>
+                    <ul className="flex flex-col space-y-4 text-lg text-blue-100">
                         <li>
-                            <Link to="/about-us" className="text-sm text-gray-500 hover:text-blue-600 hover:underline transition-colors">
+                            <Link to="/about-us" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
                                 About Us
                             </Link>
                         </li>
                         <li>
-                            <Link to="/contact" className="text-blue-200 hover:text-white hover:underline transition-all">Contact Us</Link>
+                            <Link to="/contact" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
+                                Contact Us
+                            </Link>
                         </li>
                     </ul>
                 </div>
 
                 {/* 3. Páginas Legales */}
                 <div>
-                    <h4 className="text-xl font-bold mb-6 border-b border-blue-800 pb-2 inline-block">Legal</h4>
-                    <ul className="space-y-3">
+                    <h4 className="text-2xl font-bold text-white mb-6 border-b border-blue-700 pb-3 inline-block w-full">
+                        Legal
+                    </h4>
+                    <ul className="flex flex-col space-y-4 text-lg text-blue-100">
                         <li>
-                            <Link to="/terms-and-conditions" className="text-sm text-gray-500 hover:text-blue-600 hover:underline transition-colors">
+                            <Link to="/terms-and-conditions" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
                                 Términos y Condiciones
                             </Link>
                         </li>
                         <li>
-                            <Link to="/privacy-policy" className="text-blue-200 hover:text-white hover:underline transition-all">Privacy Policy</Link>
+                            <Link to="/privacy-policy" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
+                                Privacy Policy
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/politicas-de-cancelacion" className="text-sm text-gray-500 hover:text-blue-600 hover:underline transition-colors">
+                            <Link to="/politicas-de-cancelacion" className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300">
                                 Políticas de Cancelación
                             </Link>
                         </li>
