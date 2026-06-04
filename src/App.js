@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import Footer from './Footer';
 import TermsAndConditions from './TermsAndConditions';
 import AboutUs from './AboutUs';
+import Contact from './Contact';
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -5600,6 +5601,8 @@ export default function App() {
               <Route path="/about-us" element={<AboutUs />} />
 
               <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
+
+              <Route path="/contact" element={<Contact />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
               {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
