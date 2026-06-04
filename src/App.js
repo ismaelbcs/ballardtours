@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Footer from './Footer';
 import TermsAndConditions from './TermsAndConditions';
+import AboutUs from './AboutUs';
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -5607,6 +5608,8 @@ export default function App() {
 
           {/* 👇 AQUÍ VA TU NUEVO FOOTER GLOBAL 👇 */}
           <Footer />
+          
+          <Route path="/about-us" element={<AboutUs />} />
 
           {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
           <div className="bg-gray-100 py-10 border-t border-gray-200">

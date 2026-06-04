@@ -144,7 +144,9 @@ const Footer = () => {
                     <h4 className="text-xl font-bold mb-6 border-b border-blue-800 pb-2 inline-block">Company</h4>
                     <ul className="space-y-3">
                         <li>
-                            <Link to="/about-us" className="text-blue-200 hover:text-white hover:underline transition-all">About Us</Link>
+                            <Link to="/about-us" className="text-sm text-gray-500 hover:text-blue-600 hover:underline transition-colors">
+                                About Us
+                            </Link>
                         </li>
                         <li>
                             <Link to="/contact" className="text-blue-200 hover:text-white hover:underline transition-all">Contact Us</Link>
