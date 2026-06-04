@@ -5556,7 +5556,20 @@ export default function App() {
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
-              <Route path="/destinations" element={<DestinationsHub hoteles={tusHoteles} />} />
+              <Route path="/destinations" element={
+                <DestinationsHub hoteles={[
+                  {
+                    slug: 'sjd-to-hard-rock',
+                    nombre: 'Hard Rock Hotel Los Cabos',
+                    imagen: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=500'
+                  },
+                  {
+                    slug: 'sjd-to-nobu-hotel',
+                    nombre: 'Nobu Hotel Los Cabos',
+                    imagen: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=500'
+                  }
+                ]} />
+              } />
 
               {/* RUTA 404 CATCH-ALL */}
               <Route path="*" element={
