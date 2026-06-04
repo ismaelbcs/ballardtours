@@ -1215,7 +1215,11 @@ export default function App() {
       // 5. Aplicamos el descuento y cerramos la ventana
       setAppliedPromo(dataResult);
       setShowPromoModal(false);
-      toast.success(`¡Código ${codigoLimpio} aplicado con éxito!`);
+      // 👇 NOTIFICACIÓN ESTILO EMIL KOWALSKI (SONNER) 👇
+      toast.success(`¡Código ${codigoLimpio} Activado!`, {
+        description: 'El descuento se ha aplicado automáticamente para tu próxima compra.',
+        duration: 5000,
+      });
 
     } catch (err) {
       console.error("Error al conectar con Firebase:", err);
