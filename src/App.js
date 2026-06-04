@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import Footer from './Footer';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import DestinationsHub from './DestinationsHub';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { collection, addDoc, query, where, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from './firebase';
@@ -5553,17 +5555,9 @@ export default function App() {
                 </div>
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
 
-              {/* 👇 NUEVA RUTA 404 (Debe ir estrictamente al final) 👇 */}
-              <Route path="*" element={
-                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-                  <h1 className="text-6xl font-black text-blue-900 mb-4">404</h1>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-4">Página no encontrada</h2>
-                  <p className="text-gray-600 mb-8">Lo sentimos, la ruta que buscas no existe o fue movida.</p>
-                  <button onClick={() => window.location.href = '/'} className="bg-blue-900 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-800 transition-colors">
-                    Volver al Inicio
-                  </button>
-                </div>
-              } />
+              {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
+              <Route path="/destinations" element={<DestinationsHub hoteles={tusHoteles} />} />
+
               {/* RUTA 404 CATCH-ALL */}
               <Route path="*" element={
                 <>
@@ -5584,6 +5578,9 @@ export default function App() {
 
             </Routes>
           </main>
+
+          {/* 👇 AQUÍ VA TU NUEVO FOOTER GLOBAL 👇 */}
+          <Footer />
 
           {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
           <div className="bg-gray-100 py-10 border-t border-gray-200">
