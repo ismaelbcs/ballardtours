@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Footer from './Footer';
+import { hotelesSEO } from './datosHoteles';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DestinationsHub from './DestinationsHub';
@@ -5556,20 +5557,8 @@ export default function App() {
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
-              <Route path="/destinations" element={
-                <DestinationsHub hoteles={[
-                  {
-                    slug: 'sjd-to-hard-rock',
-                    nombre: 'Hard Rock Hotel Los Cabos',
-                    imagen: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=500'
-                  },
-                  {
-                    slug: 'sjd-to-nobu-hotel',
-                    nombre: 'Nobu Hotel Los Cabos',
-                    imagen: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=500'
-                  }
-                ]} />
-              } />
+              {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
+              <Route path="/destinations" element={<DestinationsHub hoteles={hotelesSEO} />} />
 
               {/* RUTA 404 CATCH-ALL */}
               <Route path="*" element={
