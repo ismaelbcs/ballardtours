@@ -4652,9 +4652,12 @@ export default function App() {
                       </p>
                       <button
                         onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setPaso(2); navigate("/"); window.scrollTo(0, 0); }}
-                        className="inline-block bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-md text-base"
+                        className="w-full sm:w-auto mx-auto bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold py-4 px-8 rounded-xl shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 animate-[pulse_2s_ease-in-out_infinite] group"
                       >
-                        Book Your Private SUV Transfer Now
+                        <span>Book Your Private SUV Transfer Now</span>
+                        <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
                       </button>
                     </div>
 
@@ -5558,7 +5561,7 @@ export default function App() {
                 </div>
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-              
+
               <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
