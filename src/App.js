@@ -2007,18 +2007,18 @@ export default function App() {
 
         {/* 🔥 2. HERO SECTION CON EL NUEVO VIDEO DE FONDO Y WIDGET 🔥 */}
         <div className="relative bg-gray-900 pb-32 pt-24 px-4 text-center overflow-hidden">
-          
+
           {/* VIDEO DE FONDO MÁS VISIBLE */}
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="absolute inset-0 w-full h-full object-cover opacity-80 z-0"
           >
             <source src={`${process.env.PUBLIC_URL}/private-luxury-transfers-cabo-san-lucas.mp4`} type="video/mp4" />
           </video>
-          
+
           {/* OVERLAY AZUL MÁS TRANSPARENTE PARA QUE EL VIDEO RESALTE */}
           <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-gray-900/80 z-10"></div>
 
@@ -2035,15 +2035,15 @@ export default function App() {
         {/* 🚀 EL NUEVO WIDGET DE RESERVA (ESTILO BOOKING ENGINE) 🚀 */}
         <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-24 mb-16">
           <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-gray-100">
-            
+
             {/* ENCABEZADO DEL WIDGET CON EL LOGO DE TARJETAS */}
             <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
               <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
                 <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
               </h3>
-              <img 
-                src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} 
-                alt="Métodos de Pago Aceptados" 
+              <img
+                src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`}
+                alt="Métodos de Pago Aceptados"
                 className="h-6 md:h-8 object-contain"
               />
             </div>
@@ -2185,7 +2185,7 @@ export default function App() {
                   <div className="flex -space-x-2">
                     <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-8 h-8 rounded-full border-2 border-white z-30 object-contain bg-white shadow-sm" />
                     <div className="w-8 h-8 bg-white rounded-full border-2 border-white z-20 shadow-sm flex items-center justify-center">
-                      <svg viewBox="0 0 24 24" width="14" height="14"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                      <svg viewBox="0 0 24 24" width="14" height="14"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" /><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" /><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" /><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" /></svg>
                     </div>
                     <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-8 h-8 rounded-full border-2 border-white z-10 object-contain bg-white shadow-sm" />
                   </div>
@@ -2201,17 +2201,17 @@ export default function App() {
 
               <div className="flex items-center gap-4">
                 <div className="hidden md:flex gap-2">
-                  <button onClick={() => { const c = document.getElementById('reviews-carousel'); if(c) c.scrollBy({ left: -340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+                  <button onClick={() => { const c = document.getElementById('reviews-carousel'); if (c) c.scrollBy({ left: -340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
                     <ChevronLeft size={20} />
                   </button>
-                  <button onClick={() => { const c = document.getElementById('reviews-carousel'); if(c) c.scrollBy({ left: 340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+                  <button onClick={() => { const c = document.getElementById('reviews-carousel'); if (c) c.scrollBy({ left: 340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
                     <ChevronRight size={20} />
                   </button>
                 </div>
-                <a 
-                  href="https://www.facebook.com/ballardtourservices/reviews/?id=100048743395137&sk=reviews" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.facebook.com/ballardtourservices/reviews/?id=100048743395137&sk=reviews"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#1877F2] font-bold hover:bg-[#1877F2] hover:text-white border border-[#1877F2] transition-all duration-300 flex items-center gap-2 text-sm px-5 py-2.5 rounded-xl shadow-sm"
                 >
                   {lang === 'es' ? 'Ver Facebook Oficial' : 'Read Official Facebook'} <ChevronRight size={16} />
@@ -2221,96 +2221,96 @@ export default function App() {
 
             <div id="reviews-carousel" className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
               {[
-                { 
+                {
                   platform: 'google',
                   name: "Karina Delgadillo",
                   date: "Hace 2 semanas",
-                  text: { 
-                    es: "Outstanding service! Everyone was always on time, friendly, and professional. Thank you for a wonderful experience! 😊", 
-                    en: "Outstanding service! Everyone was always on time, friendly, and professional. Thank you for a wonderful experience! 😊" 
-                  } 
+                  text: {
+                    es: "Outstanding service! Everyone was always on time, friendly, and professional. Thank you for a wonderful experience! 😊",
+                    en: "Outstanding service! Everyone was always on time, friendly, and professional. Thank you for a wonderful experience! 😊"
+                  }
                 },
-                { 
+                {
                   platform: 'tripadvisor',
                   name: "Jani O",
                   title: "Servicio y comunicación impecables",
                   date: "oct 2024",
-                  text: { 
-                    es: "Reservé dos viajes de ida y vuelta separados para la familia para dos días diferentes. Tuve que hacer algunos cambios cerca de las fechas de recogida y todos se manejaron profesional y fácilmente. La comunicación por WhatsApp fue casi instantánea. No dudaría en recomendar y utilizar de nuevo.", 
-                    en: "Booked two separate round trips for the family for two different days. Had to make some changes close to the pickup dates and all were handled professionally and easily. WhatsApp communication was almost instantaneous. Would not hesitate to recommend and use again." 
-                  } 
+                  text: {
+                    es: "Reservé dos viajes de ida y vuelta separados para la familia para dos días diferentes. Tuve que hacer algunos cambios cerca de las fechas de recogida y todos se manejaron profesional y fácilmente. La comunicación por WhatsApp fue casi instantánea. No dudaría en recomendar y utilizar de nuevo.",
+                    en: "Booked two separate round trips for the family for two different days. Had to make some changes close to the pickup dates and all were handled professionally and easily. WhatsApp communication was almost instantaneous. Would not hesitate to recommend and use again."
+                  }
                 },
-                { 
+                {
                   platform: 'google',
                   name: "Andy B",
                   date: "20 ago 2024",
-                  text: { 
-                    es: "Our driver Martin was waiting for us upon arrival at the airport in Los Cabos, he was very friendly and helpful and professional. He quickly got us into our resort and helped unload all of our luggage... I strongly recommend this company, they're worth it. Thank you.", 
-                    en: "Our driver Martin was waiting for us upon arrival at the airport in Los Cabos, he was very friendly and helpful and professional. He quickly got us into our resort and helped unload all of our luggage... I strongly recommend this company, they're worth it. Thank you." 
-                  } 
+                  text: {
+                    es: "Our driver Martin was waiting for us upon arrival at the airport in Los Cabos, he was very friendly and helpful and professional. He quickly got us into our resort and helped unload all of our luggage... I strongly recommend this company, they're worth it. Thank you.",
+                    en: "Our driver Martin was waiting for us upon arrival at the airport in Los Cabos, he was very friendly and helpful and professional. He quickly got us into our resort and helped unload all of our luggage... I strongly recommend this company, they're worth it. Thank you."
+                  }
                 },
-                { 
+                {
                   platform: 'facebook',
                   name: "Telesfira Aguilar",
                   date: "30 de mayo",
-                  text: { 
-                    es: "magnífico servicio atención esmerada, conducción responsable es por eso que lo seguiré eligiendo...", 
-                    en: "magnificent service, careful attention, responsible driving is why I will continue to choose it..." 
-                  } 
+                  text: {
+                    es: "magnífico servicio atención esmerada, conducción responsable es por eso que lo seguiré eligiendo...",
+                    en: "magnificent service, careful attention, responsible driving is why I will continue to choose it..."
+                  }
                 },
-                { 
+                {
                   platform: 'tripadvisor',
                   name: "Kathleen",
                   title: "Fácil y agradable",
-                  text: { 
-                    es: "Antonio era un gran comunicador antes de aterrizar y era súper profesional todo el camino a playa grande. gracias Antonio, recomiendo encarecidamente.", 
-                    en: "Antonio was a great communicator before landing and was super professional all the way to playa grande. thanks Antonio, highly recommend." 
-                  } 
+                  text: {
+                    es: "Antonio era un gran comunicador antes de aterrizar y era súper profesional todo el camino a playa grande. gracias Antonio, recomiendo encarecidamente.",
+                    en: "Antonio was a great communicator before landing and was super professional all the way to playa grande. thanks Antonio, highly recommend."
+                  }
                 },
-                { 
+                {
                   platform: 'facebook',
                   name: "José Romero",
                   date: "7 de febrero de 2023",
-                  text: { 
-                    es: "El traslado a mi hotel fue muy cómodo, el chófer Ismael siempre amable y atento, lo recomiendo", 
-                    en: "The transfer to my hotel was very comfortable, the driver Ismael always friendly and attentive, I recommend it" 
-                  } 
+                  text: {
+                    es: "El traslado a mi hotel fue muy cómodo, el chófer Ismael siempre amable y atento, lo recomiendo",
+                    en: "The transfer to my hotel was very comfortable, the driver Ismael always friendly and attentive, I recommend it"
+                  }
                 },
-                { 
+                {
                   platform: 'google',
                   name: "Monika Abos",
                   date: "Hace 34 semanas",
-                  text: { 
-                    es: "Booked through Viator- Excellent transfer service! Communications (whatsapp) was great, punctuality was off by 15 mins at arrival, but right on the way back. We were a group of 10- comfy and quick way from airport to hotel and reverse. Gracias!", 
-                    en: "Booked through Viator- Excellent transfer service! Communications (whatsapp) was great, punctuality was off by 15 mins at arrival, but right on the way back. We were a group of 10- comfy and quick way from airport to hotel and reverse. Gracias!" 
-                  } 
+                  text: {
+                    es: "Booked through Viator- Excellent transfer service! Communications (whatsapp) was great, punctuality was off by 15 mins at arrival, but right on the way back. We were a group of 10- comfy and quick way from airport to hotel and reverse. Gracias!",
+                    en: "Booked through Viator- Excellent transfer service! Communications (whatsapp) was great, punctuality was off by 15 mins at arrival, but right on the way back. We were a group of 10- comfy and quick way from airport to hotel and reverse. Gracias!"
+                  }
                 },
-                { 
+                {
                   platform: 'facebook',
                   name: "Ana Palacio Rhi",
                   date: "7 de febrero de 2023",
-                  text: { 
-                    es: "Muy agradable el servicio, la camioneta limpia y segura, nos dieron de regalo aguas y cervezas", 
-                    en: "Very pleasant service, clean and safe van, they gave us water and beers as a gift" 
-                  } 
+                  text: {
+                    es: "Muy agradable el servicio, la camioneta limpia y segura, nos dieron de regalo aguas y cervezas",
+                    en: "Very pleasant service, clean and safe van, they gave us water and beers as a gift"
+                  }
                 },
-                { 
+                {
                   platform: 'tripadvisor',
                   name: "Usuario de TripAdvisor",
                   title: "Muy fiable",
-                  text: { 
-                    es: "Nos recogieron a su llegada por Martin y él ya estaba afuera esperándonos cuando salimos del aeropuerto, era muy servicial, amable y profesional. En el camino de regreso del hotel al aeropuerto nos recogió un Martin diferente, que era igual de servicial... Cinco estrellas.", 
-                    en: "We were picked up upon arrival by Martin and he was already outside waiting for us... he was very helpful, friendly and professional. On the way back... a different Martin picked us up, who was equally helpful... Five stars." 
-                  } 
+                  text: {
+                    es: "Nos recogieron a su llegada por Martin y él ya estaba afuera esperándonos cuando salimos del aeropuerto, era muy servicial, amable y profesional. En el camino de regreso del hotel al aeropuerto nos recogió un Martin diferente, que era igual de servicial... Cinco estrellas.",
+                    en: "We were picked up upon arrival by Martin and he was already outside waiting for us... he was very helpful, friendly and professional. On the way back... a different Martin picked us up, who was equally helpful... Five stars."
+                  }
                 },
-                { 
+                {
                   platform: 'tripadvisor',
                   name: "Usuario de TripAdvisor",
                   title: "Disfruté de nuestro conductor.",
-                  text: { 
-                    es: "Nos encantó nuestro conductor. Súper servicial. Estuvo dispuesto a parar en la tienda durante nuestro camino desde el aeropuerto hasta nuestro resort. Los utilizaremos nuevamente para nuestro traslado de regreso.", 
-                    en: "We loved our driver. Super helpful. Was willing to stop at the store on our way from the airport to our resort. We will use them again for our return transfer." 
-                  } 
+                  text: {
+                    es: "Nos encantó nuestro conductor. Súper servicial. Estuvo dispuesto a parar en la tienda durante nuestro camino desde el aeropuerto hasta nuestro resort. Los utilizaremos nuevamente para nuestro traslado de regreso.",
+                    en: "We loved our driver. Super helpful. Was willing to stop at the store on our way from the airport to our resort. We will use them again for our return transfer."
+                  }
                 }
               ].map((review, idx) => {
                 const isFB = review.platform === 'facebook';
@@ -2327,21 +2327,21 @@ export default function App() {
                         {isTA && <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-6 h-6 object-contain" />}
                         {isGoogle && (
                           <div className="w-6 h-6 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" /><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" /><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" /><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" /></svg>
                           </div>
                         )}
-                        
+
                         {isTA ? (
                           <div className="flex text-[#34E0A1] text-[18px] leading-none tracking-tighter">●●●●●</div>
                         ) : (
                           <div className="flex text-yellow-400 text-sm">★★★★★</div>
                         )}
                       </div>
-                      
+
                       {review.title && <p className="font-bold text-gray-900 text-sm mb-2">{review.title}</p>}
                       <p className="text-gray-600 text-sm md:text-base leading-relaxed">"{review.text[lang]}"</p>
                     </div>
-                    
+
                     <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4">
                       <div className="flex flex-col">
                         <span className="font-bold text-gray-900 text-sm">{review.name}</span>
@@ -2362,7 +2362,7 @@ export default function App() {
                     </a>
                   );
                 }
-                
+
                 return (
                   <div key={idx} className={`${cardClasses} cursor-default`}>
                     {cardContent}
@@ -2404,6 +2404,92 @@ export default function App() {
               </div>
             </div>
           </section>
+
+          {/* 🔥 SECCIÓN DE ARTÍCULO DESTACADO (ESTILO BLOG) 🔥 */}
+          <div className="max-w-7xl mx-auto px-4 mb-24 animate-fade-in">
+            <div className="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+              <div className="flex flex-col lg:flex-row">
+
+                {/* Columna de Texto */}
+                <div className="flex-1 p-8 md:p-12 lg:p-16">
+                  <div className="inline-block bg-blue-100 text-blue-900 text-xs font-black px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
+                    Featured Guide
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 leading-tight">
+                    Skip the Stress, Arrive in Style! <br />
+                    <span className="text-blue-600">Your Ultimate Guide to Los Cabos Private Transportation</span>
+                  </h2>
+
+                  <div className="text-gray-600 space-y-5 text-sm md:text-base leading-relaxed mb-8">
+                    <p>
+                      Planning your dream getaway to Baja California Sur this year? Then you probably already know that figuring out airport logistics can be a bit overwhelming. Between navigating the terminal and dodging aggressive timeshare pitches inside the "Shark Tank," landing at SJD International Airport can quickly drain your vacation energy.
+                    </p>
+                    <p>
+                      That’s where Ballard Tours steps in. We don’t just offer a ride; we provide a premium, seamless private chauffeur experience from the moment you step outside the terminal. No shared shuttles, no waiting on strangers, and absolutely NO hidden fees or surprise toll charges. Just you, a pristine air-conditioned luxury SUV or spacious van, complimentary cold drinks, and the open road.
+                    </p>
+                    <p className="font-bold text-gray-800">
+                      We specialize in direct, VIP private airport transfers to the most exclusive, high-end resorts on the peninsula. Heading to one of Cabo’s legendary luxury enclaves? We’ve got you covered:
+                    </p>
+
+                    <ul className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                      <li>
+                        🎸 <Link to="/destinations/sjd-to-hard-rock" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Hard Rock Hotel Los Cabos</Link>
+                        <p className="mt-1 text-sm">Rock your arrival! Avoid the headache of dynamic taxi rates. Our certified professional drivers will take you directly via the toll highway to the Pacific Zone so you can start enjoying the legendary Hard Rock amenities in no time.</p>
+                      </li>
+                      <li>
+                        🍣🎋 <Link to="/destinations/sjd-to-nobu-hotel" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Nobu Hotel Los Cabos</Link>
+                        <p className="mt-1 text-sm">Unmatched minimalist luxury deserves an equally flawless arrival. Since rideshare apps like Uber are heavily restricted or outright banned from entering the secure gates of ultra-exclusive resorts like Nobu, pre-booking your private federal-licensed transport with us is the safest and smartest way to guarantee a smooth check-in.</p>
+                      </li>
+                      <li>
+                        🌊⛰️ <Link to="/destinations/sjd-to-waldorf-astoria" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Waldorf Astoria Los Cabos Pedregal</Link>
+                        <p className="mt-1 text-sm">Traverse the famous private tunnel in absolute elegance. Whether you choose one of our late-model Chevrolet Suburbans or a spacious Mercedes Sprinter for your group, we ensure your journey to Pedregal is private, secure, and deeply sophisticated.</p>
+                      </li>
+                    </ul>
+
+                    <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Why choose the Ballard Tours Experience?</h3>
+                    <ul className="space-y-2 list-none">
+                      <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Real-Time Flight Tracking:</strong> Delayed or early flight? Our system monitors your tail number automatically. Your driver will be there exactly when you land.</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Family First:</strong> Traveling with little ones? We offer complimentary baby seats, car seats, and booster seats securely pre-installed upon request.</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Pre-Arranged Grocery Stops:</strong> Want to stock up at Costco or Walmart before reaching your resort? Add an optional 1-hour shopping stop to your booking!</span></li>
+                      <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Flexible Payment:</strong> Lock in your flat rate online via PayPal or enjoy the flexibility of paying in cash directly to your chauffeur upon arrival.</span></li>
+                    </ul>
+
+                    <p className="pt-4 border-t border-gray-100">
+                      Don’t risk your vacation comfort with unregulated rideshares or unpredictable airport taxis. Experience the pinnacle of Cabo logistics with a locally-owned, fully licensed, and trusted provider.
+                    </p>
+                    <p className="font-black text-gray-900">Ready to secure your 5-star private shuttle?</p>
+                    <p>Click the link below to view our flat rates, check hotel zones, and book your private SUV in less than 2 minutes!</p>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                    <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); window.scrollTo(0, 0); }} className="bg-blue-900 hover:bg-blue-800 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-center">
+                      Book Now
+                    </button>
+                    <Link to="/blog" className="bg-white hover:bg-gray-50 text-blue-900 border-2 border-gray-200 font-bold py-4 px-8 rounded-xl transition-all text-center flex items-center justify-center gap-2">
+                      Ver más artículos <ChevronRight size={18} />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Columna de Imagen */}
+                <div className="w-full lg:w-5/12 min-h-[400px] lg:min-h-full relative overflow-hidden bg-gray-100">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`}
+                    alt="Luxury SUV Cabo Transportation"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent lg:bg-gradient-to-l"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg inline-block border border-white/50">
+                      <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Premium Fleet</p>
+                      <p className="font-black text-blue-900 text-lg">Chevrolet Suburban & Escalade</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
 
           {/* 🔥 BLOQUE DE CONTENIDO SEO: DENSO EN KEYWORDS 🔥 */}
           <section className="max-w-6xl mx-auto mb-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
@@ -2550,10 +2636,10 @@ export default function App() {
 
         {/* LOGOS DE PAGO Y TEXTO BILINGÜE AL FINAL */}
         <div className="w-full flex flex-col items-center pb-12 pt-6 px-4 max-w-4xl mx-auto text-center">
-          <img 
-            src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} 
-            alt="Métodos de Pago" 
-            className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" 
+          <img
+            src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`}
+            alt="Métodos de Pago"
+            className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6"
           />
           <h3 className="text-lg md:text-xl font-black text-gray-900 mb-3">
             {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
@@ -4790,6 +4876,116 @@ export default function App() {
                   </div>
                 } />
               ))}
+
+              {/* 📚 URL DEL HUB DE POSTS / ARTÍCULOS */}
+              <Route path="/blog" element={
+                <div className="animate-fade-in bg-gray-50 min-h-screen pb-24">
+                  <Helmet>
+                    <title>Los Cabos Travel Blog & Guides | Ballard Tours</title>
+                    <meta name="description" content="Discover the best tips, transportation guides, and luxury excursions in Los Cabos. Read our latest articles and plan your perfect vacation." />
+                    <link rel="canonical" href="https://www.ballardtours.com/blog" />
+                  </Helmet>
+
+                  {/* Header del Hub de Posts */}
+                  <div className="bg-blue-900 text-white pt-32 pb-20 px-4 text-center rounded-b-[3rem] shadow-xl relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-10"></div>
+                    <div className="relative z-10 max-w-4xl mx-auto">
+                      <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">Los Cabos Insider Guides</h1>
+                      <p className="text-lg md:text-xl text-blue-100 font-medium max-w-2xl mx-auto">
+                        Your ultimate resource for transportation tips, resort guides, and unforgettable local experiences.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Grid de Tarjetas de Posts */}
+                  <div className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                      {/* Tarjeta del Post 1 (El que acabamos de agregar) */}
+                      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
+                        <div className="h-56 relative overflow-hidden">
+                          <img
+                            src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`}
+                            alt="Los Cabos Private Transportation Guide"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                            Featured Guide
+                          </div>
+                        </div>
+                        <div className="p-8 flex flex-col flex-grow">
+                          <h2 className="text-xl font-black text-gray-900 mb-3 leading-snug">
+                            Skip the Stress, Arrive in Style! Your Ultimate Guide to Cabo Transportation
+                          </h2>
+                          <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                            Planning your dream getaway to Baja California Sur this year? Then you probably already know that figuring out airport logistics can be a bit overwhelming. Between navigating the terminal and dodging...
+                          </p>
+                          <div className="mt-auto pt-4 border-t border-gray-100">
+                            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
+                              Read Full Article <ChevronRight size={18} className="ml-1" />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Tarjeta del Post 2 (Ejemplo para llenar la página) */}
+                      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
+                        <div className="h-56 relative overflow-hidden bg-gray-200">
+                          <img
+                            src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?q=80&w=800"
+                            alt="Cabo Excursions"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-4 left-4 bg-amber-500 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                            Tours
+                          </div>
+                        </div>
+                        <div className="p-8 flex flex-col flex-grow">
+                          <h2 className="text-xl font-black text-gray-900 mb-3 leading-snug">
+                            Top 5 Luxury Experiences in Cabo San Lucas You Can't Miss
+                          </h2>
+                          <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                            From private transparent boat tours to the iconic Arch, to serene camel rides on secluded Pacific beaches. Discover the absolute best activities to elevate your Baja vacation.
+                          </p>
+                          <div className="mt-auto pt-4 border-t border-gray-100">
+                            <Link to="/things-to-do-in-cabo-san-lucas" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
+                              Read Full Article <ChevronRight size={18} className="ml-1" />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Tarjeta del Post 3 (Ejemplo para llenar la página) */}
+                      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
+                        <div className="h-56 relative overflow-hidden bg-gray-200">
+                          <img
+                            src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=800"
+                            alt="Uber vs Taxi Cabo"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-4 left-4 bg-green-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                            Tips
+                          </div>
+                        </div>
+                        <div className="p-8 flex flex-col flex-grow">
+                          <h2 className="text-xl font-black text-gray-900 mb-3 leading-snug">
+                            Uber vs. Private Transportation at SJD Airport (2026 Update)
+                          </h2>
+                          <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                            Wondering if you can just order an Uber when you land? We break down the legal restrictions, safety concerns, and why booking a private SUV in advance is the smartest choice for travelers.
+                          </p>
+                          <div className="mt-auto pt-4 border-t border-gray-100">
+                            <Link to="/blog/uber-vs-private-transportation-cabo" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
+                              Read Full Article <ChevronRight size={18} className="ml-1" />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              } />
 
               {/* Aquí agregaremos las demás URLs de hoteles, rutas y SEO */}
 
