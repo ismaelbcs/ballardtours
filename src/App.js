@@ -1936,6 +1936,42 @@ export default function App() {
     const zonasVisibles = zonas.filter(zona => hotelesFiltrados.some(h => h.zona === zona.id));
     const toursActivos = tours.filter(tr => tr.activo);
 
+    // Array de los 4 beneficios nuevos
+    const beneficiosExtra = [
+      {
+        icon: <Clock size={32} className="text-blue-900" />,
+        title: { es: 'Soporte en Línea 24/7', en: '24 / 7 Online Support' },
+        desc: {
+          es: 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp o correo electrónico en cualquier momento para asistencia inmediata.',
+          en: 'We strive to respond as quickly as possible. Reach out via WhatsApp or email anytime for immediate assistance.'
+        }
+      },
+      {
+        icon: <Calendar size={32} className="text-blue-900" />,
+        title: { es: 'Asistencia de Itinerario Personalizada', en: 'Personalized Itinerary Assistance' },
+        desc: {
+          es: 'Contamos con asistencia personalizada porque entendemos que los planes cambian. Si necesitas ajustar un horario o hacer una cancelación, nuestro equipo local te asistirá de inmediato.',
+          en: 'We have personalized assistance because sometimes you need to move a schedule or make a cancellation, our team will assist you as soon as possible.'
+        }
+      },
+      {
+        icon: <Baby size={32} className="text-blue-900" />,
+        title: { es: 'Sillas de Seguridad Disponibles', en: 'Child Safety Seats Available' },
+        desc: {
+          es: 'La seguridad de tu familia es nuestra prioridad. Proveemos sillas para bebés y asientos elevados (boosters) totalmente gratis bajo petición.',
+          en: 'Family safety is our priority. We provide infant car seats and booster seats completely free of charge upon request.'
+        }
+      },
+      {
+        icon: <Banknote size={32} className="text-blue-900" />,
+        title: { es: 'Tarifas Accesibles y Transparentes', en: 'Affordable Rates on Airport Transfers' },
+        desc: {
+          es: 'Gracias a nuestra logística eficiente, ofrecemos tarifas fijas y transparentes, sin tarifas ocultas ni cargos inesperados al llegar.',
+          en: 'With our efficient logistics, we offer transparent flat-rate pricing without any unexpected fees or hidden charges upon arrival.'
+        }
+      }
+    ];
+
     return (
       <div className="animate-fade-in w-full">
 
@@ -2159,7 +2195,7 @@ export default function App() {
                   <span className="font-bold text-gray-700 text-sm ml-1">5.0 / 5</span>
                 </div>
                 <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-                  {lang === 'es' ? 'Lo que dicen nuestros clientes/Mas de 1000 reseñas nos representan.' : 'What Our Clients Say/More than 1,000 reviews speak for us.'}
+                  {lang === 'es' ? 'Lo que dicen nuestros clientes' : 'What Our Clients Say'}
                 </h2>
               </div>
 
@@ -2490,18 +2526,43 @@ export default function App() {
             </div>
           </div>
 
+          {/* 🔥 4 BENEFICIOS (ENTRE ZONAS Y FAQ) 🔥 */}
+          <div className="max-w-4xl mx-auto mb-16 bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-gray-100">
+            <div className="space-y-8 md:space-y-10">
+              {beneficiosExtra.map((ben, i) => (
+                <div key={i} className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100">
+                    {ben.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-gray-900 mb-2">{ben.title[lang]}</h3>
+                    <p className="text-gray-600 leading-relaxed text-sm md:text-base">{ben.desc[lang]}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* 🔥 AQUÍ LLAMAS AL COMPONENTE FAQ QUE CREASTE 🔥 */}
           <FAQSection lang={lang} />
 
         </div>
 
-        {/* LOGOS DE PAGO ANTES DEL FOOTER */}
-        <div className="w-full flex justify-center pb-12 pt-6">
+        {/* LOGOS DE PAGO Y TEXTO BILINGÜE AL FINAL */}
+        <div className="w-full flex flex-col items-center pb-12 pt-6 px-4 max-w-4xl mx-auto text-center">
           <img 
             src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} 
             alt="Métodos de Pago" 
-            className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity" 
+            className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" 
           />
+          <h3 className="text-lg md:text-xl font-black text-gray-900 mb-3">
+            {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
+          </h3>
+          <p className="text-sm md:text-base text-gray-500 leading-relaxed max-w-3xl">
+            {lang === 'es'
+              ? 'Sitio web de reservas fácil de usar en tres clics. Simplemente ingresa tu destino o lugar de recogida, elige tu tipo de vehículo y haz clic en continuar. Al final del formulario, encontrarás la sección de pago, donde puedes seleccionar entre las siguientes opciones: pagar con tarjeta de crédito, optar por el pago a la llegada o usar PayPal para tu comodidad.'
+              : 'Three-click easy reservation website. Simply enter your destination or pickup location, choose your shuttle type, and click submit. At the end of the form, you will find the payment section, where you can select from the following options: pay with a credit card, opt for payment on arrival, or use PayPal for convenience.'}
+          </p>
         </div>
 
       </div>
