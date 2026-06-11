@@ -2099,7 +2099,7 @@ export default function App() {
             <div className="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
-                <p className="text-sm text-gray-700"><strong>{lang === 'es' ? 'Experiencia Comprobada:' : 'Proven Experience:'}</strong> {lang === 'es' ? 'Más de 350,000 servicios realizados en 14 años resaltan nuestro compromiso con la excelencia.' : 'Over 350,000 services performed in 14 years highlight our commitment to excellence.'}</p>
+                <p className="text-sm text-gray-700"><strong>{lang === 'es' ? 'Experiencia Comprobada:' : 'Proven Experience:'}</strong> {lang === 'es' ? 'Más de 350,000 servicios realizados en 24 años resaltan nuestro compromiso con la excelencia.' : 'Over 350,000 services performed in 24 years highlight our commitment to excellence.'}</p>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
@@ -2107,7 +2107,7 @@ export default function App() {
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
-                <p className="text-sm text-gray-700"><strong>{lang === 'es' ? 'Reserva Online o por Teléfono:' : 'Book Online or Call:'}</strong> {lang === 'es' ? 'Reserva en www.ballardtours.com, llama gratis al 1-877-985-0022 o envía WhatsApp al +52 624 139 3497.' : 'Pre-book online, call toll-free 1-877-985-0022, or WhatsApp +52 624 139 3497 for peace of mind.'}</p>
+                <p className="text-sm text-gray-700"><strong>{lang === 'es' ? 'Reserva Online o por Teléfono:' : 'Book Online or Call:'}</strong> {lang === 'es' ? 'Reserva en www.ballardtours.com, llama gratis al o envía WhatsApp al +52 624 139 3497.' : 'Pre-book online, call toll-free, or WhatsApp +52 624 139 3497 for peace of mind.'}</p>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
@@ -2138,8 +2138,8 @@ export default function App() {
                   </p>
                   <p>
                     {lang === 'es'
-                      ? <>Cuando viajes, confía en <strong>Ballard Tours</strong> para un traslado profesional puerta a puerta. Reservar en línea o llamar al <strong>1-877-985-0022</strong> te garantiza un viaje sin estrés y total tranquilidad desde que aterrizas.</>
-                      : <>When you travel, consider <strong>Ballard Tours</strong> and the convenience of a professional door-to-door service. Pre-booking online or calling toll-free at <strong>1-877-985-0022</strong> ensures a smooth journey and absolute peace of mind.</>}
+                      ? <>Cuando viajes, confía en <strong>Ballard Tours</strong> para un traslado profesional puerta a puerta. Reservar en línea o llamar al <strong>+52 624 139 3497</strong> te garantiza un viaje sin estrés y total tranquilidad desde que aterrizas.</>
+                      : <>When you travel, consider <strong>Ballard Tours</strong> and the convenience of a professional door-to-door service. Pre-booking online or calling toll-free at <strong>+52 624 139 3497</strong> ensures a smooth journey and absolute peace of mind.</>}
                   </p>
                 </div>
               </div>
