@@ -1938,7 +1938,7 @@ export default function App() {
 
     return (
       <div className="animate-fade-in w-full">
-        
+
         {/* 🔥 1. INYECCIÓN DE SCHEMA FAQ PARA GOOGLE RICH SNIPPETS 🔥 */}
         <Helmet>
           <script type="application/ld+json">
@@ -1973,7 +1973,7 @@ export default function App() {
         <div className="relative bg-gray-900 pb-32 pt-20 px-4 text-center overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 to-gray-900 z-10"></div>
-          
+
           <div className="relative z-20 max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">
               {lang === 'es' ? 'Transporte Privado en Los Cabos' : 'Los Cabos Airport Transportation & Private Transfers'}
@@ -1988,7 +1988,7 @@ export default function App() {
         <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-24 mb-16">
           <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-gray-100">
             <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2 border-b border-gray-100 pb-4">
-              <MapPin className="text-blue-900" size={24}/> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
+              <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
             </h3>
 
             {/* CAMPOS DE FORMULARIO */}
@@ -2044,7 +2044,7 @@ export default function App() {
                       </div>
                       <p className="text-xs text-gray-500 mb-2 leading-tight h-8">{v.descripcion[lang]}</p>
                       <p className="text-[10px] font-bold text-gray-600 flex items-center gap-1">
-                        <Users size={12}/> Máx {v.maxPax} pasajeros
+                        <Users size={12} /> Máx {v.maxPax} pasajeros
                       </p>
                     </div>
                   ))}
@@ -2071,12 +2071,12 @@ export default function App() {
               <label className="block text-xs font-bold text-blue-900 uppercase tracking-wider mb-4 text-center">
                 {lang === 'es' ? 'Elige un servicio para continuar' : 'Select a service to continue'}
               </label>
-              
+
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* 1. Aeropuerto -> Hotel */}
-                <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group">
+                <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); avanzarPaso(); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group">
                   <div className="bg-gray-100 text-blue-900 p-3 rounded-xl mb-3 group-hover:bg-blue-900 group-hover:text-white transition-colors">
-                    <PlaneLanding size={24}/>
+                    <PlaneLanding size={24} />
                   </div>
                   <span className="font-bold text-gray-900 text-xs sm:text-sm text-center leading-tight">
                     {lang === 'es' ? 'Aeropuerto → Hotel' : 'Airport → Hotel'}
@@ -2084,9 +2084,9 @@ export default function App() {
                 </button>
 
                 {/* 2. Hotel -> Aeropuerto */}
-                <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group">
+                <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); avanzarPaso(); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group">
                   <div className="bg-gray-100 text-blue-900 p-3 rounded-xl mb-3 group-hover:bg-blue-900 group-hover:text-white transition-colors">
-                    <PlaneTakeoff size={24}/>
+                    <PlaneTakeoff size={24} />
                   </div>
                   <span className="font-bold text-gray-900 text-xs sm:text-sm text-center leading-tight">
                     {lang === 'es' ? 'Hotel → Aeropuerto' : 'Hotel → Airport'}
@@ -2094,9 +2094,9 @@ export default function App() {
                 </button>
 
                 {/* 3. Viaje Redondo */}
-                <button onClick={() => { setServicioSeleccionado('redondo'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group relative overflow-hidden">
+                <button onClick={() => { setServicioSeleccionado('redondo'); avanzarPaso(); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group relative overflow-hidden">
                   <div className="bg-gray-100 text-blue-900 p-3 rounded-xl mb-3 group-hover:bg-blue-900 group-hover:text-white transition-colors">
-                    <RefreshCw size={24}/>
+                    <RefreshCw size={24} />
                   </div>
                   <span className="font-bold text-gray-900 text-xs sm:text-sm text-center leading-tight">
                     {lang === 'es' ? 'Viaje Redondo' : 'Round Trip'}
@@ -2104,9 +2104,9 @@ export default function App() {
                 </button>
 
                 {/* 4. Tours y Servicios Especiales (ESTILO AZUL DESTACADO) */}
-                <button onClick={() => { setServicioSeleccionado('tours'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-blue-900 border-2 border-blue-900 rounded-2xl p-4 hover:bg-blue-800 transition-all group shadow-lg shadow-blue-900/30">
+                <button onClick={() => { setServicioSeleccionado('tours'); avanzarPaso(); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-blue-900 border-2 border-blue-900 rounded-2xl p-4 hover:bg-blue-800 transition-all group shadow-lg shadow-blue-900/30">
                   <div className="bg-white text-blue-900 p-3 rounded-xl mb-3 group-hover:scale-110 transition-transform">
-                    <Compass size={24}/>
+                    <Compass size={24} />
                   </div>
                   <span className="font-bold text-white text-xs sm:text-sm text-center leading-tight">
                     {lang === 'es' ? 'Tours y Especiales' : 'Tours & Specials'}
@@ -2119,7 +2119,7 @@ export default function App() {
 
         {/* CONTENEDOR INFERIOR CON RESTRICCIÓN DE ANCHO */}
         <div className="max-w-7xl mx-auto px-4">
-          
+
           {/* SEÑALES E-E-A-T PARA GOOGLE SGE */}
           <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-16 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
             <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
@@ -2161,8 +2161,8 @@ export default function App() {
                   {lang === 'es' ? 'El Mejor Transporte de Aeropuerto en Los Cabos' : 'The Most Reliable Los Cabos Airport Transportation'}
                 </h2>
                 <p className="text-gray-600 mb-4 leading-relaxed">
-                  {lang === 'es' 
-                    ? 'Encontrar un transporte confiable en Cabo no debería ser la parte más difícil de tus vacaciones. Nos especializamos en traslados privados desde el Aeropuerto SJD hacia Cabo San Lucas, San José del Cabo y el Corredor Turístico.' 
+                  {lang === 'es'
+                    ? 'Encontrar un transporte confiable en Cabo no debería ser la parte más difícil de tus vacaciones. Nos especializamos en traslados privados desde el Aeropuerto SJD hacia Cabo San Lucas, San José del Cabo y el Corredor Turístico.'
                     : 'Finding reliable <strong>Cabo airport transportation</strong> shouldn’t be the hardest part of your vacation. We specialize in premium <strong>private transportation in Los Cabos</strong>, ensuring you bypass the chaotic taxi lines at the SJD terminal.'}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
@@ -4988,47 +4988,48 @@ export default function App() {
                       {/* Datos Estructurados (Punto 7 de la auditoría) */}
                       <script type="application/ld+json">
                         {`
-            {
-              "@context": "https://schema.org",
-              "@type": "TouristAttraction",
-              "name": "${tour.nombre}",
-              "description": "${tour.desc}",
-              "image": "${tour.imageUrl || tour.imagenUrl}",
-              "url": "https://www.ballardtours.com/tours/${tour.slug}",
-              "provider": {
-                "@type": "LocalBusiness",
-                "name": "Ballard Tours Los Cabos"
-              }
-            }
-          `}
-                        {/* Schema de Breadcrumb (Fase 3) */}
-                        <script type="application/ld+json">
-                          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Home",
-                  "item": "https://www.ballardtours.com/"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "Tours",
-                  "item": "https://www.ballardtours.com/tours"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 3,
-                  "name": "${tour.nombre}"
-                }
-              ]
-            }
-          `}
-                        </script>
+                          {
+                            "@context": "https://schema.org",
+                            "@type": "TouristAttraction",
+                            "name": "${tour.nombre}",
+                            "description": "${tour.desc}",
+                            "image": "${tour.imageUrl || tour.imagenUrl}",
+                            "url": "https://www.ballardtours.com/tours/${tour.slug}",
+                            "provider": {
+                              "@type": "LocalBusiness",
+                              "name": "Ballard Tours Los Cabos"
+                            }
+                          }
+                        `}
+                      </script>
+
+                      {/* Schema de Breadcrumb (Fase 3) */}
+                      <script type="application/ld+json">
+                        {`
+                          {
+                            "@context": "https://schema.org",
+                            "@type": "BreadcrumbList",
+                            "itemListElement": [
+                              {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Home",
+                                "item": "https://www.ballardtours.com/"
+                              },
+                              {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "Tours",
+                                "item": "https://www.ballardtours.com/tours"
+                              },
+                              {
+                                "@type": "ListItem",
+                                "position": 3,
+                                "name": "${tour.nombre}"
+                              }
+                            ]
+                          }
+                        `}
                       </script>
                     </Helmet>
 
