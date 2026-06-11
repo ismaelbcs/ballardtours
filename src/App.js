@@ -1969,10 +1969,22 @@ export default function App() {
           </script>
         </Helmet>
 
-        {/* 🔥 2. HERO SECTION CON EL NUEVO WIDGET FLOTANTE 🔥 */}
-        <div className="relative bg-gray-900 pb-32 pt-20 px-4 text-center overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 to-gray-900 z-10"></div>
+        {/* 🔥 2. HERO SECTION CON EL NUEVO VIDEO DE FONDO Y WIDGET 🔥 */}
+        <div className="relative bg-gray-900 pb-32 pt-24 px-4 text-center overflow-hidden">
+          
+          {/* VIDEO DE FONDO */}
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="absolute inset-0 w-full h-full object-cover opacity-50 z-0"
+          >
+            <source src={`${process.env.PUBLIC_URL}/private-luxury-transfers-cabo-san-lucas.mp4`} type="video/mp4" />
+          </video>
+          
+          {/* OVERLAY AZUL OSCURO PARA QUE EL TEXTO SEA LEGIBLE */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/70 to-gray-900/95 z-10"></div>
 
           <div className="relative z-20 max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">
@@ -2103,7 +2115,7 @@ export default function App() {
                   </span>
                 </button>
 
-                {/* 4. Tours y Servicios Especiales (ESTILO AZUL DESTACADO) */}
+                {/* 4. Tours y Servicios Especiales */}
                 <button onClick={() => { setServicioSeleccionado('tours'); avanzarPaso(); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-blue-900 border-2 border-blue-900 rounded-2xl p-4 hover:bg-blue-800 transition-all group shadow-lg shadow-blue-900/30">
                   <div className="bg-white text-blue-900 p-3 rounded-xl mb-3 group-hover:scale-110 transition-transform">
                     <Compass size={24} />
@@ -2125,7 +2137,6 @@ export default function App() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  {/* Mini-logos de las plataformas */}
                   <div className="flex -space-x-2">
                     <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-8 h-8 rounded-full border-2 border-white z-30 object-contain bg-white shadow-sm" />
                     <div className="w-8 h-8 bg-white rounded-full border-2 border-white z-20 shadow-sm flex items-center justify-center">
@@ -2139,11 +2150,10 @@ export default function App() {
                   <span className="font-bold text-gray-700 text-sm ml-1">5.0 / 5</span>
                 </div>
                 <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-                  {lang === 'es' ? 'Lo que dicen nuestros clientes' : 'What Our Clients Say'}
+                  {lang === 'es' ? 'Lo que dicen nuestros clientes' : 'What Our Clients Say/More than 1,000 reviews speak for us.'}
                 </h2>
               </div>
 
-              {/* Botones de navegación y Call To Action de Facebook */}
               <div className="flex items-center gap-4">
                 <div className="hidden md:flex gap-2">
                   <button onClick={() => { const c = document.getElementById('reviews-carousel'); if(c) c.scrollBy({ left: -340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
@@ -2164,7 +2174,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* CARRUSEL DE RESEÑAS MIXTAS */}
             <div id="reviews-carousel" className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
               {[
                 { 
@@ -2263,14 +2272,12 @@ export default function App() {
                 const isTA = review.platform === 'tripadvisor';
                 const isGoogle = review.platform === 'google';
 
-                // Clases base para todas las tarjetas
                 const cardClasses = "snap-center shrink-0 w-[85vw] sm:w-[320px] lg:w-[360px] bg-white border border-gray-200 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between";
 
                 const cardContent = (
                   <>
                     <div>
                       <div className="flex items-center gap-3 mb-4">
-                        {/* Renderizado de logos condicionales */}
                         {isFB && <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-6 h-6 object-contain" />}
                         {isTA && <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-6 h-6 object-contain" />}
                         {isGoogle && (
@@ -2279,7 +2286,6 @@ export default function App() {
                           </div>
                         )}
                         
-                        {/* Puntuación visual: Círculos para TA, Estrellas para FB/Google */}
                         {isTA ? (
                           <div className="flex text-[#34E0A1] text-[18px] leading-none tracking-tighter">●●●●●</div>
                         ) : (
@@ -2304,16 +2310,14 @@ export default function App() {
                   </>
                 );
 
-                // Solo las tarjetas de Facebook funcionan como links reales
                 if (isFB) {
                   return (
-                    <a key={idx} href="https://www.facebook.com/ballardtourservices" target="_blank" rel="noopener noreferrer" className={cardClasses}>
+                    <a key={idx} href="https://www.facebook.com/ballardtourservices/reviews/?id=100048743395137&sk=reviews" target="_blank" rel="noopener noreferrer" className={cardClasses}>
                       {cardContent}
                     </a>
                   );
                 }
                 
-                // Las de Google y TripAdvisor solo tienen efecto visual de elevación
                 return (
                   <div key={idx} className={`${cardClasses} cursor-default`}>
                     {cardContent}
