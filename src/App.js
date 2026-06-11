@@ -1972,25 +1972,25 @@ export default function App() {
         {/* 🔥 2. HERO SECTION CON EL NUEVO VIDEO DE FONDO Y WIDGET 🔥 */}
         <div className="relative bg-gray-900 pb-32 pt-24 px-4 text-center overflow-hidden">
           
-          {/* VIDEO DE FONDO */}
+          {/* VIDEO DE FONDO MÁS VISIBLE */}
           <video 
             autoPlay 
             loop 
             muted 
             playsInline 
-            className="absolute inset-0 w-full h-full object-cover opacity-50 z-0"
+            className="absolute inset-0 w-full h-full object-cover opacity-80 z-0"
           >
             <source src={`${process.env.PUBLIC_URL}/private-luxury-transfers-cabo-san-lucas.mp4`} type="video/mp4" />
           </video>
           
-          {/* OVERLAY AZUL OSCURO PARA QUE EL TEXTO SEA LEGIBLE */}
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/70 to-gray-900/95 z-10"></div>
+          {/* OVERLAY AZUL MÁS TRANSPARENTE PARA QUE EL VIDEO RESALTE */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-gray-900/80 z-10"></div>
 
           <div className="relative z-20 max-w-4xl mx-auto">
             <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">
               {lang === 'es' ? 'Transporte Privado en Los Cabos' : 'Los Cabos Airport Transportation & Private Transfers'}
             </h1>
-            <p className="text-gray-300 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+            <p className="text-gray-200 text-lg md:text-xl font-medium max-w-2xl mx-auto drop-shadow-md">
               {lang === 'es' ? 'Reserva tu traslado seguro sin filas en el Aeropuerto SJD.' : 'Book reliable, skip-the-line SJD airport transportation.'}
             </p>
           </div>
@@ -1999,9 +1999,18 @@ export default function App() {
         {/* 🚀 EL NUEVO WIDGET DE RESERVA (ESTILO BOOKING ENGINE) 🚀 */}
         <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-24 mb-16">
           <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-gray-100">
-            <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2 border-b border-gray-100 pb-4">
-              <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
-            </h3>
+            
+            {/* ENCABEZADO DEL WIDGET CON EL LOGO DE TARJETAS */}
+            <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
+              <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
+                <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
+              </h3>
+              <img 
+                src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} 
+                alt="Métodos de Pago Aceptados" 
+                className="h-6 md:h-8 object-contain"
+              />
+            </div>
 
             {/* CAMPOS DE FORMULARIO */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -2150,7 +2159,7 @@ export default function App() {
                   <span className="font-bold text-gray-700 text-sm ml-1">5.0 / 5</span>
                 </div>
                 <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-                  {lang === 'es' ? 'Lo que dicen nuestros clientes' : 'What Our Clients Say/More than 1,000 reviews speak for us.'}
+                  {lang === 'es' ? 'Lo que dicen nuestros clientes/Mas de 1000 reseñas nos representan.' : 'What Our Clients Say/More than 1,000 reviews speak for us.'}
                 </h2>
               </div>
 
@@ -2485,6 +2494,16 @@ export default function App() {
           <FAQSection lang={lang} />
 
         </div>
+
+        {/* LOGOS DE PAGO ANTES DEL FOOTER */}
+        <div className="w-full flex justify-center pb-12 pt-6">
+          <img 
+            src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} 
+            alt="Métodos de Pago" 
+            className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity" 
+          />
+        </div>
+
       </div>
     );
   };
