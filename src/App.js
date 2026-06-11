@@ -1937,8 +1937,8 @@ export default function App() {
     const toursActivos = tours.filter(tr => tr.activo);
 
     return (
-      <div className="animate-fade-in max-w-7xl mx-auto">
-
+      <div className="animate-fade-in w-full">
+        
         {/* 🔥 1. INYECCIÓN DE SCHEMA FAQ PARA GOOGLE RICH SNIPPETS 🔥 */}
         <Helmet>
           <script type="application/ld+json">
@@ -1969,254 +1969,315 @@ export default function App() {
           </script>
         </Helmet>
 
-        <div className="text-center mb-10 max-w-3xl mx-auto mt-4">
-          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 shadow-sm">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-            High Demand: 85% of our Luxury SUVs are booked for this week.
-          </div>
-
-          {/* 🔥 2. H1 Y SUBTÍTULO OPTIMIZADOS PARA SEO 🔥 */}
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-            {lang === 'es'
-              ? 'Transporte Privado en Los Cabos y Traslados al Aeropuerto SJD'
-              : 'Los Cabos Airport Transportation & Private Transfers'}
-          </h1>
-          <p className="text-gray-600 text-lg font-medium">
-            {lang === 'es'
-              ? 'Reserva tu transporte seguro, confiable y sin filas desde el Aeropuerto de Cabo San Lucas. Vehículos de lujo y tours exclusivos.'
-              : 'Book reliable, skip-the-line SJD airport transportation, private Cabo San Lucas shuttles, and luxury tours.'}
-          </p>
-        </div>
-
-        {/* CONTENEDOR PRINCIPAL */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-16 items-start">
-
-          {/* COLUMNA IZQUIERDA: Testimonios Sutiles de Facebook */}
-          <div className="lg:col-span-1 bg-gradient-to-b from-gray-50 to-white p-5 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-4 sticky top-6">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
-              <span className="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black tracking-tighter">fb</span>
-              <div>
-                <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider">Opiniones reales</h4>
-                <div className="flex text-yellow-400 text-xs">★★★★★</div>
-              </div>
-            </div>
-
-            <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
-              <p className="text-gray-600 italic leading-relaxed">"Excellent service! The clear boat tour to the Arch was stunning and the airport shuttle was right on time. Highly recommended!"</p>
-              <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— Sarah M.</span>
-            </div>
-
-            <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
-              <p className="text-gray-600 italic leading-relaxed">"Ballard Tours made our vacation seamless. Very clean luxury SUVs and friendly drivers. 5 stars!"</p>
-              <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— John D.</span>
-            </div>
-
-            <a href="https://www.facebook.com/ballardtours" target="_blank" rel="noopener noreferrer" className="text-center text-[11px] font-bold text-blue-900 hover:text-blue-700 transition-colors mt-1 underline">
-              Ver más en Facebook →
-            </a>
-          </div>
-
-          {/* COLUMNA DERECHA: Tarjetas de Servicio */}
-          <div className="lg:col-span-3 w-full relative">
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-              {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
-                const isTour = srv === 'tours';
-                const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
-                const keys = { aeropuerto_hotel: 'a2h', hotel_aeropuerto: 'h2a', redondo: 'rt', tours: 'tours' };
-                const k = keys[srv];
-
-                return (
-                  <div key={srv} className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}>
-                    {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-
-                    <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
-                      {icons[srv]}
-                    </div>
-
-                    <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-                    <p className={`relative z-10 text-sm flex-grow mb-6 ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
-
-                    <button
-                      onClick={() => {
-                        setServicioSeleccionado(srv);
-                        setSubCategoria('');
-                        avanzarPaso();
-                      }}
-                      className={`relative z-10 mt-auto w-full font-bold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:animate-none animate-[pulse_2s_ease-in-out_infinite] active:scale-95 ${isTour
-                        ? 'bg-white text-blue-900 shadow-[0_4px_15px_rgba(255,255,255,0.2)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.4)]'
-                        : 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)]'
-                        }`}
-                    >
-                      <span>{isTour ? t.step1.catalog : t.step1.book}</span>
-                      <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
+        {/* 🔥 2. HERO SECTION CON EL NUEVO WIDGET FLOTANTE 🔥 */}
+        <div className="relative bg-gray-900 pb-32 pt-20 px-4 text-center overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 to-gray-900 z-10"></div>
+          
+          <div className="relative z-20 max-w-4xl mx-auto">
+            <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">
+              {lang === 'es' ? 'Transporte Privado en Los Cabos' : 'Los Cabos Airport Transportation & Private Transfers'}
+            </h1>
+            <p className="text-gray-300 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+              {lang === 'es' ? 'Reserva tu traslado seguro sin filas en el Aeropuerto SJD.' : 'Book reliable, skip-the-line SJD airport transportation.'}
+            </p>
           </div>
         </div>
 
-        {/* SEÑALES E-E-A-T PARA GOOGLE SGE */}
-        <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-16 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
-          <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
-            <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" />
-          </div>
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-            <div className="lg:col-span-1">
-              <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
-                Why Trust Ballard Tours?
-              </h2>
-              <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
-                Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
-              </p>
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
-                <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
-                <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
-              </div>
-            </div>
-            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Users size={40} strokeWidth={1.5} /></div>
-                <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
-                <p className="text-slate-400 text-sm leading-relaxed font-light">Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.</p>
-              </div>
-              <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Car size={40} strokeWidth={1.5} /></div>
-                <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
-                <p className="text-slate-400 text-sm leading-relaxed font-light">Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* 🚀 EL NUEVO WIDGET DE RESERVA (ESTILO BOOKING ENGINE) 🚀 */}
+        <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-24 mb-16">
+          <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-gray-100">
+            <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2 border-b border-gray-100 pb-4">
+              <MapPin className="text-blue-900" size={24}/> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
+            </h3>
 
-        {/* 🔥 3. BLOQUE DE CONTENIDO SEO: DENSO EN KEYWORDS 🔥 */}
-        <section className="max-w-6xl mx-auto mb-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-3xl font-black text-gray-900 mb-6 leading-tight">
-                {lang === 'es' ? 'El Mejor Transporte de Aeropuerto en Los Cabos' : 'The Most Reliable Los Cabos Airport Transportation'}
-              </h2>
-              <p className="text-gray-600 mb-4 leading-relaxed">
-                {lang === 'es'
-                  ? 'Encontrar un transporte confiable en Cabo no debería ser la parte más difícil de tus vacaciones. Nos especializamos en traslados privados desde el Aeropuerto SJD hacia Cabo San Lucas, San José del Cabo y el Corredor Turístico.'
-                  : 'Finding reliable <strong>Cabo airport transportation</strong> shouldn’t be the hardest part of your vacation. We specialize in premium <strong>private transportation in Los Cabos</strong>, ensuring you bypass the chaotic taxi lines at the SJD terminal.'}
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                {lang === 'es'
-                  ? 'Nuestros servicios incluyen monitoreo de vuelos en tiempo real, choferes bilingües y sillas de bebé gratis. Evita cargos ocultos con nuestro servicio VIP.'
-                  : 'Whether you need a quick <strong>airport shuttle to Cabo San Lucas</strong>, a luxury SUV, or a spacious van for your group, our <strong>SJD airport transfers</strong> include flight tracking, bilingual chauffeurs, and transparent flat rates.'}
-              </p>
-            </div>
-            <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-              <h3 className="text-xl font-bold text-blue-900 mb-4">FAQ: Transportation & Shuttles</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-bold text-gray-900">How much is a shuttle from SJD to Cabo San Lucas?</h4>
-                  <p className="text-sm text-gray-600 mt-1">Rates for a private luxury SUV typically range between $80 and $120 USD depending on your resort's exact zone.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900">Is Uber allowed at Los Cabos Airport?</h4>
-                  <p className="text-sm text-gray-600 mt-1">Uber is legally restricted from picking up passengers inside the terminals. A pre-booked private transfer is the safest, fastest alternative.</p>
-                </div>
+            {/* CAMPOS DE FORMULARIO */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+              {/* Hotel */}
+              <div className="md:col-span-2 relative">
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                  {lang === 'es' ? 'Selecciona tu hotel' : 'Select your hotel'}
+                </label>
+                <input
+                  type="text"
+                  placeholder={lang === 'es' ? "Escribe para buscar tu hotel..." : "Type to search your hotel..."}
+                  value={busquedaHotelPrincipal}
+                  onChange={(e) => {
+                    setBusquedaHotelPrincipal(e.target.value);
+                    setMostrarDropdownHotelPrincipal(true);
+                  }}
+                  onFocus={() => setMostrarDropdownHotelPrincipal(true)}
+                  onBlur={() => setTimeout(() => setMostrarDropdownHotelPrincipal(false), 200)}
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium"
+                />
+                {mostrarDropdownHotelPrincipal && (
+                  <ul className="absolute z-50 w-full bg-white border border-gray-200 rounded-xl shadow-xl mt-1 top-[70px] max-h-56 overflow-y-auto custom-scrollbar">
+                    {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes((busquedaHotelPrincipal || '').toLowerCase())).map(hotel => (
+                      <li key={hotel.id || hotel.nombre} onMouseDown={() => {
+                        const zona = hotel.zonaId || hotel.zona || "1";
+                        setReserva({ ...reserva, hotelId: hotel.nombre, zonaId: zona });
+                        setBusquedaHotelPrincipal(hotel.nombre);
+                        setMostrarDropdownHotelPrincipal(false);
+                      }} className="p-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 transition flex justify-between items-center">
+                        <span className="font-bold">{hotel.nombre}</span>
+                        <span className="text-[10px] font-black uppercase text-blue-900 bg-blue-100 px-2 py-1 rounded-md">Zona {hotel.zonaId || hotel.zona || 1}</span>
+                      </li>
+                    ))}
+                    {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes((busquedaHotelPrincipal || '').toLowerCase())).length === 0 && (
+                      <li className="p-4 text-gray-500 text-sm text-center">Hotel no encontrado / Hotel not found</li>
+                    )}
+                  </ul>
+                )}
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* TOURS DESTACADOS */}
-        {toursActivos.length > 0 && (
-          <div id="tours" className="mb-24 scroll-mt-24">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 px-4 lg:px-0">
-              <div>
-                <h2 className="text-3xl font-extrabold text-gray-900">{t.step1.featured_title}</h2>
-                <p className="text-gray-500 mt-2">{t.step1.featured_sub}</p>
-              </div>
-            </div>
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-              {toursActivos.slice(0, 6).map((tr) => (
-                <div key={tr.id} onClick={() => seleccionarTourDesdeInicio(tr.id)} className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-auto group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[400px]">
-                  <div className="relative h-56 overflow-hidden shrink-0">
-                    <div className="absolute inset-0 bg-gray-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                    <div className="relative w-full h-full group cursor-pointer" onClick={(e) => {
-                      e.stopPropagation();
-                      const fotoActual = imagenTourDestacada || tr.imagenUrl;
-                      let index = tr.galeria ? tr.galeria.indexOf(fotoActual) : 0;
-                      if (index === -1) index = 0;
-                      setLightboxIndice(index);
-                      setLightboxAbierto(true);
-                    }}>
-                      <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    </div>
-                    <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-900 flex items-center gap-1 shadow-lg">
-                      <Clock size={12} /> {tr.duracion[lang]}
-                    </div>
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow bg-white">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 leading-tight">{tr.nombre[lang]}</h3>
-                    <p className="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">{tr.descripcion[lang]}</p>
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                      <div>
-                        <p className="text-xs text-gray-400 font-medium">{t.step1.price_from}</p>
-                        <p className="text-lg font-extrabold text-blue-900">${tr.precioPx} <span className="text-xs font-normal">USD</span></p>
+              {/* Vehículo */}
+              <div className="md:col-span-2">
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                  {lang === 'es' ? 'Tipo de Vehículo' : 'Vehicle Type'}
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {VEHICULOS.map(v => (
+                    <div key={v.id} onClick={() => setReserva(prev => ({ ...prev, vehiculo: v.id }))} className={`cursor-pointer border-2 rounded-xl p-4 transition-all ${reserva.vehiculo === v.id ? 'border-blue-900 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300'}`}>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-black text-gray-900">{v.nombre}</span>
+                        <Car className={reserva.vehiculo === v.id ? 'text-blue-900' : 'text-gray-400'} size={20} />
                       </div>
-                      <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors">
-                        <ChevronRight size={20} />
+                      <p className="text-xs text-gray-500 mb-2 leading-tight h-8">{v.descripcion[lang]}</p>
+                      <p className="text-[10px] font-bold text-gray-600 flex items-center gap-1">
+                        <Users size={12}/> Máx {v.maxPax} pasajeros
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Fecha y Pax */}
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                  {lang === 'es' ? 'Fecha de Llegada' : 'Arrival Date'}
+                </label>
+                <input type="date" name="fechaLlegada" value={reserva.fechaLlegada} onChange={handleChange} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                  {lang === 'es' ? 'Pasajeros' : 'Passengers'}
+                </label>
+                <input type="number" min="1" max="10" name="pasajeros" value={reserva.pasajeros} onChange={handleChange} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium" />
+              </div>
+            </div>
+
+            {/* BOTONES DE ACCIÓN (LOS 4 BOTONES DE LAS IMÁGENES) */}
+            <div className="border-t border-gray-100 pt-6 mt-4">
+              <label className="block text-xs font-bold text-blue-900 uppercase tracking-wider mb-4 text-center">
+                {lang === 'es' ? 'Elige un servicio para continuar' : 'Select a service to continue'}
+              </label>
+              
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                {/* 1. Aeropuerto -> Hotel */}
+                <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group">
+                  <div className="bg-gray-100 text-blue-900 p-3 rounded-xl mb-3 group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                    <PlaneLanding size={24}/>
+                  </div>
+                  <span className="font-bold text-gray-900 text-xs sm:text-sm text-center leading-tight">
+                    {lang === 'es' ? 'Aeropuerto → Hotel' : 'Airport → Hotel'}
+                  </span>
+                </button>
+
+                {/* 2. Hotel -> Aeropuerto */}
+                <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group">
+                  <div className="bg-gray-100 text-blue-900 p-3 rounded-xl mb-3 group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                    <PlaneTakeoff size={24}/>
+                  </div>
+                  <span className="font-bold text-gray-900 text-xs sm:text-sm text-center leading-tight">
+                    {lang === 'es' ? 'Hotel → Aeropuerto' : 'Hotel → Airport'}
+                  </span>
+                </button>
+
+                {/* 3. Viaje Redondo */}
+                <button onClick={() => { setServicioSeleccionado('redondo'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-2xl p-4 hover:border-blue-900 hover:bg-blue-50 hover:shadow-md transition-all group relative overflow-hidden">
+                  <div className="bg-gray-100 text-blue-900 p-3 rounded-xl mb-3 group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                    <RefreshCw size={24}/>
+                  </div>
+                  <span className="font-bold text-gray-900 text-xs sm:text-sm text-center leading-tight">
+                    {lang === 'es' ? 'Viaje Redondo' : 'Round Trip'}
+                  </span>
+                </button>
+
+                {/* 4. Tours y Servicios Especiales (ESTILO AZUL DESTACADO) */}
+                <button onClick={() => { setServicioSeleccionado('tours'); avanzarPaso(); window.scrollTo(0,0); }} className="flex flex-col items-center justify-center bg-blue-900 border-2 border-blue-900 rounded-2xl p-4 hover:bg-blue-800 transition-all group shadow-lg shadow-blue-900/30">
+                  <div className="bg-white text-blue-900 p-3 rounded-xl mb-3 group-hover:scale-110 transition-transform">
+                    <Compass size={24}/>
+                  </div>
+                  <span className="font-bold text-white text-xs sm:text-sm text-center leading-tight">
+                    {lang === 'es' ? 'Tours y Especiales' : 'Tours & Specials'}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CONTENEDOR INFERIOR CON RESTRICCIÓN DE ANCHO */}
+        <div className="max-w-7xl mx-auto px-4">
+          
+          {/* SEÑALES E-E-A-T PARA GOOGLE SGE */}
+          <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-16 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
+            <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
+              <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" />
+            </div>
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+              <div className="lg:col-span-1">
+                <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
+                  Why Trust Ballard Tours?
+                </h2>
+                <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
+                  Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
+                </p>
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
+                  <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
+                  <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
+                </div>
+              </div>
+              <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
+                  <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Users size={40} strokeWidth={1.5} /></div>
+                  <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed font-light">Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.</p>
+                </div>
+                <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
+                  <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Car size={40} strokeWidth={1.5} /></div>
+                  <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed font-light">Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 🔥 BLOQUE DE CONTENIDO SEO: DENSO EN KEYWORDS 🔥 */}
+          <section className="max-w-6xl mx-auto mb-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-3xl font-black text-gray-900 mb-6 leading-tight">
+                  {lang === 'es' ? 'El Mejor Transporte de Aeropuerto en Los Cabos' : 'The Most Reliable Los Cabos Airport Transportation'}
+                </h2>
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  {lang === 'es' 
+                    ? 'Encontrar un transporte confiable en Cabo no debería ser la parte más difícil de tus vacaciones. Nos especializamos en traslados privados desde el Aeropuerto SJD hacia Cabo San Lucas, San José del Cabo y el Corredor Turístico.' 
+                    : 'Finding reliable <strong>Cabo airport transportation</strong> shouldn’t be the hardest part of your vacation. We specialize in premium <strong>private transportation in Los Cabos</strong>, ensuring you bypass the chaotic taxi lines at the SJD terminal.'}
+                </p>
+                <p className="text-gray-600 leading-relaxed">
+                  {lang === 'es'
+                    ? 'Nuestros servicios incluyen monitoreo de vuelos en tiempo real, choferes bilingües y sillas de bebé gratis. Evita cargos ocultos con nuestro servicio VIP.'
+                    : 'Whether you need a quick <strong>airport shuttle to Cabo San Lucas</strong>, a luxury SUV, or a spacious van for your group, our <strong>SJD airport transfers</strong> include flight tracking, bilingual chauffeurs, and transparent flat rates.'}
+                </p>
+              </div>
+              <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
+                <h3 className="text-xl font-bold text-blue-900 mb-4">FAQ: Transportation & Shuttles</h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-bold text-gray-900">How much is a shuttle from SJD to Cabo San Lucas?</h4>
+                    <p className="text-sm text-gray-600 mt-1">Rates for a private luxury SUV typically range between $80 and $120 USD depending on your resort's exact zone.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900">Is Uber allowed at Los Cabos Airport?</h4>
+                    <p className="text-sm text-gray-600 mt-1">Uber is legally restricted from picking up passengers inside the terminals. A pre-booked private transfer is the safest, fastest alternative.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* TOURS DESTACADOS */}
+          {toursActivos.length > 0 && (
+            <div id="tours" className="mb-24 scroll-mt-24">
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 px-4 lg:px-0">
+                <div>
+                  <h2 className="text-3xl font-extrabold text-gray-900">{t.step1.featured_title}</h2>
+                  <p className="text-gray-500 mt-2">{t.step1.featured_sub}</p>
+                </div>
+              </div>
+              <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                {toursActivos.slice(0, 6).map((tr) => (
+                  <div key={tr.id} onClick={() => seleccionarTourDesdeInicio(tr.id)} className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-auto group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[400px]">
+                    <div className="relative h-56 overflow-hidden shrink-0">
+                      <div className="absolute inset-0 bg-gray-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                      <div className="relative w-full h-full group cursor-pointer" onClick={(e) => {
+                        e.stopPropagation();
+                        const fotoActual = imagenTourDestacada || tr.imagenUrl;
+                        let index = tr.galeria ? tr.galeria.indexOf(fotoActual) : 0;
+                        if (index === -1) index = 0;
+                        setLightboxIndice(index);
+                        setLightboxAbierto(true);
+                      }}>
+                        <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                      </div>
+                      <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-900 flex items-center gap-1 shadow-lg">
+                        <Clock size={12} /> {tr.duracion[lang]}
+                      </div>
+                    </div>
+                    <div className="p-6 flex flex-col flex-grow bg-white">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 leading-tight">{tr.nombre[lang]}</h3>
+                      <p className="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">{tr.descripcion[lang]}</p>
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                        <div>
+                          <p className="text-xs text-gray-400 font-medium">{t.step1.price_from}</p>
+                          <p className="text-lg font-extrabold text-blue-900">${tr.precioPx} <span className="text-xs font-normal">USD</span></p>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                          <ChevronRight size={20} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* DIRECTORIO DE ZONAS */}
-        <div id="zonas" className="bg-white border border-gray-200 rounded-[2rem] p-6 md:p-10 shadow-lg scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <MapIcon className="w-12 h-12 text-blue-900 mx-auto mb-4" />
-            <h2 className="text-3xl font-extrabold text-gray-900 mb-4">{t.step1.directory_title}</h2>
-            <div className="relative max-w-md mx-auto mt-6">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <input type="text" placeholder={t.step1.search_placeholder} value={busquedaHotel} onChange={(e) => setBusquedaHotel(e.target.value)} className="w-full bg-gray-50 border-2 border-gray-200 rounded-2xl pl-12 pr-4 py-4 font-medium text-gray-900 focus:border-blue-900 focus:ring-0 outline-none transition-colors" />
+          {/* DIRECTORIO DE ZONAS */}
+          <div id="zonas" className="bg-white border border-gray-200 rounded-[2rem] p-6 md:p-10 shadow-lg scroll-mt-24 mb-16">
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <MapIcon className="w-12 h-12 text-blue-900 mx-auto mb-4" />
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-4">{t.step1.directory_title}</h2>
+              <div className="relative max-w-md mx-auto mt-6">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <input type="text" placeholder={t.step1.search_placeholder} value={busquedaHotel} onChange={(e) => setBusquedaHotel(e.target.value)} className="w-full bg-gray-50 border-2 border-gray-200 rounded-2xl pl-12 pr-4 py-4 font-medium text-gray-900 focus:border-blue-900 focus:ring-0 outline-none transition-colors" />
+              </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {zonasVisibles.length > 0 ? (
-              zonasVisibles.map(zona => (
-                <div key={zona.id} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 h-full flex flex-col">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-4 mb-4 gap-4">
-                    <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2"><MapPin className="text-blue-600" size={24} /> {zona.nombre}</h3>
-                    <div className="flex gap-3 text-sm text-right">
-                      <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Suburban (1-6)</p><p className="font-bold text-blue-900">${zona.tarifaSuburban} <span className="font-normal text-xs">USD</span></p></div>
-                      <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Sprinter (1-10)</p><p className="font-bold text-blue-900">${zona.tarifaSprinter} <span className="font-normal text-xs">USD</span></p></div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {zonasVisibles.length > 0 ? (
+                zonasVisibles.map(zona => (
+                  <div key={zona.id} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 h-full flex flex-col">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-4 mb-4 gap-4">
+                      <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2"><MapPin className="text-blue-600" size={24} /> {zona.nombre}</h3>
+                      <div className="flex gap-3 text-sm text-right">
+                        <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Suburban (1-6)</p><p className="font-bold text-blue-900">${zona.tarifaSuburban} <span className="font-normal text-xs">USD</span></p></div>
+                        <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Sprinter (1-10)</p><p className="font-bold text-blue-900">${zona.tarifaSprinter} <span className="font-normal text-xs">USD</span></p></div>
+                      </div>
+                    </div>
+                    <div className="flex-grow">
+                      <p className="text-xs font-bold text-gray-400 uppercase mb-3">{t.step1.hotels_in_zone}:</p>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-gray-600">
+                        {hotelesFiltrados.filter(h => h.zona === zona.id).map(hotel => (
+                          <li key={hotel.id} className="flex items-start gap-2">
+                            <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
+                            <span className={busquedaHotel && hotel.nombre.toLowerCase().includes(busquedaHotel.toLowerCase()) ? 'font-bold text-gray-900 bg-yellow-100 px-1 rounded' : ''}>{hotel.nombre}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                  <div className="flex-grow">
-                    <p className="text-xs font-bold text-gray-400 uppercase mb-3">{t.step1.hotels_in_zone}:</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-gray-600">
-                      {hotelesFiltrados.filter(h => h.zona === zona.id).map(hotel => (
-                        <li key={hotel.id} className="flex items-start gap-2">
-                          <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
-                          <span className={busquedaHotel && hotel.nombre.toLowerCase().includes(busquedaHotel.toLowerCase()) ? 'font-bold text-gray-900 bg-yellow-100 px-1 rounded' : ''}>{hotel.nombre}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-10 bg-gray-50 rounded-2xl border border-dashed border-gray-300"><p className="text-gray-500 font-medium">{t.step1.not_found}</p></div>
-            )}
+                ))
+              ) : (
+                <div className="col-span-full text-center py-10 bg-gray-50 rounded-2xl border border-dashed border-gray-300"><p className="text-gray-500 font-medium">{t.step1.not_found}</p></div>
+              )}
+            </div>
           </div>
+
+          {/* 🔥 AQUÍ LLAMAS AL COMPONENTE FAQ QUE CREASTE 🔥 */}
+          <FAQSection lang={lang} />
+
         </div>
-        {/* 🔥 AQUÍ LLAMAS AL COMPONENTE QUE CREASTE 🔥 */}
-        <FAQSection lang={lang} />
       </div>
     );
   };
