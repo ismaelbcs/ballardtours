@@ -1935,9 +1935,39 @@ export default function App() {
 
     return (
       <div className="animate-fade-in max-w-7xl mx-auto">
+
+        {/* 🔥 1. INYECCIÓN DE SCHEMA FAQ PARA GOOGLE RICH SNIPPETS 🔥 */}
+        <Helmet>
+          <script type="application/ld+json">
+            {`
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "How much is transportation from SJD Airport to Cabo San Lucas?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Prices for a private SJD airport transfer to Cabo San Lucas typically range between $80 and $120 USD depending on the exact resort zone and vehicle type (Luxury SUV or Sprinter Van)."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Is Uber available at the Los Cabos Airport?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "While Uber operates in the city, they are legally restricted from picking up passengers directly inside the SJD Airport terminals. Booking private transportation in Cabo guarantees a driver will be waiting for you right outside the arrivals gate."
+                    }
+                  }
+                ]
+              }
+            `}
+          </script>
+        </Helmet>
+
         <div className="text-center mb-10 max-w-3xl mx-auto mt-4">
-          {/* 🔥 GATILLO MENTAL DE URGENCIA Y PRUEBA SOCIAL 🔥 */}
-          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 animate-pulse shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 px-4 py-2 rounded-full text-xs font-bold mb-6 shadow-sm">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
@@ -1945,15 +1975,23 @@ export default function App() {
             High Demand: 85% of our Luxury SUVs are booked for this week.
           </div>
 
-          {/* El único H1 de tu página */}
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">{t.step1.title}</h1>
-          <p className="text-gray-500 text-lg">{t.step1.subtitle}</p>
+          {/* 🔥 2. H1 Y SUBTÍTULO OPTIMIZADOS PARA SEO 🔥 */}
+          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+            {lang === 'es'
+              ? 'Transporte Privado en Los Cabos y Traslados al Aeropuerto SJD'
+              : 'Los Cabos Airport Transportation & Private Transfers'}
+          </h1>
+          <p className="text-gray-600 text-lg font-medium">
+            {lang === 'es'
+              ? 'Reserva tu transporte seguro, confiable y sin filas desde el Aeropuerto de Cabo San Lucas. Vehículos de lujo y tours exclusivos.'
+              : 'Book reliable, skip-the-line SJD airport transportation, private Cabo San Lucas shuttles, and luxury tours.'}
+          </p>
         </div>
 
-        {/* CONTENEDOR PRINCIPAL: Divide la pantalla en 4 columnas en computadoras */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-24 items-start">
+        {/* CONTENEDOR PRINCIPAL */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-16 items-start">
 
-          {/* COLUMNA IZQUIERDA: Testimonios Sutiles de Facebook (Ocupa 1 columna) */}
+          {/* COLUMNA IZQUIERDA: Testimonios Sutiles de Facebook */}
           <div className="lg:col-span-1 bg-gradient-to-b from-gray-50 to-white p-5 rounded-3xl border border-gray-200 shadow-sm flex flex-col gap-4 sticky top-6">
             <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
               <span className="bg-blue-600 text-white w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black tracking-tighter">fb</span>
@@ -1963,34 +2001,24 @@ export default function App() {
               </div>
             </div>
 
-            {/* Comentario 1 */}
             <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
               <p className="text-gray-600 italic leading-relaxed">"Excellent service! The clear boat tour to the Arch was stunning and the airport shuttle was right on time. Highly recommended!"</p>
               <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— Sarah M.</span>
             </div>
 
-            {/* Comentario 2 */}
             <div className="text-xs bg-white p-3.5 rounded-2xl border border-gray-100 shadow-xs">
               <p className="text-gray-600 italic leading-relaxed">"Ballard Tours made our vacation seamless. Very clean luxury SUVs and friendly drivers. 5 stars!"</p>
               <span className="block text-gray-400 font-semibold mt-2 text-[10px]">— John D.</span>
             </div>
 
-            <a
-              href="https://www.facebook.com/ballardtours" // 👈 Ajusta si tienes link directo de reviews
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-center text-[11px] font-bold text-blue-900 hover:text-blue-700 transition-colors mt-1 underline"
-            >
+            <a href="https://www.facebook.com/ballardtours" target="_blank" rel="noopener noreferrer" className="text-center text-[11px] font-bold text-blue-900 hover:text-blue-700 transition-colors mt-1 underline">
               Ver más en Facebook →
             </a>
           </div>
 
-          {/* COLUMNA DERECHA: Tus 4 Tarjetas de Servicio Mapeadas (Carrusel Swipeable) */}
+          {/* COLUMNA DERECHA: Tarjetas de Servicio */}
           <div className="lg:col-span-3 w-full relative">
-
-            {/* Contenedor con Scroll Horizontal Nativo y Magnético (Snap) */}
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-2 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-
               {['aeropuerto_hotel', 'hotel_aeropuerto', 'redondo', 'tours'].map(srv => {
                 const isTour = srv === 'tours';
                 const icons = { aeropuerto_hotel: <PlaneLanding size={32} />, hotel_aeropuerto: <PlaneTakeoff size={32} />, redondo: <RefreshCw size={32} />, tours: <Compass size={32} /> };
@@ -1998,42 +2026,28 @@ export default function App() {
                 const k = keys[srv];
 
                 return (
-                  <div
-                    key={srv}
-                    // 👇 Cambiamos <button> a <div> aquí 👇
-                    className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}
-                  >
+                  <div key={srv} className={`group relative border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 text-left overflow-hidden flex flex-col snap-center shrink-0 w-[82vw] sm:w-[320px] lg:w-auto min-h-[240px] ${isTour ? 'bg-blue-900 border-blue-900 hover:shadow-blue-900/40' : 'bg-white border-gray-200 hover:border-blue-900'}`}>
                     {isTour && <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-800 rounded-full blur-2xl z-0"></div>}
-                    
+
                     <div className={`relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ${isTour ? 'bg-white text-blue-900 shadow-lg' : 'bg-blue-50 text-blue-900 group-hover:bg-blue-900 group-hover:text-white'}`}>
                       {icons[srv]}
                     </div>
 
                     <h2 className={`relative z-10 text-xl font-bold mb-2 ${isTour ? 'text-white' : 'text-gray-900'}`}>{t.step1[k]}</h2>
-                    
-                    {/* 👇 Añadimos mb-6 para empujar el botón hacia abajo 👇 */}
                     <p className={`relative z-10 text-sm flex-grow mb-6 ${isTour ? 'text-blue-100' : 'text-gray-500'}`}>{t.step1[`${k}_desc`]}</p>
 
-                    {/* 👇 EL NUEVO BOTÓN ANIMADO CON TU ONCLICK ORIGINAL 👇 */}
                     <button
                       onClick={() => {
-                        // 1. Guarda la opción seleccionada (Aeropuerto, Hotel, Redondo o Tours)
                         setServicioSeleccionado(srv);
-                        // 2. Resetea subcategorías si aplica
                         setSubCategoria('');
-                        // 3. Avanza al Paso 2 del formulario de reserva en la misma pantalla
                         avanzarPaso();
                       }}
-                      className={`relative z-10 mt-auto w-full font-bold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:animate-none animate-[pulse_2s_ease-in-out_infinite] active:scale-95 ${
-                        isTour
+                      className={`relative z-10 mt-auto w-full font-bold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:animate-none animate-[pulse_2s_ease-in-out_infinite] active:scale-95 ${isTour
                           ? 'bg-white text-blue-900 shadow-[0_4px_15px_rgba(255,255,255,0.2)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.4)]'
                           : 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)]'
-                      }`}
+                        }`}
                     >
-                      {/* Mantiene tus traducciones (Catalog o Book) */}
                       <span>{isTour ? t.step1.catalog : t.step1.book}</span>
-                      
-                      {/* Flechita SVG */}
                       <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
@@ -2042,28 +2056,15 @@ export default function App() {
                 )
               })}
             </div>
-
           </div>
-
-          {/* ESTE ES EL DIV DEL CONTENEDOR PADRE QUE TE FALTABA CERRAR 👇 */}
         </div>
 
-        {/* 🔥 SEÑALES E-E-A-T PARA GOOGLE SGE 🔥 */}
-        {/* 🔥 SECCIÓN DE CONFIANZA LUXURY GOLD 🔥 */}
-        <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-24 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
-
-          {/* El Sello Dorado en la esquina superior derecha */}
+        {/* SEÑALES E-E-A-T PARA GOOGLE SGE */}
+        <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-16 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
           <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
-            <img
-              src="/logo-sello-dorado.png" // 👈 Asegúrate de subir tu logo circular aquí
-              className="w-full h-full object-contain filter brightness-110"
-              alt="Seal of Trust"
-            />
+            <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" />
           </div>
-
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-
-            {/* Columna de Texto Principal */}
             <div className="lg:col-span-1">
               <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
                 Why Trust Ballard Tours?
@@ -2071,66 +2072,72 @@ export default function App() {
               <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
                 Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
               </p>
-
-              {/* Botón Estilo Metálico */}
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
                 <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
                 <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
               </div>
             </div>
-
-            {/* Columna de Tarjetas de Beneficios */}
             <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-
-              {/* Tarjeta 1: Certified Experts */}
               <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
-                  <Users size={40} strokeWidth={1.5} />
-                </div>
+                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Users size={40} strokeWidth={1.5} /></div>
                 <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
-                <p className="text-slate-400 text-sm leading-relaxed font-light">
-                  Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.
-                </p>
+                <p className="text-slate-400 text-sm leading-relaxed font-light">Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.</p>
               </div>
-
-              {/* Tarjeta 2: Luxury Fleet */}
               <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors">
-                  <Car size={40} strokeWidth={1.5} />
-                </div>
+                <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Car size={40} strokeWidth={1.5} /></div>
                 <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
-                <p className="text-slate-400 text-sm leading-relaxed font-light">
-                  Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.
-                </p>
+                <p className="text-slate-400 text-sm leading-relaxed font-light">Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.</p>
               </div>
-
             </div>
           </div>
         </section>
 
-
+        {/* 🔥 3. BLOQUE DE CONTENIDO SEO: DENSO EN KEYWORDS 🔥 */}
+        <section className="max-w-6xl mx-auto mb-16 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-3xl font-black text-gray-900 mb-6 leading-tight">
+                {lang === 'es' ? 'El Mejor Transporte de Aeropuerto en Los Cabos' : 'The Most Reliable Los Cabos Airport Transportation'}
+              </h2>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                {lang === 'es'
+                  ? 'Encontrar un transporte confiable en Cabo no debería ser la parte más difícil de tus vacaciones. Nos especializamos en traslados privados desde el Aeropuerto SJD hacia Cabo San Lucas, San José del Cabo y el Corredor Turístico.'
+                  : 'Finding reliable <strong>Cabo airport transportation</strong> shouldn’t be the hardest part of your vacation. We specialize in premium <strong>private transportation in Los Cabos</strong>, ensuring you bypass the chaotic taxi lines at the SJD terminal.'}
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                {lang === 'es'
+                  ? 'Nuestros servicios incluyen monitoreo de vuelos en tiempo real, choferes bilingües y sillas de bebé gratis. Evita cargos ocultos con nuestro servicio VIP.'
+                  : 'Whether you need a quick <strong>airport shuttle to Cabo San Lucas</strong>, a luxury SUV, or a spacious van for your group, our <strong>SJD airport transfers</strong> include flight tracking, bilingual chauffeurs, and transparent flat rates.'}
+              </p>
+            </div>
+            <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
+              <h3 className="text-xl font-bold text-blue-900 mb-4">FAQ: Transportation & Shuttles</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-bold text-gray-900">How much is a shuttle from SJD to Cabo San Lucas?</h4>
+                  <p className="text-sm text-gray-600 mt-1">Rates for a private luxury SUV typically range between $80 and $120 USD depending on your resort's exact zone.</p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900">Is Uber allowed at Los Cabos Airport?</h4>
+                  <p className="text-sm text-gray-600 mt-1">Uber is legally restricted from picking up passengers inside the terminals. A pre-booked private transfer is the safest, fastest alternative.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* TOURS DESTACADOS */}
         {toursActivos.length > 0 && (
           <div id="tours" className="mb-24 scroll-mt-24">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 px-4 lg:px-0">
-              {/* Ya era H2, está perfecto */}
               <div>
                 <h2 className="text-3xl font-extrabold text-gray-900">{t.step1.featured_title}</h2>
                 <p className="text-gray-500 mt-2">{t.step1.featured_sub}</p>
               </div>
             </div>
-
-            {/* 👇 CONTENEDOR CARRUSEL SWIPEABLE DE TOURS 👇 */}
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-
               {toursActivos.slice(0, 6).map((tr) => (
-                <div
-                  key={tr.id}
-                  onClick={() => seleccionarTourDesdeInicio(tr.id)}
-                  // 👇 APLICAMOS EL MISMO TRUCO: shrink-0 w-[85vw] y snap-center 👇
-                  className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-auto group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[400px]"
-                >
+                <div key={tr.id} onClick={() => seleccionarTourDesdeInicio(tr.id)} className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-auto group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[400px]">
                   <div className="relative h-56 overflow-hidden shrink-0">
                     <div className="absolute inset-0 bg-gray-900/20 group-hover:bg-transparent transition-colors z-10"></div>
                     <div className="relative w-full h-full group cursor-pointer" onClick={(e) => {
@@ -2142,9 +2149,6 @@ export default function App() {
                       setLightboxAbierto(true);
                     }}>
                       <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                      <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ImageIcon size={16} /> Ver fotos en grande
-                      </div>
                     </div>
                     <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-900 flex items-center gap-1 shadow-lg">
                       <Clock size={12} /> {tr.duracion[lang]}
@@ -2165,15 +2169,14 @@ export default function App() {
                   </div>
                 </div>
               ))}
-
             </div>
           </div>
         )}
 
+        {/* DIRECTORIO DE ZONAS */}
         <div id="zonas" className="bg-white border border-gray-200 rounded-[2rem] p-6 md:p-10 shadow-lg scroll-mt-24">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <MapIcon className="w-12 h-12 text-blue-900 mx-auto mb-4" />
-            {/* Ya era H2, está perfecto */}
             <h2 className="text-3xl font-extrabold text-gray-900 mb-4">{t.step1.directory_title}</h2>
             <div className="relative max-w-md mx-auto mt-6">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -2185,7 +2188,6 @@ export default function App() {
               zonasVisibles.map(zona => (
                 <div key={zona.id} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 h-full flex flex-col">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-4 mb-4 gap-4">
-                    {/* Cambiado de H3 a H3 porque está anidado bajo Directorio (H2) */}
                     <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2"><MapPin className="text-blue-600" size={24} /> {zona.nombre}</h3>
                     <div className="flex gap-3 text-sm text-right">
                       <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Suburban (1-6)</p><p className="font-bold text-blue-900">${zona.tarifaSuburban} <span className="font-normal text-xs">USD</span></p></div>
