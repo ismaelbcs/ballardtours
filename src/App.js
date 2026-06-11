@@ -11,6 +11,7 @@ import DestinationsHub from './DestinationsHub';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { collection, addDoc, query, where, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from './firebase';
+import { FAQSection } from './FAQSection';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { translations } from './data/translations';
 import {
@@ -453,6 +454,8 @@ const generarHtmlModificacionAdmin = (idModificar, datosModificar, costoDiferenc
     </div>
   `;
 };
+
+
 
 export default function App() {
 
@@ -2043,8 +2046,8 @@ export default function App() {
                         avanzarPaso();
                       }}
                       className={`relative z-10 mt-auto w-full font-bold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:animate-none animate-[pulse_2s_ease-in-out_infinite] active:scale-95 ${isTour
-                          ? 'bg-white text-blue-900 shadow-[0_4px_15px_rgba(255,255,255,0.2)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.4)]'
-                          : 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)]'
+                        ? 'bg-white text-blue-900 shadow-[0_4px_15px_rgba(255,255,255,0.2)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.4)]'
+                        : 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)]'
                         }`}
                     >
                       <span>{isTour ? t.step1.catalog : t.step1.book}</span>
@@ -2212,6 +2215,8 @@ export default function App() {
             )}
           </div>
         </div>
+        {/* 🔥 AQUÍ LLAMAS AL COMPONENTE QUE CREASTE 🔥 */}
+        <FAQSection lang={lang} />
       </div>
     );
   };
@@ -4591,6 +4596,129 @@ export default function App() {
                       </Link>
                     </div>
 
+                  </article>
+                </div>
+              } />
+
+              {/* 📝 ARTÍCULO 2: PRECIOS Y TARIFAS (Intención de búsqueda de costo) */}
+              <Route path="/blog/cabo-airport-transportation-prices" element={
+                <div className="animate-fade-in bg-white pb-20">
+                  <Helmet>
+                    <title>Cabo Airport Transportation Prices & Rates (2026 Guide)</title>
+                    <meta name="description" content="Discover exact Cabo airport transportation prices for 2026. Compare private shuttles, luxury SUVs, and taxis to find the best rates without hidden fees." />
+                    <link rel="canonical" href="https://www.ballardtours.com/blog/cabo-airport-transportation-prices" />
+
+                    <meta property="og:title" content="Cabo Airport Transportation Prices & Rates (2026)" />
+                    <meta property="og:description" content="Avoid hidden fees! See exact pricing for SJD airport transfers to all major Los Cabos resort zones." />
+                    <meta property="og:type" content="article" />
+                    <meta property="og:url" content="https://www.ballardtours.com/blog/cabo-airport-transportation-prices" />
+
+                    <script type="application/ld+json">
+                      {`
+                        {
+                          "@context": "https://schema.org",
+                          "@type": "Article",
+                          "headline": "Cabo Airport Transportation Prices & Rates (2026 Guide)",
+                          "publisher": {
+                            "@type": "Organization",
+                            "name": "Ballard Tours"
+                          }
+                        }
+                      `}
+                    </script>
+                  </Helmet>
+
+                  <div className="max-w-4xl mx-auto px-4 pt-20 pb-10 border-b border-gray-100">
+                    <Link to="/blog" className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition mb-6 text-sm">
+                      <ChevronLeft size={16} className="mr-1" /> Back to Blog
+                    </Link>
+                    <div className="inline-block bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full mb-4">Pricing Guide • 4 Min Read</div>
+                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">Cabo Airport Transportation Prices: What to Expect in 2026</h1>
+                  </div>
+
+                  <article className="max-w-3xl mx-auto px-4 py-10 text-gray-700 text-lg leading-relaxed space-y-8">
+                    <p className="text-xl font-medium text-gray-800">
+                      Budgeting for your Los Cabos vacation shouldn't involve guessing games at the airport taxi stand. Knowing exact <strong>Cabo airport transportation prices</strong> ensures you avoid tourist traps and hidden fees.
+                    </p>
+
+                    <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">Average Flat Rates by Zone</h2>
+                    <p>Prices generally depend on the distance from San Jose del Cabo International Airport (SJD) to your resort. Here are the standard rates for private, luxury SUV transportation (up to 6 passengers):</p>
+
+                    <ul className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-200 my-6">
+                      <li className="flex justify-between border-b pb-2"><strong>Zone 1: San Jose del Cabo</strong> <span>~$80 USD</span></li>
+                      <li className="flex justify-between border-b pb-2"><strong>Zone 2: Tourist Corridor</strong> <span>~$90 - $100 USD</span></li>
+                      <li className="flex justify-between border-b pb-2"><strong>Zone 3: Cabo San Lucas</strong> <span>~$110 USD</span></li>
+                      <li className="flex justify-between"><strong>Zone 4: Pacific/Diamante (Nobu, Hard Rock)</strong> <span>~$140 - $160 USD</span></li>
+                    </ul>
+
+                    <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">Beware of "Per Person" Pricing</h2>
+                    <p>
+                      Many shared shuttles advertise a low price of $25 USD. However, this is usually <em>per person</em>. If you are a family of four, that's $100 USD—the exact same price you would pay for a <strong>100% private Luxury SUV</strong> with Ballard Tours, without the hassle of waiting for 10 other strangers to get dropped off first.
+                    </p>
+
+                    <div className="bg-blue-50 p-8 rounded-3xl mt-12 border border-blue-100 text-center shadow-sm">
+                      <h3 className="text-2xl font-black text-blue-900 mb-4">Lock In Your Fixed Rate</h3>
+                      <p className="text-blue-800 mb-6">Our prices include all taxes, airport fees, and toll roads. Zero hidden charges.</p>
+                      <Link to="/" onClick={() => window.scrollTo(0, 0)} className="inline-block bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-xl transition shadow-lg">
+                        Get an Exact Quote for Your Hotel
+                      </Link>
+                    </div>
+                  </article>
+                </div>
+              } />
+
+              {/* 📝 ARTÍCULO 3: CÓMO LLEGAR (Intención de búsqueda de logística/rutas) */}
+              <Route path="/blog/how-to-get-from-sjd-airport-to-cabo-san-lucas" element={
+                <div className="animate-fade-in bg-white pb-20">
+                  <Helmet>
+                    <title>How to Get from SJD Airport to Cabo San Lucas (Best Options)</title>
+                    <meta name="description" content="Discover the best ways to get from SJD Airport to Cabo San Lucas. Compare distance, travel times, shuttles, and private transportation options." />
+                    <link rel="canonical" href="https://www.ballardtours.com/blog/how-to-get-from-sjd-airport-to-cabo-san-lucas" />
+
+                    <meta property="og:title" content="How to Get from SJD Airport to Cabo San Lucas" />
+                    <meta property="og:type" content="article" />
+                    <meta property="og:url" content="https://www.ballardtours.com/blog/how-to-get-from-sjd-airport-to-cabo-san-lucas" />
+                  </Helmet>
+
+                  <div className="max-w-4xl mx-auto px-4 pt-20 pb-10 border-b border-gray-100">
+                    <Link to="/blog" className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition mb-6 text-sm">
+                      <ChevronLeft size={16} className="mr-1" /> Back to Blog
+                    </Link>
+                    <div className="inline-block bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded-full mb-4">Travel Tips • 5 Min Read</div>
+                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">How to Get from SJD Airport to Cabo San Lucas: The 2026 Guide</h1>
+                  </div>
+
+                  <article className="max-w-3xl mx-auto px-4 py-10 text-gray-700 text-lg leading-relaxed space-y-8">
+                    <p className="text-xl font-medium text-gray-800">
+                      So, you've landed at SJD International Airport, and your resort is in the heart of Cabo San Lucas. The distance is roughly <strong>45 kilometers (28 miles)</strong>, taking about 40-45 minutes on the toll road. Here is exactly how to make that journey smoothly.
+                    </p>
+
+                    <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">Option 1: Pre-Booked Private Transportation (Recommended)</h2>
+                    <p>
+                      This is the choice for 90% of luxury travelers. A bilingual driver meets you outside Terminal 2 holding a sign. You step into a climate-controlled SUV, grab a cold water, and head straight to your hotel via the fast toll road. No stops, no timeshare pitches, just pure vacation mode.
+                    </p>
+
+                    <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">Option 2: Airport Taxis</h2>
+                    <p>
+                      Official airport taxis are available, but they are notoriously the most expensive option. You might pay upwards of $120 to $150 USD for a standard van, and you'll often have to wait in line during peak arrival times (usually between 1:00 PM and 4:00 PM).
+                    </p>
+
+                    <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">Option 3: Shared Shuttles</h2>
+                    <p>
+                      Shared shuttles are budget-friendly if you are traveling completely alone. However, be prepared for delays. The shuttle won't leave until it's full, and you might be the 5th stop on the highway, turning a 45-minute drive into a 2-hour ordeal.
+                    </p>
+
+                    <div className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-xl my-6">
+                      <p className="text-orange-900 font-bold mb-2">The Golden Rule of Cabo Airports:</p>
+                      <p className="text-orange-800 text-base">Never stop inside the terminal. Walk straight outside past the sliding glass doors to find your pre-arranged driver.</p>
+                    </div>
+
+                    <div className="bg-blue-50 p-8 rounded-3xl mt-12 border border-blue-100 text-center shadow-sm">
+                      <h3 className="text-2xl font-black text-blue-900 mb-4">Book Your Direct Transfer</h3>
+                      <Link to="/" onClick={() => window.scrollTo(0, 0)} className="inline-block bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-xl transition shadow-lg">
+                        Reserve Your Private SUV to Cabo San Lucas
+                      </Link>
+                    </div>
                   </article>
                 </div>
               } />

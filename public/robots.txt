@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Evitar que Google indexe rutas irrelevantes que causan contenido duplicado
+Disallow: /politicas-de-cancelacion
+Disallow: /terms-and-conditions
+
 Sitemap: https://www.ballardtours.com/sitemap.xml

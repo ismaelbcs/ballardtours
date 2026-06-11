@@ -3,8 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { Phone, MessageCircle, Send, User, BookOpen, CheckCircle, Mail } from 'lucide-react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from './firebase'; // Asegúrate de que la ruta a tu archivo firebase.js sea correcta
+import { FAQSection } from './FAQSection'; // <-- AQUÍ IMPORTAMOS LAS PREGUNTAS FRECUENTES
 
-export default function Contact() {
+export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por defecto para el idioma
   const [formData, setFormData] = useState({
     nombre: '',
     asunto: '',
@@ -68,7 +69,7 @@ export default function Contact() {
         <link rel="canonical" href="https://www.ballardtours.com/contact" />
       </Helmet>
 
-      <section className="bg-gray-50 min-h-screen pb-20">
+      <section className="bg-gray-50 min-h-screen">
         {/* HERO SECTION */}
         <div className="bg-blue-900 text-white pt-32 pb-24 px-4 text-center rounded-b-[3rem] shadow-xl relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-10"></div>
@@ -80,7 +81,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 -mt-12 relative z-20 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto px-4 -mt-12 relative z-20 grid grid-cols-1 lg:grid-cols-3 gap-8 pb-16">
           
           {/* COLUMNA IZQUIERDA: TARJETAS DE CONTACTO DIRECTO */}
           <div className="lg:col-span-1 space-y-4">
@@ -186,7 +187,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  {/* Comentario (Con límite de caracteres) */}
+                  {/* Comentario */}
                   <div>
                     <div className="flex justify-between items-end mb-2">
                       <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider">Comentario</label>
@@ -230,6 +231,12 @@ export default function Contact() {
             </div>
           </div>
         </div>
+
+        {/* 🔥 AQUÍ INYECTAMOS LAS PREGUNTAS FRECUENTES (SEO) 🔥 */}
+        <div className="bg-white border-t border-gray-200 pt-8 pb-16">
+          <FAQSection lang={lang} />
+        </div>
+
       </section>
     </>
   );
