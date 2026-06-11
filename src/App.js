@@ -2503,6 +2503,92 @@ export default function App() {
           </div>
         </section>
 
+        {/* 🔥 SECCIÓN DE ARTÍCULO DESTACADO (ESTILO BLOG) 🔥 */}
+        <div className="max-w-7xl mx-auto px-4 mb-24 animate-fade-in">
+          <div className="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              
+              {/* Columna de Texto */}
+              <div className="flex-1 p-8 md:p-12 lg:p-16">
+                <div className="inline-block bg-blue-100 text-blue-900 text-xs font-black px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
+                  Featured Guide
+                </div>
+                <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 leading-tight">
+                  Skip the Stress, Arrive in Style! <br />
+                  <span className="text-blue-600">Your Ultimate Guide to Los Cabos Private Transportation</span>
+                </h2>
+                
+                <div className="text-gray-600 space-y-5 text-sm md:text-base leading-relaxed mb-8">
+                  <p>
+                    Planning your dream getaway to Baja California Sur this year? Then you probably already know that figuring out airport logistics can be a bit overwhelming. Between navigating the terminal and dodging aggressive timeshare pitches inside the "Shark Tank," landing at SJD International Airport can quickly drain your vacation energy.
+                  </p>
+                  <p>
+                    That’s where Ballard Tours steps in. We don’t just offer a ride; we provide a premium, seamless private chauffeur experience from the moment you step outside the terminal. No shared shuttles, no waiting on strangers, and absolutely NO hidden fees or surprise toll charges. Just you, a pristine air-conditioned luxury SUV or spacious van, complimentary cold drinks, and the open road.
+                  </p>
+                  <p className="font-bold text-gray-800">
+                    We specialize in direct, VIP private airport transfers to the most exclusive, high-end resorts on the peninsula. Heading to one of Cabo’s legendary luxury enclaves? We’ve got you covered:
+                  </p>
+
+                  <ul className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <li>
+                      🎸 <Link to="/destinations/sjd-to-hard-rock" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Hard Rock Hotel Los Cabos</Link>
+                      <p className="mt-1 text-sm">Rock your arrival! Avoid the headache of dynamic taxi rates. Our certified professional drivers will take you directly via the toll highway to the Pacific Zone so you can start enjoying the legendary Hard Rock amenities in no time.</p>
+                    </li>
+                    <li>
+                      🍣🎋 <Link to="/destinations/sjd-to-nobu-hotel" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Nobu Hotel Los Cabos</Link>
+                      <p className="mt-1 text-sm">Unmatched minimalist luxury deserves an equally flawless arrival. Since rideshare apps like Uber are heavily restricted or outright banned from entering the secure gates of ultra-exclusive resorts like Nobu, pre-booking your private federal-licensed transport with us is the safest and smartest way to guarantee a smooth check-in.</p>
+                    </li>
+                    <li>
+                      🌊⛰️ <Link to="/destinations/sjd-to-waldorf-astoria" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Waldorf Astoria Los Cabos Pedregal</Link>
+                      <p className="mt-1 text-sm">Traverse the famous private tunnel in absolute elegance. Whether you choose one of our late-model Chevrolet Suburbans or a spacious Mercedes Sprinter for your group, we ensure your journey to Pedregal is private, secure, and deeply sophisticated.</p>
+                    </li>
+                  </ul>
+
+                  <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Why choose the Ballard Tours Experience?</h3>
+                  <ul className="space-y-2 list-none">
+                    <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Real-Time Flight Tracking:</strong> Delayed or early flight? Our system monitors your tail number automatically. Your driver will be there exactly when you land.</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Family First:</strong> Traveling with little ones? We offer complimentary baby seats, car seats, and booster seats securely pre-installed upon request.</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Pre-Arranged Grocery Stops:</strong> Want to stock up at Costco or Walmart before reaching your resort? Add an optional 1-hour shopping stop to your booking!</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Flexible Payment:</strong> Lock in your flat rate online via PayPal or enjoy the flexibility of paying in cash directly to your chauffeur upon arrival.</span></li>
+                  </ul>
+
+                  <p className="pt-4 border-t border-gray-100">
+                    Don’t risk your vacation comfort with unregulated rideshares or unpredictable airport taxis. Experience the pinnacle of Cabo logistics with a locally-owned, fully licensed, and trusted provider.
+                  </p>
+                  <p className="font-black text-gray-900">Ready to secure your 5-star private shuttle?</p>
+                  <p>Click the link below to view our flat rates, check hotel zones, and book your private SUV in less than 2 minutes!</p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                  <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); window.scrollTo(0,0); }} className="bg-blue-900 hover:bg-blue-800 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-center">
+                    Book Now
+                  </button>
+                  <Link to="/blog" className="bg-white hover:bg-gray-50 text-blue-900 border-2 border-gray-200 font-bold py-4 px-8 rounded-xl transition-all text-center flex items-center justify-center gap-2">
+                    Ver más artículos <ChevronRight size={18} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Columna de Imagen */}
+              <div className="w-full lg:w-5/12 min-h-[400px] lg:min-h-full relative overflow-hidden bg-gray-100">
+                <img 
+                  src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} 
+                  alt="Luxury SUV Cabo Transportation" 
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent lg:bg-gradient-to-l"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg inline-block border border-white/50">
+                    <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Premium Fleet</p>
+                    <p className="font-black text-blue-900 text-lg">Chevrolet Suburban & Escalade</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         {/* DIRECTORIO DE ZONAS */}
         <div id="zonas" className="bg-white border border-gray-200 rounded-[2rem] p-6 md:p-10 shadow-lg scroll-mt-24 mb-16">
           <div className="text-center max-w-2xl mx-auto mb-10">
