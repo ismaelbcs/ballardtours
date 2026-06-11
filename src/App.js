@@ -2410,11 +2410,11 @@ export default function App() {
                 <ul className="space-y-2 text-sm mb-6">
                   <li>• <Link to="/destinations/sjd-to-nobu-hotel" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to Nobu Hotel</Link></li>
                   <li>• <Link to="/destinations/sjd-to-secrets-puerto-los-cabos" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to Secrets Puerto Los Cabos</Link></li>
-                  <li className="text-gray-500 italic">• Hyatt Ziva Los Cabos</li>
-                  <li className="text-gray-500 italic">• La Pacifica by Hilton Los Cabos</li>
-                  <li className="text-gray-500 italic">• Playa Grande Resort</li>
-                  <li className="text-gray-500 italic">• Pueblo Bonito Sunset Beach</li>
-                  <li className="text-gray-500 italic">• Riu Palace Cabo San Lucas</li>
+                  <li>• <Link to="/destinations/sjd-to-hyatt-ziva" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to Hyatt Ziva Los Cabos</Link></li>
+                  <li>• <Link to="/destinations/sjd-to-la-pacifica" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to La Pacifica by Hilton</Link></li>
+                  <li>• <Link to="/destinations/sjd-to-playa-grande" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to Playa Grande Resort</Link></li>
+                  <li>• <Link to="/destinations/sjd-to-pueblo-bonito-sunset" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to Pueblo Bonito Sunset Beach</Link></li>
+                  <li>• <Link to="/destinations/sjd-to-riu-palace" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 hover:underline">SJD to Riu Palace Cabo San Lucas</Link></li>
                 </ul>
                 <h4 className="font-bold text-md text-gray-900 mb-2">{lang === 'es' ? 'Recursos de Viaje' : 'Travel Resources'}</h4>
                 <ul className="space-y-2 text-sm">
@@ -4763,13 +4763,9 @@ export default function App() {
                     {/* HERO DE RUTA ESPECÍFICA (Con imagen en la tira azul y opacidad baja) */}
                     <div className="relative bg-gray-900 text-white py-28 md:py-36 px-4 overflow-hidden shadow-xl rounded-b-[3rem] mb-12">
                       <div className="absolute inset-0 z-0">
-                        <img
-                          src={`${process.env.PUBLIC_URL}/${hotel.image}`}
-                          alt={`Airport transfer to ${hotel.nombre}`}
-                          className="w-full h-full object-cover opacity-30"
-                        />
+                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={`Airport transfer to ${hotel.nombre}`} className="w-full h-full object-cover opacity-80" />
                       </div>
-                      <div className="absolute inset-0 bg-blue-950/70 z-10"></div>
+                      <div className="absolute inset-0 bg-blue-950/40 z-10"></div>
 
                       <div className="relative max-w-4xl mx-auto text-center z-20">
                         <div className="flex justify-center items-center gap-4 mb-6 text-blue-300">

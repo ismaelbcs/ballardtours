@@ -11,6 +11,7 @@ export const landingPagesSEO = [
   
   // Zona 2
   { slug: 'sjd-to-grand-velas', nombre: 'Grand Velas Los Cabos', zona: 2, zonaText: 'Tourist Corridor', tiempo: '35-40 min', dist: '35 km', image: 'panoramic-grand-velas-los-cabos-velas-resorts-airport-sjd-san-jose-del-cabo.jpg', desc: 'ultra-luxury all-inclusive living' },
+  { slug: 'sjd-to-la-pacifica', nombre: 'La Pacifica by Hilton', zona: 2, zonaText: 'Tourist Corridor', tiempo: '35-40 min', dist: '30 km', image: 'Hilton-los-cabos-airport-sjd.webp', desc: 'a premier luxury vacation club' },
   { slug: 'sjd-to-garza-blanca', nombre: 'Garza Blanca Resort', zona: 2, zonaText: 'Tourist Corridor', tiempo: '35-40 min', dist: '34 km', image: 'garza-blanca-resort-spa-los-cabos-airport-sjd.webp', desc: 'contemporary elegance by the sea' },
   { slug: 'sjd-to-dreams-los-cabos', nombre: 'Dreams Los Cabos', zona: 2, zonaText: 'Tourist Corridor', tiempo: '35-40 min', dist: '32 km', image: 'dreams-los-cabos-sjd-airport.webp', desc: 'a limitless beachfront escape' },
   { slug: 'sjd-to-hilton-los-cabos', nombre: 'Hilton Los Cabos', zona: 2, zonaText: 'Tourist Corridor', tiempo: '35-40 min', dist: '30 km', image: 'Hilton-los-cabos-airport-sjd.webp', desc: 'a premier golf and beach resort' },
