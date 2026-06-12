@@ -131,7 +131,7 @@ export default function Fleet({ lang = 'es' }) {
 
       {/* HERO SECTION */}
       <div className="bg-blue-900 text-white pt-32 pb-20 px-4 text-center rounded-b-[3rem] shadow-xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-[url('suburban-airport-los-cabos-ballard-sjd.webp')] bg-cover bg-center opacity-10"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <span className="inline-block bg-amber-500 text-gray-900 text-xs font-black px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest shadow-md">
             {t.subtitle}
