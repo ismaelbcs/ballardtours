@@ -4619,118 +4619,268 @@ export default function App() {
                 </div>
               } />
 
-              {/* ✈️ URL 3: SJD AIRPORT SHUTTLE (tudominio.com/transportation/airport-shuttle-sjd) */}
+              {/* ✈️ URL 3: SJD AIRPORT SHUTTLE - REPORTAJE EXTENSO SEO */}
               <Route path="/transportation/airport-shuttle-sjd" element={
                 <div className="animate-fade-in pb-10 bg-white">
                   <Helmet>
-                    {/* Básicos */}
-                    <title>Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours</title>
-                    <meta name="description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
-
-                    {/* Canonical */}
-                    <link rel="canonical" href="https://www.ballardtours.com/airport-transportation" />
-                    {/* hreflang para SEO Internacional */}
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
-
-                    {/* Open Graph (Facebook/WhatsApp) */}
-                    <meta property="og:title" content="Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours" />
-                    <meta property="og:description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
+                    <title>SJD Cabo Airport Shuttle & Private Transportation | Ballard Tours</title>
+                    <meta name="description" content="Exclusive reporter guide to Cabo airport transportation. Best private airport to hotel taxi & shuttles to Hyatt Ziva, Hard Rock, Cabo Azul, Paradisus & more." />
+                    <link rel="canonical" href="https://www.ballardtours.com/transportation/airport-shuttle-sjd" />
+                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/transportation/airport-shuttle-sjd" />
+                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es/transportation/airport-shuttle-sjd" />
+                    <meta property="og:title" content="SJD Cabo Airport Shuttle & Private Transportation | Ballard Tours" />
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
-                    <meta property="og:url" content="https://www.ballardtours.com/airport-transportation" />
-                    <meta property="og:type" content="website" />{/* Idioma y Región */}
-                    <meta property="og:locale" content="en_US" />
-                    <meta property="og:locale:alternate" content="es_MX" />
-
-                    {/* Twitter / X Cards */}
-                    <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:title" content="Cabo Airport Private Transportation (SJD) | Flat Rates | Ballard Tours" />
-                    <meta name="twitter:description" content="Arrive in style with our private SJD airport transportation. 100% private vehicles, flight tracking, and bilingual drivers to any hotel in San Jose or Cabo." />
-                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
                   </Helmet>
 
-                  {/* HEADER INTERNO */}
-                  <div className="bg-gray-50 pt-24 pb-16 px-4 border-b border-gray-200">
-                    <div className="max-w-4xl mx-auto text-center">
-                      <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 font-bold px-4 py-2 rounded-full mb-6 text-sm">
-                        <PlaneLanding size={18} /> SJD International Airport
+                  {/* HEADER DEL REPORTAJE */}
+                  <div className="bg-gray-950 pt-28 pb-16 px-4 border-b border-gray-200 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-blue-900/40 z-10"></div>
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-30 z-0"></div>
+                    <div className="max-w-4xl mx-auto text-center relative z-20">
+                      <div className="inline-flex items-center gap-2 bg-red-600 text-white font-black px-4 py-2 rounded-full mb-6 text-sm uppercase tracking-widest shadow-lg">
+                        <span className="animate-pulse">🔴</span> {lang === 'es' ? 'Reportaje Especial Exclusivo' : 'Exclusive Special Report'}
                       </div>
-                      <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">
-                        Private Airport Transportation from SJD Los Cabos
+                      <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
+                        {lang === 'es' 
+                          ? 'Sobreviviendo SJD: La Guía Definitiva de Transporte y Clima en Los Cabos' 
+                          : 'Surviving SJD: The Ultimate Insider’s Guide to Cabo Weather & Airport Transportation'}
                       </h1>
-                      <p className="text-xl text-gray-600 font-medium">
-                        Skip the taxi lines. We monitor your flight, greet you outside, and drive you straight to your resort.
+                      <p className="text-xl text-gray-200 font-medium italic">
+                        {lang === 'es' ? 'Por: El Equipo Editorial de Viajes de Ballard Tours' : 'By: The Ballard Tours Travel Editorial Team'}
                       </p>
                     </div>
                   </div>
 
-                  <div className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    {/* COLUMNA PRINCIPAL - CONTENIDO SEO */}
-                    <div className="lg:col-span-2 space-y-10 text-gray-700 text-lg leading-relaxed">
+                  <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    {/* COLUMNA PRINCIPAL DEL REPORTAJE */}
+                    <div className="lg:col-span-2 space-y-10 text-gray-700 text-lg leading-relaxed font-serif">
 
-                      <section>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">The Best San Jose del Cabo Airport Transfers</h2>
-                        <p className="mb-4">
-                          Your vacation should start the moment you land. Our <strong>San Jose del Cabo airport transfers</strong> provide a seamless, stress-free experience from Terminal 1 or Terminal 2 directly to your hotel lobby.
-                        </p>
-                        <p>
-                          Unlike shared shuttles that make dozens of stops, our <strong>private shuttle Cabo airport</strong> service guarantees that the vehicle is reserved exclusively for you and your family. No waiting for other passengers, just immediate departure.
-                        </p>
-                      </section>
+                      {lang === 'en' ? (
+                        /* INGLÉS - REPORTAJE */
+                        <>
+                          <p className="text-2xl font-sans font-medium text-gray-900 leading-snug">
+                            <strong>REPORTING LIVE FROM LOS CABOS</strong> — Step off the plane, take a deep breath, and let the legendary Los Cabos weather wash over you. With over 300 days of glorious sunshine a year, the climate here is a magnificent collision of arid desert heat and cool, refreshing breezes off the Sea of Cortez. But before you can dig your toes into the sand at the <strong>Hyatt Ziva</strong> or sip a margarita at the <strong>Hard Rock</strong>, there is one crucial mission every traveler must conquer: navigating the San Jose del Cabo (SJD) International Airport.
+                          </p>
 
-                      {/* GANCHO DE CONFIANZA PARA AMERICANOS (Timeshares) */}
-                      <section className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-2xl my-8">
-                        <h3 className="text-xl font-bold text-orange-900 mb-3 flex items-center gap-2">
-                          <ShieldCheck size={24} /> Avoiding the "Shark Tank"
-                        </h3>
-                        <p className="text-orange-800 text-base">
-                          Navigating the SJD airport can be overwhelming due to timeshare salespeople inside the terminal. When you book your <strong>Cabo airport shuttle</strong> with Ballard Tours, you have the peace of mind knowing your professional bilingual driver is waiting <em>outside</em> under the umbrellas with a personalized sign. Walk straight out and let us handle your luggage!
-                        </p>
-                      </section>
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">The Arrival: Escaping the "Shark Tank"</h2>
+                          <p>
+                            As a travel reporter who has flown into SJD countless times, I can tell you firsthand that the most overwhelming part of your vacation happens right after customs. You will enter a hallway famously known as the "Shark Tank." This corridor is packed shoulder-to-shoulder with aggressive timeshare salespeople posing as information guides or taxi dispatchers. Their goal is simple: to delay your arrival to stunning resorts like <strong>Cabo Azul</strong> or <strong>Paradisus</strong> by offering "free" rides in exchange for hours of your vacation time. 
+                          </p>
+                          <p>
+                            My professional advice? Do not stop. Keep your eyes forward, smile politely, and walk directly out the sliding glass doors to the sunlit exterior. This is precisely why securing a pre-booked <strong>airport to hotel taxi</strong> or private shuttle with a reputable company like <strong>Ballard Tours</strong> is not a luxury—it is an absolute logistical necessity. When you book your <strong>airport to hotel taxi</strong> in advance, a professional, bilingual Ballard Tours chauffeur will be waiting for you outside under the umbrellas, holding a personalized sign, ready to whisk you away to <strong>Fiesta Americana</strong> or <strong>Playa Grande</strong> before the airport chaos can even touch you.
+                          </p>
 
-                      <section>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Popular Hotel Routes & Rates</h2>
-                        <p className="mb-4">We offer flat, transparent rates to all major resort zones in Baja California Sur. Click your destination to see exact pricing and travel times:</p>
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Airport to Hotel Taxi" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">A Ballard Tours luxury SUV waiting outside SJD Airport, the perfect airport to hotel taxi solution.</p>
+                          </div>
 
-                        {/* INTERLINKING ESTRATÉGICO: Estos links le dicen a Google cuáles son tus páginas más importantes */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                          <Link to="/destinations/sjd-to-nobu-hotel" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 border border-gray-100 hover:border-blue-200 transition-colors group">
-                            <MapPin className="text-blue-900" size={20} />
-                            <span className="font-bold text-gray-900 group-hover:text-blue-900">Transportation to Nobu Hotel</span>
-                          </Link>
-                          <Link to="/destinations/sjd-to-hard-rock" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 border border-gray-100 hover:border-blue-200 transition-colors group">
-                            <MapPin className="text-blue-900" size={20} />
-                            <span className="font-bold text-gray-900 group-hover:text-blue-900">SJD to Hard Rock Hotel Cabo</span>
-                          </Link>
-                          <Link to="/destinations/sjd-to-waldorf-astoria" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 border border-gray-100 hover:border-blue-200 transition-colors group">
-                            <MapPin className="text-blue-900" size={20} />
-                            <span className="font-bold text-gray-900 group-hover:text-blue-900">Shuttle to Waldorf Astoria</span>
-                          </Link>
-                          <Link to="/destinations/sjd-to-chileno-bay" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-blue-50 border border-gray-100 hover:border-blue-200 transition-colors group">
-                            <MapPin className="text-blue-900" size={20} />
-                            <span className="font-bold text-gray-900 group-hover:text-blue-900">Transfers to Chileno Bay Resort</span>
-                          </Link>
-                        </div>
-                      </section>
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">The Perfect Climate for Perfect Resorts</h2>
+                          <p>
+                            Let's talk about the Los Cabos weather. The dry, tropical desert climate makes it a globally unrivaled destination. Imagine waking up at <strong>Cabo Azul</strong> with a gentle morning temperature of 75°F (24°C), perfect for a walk along the pristine beach. By midday, as the sun peaks, you'll be thankful for the refreshing pools at the <strong>Hyatt Ziva</strong> or the <strong>Paradisus</strong>. 
+                          </p>
+                          <p>
+                            Because the weather is so consistently beautiful, tourists flock here year-round, making reliable transportation scarce. When you order an <strong>airport to hotel taxi</strong> on arrival, you are at the mercy of unpredictable dynamic pricing and long queues melting in the midday sun. However, a pre-arranged Ballard Tours vehicle means stepping out of the Baja heat and into a climate-controlled, air-conditioned sanctuary. Whether you are heading to the vibrant <strong>Hard Rock</strong> on the Pacific side, the elegant <strong>Fiesta Americana</strong>, or the charming <strong>Playa Grande</strong> nestled near Land's End, the journey becomes part of the luxury experience.
+                          </p>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Hyatt Ziva Los Cabos" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">The stunning Hyatt Ziva, easily accessible via Ballard Tours' airport to hotel taxi service.</p>
+                          </div>
+
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Route Breakdown: From SJD to Paradise</h2>
+                          <p>
+                            As a reporter analyzing local logistics, I've mapped out the routes. SJD airport is located roughly 20-30 minutes from San Jose del Cabo and about 45-60 minutes from Cabo San Lucas depending on traffic.
+                          </p>
+                          <ul className="list-disc pl-5 space-y-4 my-6">
+                            <li><strong>San Jose del Cabo Heroes:</strong> If your destination is <strong>Hyatt Ziva</strong> or <strong>Cabo Azul</strong>, your <strong>airport to hotel taxi</strong> ride will be swift and scenic. Ballard Tours drivers know the quickest bypasses to get you poolside in under 25 minutes.</li>
+                            <li><strong>The Tourist Corridor:</strong> Resorts like <strong>Paradisus</strong> and <strong>Fiesta Americana</strong> sit majestically along the highway connecting the two towns. The coastal views during your transfer are phenomenal.</li>
+                            <li><strong>Cabo San Lucas & The Pacific:</strong> Heading to <strong>Playa Grande</strong> at the marina, or navigating the private roads to the <strong>Hard Rock</strong> and <strong>Nobu</strong>? You need an expert driver. Ballard Tours provides the ultimate <strong>airport to hotel taxi</strong> service, covering toll roads and avoiding downtown congestion so your arrival at <strong>Hard Rock</strong> or <strong>Playa Grande</strong> is flawless.</li>
+                          </ul>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Private Transportation to Nobu" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">VIP Transfers to exclusive zones like Nobu and Hard Rock require expert local drivers.</p>
+                          </div>
+
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">The Departure: Hotel to Airport Transfers</h2>
+                          <p>
+                            Eventually, every vacation must come to an end. While arriving is exciting, the departure can induce anxiety if not planned properly. Missing a flight because you couldn't find a ride is a nightmare no traveler should face. This is why <strong>hotel to airport transfers</strong> are just as critical as your arrival transportation.
+                          </p>
+                          <p>
+                            Imagine trying to flag down a public cab from the secluded gates of the <strong>Hard Rock</strong> or requesting an Uber that isn't legally allowed to enter the <strong>Paradisus</strong> or <strong>Fiesta Americana</strong>. It’s a risk you shouldn't take. By booking your round-trip <strong>hotel to airport transfers</strong> with Ballard Tours, your itinerary is locked in. We coordinate directly with your flight schedule.
+                          </p>
+                          <p>
+                            Whether you are bidding farewell to the pristine beaches of <strong>Cabo Azul</strong>, enjoying your final breakfast at <strong>Hyatt Ziva</strong>, or taking one last look at the arch from <strong>Playa Grande</strong>, Ballard Tours ensures your <strong>hotel to airport transfers</strong> are punctual. Your chauffeur will meet you right at the lobby of the <strong>Fiesta Americana</strong>, <strong>Hard Rock</strong>, <strong>Hyatt Ziva</strong>, <strong>Cabo Azul</strong>, <strong>Paradisus</strong>, or <strong>Playa Grande</strong>, handle your heavy luggage, and drive you safely back to SJD Airport, closing out your spectacular Cabo vacation with grace and reliability.
+                          </p>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Nobu Los Cabos" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">Smooth hotel to airport transfers ensure your departure is as relaxing as your stay.</p>
+                          </div>
+                        </>
+                      ) : (
+                        /* ESPAÑOL - REPORTAJE */
+                        <>
+                          <p className="text-2xl font-sans font-medium text-gray-900 leading-snug">
+                            <strong>TRANSMITIENDO EN VIVO DESDE LOS CABOS</strong> — Baja del avión, respira profundo y deja que el legendario clima de Los Cabos te envuelva. Con más de 300 días de sol glorioso al año, el clima aquí es una magnífica colisión entre el calor del desierto árido y las brisas frescas del Mar de Cortés. Pero antes de que puedas hundir los dedos de los pies en la arena del <strong>Hyatt Ziva</strong> o beber una margarita en el <strong>Hard Rock</strong>, hay una misión crucial que todo viajero debe conquistar: navegar por el Aeropuerto Internacional de San José del Cabo (SJD).
+                          </p>
+
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">La Llegada: Escapando del "Shark Tank"</h2>
+                          <p>
+                            Como reportero de viajes que ha volado a SJD innumerables veces, puedo decirte de primera mano que la parte más abrumadora de tus vacaciones ocurre justo después de la aduana. Entrarás en un pasillo famoso conocido como el "Tanque de Tiburones". Este corredor está lleno de vendedores de tiempos compartidos que se hacen pasar por guías de información o despachadores. Su objetivo es simple: retrasar tu llegada a impresionantes resorts como <strong>Cabo Azul</strong> o <strong>Paradisus</strong> ofreciendo viajes "gratis" a cambio de horas de tu tiempo de vacaciones.
+                          </p>
+                          <p>
+                            ¿Mi consejo profesional? No te detengas. Mantén la vista al frente, sonríe y camina directamente hacia las puertas de cristal hacia el exterior bañado por el sol. Es precisamente por esto que asegurar un <strong>taxi de aeropuerto a hotel</strong> o transporte privado con una empresa confiable como <strong>Ballard Tours</strong> no es un lujo, es una necesidad logística absoluta. Cuando reservas tu <strong>taxi de aeropuerto a hotel</strong> por adelantado, un chofer profesional y bilingüe de Ballard Tours te estará esperando afuera bajo las sombrillas con un letrero personalizado, listo para llevarte a <strong>Fiesta Americana</strong> o <strong>Playa Grande</strong> antes de que el caos del aeropuerto te alcance.
+                          </p>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Airport to Hotel Taxi" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">Una SUV de lujo de Ballard Tours esperando fuera del Aeropuerto SJD, la solución perfecta de taxi de aeropuerto a hotel.</p>
+                          </div>
+
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">El Clima Perfecto para los Resorts Perfectos</h2>
+                          <p>
+                            Hablemos del clima de Los Cabos. El clima desértico tropical lo convierte en un destino sin rival a nivel mundial. Imagina despertar en <strong>Cabo Azul</strong> con una suave temperatura matutina de 24°C (75°F), perfecto para caminar por la playa. Para el mediodía, a medida que el sol alcanza su punto máximo, agradecerás las refrescantes piscinas en el <strong>Hyatt Ziva</strong> o el <strong>Paradisus</strong>.
+                          </p>
+                          <p>
+                            Debido a que el clima es consistentemente hermoso, los turistas acuden aquí todo el año, lo que hace que el transporte confiable escasee. Cuando solicitas un <strong>taxi de aeropuerto a hotel</strong> al llegar, estás a merced de precios dinámicos impredecibles y largas filas derritiéndote bajo el sol del mediodía. Sin embargo, un vehículo preestablecido de Ballard Tours significa salir del calor de Baja California y entrar en un santuario con aire acondicionado. Ya sea que te dirijas al vibrante <strong>Hard Rock</strong> en el lado del Pacífico, al elegante <strong>Fiesta Americana</strong>, o al encantador <strong>Playa Grande</strong> cerca del Fin de la Tierra, el viaje se convierte en parte de la experiencia de lujo.
+                          </p>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Hyatt Ziva Los Cabos" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">El impresionante Hyatt Ziva, fácilmente accesible a través del servicio de taxi de aeropuerto a hotel de Ballard Tours.</p>
+                          </div>
+
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Desglose de Rutas: De SJD al Paraíso</h2>
+                          <p>
+                            Como reportero analizando la logística local, he mapeado las rutas. El aeropuerto SJD se encuentra a unos 20-30 minutos de San José del Cabo y a unos 45-60 minutos de Cabo San Lucas, dependiendo del tráfico.
+                          </p>
+                          <ul className="list-disc pl-5 space-y-4 my-6 font-sans">
+                            <li><strong>Héroes de San José del Cabo:</strong> Si tu destino es <strong>Hyatt Ziva</strong> o <strong>Cabo Azul</strong>, tu viaje en <strong>taxi de aeropuerto a hotel</strong> será rápido y escénico. Los conductores de Ballard Tours conocen los desvíos más rápidos para llevarte a la piscina en menos de 25 minutos.</li>
+                            <li><strong>El Corredor Turístico:</strong> Resorts como <strong>Paradisus</strong> y <strong>Fiesta Americana</strong> se asientan majestuosamente a lo largo de la carretera. Las vistas costeras durante tu traslado son fenomenales.</li>
+                            <li><strong>Cabo San Lucas y el Pacífico:</strong> ¿Te diriges a <strong>Playa Grande</strong> en la marina, o navegas por los caminos privados hacia el <strong>Hard Rock</strong> y <strong>Nobu</strong>? Necesitas un conductor experto. Ballard Tours ofrece el mejor servicio de <strong>taxi de aeropuerto a hotel</strong>, cubriendo autopistas de peaje y evitando el tráfico del centro para que tu llegada al <strong>Hard Rock</strong> o <strong>Playa Grande</strong> sea impecable.</li>
+                          </ul>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Private Transportation to Nobu" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">Los traslados VIP a zonas exclusivas como Nobu y Hard Rock requieren conductores locales expertos.</p>
+                          </div>
+
+                          <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">La Salida: Traslados de Hoteles al Aeropuerto</h2>
+                          <p>
+                            Eventualmente, toda vacación debe llegar a su fin. Mientras que llegar es emocionante, la salida puede inducir ansiedad si no se planifica adecuadamente. Perder un vuelo porque no pudiste encontrar transporte es una pesadilla a la que ningún viajero debería enfrentarse. Es por esto que los <strong>traslados de hoteles al aeropuerto</strong> son tan críticos como tu transporte de llegada.
+                          </p>
+                          <p>
+                            Imagina intentar conseguir un taxi público desde las puertas apartadas del <strong>Hard Rock</strong> o solicitar un Uber que legalmente no tiene permitido entrar al <strong>Paradisus</strong> o al <strong>Fiesta Americana</strong>. Es un riesgo que no debes tomar. Al reservar tus <strong>traslados de hoteles al aeropuerto</strong> de ida y vuelta con Ballard Tours, tu itinerario está asegurado. Nos coordinamos directamente con tu horario de vuelo.
+                          </p>
+                          <p>
+                            Ya sea que te estés despidiendo de las playas vírgenes de <strong>Cabo Azul</strong>, disfrutando de tu último desayuno en el <strong>Hyatt Ziva</strong>, o echando un último vistazo al arco desde <strong>Playa Grande</strong>, Ballard Tours asegura que tus <strong>traslados de hoteles al aeropuerto</strong> sean puntuales. Tu chofer te encontrará justo en el lobby del <strong>Fiesta Americana</strong>, <strong>Hard Rock</strong>, <strong>Hyatt Ziva</strong>, <strong>Cabo Azul</strong>, <strong>Paradisus</strong>, o <strong>Playa Grande</strong>, manejará tu pesado equipaje y te llevará de manera segura de regreso al Aeropuerto SJD.
+                          </p>
+
+                          <div className="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
+                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Nobu Los Cabos" className="w-full h-auto object-cover max-h-[450px]" />
+                            <p className="text-sm text-center text-gray-500 py-3 bg-gray-50 font-sans">Los traslados de hoteles al aeropuerto sin complicaciones aseguran que tu salida sea tan relajante como tu estadía.</p>
+                          </div>
+                        </>
+                      )}
                     </div>
 
-                    {/* COLUMNA LATERAL (Call to Action Fijo) */}
+                    {/* WIDGET LATERAL DE RESERVA */}
                     <div className="lg:col-span-1">
-                      <div className="bg-gray-900 text-white p-8 rounded-[2rem] shadow-2xl sticky top-28">
-                        <h3 className="text-2xl font-bold mb-2">Book Your Transfer</h3>
-                        <p className="text-gray-400 mb-6 text-sm">Secure your vehicle in 2 minutes. No hidden fees.</p>
+                      <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28 font-sans">
+                        <h3 className="text-2xl font-black text-gray-900 mb-2">
+                          {lang === 'es' ? 'Reserva tu Traslado Ahora' : 'Book Your Transfer Now'}
+                        </h3>
+                        <p className="text-gray-500 mb-6 text-sm">
+                          {lang === 'es' ? 'Asegura tu vehículo privado en 2 minutos.' : 'Secure your private vehicle in 2 minutes.'}
+                        </p>
 
                         <div className="space-y-4 mb-8">
-                          <div className="flex items-center gap-3 text-sm font-medium"><CheckCircle size={18} className="text-green-400" /> Flight tracking included</div>
-                          <div className="flex items-center gap-3 text-sm font-medium"><CheckCircle size={18} className="text-green-400" /> Free car seats (upon request)</div>
-                          <div className="flex items-center gap-3 text-sm font-medium"><CheckCircle size={18} className="text-green-400" /> Pay cash or PayPal</div>
+                          <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            {lang === 'es' ? 'Evita a los vendedores del aeropuerto' : 'Bypass airport timeshare sellers'}
+                          </div>
+                          <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            {lang === 'es' ? 'Rastreo de vuelo en tiempo real' : 'Real-time flight tracking'}
+                          </div>
+                          <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            {lang === 'es' ? 'Llegada directa al lobby de tu resort' : 'Direct arrival to your resort lobby'}
+                          </div>
+                          <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            {lang === 'es' ? 'Traslados ida y vuelta garantizados' : 'Guaranteed round-trip transfers'}
+                          </div>
                         </div>
 
-                        <Link to="/" onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); avanzarPaso(); window.scrollTo(0, 0); }} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30">
-                          Check Rates & Book <ChevronRight size={20} />
-                        </Link>
+                        <button
+                          onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setPaso(2); navigate("/"); window.scrollTo(0, 0); }}
+                          className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30 uppercase tracking-wider"
+                        >
+                          {lang === 'es' ? 'Cotizar y Reservar' : 'Check Rates & Book'} <ChevronRight size={20} />
+                        </button>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* ========================================================= */}
+                  {/* 🟢 SECCIÓN FINAL: BENEFICIOS, FAQ Y PAGOS (PIE DE PÁGINA) 🟢 */}
+                  {/* ========================================================= */}
+                  <div className="bg-gray-50 border-t border-gray-200">
+                    <div className="max-w-5xl mx-auto px-4 py-16">
+                      
+                      {/* 1. BENEFICIOS (Basado en la imagen) */}
+                      <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-gray-100 mb-16 font-sans">
+                        <div className="space-y-8 md:space-y-10">
+                          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Clock size={32} className="text-blue-900" /></div>
+                            <div>
+                              <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
+                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
+                            </div>
+                          </div>
+                          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Calendar size={32} className="text-blue-900" /></div>
+                            <div>
+                              <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Asistencia de Itinerario Personalizada' : 'Personalized Itinerary Assistance'}</h3>
+                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Si necesitas ajustar un horario o hacer una cancelación, nuestro equipo local te asistirá de inmediato.' : 'We have personalized assistance because sometimes you need to move a schedule or make a cancellation, our team will assist you.'}</p>
+                            </div>
+                          </div>
+                          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Baby size={32} className="text-blue-900" /></div>
+                            <div>
+                              <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Sillas de Seguridad Disponibles' : 'Child Safety Seats Available'}</h3>
+                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'La seguridad de tu familia es nuestra prioridad. Proveemos sillas para bebés y asientos elevados sin costo adicional al reservar.' : 'Family safety is our priority. We provide infant car seats and booster seats completely free of charge upon request.'}</p>
+                            </div>
+                          </div>
+                          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Banknote size={32} className="text-blue-900" /></div>
+                            <div>
+                              <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Tarifas Accesibles y Transparentes' : 'Affordable Rates on Airport Transfers'}</h3>
+                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Ofrecemos tarifas fijas y claras. Reserva con confianza sin preocuparte de cargos ocultos de última hora.' : 'With our efficient logistics, we offer transparent flat-rate pricing without any unexpected fees or hidden charges.'}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 2. COMPONENTE FAQ ORIGINAL */}
+                      <FAQSection lang={lang} />
+
+                      {/* 3. MÉTODOS DE PAGO (Basado en la imagen) */}
+                      <div className="w-full flex flex-col items-center pt-16 pb-8 px-4 text-center font-sans">
+                        <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" />
+                        <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4">
+                          {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
+                        </h3>
+                        <p className="text-base text-gray-500 leading-relaxed max-w-4xl mx-auto">
+                          {lang === 'es'
+                            ? 'Sitio web de reservación fácil en tres clics en Ballard Tours. Simplemente ingrese su destino o lugar de recogida, elija su tipo de transporte y haga clic en enviar. Al final del formulario, encontrará la sección de pago, donde puede seleccionar entre las siguientes opciones: pagar con tarjeta de crédito, optar por el pago a la llegada o usar PayPal para mayor comodidad.'
+                            : 'Three-click easy reservation website. Simply enter your destination or pickup location, choose your shuttle type, and click submit. At the end of the form, you will find the payment section, where you can select from the following options: pay with a credit card, opt for payment on arrival, or use PayPal for convenience.'}
+                        </p>
+                      </div>
+
                     </div>
                   </div>
                 </div>
