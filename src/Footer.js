@@ -146,31 +146,40 @@ const Footer = () => {
                     </h4>
                     <ul className="flex flex-col space-y-4 text-lg text-blue-100">
                         <li>
-                            <Link 
-                              to="/about-us" 
-                              onClick={() => window.scrollTo(0, 0)}
-                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            <Link
+                                to="/about-us"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
                             >
                                 About Us
                             </Link>
                         </li>
                         <li>
-                            <Link 
-                              to="/contact" 
-                              onClick={() => window.scrollTo(0, 0)}
-                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            <Link
+                                to="/contact"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
                             >
                                 Contact Us
                             </Link>
                         </li>
-                        {/* 👇 AQUÍ ESTÁ EL ENLACE AGREGADO 👇 */}
                         <li>
-                            <Link 
-                              to="/flotas" 
-                              onClick={() => window.scrollTo(0, 0)}
-                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            <Link
+                                to="/flotas"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 font-bold text-amber-400"
                             >
                                 Flotas
+                            </Link>
+                        </li>
+                        {/* 👇 AQUÍ ESTÁ EL NUEVO ENLACE DE TOURS 👇 */}
+                        <li>
+                            <Link
+                                to="/tours"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 font-bold text-orange-400"
+                            >
+                                Tours & Excursions
                             </Link>
                         </li>
                     </ul>
@@ -183,28 +192,28 @@ const Footer = () => {
                     </h4>
                     <ul className="flex flex-col space-y-4 text-lg text-blue-100">
                         <li>
-                            <Link 
-                              to="/terms-and-conditions" 
-                              onClick={() => window.scrollTo(0, 0)}
-                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            <Link
+                                to="/terms-and-conditions"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
                             >
                                 Términos y Condiciones
                             </Link>
                         </li>
                         <li>
-                            <Link 
-                              to="/privacy-policy" 
-                              onClick={() => window.scrollTo(0, 0)}
-                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            <Link
+                                to="/privacy-policy"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
                             >
                                 Privacy Policy
                             </Link>
                         </li>
                         <li>
-                            <Link 
-                              to="/politicas-de-cancelacion" 
-                              onClick={() => window.scrollTo(0, 0)}
-                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            <Link
+                                to="/politicas-de-cancelacion"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
                             >
                                 Políticas de Cancelación
                             </Link>

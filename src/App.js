@@ -4,6 +4,7 @@ import TermsAndConditions from './TermsAndConditions';
 import AboutUs from './AboutUs';
 import Contact from './Contact';
 import Fleet from './Fleet';
+import ToursPage from './ToursPage'; // <--- AGREGAR ESTO
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -6695,6 +6696,8 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               {/* 👇 AGREGAR ESTA LÍNEA 👇 */}
               <Route path="/flotas" element={<Fleet lang={lang} />} />
+
+              <Route path="/tours" element={<ToursPage lang={lang} />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
               {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
