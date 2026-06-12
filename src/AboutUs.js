@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { 
-  ShieldCheck, 
-  Clock, 
-  Briefcase, 
-  HeartHandshake, 
-  Star, 
-  Armchair, 
-  Users, 
+import { Link } from 'react-router-dom';
+import {
+  ShieldCheck,
+  Clock,
+  Briefcase,
+  HeartHandshake,
+  Star,
+  Armchair,
+  Users,
   Smile,
   Target,
   Compass,
@@ -30,7 +31,7 @@ export default function AboutUs({ lang = 'es' }) {
       motto1: "Tu viaje comienza con excelencia.",
       motto2: "Traslados Privados. Servicio Profesional. Experiencia Inolvidable.",
       motto3: "Del aeropuerto al paraíso.",
-      
+
       // Historia Original Traducida
       historyTitle: "Nuestra Historia",
       historyIntro: "Transporte de Aeropuerto de Confianza, Traslados Privados, Tours y Actividades en Los Cabos Desde 2005.",
@@ -94,7 +95,7 @@ export default function AboutUs({ lang = 'es' }) {
       motto1: "Your Journey Begins with Excellence.",
       motto2: "Private Transfers. Professional Service. Unforgettable Experience.",
       motto3: "From Airport to Paradise.",
-      
+
       // Original History
       historyTitle: "Our History",
       historyIntro: "Trusted Airport Transportation, Private Transfers, Tours & Activities in Los Cabos Since 2005.",
@@ -155,32 +156,33 @@ export default function AboutUs({ lang = 'es' }) {
   const t = content[lang] || content.en;
 
   // Lista de rutas SEO compartida para ambos idiomas
+  // Lista de rutas SEO compartida para ambos idiomas
   const popularRoutes = [
-    "Airport SJD to Nobu Hotel Los Cabos",
-    "Airport SJD to Hard Rock Hotel Los Cabos",
-    "Airport SJD to Riu Palace Baja California",
-    "Airport SJD to Riu Santa Fe",
-    "Airport SJD to Grand Velas Los Cabos",
-    "Airport SJD to Waldorf Astoria Los Cabos Pedregal",
-    "Airport SJD to Marquis Los Cabos",
-    "Airport SJD to Secrets Puerto Los Cabos",
-    "Airport SJD to Hilton Los Cabos",
-    "Airport SJD to Hyatt Ziva Los Cabos",
-    "Airport SJD to Dreams Los Cabos Suites Golf Resort & Spa",
-    "Airport SJD to Breathless Cabo San Lucas",
-    "Airport SJD to Pueblo Bonito Sunset Beach",
-    "Airport SJD to Pueblo Bonito Pacifica",
-    "Airport SJD to Garza Blanca Los Cabos",
-    "Airport SJD to Le Blanc Spa Resort Los Cabos",
-    "Airport SJD to Solaz Resort Los Cabos",
-    "Airport SJD to Four Seasons Cabo Del Sol",
-    "Airport SJD to One&Only Palmilla",
-    "Airport SJD to Zadún Ritz-Carlton Reserve",
-    "Airport SJD to JW Marriott Los Cabos",
-    "Airport SJD to The Cape Hotel",
-    "Airport SJD to Villa del Palmar",
-    "Airport SJD to Villa La Valencia",
-    "Airport SJD to Sandos Finisterra"
+    { name: "Airport SJD to Nobu Hotel Los Cabos", path: "/destinations/sjd-to-nobu-hotel" },
+    { name: "Airport SJD to Hard Rock Hotel Los Cabos", path: "/destinations/sjd-to-hard-rock" },
+    { name: "Airport SJD to Riu Palace Baja California", path: "/destinations/sjd-to-riu-palace" },
+    { name: "Airport SJD to Riu Santa Fe", path: "/destinations/sjd-to-riu-santa-fe" },
+    { name: "Airport SJD to Grand Velas Los Cabos", path: "/destinations/sjd-to-grand-velas" },
+    { name: "Airport SJD to Waldorf Astoria Los Cabos Pedregal", path: "/destinations/sjd-to-waldorf-astoria" },
+    { name: "Airport SJD to Marquis Los Cabos", path: "/destinations/sjd-to-marquis" },
+    { name: "Airport SJD to Secrets Puerto Los Cabos", path: "/destinations/sjd-to-secrets-puerto-los-cabos" },
+    { name: "Airport SJD to Hilton Los Cabos", path: "/destinations/sjd-to-hilton-los-cabos" },
+    { name: "Airport SJD to Hyatt Ziva Los Cabos", path: "/destinations/sjd-to-hyatt-ziva" },
+    { name: "Airport SJD to Dreams Los Cabos Suites Golf Resort & Spa", path: "/destinations/sjd-to-dreams-los-cabos" },
+    { name: "Airport SJD to Breathless Cabo San Lucas", path: "/destinations/sjd-to-breathless" },
+    { name: "Airport SJD to Pueblo Bonito Sunset Beach", path: "/destinations/sjd-to-pueblo-bonito-sunset" },
+    { name: "Airport SJD to Pueblo Bonito Pacifica", path: "/destinations/sjd-to-pueblo-bonito-pacifica" },
+    { name: "Airport SJD to Garza Blanca Los Cabos", path: "/destinations/sjd-to-garza-blanca" },
+    { name: "Airport SJD to Le Blanc Spa Resort Los Cabos", path: "/destinations/sjd-to-le-blanc" },
+    { name: "Airport SJD to Solaz Resort Los Cabos", path: "/destinations/sjd-to-solaz" },
+    { name: "Airport SJD to Four Seasons Cabo Del Sol", path: "/destinations/sjd-to-four-seasons" },
+    { name: "Airport SJD to One&Only Palmilla", path: "/destinations/sjd-to-one-and-only-palmilla" },
+    { name: "Airport SJD to Zadún Ritz-Carlton Reserve", path: "/destinations/sjd-to-zadun" },
+    { name: "Airport SJD to JW Marriott Los Cabos", path: "/destinations/sjd-to-jw-marriott" },
+    { name: "Airport SJD to The Cape Hotel", path: "/destinations/sjd-to-the-cape" },
+    { name: "Airport SJD to Villa del Palmar", path: "/destinations/sjd-to-villa-del-palmar" },
+    { name: "Airport SJD to Villa La Valencia", path: "/destinations/sjd-to-villa-la-valencia" },
+    { name: "Airport SJD to Sandos Finisterra", path: "/destinations/sjd-to-sandos-finisterra" }
   ];
 
   return (
@@ -195,7 +197,7 @@ export default function AboutUs({ lang = 'es' }) {
       <div className="bg-blue-900 text-white pt-24 pb-20 px-4 text-center rounded-b-[3rem] shadow-xl relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900 to-transparent opacity-80"></div>
-        
+
         <div className="relative z-10 max-w-4xl mx-auto">
           <span className="inline-block bg-amber-500 text-gray-900 text-xs font-black px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest shadow-md">
             {t.subtitle}
@@ -213,7 +215,7 @@ export default function AboutUs({ lang = 'es' }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
-        
+
         {/* NUESTRA HISTORIA ORIGINAL */}
         <div className="bg-white rounded-[2rem] shadow-lg border border-gray-100 p-8 md:p-12 mb-12">
           <div className="text-center mb-10">
@@ -222,7 +224,7 @@ export default function AboutUs({ lang = 'es' }) {
               {t.historyIntro}
             </p>
           </div>
-          
+
           <div className="space-y-6 text-gray-600 leading-relaxed md:columns-2 gap-10">
             {t.historyText.map((paragraph, index) => (
               <p key={index} className="break-inside-avoid-column mb-6">{paragraph}</p>
@@ -255,7 +257,7 @@ export default function AboutUs({ lang = 'es' }) {
 
         {/* PURPOSE BANNER */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-[2rem] shadow-xl p-8 md:p-12 mb-16 text-center text-white relative overflow-hidden">
-           <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-5 rounded-full blur-2xl"></div>
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-5 rounded-full blur-2xl"></div>
           <h2 className="text-3xl font-black mb-4">{t.purpose.title}</h2>
           <p className="text-xl text-blue-100 font-medium max-w-3xl mx-auto leading-relaxed">
             {t.purpose.text}
@@ -284,7 +286,7 @@ export default function AboutUs({ lang = 'es' }) {
 
         {/* ROUTES AND WHY CHOOSE US */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           <div className="lg:col-span-2 bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8 md:p-10">
             <h2 className="text-2xl font-black text-blue-900 mb-6 flex items-center gap-3">
               <MapPin size={28} />
@@ -294,7 +296,13 @@ export default function AboutUs({ lang = 'es' }) {
               {popularRoutes.map((route, idx) => (
                 <li key={idx} className="flex items-start gap-2">
                   <CheckCircle size={16} className="text-blue-500 shrink-0 mt-0.5" />
-                  <span>{route}</span>
+                  <Link
+                    to={route.path}
+                    onClick={() => window.scrollTo(0, 0)}
+                    className="text-gray-600 hover:text-blue-600 hover:underline transition-colors"
+                  >
+                    {route.name}
+                  </Link>
                 </li>
               ))}
             </ul>
