@@ -163,6 +163,16 @@ const Footer = () => {
                                 Contact Us
                             </Link>
                         </li>
+                        {/* 👇 AQUÍ ESTÁ EL ENLACE AGREGADO 👇 */}
+                        <li>
+                            <Link 
+                              to="/flotas" 
+                              onClick={() => window.scrollTo(0, 0)}
+                              className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Flotas
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 
@@ -206,7 +216,7 @@ const Footer = () => {
 
             {/* Barra inferior de Copyright */}
             <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-blue-800 text-center text-blue-400 text-sm">
-                <p>&copy; {new Date().getFullYear()} Ballard Tours Los Cabos. All rights reserved.</p>
+                <p>© {new Date().getFullYear()} Ballard Tours Los Cabos. All rights reserved.</p>
             </div>
         </footer>
     );
