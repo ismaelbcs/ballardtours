@@ -4,6 +4,7 @@ import TermsAndConditions from './TermsAndConditions';
 import AboutUs from './AboutUs';
 import Contact from './Contact';
 import Fleet from './Fleet';
+import TransportationPage from './TransportationPage';
 import ToursPage from './ToursPage'; // <--- AGREGAR ESTO
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
@@ -4459,7 +4460,7 @@ export default function App() {
 
               {/* 🚐 URL 2: TRANSPORTE (tudominio.com/transportation) */}
               <Route path="/transportation" element={<TransportationPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} />} />
-
+              
               {/* ✈️ URL 3: SJD AIRPORT SHUTTLE - REPORTAJE PERIODÍSTICO EXTENSO BILINGÜE */}
               <Route path="/transportation/airport-shuttle-sjd" element={
                 <div className="animate-fade-in pb-10 bg-white">
