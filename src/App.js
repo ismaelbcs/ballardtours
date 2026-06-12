@@ -7,7 +7,7 @@ import Fleet from './Fleet';
 import ToursPage from './ToursPage'; // <--- AGREGAR ESTO
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, useLocation, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DestinationsHub from './DestinationsHub';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -462,6 +462,15 @@ const generarHtmlModificacionAdmin = (idModificar, datosModificar, costoDiferenc
 export default function App() {
 
   const navigate = useNavigate();
+
+  // 👇 1. Extraemos la ruta actual
+  const { pathname } = useLocation();
+
+  // 👇 2. Efecto global: Cada vez que cambie la URL, la pantalla se va hasta arriba
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const [lang, setLang] = useState('es');
   const t = translations[lang];
 
