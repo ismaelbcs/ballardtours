@@ -6679,7 +6679,7 @@ export default function App() {
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
-              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/about-us" element={<AboutUs lang={lang} />} />
 
               <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
 
