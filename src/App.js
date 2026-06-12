@@ -3,6 +3,7 @@ import Footer from './Footer';
 import TermsAndConditions from './TermsAndConditions';
 import AboutUs from './AboutUs';
 import Contact from './Contact';
+import Fleet from './Fleet';
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
@@ -1438,6 +1439,14 @@ export default function App() {
               className="hover:text-blue-900 transition-colors cursor-pointer"
             >
               Tarifas y Zonas
+            </Link>
+
+            <Link
+              to="/flotas"
+              onClick={() => window.scrollTo(0, 0)}
+              className="hover:text-blue-900 transition-colors cursor-pointer"
+            >
+              {lang === 'es' ? 'Flotas' : 'Fleet'}
             </Link>
 
             <Link
@@ -4635,21 +4644,21 @@ export default function App() {
                   {/* HEADER DEL REPORTAJE (Imagen nítida con opacidad del 60% y capa azul suave) */}
                   <div className="relative bg-gray-900 text-white py-28 md:py-36 px-4 overflow-hidden shadow-xl rounded-b-[3rem] mb-12">
                     <div className="absolute inset-0 z-0">
-                      <img 
-                        src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} 
-                        alt="Cabo Airport Transportation Report" 
-                        className="w-full h-full object-cover opacity-60" 
+                      <img
+                        src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`}
+                        alt="Cabo Airport Transportation Report"
+                        className="w-full h-full object-cover opacity-60"
                       />
                     </div>
                     <div className="absolute inset-0 bg-blue-950/40 z-10"></div>
-                    
+
                     <div className="relative max-w-4xl mx-auto text-center z-20">
                       <div className="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-black px-4 py-2 rounded-full mb-6 uppercase tracking-widest shadow-lg">
                         <span className="animate-pulse">🔴</span> {lang === 'es' ? 'Reporte Especial de Viajes' : 'Special Travel Report'}
                       </div>
                       <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight drop-shadow-xl">
-                        {lang === 'es' 
-                          ? 'Reporte de Viajes de Los Cabos: Transporte, Clima y Experiencia vacacional' 
+                        {lang === 'es'
+                          ? 'Reporte de Viajes de Los Cabos: Transporte, Clima y Experiencia vacacional'
                           : 'Los Cabos Travel Report: Airport Transportation, Weather, and Resorts'}
                       </h1>
                       <p className="text-lg md:text-xl text-gray-200 font-medium italic drop-shadow-md">
@@ -4659,10 +4668,10 @@ export default function App() {
                   </div>
 
                   <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    
+
                     {/* COLUMNA PRINCIPAL DEL REPORTAJE (TEXTO COMPLETO) */}
                     <div className="lg:col-span-2 space-y-10 text-gray-700 text-lg leading-relaxed font-serif">
-                      
+
                       {lang === 'en' ? (
                         /* ==========================================
                            CÓDIGO EN INGLÉS (TEXTO EXACTO DEL USUARIO)
@@ -4746,7 +4755,7 @@ export default function App() {
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Round-Trip Transportation Is Becoming the Standard</h2>
                           <p>
-                            Industry professionals report increasing demand for round-trip transportation services. Rather than arranging transportation separately, many visitors now reserve arrival and departure transfers at the same time for peace of mind. Companies like <strong>Ballard Tours</strong> frequently assist travelers with both arrival and departure transits. Hotel-to-airport transportation is particularly important because visitors must arrive at the airport with sufficient time. 
+                            Industry professionals report increasing demand for round-trip transportation services. Rather than arranging transportation separately, many visitors now reserve arrival and departure transfers at the same time for peace of mind. Companies like <strong>Ballard Tours</strong> frequently assist travelers with both arrival and departure transits. Hotel-to-airport transportation is particularly important because visitors must arrive at the airport with sufficient time.
                           </p>
                           <p>
                             Whether you are traveling to <strong>Hyatt Ziva Los Cabos</strong>, <strong>Cabo Azul Resort</strong>, <strong>Paradisus Los Cabos</strong>, <strong>Fiesta Americana Los Cabos</strong>, <strong>Hard Rock Hotel Los Cabos</strong>, or <strong>Playa Grande Resort</strong>, planning ahead with <strong>Ballard Tours</strong> guarantees fixed pricing, reduced airport stress, and professional drivers for a bright vacation experience.
@@ -4873,15 +4882,15 @@ export default function App() {
                         </p>
                         <div className="space-y-4 mb-8">
                           <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
-                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            <CheckCircle size={20} className="text-green-500 shrink-0" />
                             {lang === 'es' ? 'Evita el Tanque de Tiburones' : 'Bypass airport sales corridors'}
                           </div>
                           <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
-                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            <CheckCircle size={20} className="text-green-500 shrink-0" />
                             {lang === 'es' ? 'Bebidas refrescantes incluidas' : 'Complimentary cold drinks'}
                           </div>
                           <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
-                            <CheckCircle size={20} className="text-green-500 shrink-0" /> 
+                            <CheckCircle size={20} className="text-green-500 shrink-0" />
                             {lang === 'es' ? 'Monitoreo de vuelos en vivo' : 'Live flight status tracking'}
                           </div>
                         </div>
@@ -4900,7 +4909,7 @@ export default function App() {
                   {/* ========================================================= */}
                   <div className="bg-gray-50 border-t border-gray-200">
                     <div className="max-w-6xl mx-auto px-4 py-16">
-                      
+
                       {/* 1. SECCIÓN DE BENEFICIOS (Imagen image_bfe903.png) */}
                       <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-lg border border-gray-100 mb-16 font-sans">
                         <div className="space-y-8 md:space-y-10">
@@ -6684,6 +6693,8 @@ export default function App() {
               <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
 
               <Route path="/contact" element={<Contact />} />
+              {/* 👇 AGREGAR ESTA LÍNEA 👇 */}
+              <Route path="/flotas" element={<Fleet lang={lang} />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
               {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
