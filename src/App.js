@@ -8,7 +8,7 @@ import TransportationPage from './TransportationPage';
 import ToursPage from './ToursPage'; // <--- AGREGAR ESTO
 import PoliticasCancelacion from './PoliticasCancelacion';
 import { hotelesSEO } from './datosHoteles';
-import { BrowserRouter as Router, Routes, useLocation, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, useLocation, Navigate, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DestinationsHub from './DestinationsHub';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -467,13 +467,18 @@ export default function App() {
   // 👇 1. Extraemos la ruta actual
   const { pathname } = useLocation();
 
-  // 👇 2. Efecto global: Cada vez que cambie la URL, la pantalla se va hasta arriba
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  // 1. Extraer el idioma de la URL (si es válido, si no, forzar 'en')
+  const prefijoURL = pathname.split('/')[1];
+  const idiomaValido = (prefijoURL === 'en' || prefijoURL === 'es') ? prefijoURL : 'en';
 
-  const [lang, setLang] = useState('es');
-  const t = translations[lang];
+  const [lang, setLang] = useState(idiomaValido);
+
+  // 2. Sincronizar el estado de React si el usuario usa las flechas de retroceder/avanzar del navegador
+  useEffect(() => {
+    if (prefijoURL === 'en' || prefijoURL === 'es') {
+      setLang(prefijoURL);
+    }
+  }, [prefijoURL]);
 
   /// 1. Mantenemos la sesión activa
   const [currentUser, setCurrentUser] = useState(() => {
@@ -1500,8 +1505,19 @@ export default function App() {
             )}
           </button>
 
-          <button onClick={() => setLang(l => l === 'es' ? 'en' : 'es')} className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-sm font-bold text-gray-700 transition-colors shadow-sm border border-gray-200">
-            <Globe size={16} className="text-blue-900" /> <span className="hidden sm:inline">{lang === 'es' ? '🇺🇸 EN' : '🇲🇽 ES'}</span>
+          <button
+            onClick={() => {
+              const nuevoIdioma = lang === 'es' ? 'en' : 'es';
+              // Reemplaza el idioma en la URL actual sin perder la página donde está
+              const pathArray = pathname.split('/');
+              pathArray[1] = nuevoIdioma;
+              navigate(pathArray.join('/') + window.location.search);
+              setLang(nuevoIdioma);
+            }}
+            className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-sm font-bold text-gray-700 transition-colors shadow-sm border border-gray-200"
+          >
+            <Globe size={16} className="text-blue-900" />
+            <span className="hidden sm:inline">{lang === 'es' ? '🇺🇸 EN' : '🇲🇽 ES'}</span>
           </button>
         </div>
       </div>
@@ -4423,7 +4439,7 @@ export default function App() {
                 <>
                   {/* 👇 2. CASCO LOCAL (Solo sobreescribe el Título y Meta de esta página) 👇 */}
                   <Helmet>
-                    <title>Los Cabos Private Transportation & Best Tours | Ballard Tours</title>
+                    <title>Cabo Airport Transportation | Private Transfers Los Cabos | Cabo Airport Shuttle | Airport Shuttle Cabo San Lucas | Ballard Tours</title>
                     <meta name="description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours. VIP service to Nobu, Hard Rock & Cabo resorts." />
 
                     {/* Etiquetas Canónicas y hreflang (SEO Internacional) */}
@@ -4433,7 +4449,7 @@ export default function App() {
                     <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
-                    <meta property="og:title" content="Los Cabos Private Transportation & Best Tours | Ballard Tours" />
+                    <meta property="og:title" content="Cabo Airport Transportation | Private Transfers Los Cabos | Cabo Airport Shuttle | Airport Shuttle Cabo San Lucas | Ballard Tours" />
                     <meta property="og:description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours. VIP service to Nobu, Hard Rock & Cabo resorts." />
                     <meta property="og:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
                     <meta property="og:url" content="https://www.ballardtours.com/" />
@@ -4441,7 +4457,7 @@ export default function App() {
 
                     {/* Twitter Cards */}
                     <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:title" content="Los Cabos Private Transportation & Luxury Tours" />
+                    <meta name="twitter:title" content="Cabo Airport Transportation | Private Transfers Los Cabos | Cabo Airport Shuttle | Airport Shuttle Cabo San Lucas | Ballard Tours" />
                     <meta name="twitter:description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours." />
                     <meta name="twitter:image" content="https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png" />
                   </Helmet>
@@ -4460,7 +4476,7 @@ export default function App() {
 
               {/* 🚐 URL 2: TRANSPORTE (tudominio.com/transportation) */}
               <Route path="/transportation" element={<TransportationPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} />} />
-              
+
               {/* ✈️ URL 3: SJD AIRPORT SHUTTLE - REPORTAJE PERIODÍSTICO EXTENSO BILINGÜE */}
               <Route path="/transportation/airport-shuttle-sjd" element={
                 <div className="animate-fade-in pb-10 bg-white">
@@ -6552,8 +6568,7 @@ export default function App() {
                   </div>
                 </>
               } />
-
-            </Routes>
+              </Routes>
           </main>
 
           {/* 👇 AQUÍ VA TU NUEVO FOOTER GLOBAL 👇 */}
