@@ -2455,386 +2455,196 @@ export default function App() {
   };
 
   const Header = () => (
-
     <header className="bg-white shadow-sm sticky top-0 z-40">
-
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => { setPaso(1); navigate('/'); limpiarFormularioActivo(); window.scrollTo(0, 0); }}>
-
           <div className="w-16 h-16 flex items-center justify-center overflow-hidden">
-
             <img
-
               src={`${process.env.PUBLIC_URL}/LOGO-BALLARD-SIN-FONDO.png`}
-
               alt="Ballard Tours Logo"
-
               className="w-full h-full object-contain"
-
             />
-
           </div>
-
           <div className="flex flex-col justify-center">
-
             <h1 className="text-2xl font-black text-blue-900 leading-none tracking-tight">BALLARD</h1>
-
             <p className="text-xs font-bold text-gray-500 leading-none tracking-widest mt-1">TOURS</p>
-
           </div>
-
         </div>
-
         <div className="flex items-center gap-4 md:gap-6">
-
           {/* NAVEGACIÓN PRINCIPAL */}
-
           <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600">
 
-
-
             <Link
-
               to="/"
-
               onClick={() => {
-
                 setPaso(1);
-
                 limpiarFormularioActivo();
-
                 window.scrollTo(0, 0);
-
               }}
-
               className="hover:text-blue-900 transition-colors cursor-pointer"
-
             >
-
               Inicio
-
             </Link>
 
-
-
             <Link
-
               to="/transportation"
-
               onClick={() => window.scrollTo(0, 0)}
-
               className="hover:text-blue-900 transition-colors cursor-pointer"
-
             >
-
               Tarifas y Zonas
-
             </Link>
 
-
-
             <Link
-
               to="/flotas"
-
               onClick={() => window.scrollTo(0, 0)}
-
               className="hover:text-blue-900 transition-colors cursor-pointer"
-
             >
-
               {lang === 'es' ? 'Flotas' : 'Fleet'}
-
             </Link>
-
-
 
             <Link
-
               to="/"
-
               onClick={() => {
-
                 limpiarFormularioActivo();
-
                 setServicioSeleccionado('tours');
-
                 setPaso(2);
-
                 window.scrollTo(0, 0);
-
               }}
-
               className="hover:text-blue-900 transition-colors cursor-pointer"
-
             >
-
               Experiencias
-
             </Link>
-
-
 
           </nav>
 
-
-
           {currentUser ? (
-
             <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-lg border border-gray-200">
-
               <User size={16} className="text-blue-900" />
-
               <span className="text-sm font-bold text-gray-700 hidden sm:inline">{currentUser.nombre.split(' ')[0]}</span>
-
               {currentUser.role === 'agency' && <span className="bg-blue-900 text-white text-[10px] px-2 py-0.5 rounded-full font-bold tracking-wider">{t.auth.agency_badge}</span>}
-
               <button onClick={handleLogout} className="ml-1 text-gray-400 hover:text-red-500 transition-colors" title={t.auth.logout}><LogOut size={16} /></button>
-
             </div>
-
           ) : (
-
             <button onClick={() => setShowAuthModal(true)} className="flex items-center gap-2 bg-blue-900 text-white hover:bg-blue-800 px-3 py-1.5 rounded-lg text-sm font-bold transition-colors shadow-sm">
-
               <LogIn size={16} /> <span className="hidden sm:inline">{t.auth?.login_btn || 'Entrar'}</span>
-
             </button>
-
           )}
 
-
-
           <button
-
             onClick={() => setVerCarrito(true)}
-
             className="relative p-2 text-gray-700 hover:text-blue-900 transition-colors ml-2"
-
           >
-
             <ShoppingCart size={24} />
-
             {carrito.length > 0 && (
-
               <span className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">
-
                 {carrito.length}
-
               </span>
-
             )}
-
           </button>
-
-
 
           <button onClick={() => setLang(l => l === 'es' ? 'en' : 'es')} className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-sm font-bold text-gray-700 transition-colors shadow-sm border border-gray-200">
-
             <Globe size={16} className="text-blue-900" /> <span className="hidden sm:inline">{lang === 'es' ? '🇺🇸 EN' : '🇲🇽 ES'}</span>
-
           </button>
-
         </div>
-
       </div>
-
     </header>
-
   );
 
-
-
   const DrawerCombo = () => {
-
     if (!verCarrito) return null;
 
-
-
     return (
-
       <Drawer.Root open={verCarrito} onOpenChange={setVerCarrito}>
-
         <Drawer.Portal>
-
           <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" />
-
           {/* 👇 FIX: overflow-hidden agregado aquí para cortar las imágenes que se salen 👇 */}
-
           <Drawer.Content className="bg-gray-50 flex flex-col rounded-t-[2rem] mt-24 h-[85vh] fixed bottom-0 left-0 right-0 z-[101] max-w-md mx-auto shadow-2xl outline-none overflow-hidden">
-
             {/* Manija de arrastre (Drag handle) */}
-
             <div className="p-4 bg-white rounded-t-[2rem] flex justify-center border-b border-gray-100 shrink-0">
-
               <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
-
             </div>
-
-
 
             <div className="flex items-center justify-between px-6 py-4 bg-white shrink-0">
-
               <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-2">
-
                 <ShoppingBag className="text-blue-900" size={24} />
-
                 {t.cart.title}
-
               </h2>
-
             </div>
 
-
-
             {/* 👇 FIX: overflow-x-hidden agregado aquí también por seguridad 👇 */}
-
             <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 bg-white">
-
               {carrito.length === 0 ? (
-
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
-
                   <ShoppingCart size={64} className="text-gray-300 mb-4" />
-
                   <p className="text-gray-500 font-medium">{t.cart.empty}</p>
-
                   <button onClick={() => setVerCarrito(false)} className="mt-6 px-6 py-2 bg-blue-100 text-blue-900 font-bold rounded-xl hover:bg-blue-200 transition-colors">
-
                     {t.cart.build}
-
                   </button>
-
                 </div>
-
               ) : (
-
                 <>
-
                   {/* 🛒 LISTA DE COMPRAS ACTUAL */}
-
                   <div className="space-y-4">
-
                     {carrito.map((item) => (
-
                       <div key={item.id} className="bg-gray-50 p-4 rounded-2xl shadow-sm border border-gray-100 flex gap-4 group relative overflow-hidden">
-
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-900"></div>
-
                         <div className="flex-1">
-
                           <h4 className="font-bold text-gray-900 leading-tight pr-8">{item.titulo}</h4>
-
                           <p className="text-xs text-gray-500 mt-1">{item.subtitulo}</p>
-
                           {item.config.shoppingStop && (
-
                             <p className="text-[10px] font-semibold text-blue-600 mt-2 bg-blue-50 inline-block px-2 py-0.5 rounded-full">+ Shopping Stop</p>
-
                           )}
-
                           <div className="mt-3 flex items-center justify-between">
-
                             <p className="font-extrabold text-blue-900">${item.precio.toFixed(2)}</p>
-
                           </div>
-
                         </div>
-
                         <button
-
                           onClick={() => eliminarDelCombo(item.id)}
-
                           className="absolute top-2 right-2 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-
                         >
-
                           <Trash2 size={16} />
-
                         </button>
-
                       </div>
-
                     ))}
-
                   </div>
 
-
-
                   {/* 👇 SECCIÓN DE CROSS-SELLING (TOURS) 👇 */}
-
                   <div className="mt-8 mb-2 pt-6 border-t border-gray-100">
-
                     <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-
                       <Palmtree className="text-blue-600" size={18} />
-
                       {lang === 'es' ? 'Completa tu experiencia' : 'Enhance your trip'}
-
                     </h4>
 
-
-
                     {/* Carrusel horizontal miniatura */}
-
                     <div
-
                       className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-
                       onWheel={(e) => {
-
                         if (e.deltaY !== 0) {
-
                           e.currentTarget.scrollLeft += e.deltaY;
-
                         }
-
                       }}
-
                     >
-
                       {tours.filter(tr => tr.activo).map((tr) => (
-
                         <div
-
                           key={tr.id}
-
                           onClick={() => {
-
                             setVerCarrito(false);
-
                             setServicioSeleccionado('tours');
-
                             setSubCategoria('');
-
                             setReserva(prev => ({
-
                               ...prev,
-
                               tourId: tr.id,
-
                               pasajeros: Math.max(prev.pasajeros || 1, tr.minPax),
-
                               shoppingStop: false
-
                             }));
-
                             setImagenTourDestacada(tr.imagenUrl || tr.imageUrl);
-
                             setPaso(2);
-
                             window.scrollTo(0, 0);
-
                           }}
-
                           className="snap-center shrink-0 w-[140px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer group hover:border-blue-400 transition-all"
-
                         >
-
                           <div className="h-20 relative overflow-hidden">
-
-                            <img src={tr.imagenUrl || tr.imageUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={tr.imagenUrl || tr.imageUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Private Cabo Airport Shuttle Service" />
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
                               <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{tr.nombre[lang]}</span>
                             </div>
@@ -2884,7 +2694,7 @@ export default function App() {
                           className="snap-center shrink-0 w-[140px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer group hover:border-blue-400 transition-all"
                         >
                           <div className="h-20 relative overflow-hidden">
-                            <img src={sp.img} alt={sp.title[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={sp.img} alt={sp.title[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Private Cabo Airport Shuttle Service" />
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
                               <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{sp.title[lang]}</span>
                             </div>
@@ -3400,7 +3210,7 @@ export default function App() {
               <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
                 <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
               </h3>
-              <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-6 md:h-8 object-contain" alt="Private Cabo Airport Shuttle Service"/>
+              <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-6 md:h-8 object-contain" alt="Private Cabo Airport Shuttle Service" />
             </div>
 
 
@@ -3659,7 +3469,7 @@ export default function App() {
 
                 <div className="flex -space-x-2">
 
-                  <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-8 h-8 rounded-full border-2 border-white z-30 object-contain bg-white shadow-sm" alt="Private Cabo Airport Shuttle Service"/>
+                  <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-8 h-8 rounded-full border-2 border-white z-30 object-contain bg-white shadow-sm" alt="Private Cabo Airport Shuttle Service" />
 
                   <div className="w-8 h-8 bg-white rounded-full border-2 border-white z-20 shadow-sm flex items-center justify-center">
 
@@ -3667,7 +3477,7 @@ export default function App() {
 
                   </div>
 
-                  <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-8 h-8 rounded-full border-2 border-white z-10 object-contain bg-white shadow-sm" alt="Private Cabo Airport Shuttle Service"/>
+                  <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-8 h-8 rounded-full border-2 border-white z-10 object-contain bg-white shadow-sm" alt="Private Cabo Airport Shuttle Service" />
 
                 </div>
 
@@ -3757,9 +3567,9 @@ export default function App() {
 
                     <div className="flex items-center gap-3 mb-4">
 
-                      {isFB && <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-6 h-6 object-contain" alt="Private Cabo Airport Shuttle Service"/>}
+                      {isFB && <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-6 h-6 object-contain" alt="Private Cabo Airport Shuttle Service" />}
 
-                      {isTA && <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-6 h-6 object-contain" alt="Private Cabo Airport Shuttle Service"/>}
+                      {isTA && <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-6 h-6 object-contain" alt="Private Cabo Airport Shuttle Service" />}
 
                       {isGoogle && (
 
@@ -3863,7 +3673,7 @@ export default function App() {
 
                       }}>
 
-                        <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
+                        <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service" />
 
                       </div>
 
@@ -3969,7 +3779,7 @@ export default function App() {
 
               <div className="w-full lg:w-5/12 h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg shrink-0 relative group">
 
-                <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Cabo Airport Shuttle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
+                <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Cabo Airport Shuttle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service" />
 
               </div>
 
@@ -4011,7 +3821,7 @@ export default function App() {
 
               <div className="h-64 overflow-hidden relative">
 
-                <img src={`${process.env.PUBLIC_URL}/private-airport-transfer-sjd-pueblo-bonito-sunset-cabo.webp`} alt="Cabo Shuttle Services" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
+                <img src={`${process.env.PUBLIC_URL}/private-airport-transfer-sjd-pueblo-bonito-sunset-cabo.webp`} alt="Cabo Shuttle Services" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service" />
 
               </div>
 
@@ -4053,7 +3863,7 @@ export default function App() {
 
               <div className="h-64 overflow-hidden relative">
 
-                <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Cabo Private Airport Transfers" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
+                <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Cabo Private Airport Transfers" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service" />
 
               </div>
 
@@ -4143,7 +3953,7 @@ export default function App() {
 
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
 
-                <img src={`${process.env.PUBLIC_URL}/Cabo-San-Lucas-Snorkel-Tour-3.webp`} alt="Cabo Tours and Activities" className="w-full h-48 object-cover rounded-xl mb-6" alt="Private Cabo Airport Shuttle Service"/>
+                <img src={`${process.env.PUBLIC_URL}/Cabo-San-Lucas-Snorkel-Tour-3.webp`} alt="Cabo Tours and Activities" className="w-full h-48 object-cover rounded-xl mb-6" alt="Private Cabo Airport Shuttle Service" />
 
                 <h4 className="font-bold text-lg text-gray-900 mb-2">{lang === 'es' ? 'Aprovecha al máximo tu visita' : 'Make the most of your visit'}</h4>
 
@@ -4356,7 +4166,7 @@ export default function App() {
         {/* SEÑALES E-E-A-T PARA GOOGLE SGE */}
         <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-16 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
           <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
-            <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" alt="Private Cabo Airport Shuttle Service" alt="Private Cabo Airport Shuttle Service"/>
+            <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" alt="Private Cabo Airport Shuttle Service" alt="Private Cabo Airport Shuttle Service" />
           </div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
             <div className="lg:col-span-1">
@@ -4552,7 +4362,7 @@ export default function App() {
 
         {/* LOGOS DE PAGO Y TEXTO BILINGÜE AL FINAL */}
         <div className="w-full flex flex-col items-center pb-12 pt-6 px-4 max-w-4xl mx-auto text-center">
-          <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" alt="Private Cabo Airport Shuttle Service"/>
+          <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" alt="Private Cabo Airport Shuttle Service" />
           <h3 className="text-lg md:text-xl font-black text-gray-900 mb-3">
             {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
           </h3>
@@ -4582,7 +4392,7 @@ export default function App() {
                 setLightboxIndice(index);
                 setLightboxAbierto(true);
               }}>
-                <img src={imagenTourDestacada || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
+                <img src={imagenTourDestacada || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent pointer-events-none"></div>
 
                 <button onClick={(e) => {
@@ -4760,7 +4570,7 @@ export default function App() {
 
                 )}
 
-                <img src={tr.galeria ? tr.galeria[lightboxIndice] : (imagenTourDestacada || tr.imagenUrl)} alt="Zoom Tour" className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl animate-fade-in" alt="Private Cabo Airport Shuttle Service"/>
+                <img src={tr.galeria ? tr.galeria[lightboxIndice] : (imagenTourDestacada || tr.imagenUrl)} alt="Zoom Tour" className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl animate-fade-in" alt="Private Cabo Airport Shuttle Service" />
               </div>
               {tr.galeria && tr.galeria.length > 1 && (
                 <div className="absolute bottom-6 md:bottom-10 text-white/80 font-bold text-lg md:text-xl tracking-widest bg-black/50 px-6 py-2 rounded-full z-[10000]">
@@ -7785,7 +7595,7 @@ export default function App() {
 
               <Route path="/transportation" element={<TransportationPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} />} />
 
-              
+
 
               {/* ✈️ URL 3: SJD AIRPORT SHUTTLE - REPORTAJE PERIODÍSTICO EXTENSO BILINGÜE */}
 
@@ -7921,7 +7731,7 @@ export default function App() {
 
                           {/* FOTO 1: PRIVADA EN AEROPUERTO */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Luxury Transfer" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Luxury Transfer" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Exiting Los Cabos International Airport</h2>
@@ -7940,7 +7750,7 @@ export default function App() {
 
                           {/* FOTO 2: HYATT ZIVA */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Hyatt Ziva Los Cabos Destination" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Hyatt Ziva Los Cabos Destination" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Weather Conditions Continue to Attract Travelers</h2>
@@ -7958,7 +7768,7 @@ export default function App() {
 
                           {/* FOTO 3: NOBU FLOTA */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Nobu Hotel Route Fleet" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Nobu Hotel Route Fleet" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Transportation to Fiesta Americana, Hard Rock, and Playa Grande</h2>
@@ -7972,7 +7782,7 @@ export default function App() {
 
                           {/* FOTO 4: NOBU TRANSFER */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Private Premium Transfers" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Private Premium Transfers" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Round-Trip Transportation Is Becoming the Standard</h2>
@@ -8012,7 +7822,7 @@ export default function App() {
 
                           {/* FOTO 1: PRIVADA EN AEROPUERTO */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Traslado de Lujo" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Traslado de Lujo" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Saliendo del Aeropuerto Internacional de Los Cabos</h2>
@@ -8030,7 +7840,7 @@ export default function App() {
 
                           {/* FOTO 2: HYATT ZIVA */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Destino Hyatt Ziva Los Cabos" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Destino Hyatt Ziva Los Cabos" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Condiciones Climáticas que Atraen a los Viajeros</h2>
@@ -8048,7 +7858,7 @@ export default function App() {
 
                           {/* FOTO 3: NOBU FLOTA */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Ruta Nobu Flota" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Ruta Nobu Flota" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Transporte a Fiesta Americana, Hard Rock y Playa Grande</h2>
@@ -8061,7 +7871,7 @@ export default function App() {
 
                           {/* FOTO 4: NOBU TRANSFER */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Traslados Privados Premium" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Traslados Privados Premium" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">El Traslado de Regreso: Hotel al Aeropuerto</h2>
@@ -8081,6 +7891,7 @@ export default function App() {
                         </h3>
                         <div className="w-full h-96 rounded-2xl overflow-hidden shadow-md border border-gray-200 bg-gray-200">
                           <iframe
+                            title="Mapa de ubicación"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
@@ -8171,7 +7982,7 @@ export default function App() {
 
                       {/* 3. MÉTODOS DE PAGO (Imagen image_bfe8dd.png) */}
                       <div className="w-full flex flex-col items-center pt-16 pb-8 px-4 text-center font-sans">
-                        <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" alt="Private Cabo Airport Shuttle Service"/>
+                        <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" alt="Private Cabo Airport Shuttle Service" />
                         <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4">
                           {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
                         </h3>
@@ -8214,7 +8025,7 @@ export default function App() {
                     {/* HERO DE RUTA ESPECÍFICA (Con imagen en la tira azul y opacidad baja) */}
                     <div className="relative bg-gray-900 text-white py-28 md:py-36 px-4 overflow-hidden shadow-xl rounded-b-[3rem] mb-12">
                       <div className="absolute inset-0 z-0">
-                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={`Airport transfer to ${hotel.nombre}`} className="w-full h-full object-cover opacity-80" alt="Private Cabo Airport Shuttle Service"/>
+                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={`Airport transfer to ${hotel.nombre}`} className="w-full h-full object-cover opacity-80" alt="Private Cabo Airport Shuttle Service" />
                       </div>
                       <div className="absolute inset-0 bg-blue-950/40 z-10"></div>
 
@@ -8286,7 +8097,7 @@ export default function App() {
 
                           {/* IMAGEN DE LA CAMIONETA DENTRO DEL TEXTO */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Luxury Cabo Transportation" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Luxury Cabo Transportation" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
                           </div>
 
                           <p className="mb-4">
@@ -8310,6 +8121,7 @@ export default function App() {
                             {/* Reemplaza TU_API_KEY_DE_GOOGLE por tu clave real de Google Maps Embed API para mostrar la ruta exacta. Si no tienes, usa el iframe básico de búsqueda de lugares. */}
                             {/* MAPA DINÁMICO GRATUITO (Sin API Key) */}
                             <iframe
+                              title="Mapa de ubicación"
                               width="100%"
                               height="100%"
                               style={{ border: 0 }}
@@ -8419,7 +8231,7 @@ export default function App() {
 
                           <div className="my-8 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
 
-                            <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={hotel.nombre} className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
+                            <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={hotel.nombre} className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
 
                           </div>
 

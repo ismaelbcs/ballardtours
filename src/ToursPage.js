@@ -10,7 +10,6 @@ import {
   Calendar,
   Baby,
   Banknote,
-  CheckCircle,
   Users,
   Star,
   MapPin,

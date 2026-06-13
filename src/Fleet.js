@@ -10,7 +10,6 @@ import {
     Calendar,
     Baby,
     Banknote,
-    CheckCircle,
     Compass
 } from 'lucide-react';
 import { FAQSection } from './FAQSection';
