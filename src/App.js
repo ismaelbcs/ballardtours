@@ -2834,416 +2834,211 @@ export default function App() {
 
                           <div className="h-20 relative overflow-hidden">
 
-                            <img src={tr.imagenUrl || tr.imageUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-
+                            <img src={tr.imagenUrl || tr.imageUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Private Cabo Airport Shuttle Service"/>
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
-
                               <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{tr.nombre[lang]}</span>
-
                             </div>
-
                           </div>
-
                           <div className="p-2.5 flex justify-between items-center bg-gray-50 group-hover:bg-blue-50 transition-colors">
-
                             <span className="text-[10px] font-black text-blue-900 flex items-center gap-1 uppercase tracking-wider">
-
                               <Plus size={12} strokeWidth={3} /> {lang === 'es' ? 'Añadir' : 'Add'}
-
                             </span>
-
                             <span className="text-xs font-black text-gray-900">${tr.precioPx}</span>
-
                           </div>
-
                         </div>
-
                       ))}
-
                     </div>
-
                   </div>
-
-
 
                   {/* 👇 SECCIÓN DE SERVICIOS ESPECIALES 👇 */}
-
                   <div className="mt-2 mb-2 pt-6 border-t border-gray-100">
-
                     <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
-
                       <Car className="text-blue-600" size={18} />
-
                       {lang === 'es' ? 'Transporte Especial' : 'Special Transfers'}
-
                     </h4>
 
-
-
                     <div
-
                       className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-
                       onWheel={(e) => {
-
                         if (e.deltaY !== 0) {
-
                           e.currentTarget.scrollLeft += e.deltaY;
-
                         }
-
                       }}
-
                     >
-
                       {[
-
                         { id: 'cenas', title: { es: 'Cenas y Restaurantes', en: 'Dinner Transfers' }, price: '120', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=500' },
-
                         { id: 'nightlife', title: { es: 'Nightlife', en: 'Nightlife' }, price: '200', img: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=500' },
-
                         { id: 'hotel', title: { es: 'Hotel a Hotel', en: 'Hotel to Hotel' }, price: '50', img: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=500' },
-
                         { id: 'golf', title: { es: 'Campos de Golf', en: 'Golf Transfers' }, price: '60', img: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=500' }
-
                       ].map((sp) => (
-
                         <div
-
                           key={sp.id}
-
                           onClick={() => {
-
                             setVerCarrito(false);
-
                             setServicioSeleccionado('tours');
-
                             setSubCategoria('especiales');
-
                             setVistaEspecial(sp.id);
-
                             setPaso(2);
-
                             window.scrollTo(0, 0);
-
                           }}
-
                           className="snap-center shrink-0 w-[140px] bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer group hover:border-blue-400 transition-all"
-
                         >
-
                           <div className="h-20 relative overflow-hidden">
-
-                            <img src={sp.img} alt={sp.title[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-
+                            <img src={sp.img} alt={sp.title[lang]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Private Cabo Airport Shuttle Service"/>
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent flex items-end p-2">
-
                               <span className="text-white text-[11px] font-bold leading-tight line-clamp-2 drop-shadow-md">{sp.title[lang]}</span>
-
                             </div>
-
                           </div>
-
                           <div className="p-2.5 flex justify-between items-center bg-gray-50 group-hover:bg-blue-50 transition-colors">
-
                             <span className="text-[10px] font-black text-blue-900 flex items-center gap-1 uppercase tracking-wider">
-
                               <Plus size={12} strokeWidth={3} /> {lang === 'es' ? 'Añadir' : 'Add'}
-
                             </span>
-
                             <span className="text-xs font-black text-gray-900">${sp.price}+</span>
-
                           </div>
-
                         </div>
-
                       ))}
-
                     </div>
-
                   </div>
-
                 </>
-
               )}
-
             </div>
-
-
 
             {carrito.length > 0 && (
-
               <div className="border-t border-gray-100 p-6 bg-white shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)] shrink-0">
-
                 <div className="flex justify-between items-end mb-4">
-
                   <p className="text-gray-500 font-semibold">{t.cart.total}</p>
-
                   <div className="text-right">
-
                     <p className="text-3xl font-extrabold text-gray-900">${carritoTotal.toFixed(2)}</p>
-
                     <p className="text-[10px] text-gray-400">USD, impuestos incluidos</p>
-
                   </div>
-
                 </div>
-
                 <div className="flex flex-col gap-3">
-
                   <button onClick={procederAlPago} className="w-full py-4 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
-
                     {t.cart.checkout} <ChevronRight size={20} />
-
                   </button>
-
                 </div>
-
               </div>
-
             )}
-
           </Drawer.Content>
-
         </Drawer.Portal>
-
       </Drawer.Root>
-
     );
-
   };
-
-
 
   const Stepper = () => {
-
     return (
-
       <div className="py-8 max-w-4xl mx-auto px-4">
-
         <div className="flex items-center justify-between relative">
-
           <div className="absolute left-0 top-1/2 w-full h-0.5 bg-gray-200 -z-10"></div>
-
           <div className="absolute left-0 top-1/2 h-0.5 bg-blue-900 transition-all duration-500 -z-10" style={{ width: `${((paso > 4 ? 4 : paso) - 1) * 33.33}%` }}></div>
-
           {t.steps.map((lbl, idx) => {
-
             const isCompleted = paso > idx + 1;
-
             const isCurrent = paso === idx + 1;
-
             return (
-
               <div key={idx} className="flex flex-col items-center bg-gray-50 px-2 transition-all">
-
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-colors duration-300 ${isCompleted ? 'bg-blue-900 border-blue-900 text-white' : isCurrent ? 'bg-white border-blue-900 text-blue-900 scale-110' : 'bg-white border-gray-300 text-gray-400'}`}>
-
                   {isCompleted ? <CheckCircle className="w-5 h-5" /> : idx + 1}
-
                 </div>
-
                 <span className={`text-xs mt-2 font-bold ${isCurrent ? 'text-blue-900' : 'text-gray-400'}`}>{lbl}</span>
-
               </div>
-
             )
-
           })}
-
         </div>
-
       </div>
-
     );
-
   };
 
-
-
   const ResumenFlotante = ({ conBoton = true, onContinue = avanzarPaso, disabledBtn = false, btnText = t.step2.continue }) => {
-
     const hasExtras = reserva.carSeat > 0 || reserva.babySeat > 0 || reserva.boosterSeat > 0;
 
-
-
     if (reserva.tipoEspecial) {
-
       let titleEspecial = "";
-
       let detailsBlock = null;
 
-
-
       if (reserva.tipoEspecial === 'cena') {
-
         titleEspecial = "Traslado Privado (Cena)";
-
         detailsBlock = (
-
           <>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Restaurante:</span>
-
               <span className="text-right font-bold text-white max-w-[60%]">{reserva.cenaRestaurante}</span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Origen:</span>
-
               <span className="text-right font-bold text-white max-w-[60%] text-balance">{reserva.cenaOrigen?.split('|')[0]}</span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Horarios:</span>
-
               <span className="text-right font-bold text-white max-w-[60%] text-balance text-xs">
-
                 Hotel: {reserva.cenaHora} <br />
-
                 Reserva: {reserva.cenaHoraReserva} <br />
-
                 Regreso: {reserva.cenaHoraRegreso}
-
               </span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Pasajeros:</span>
-
               <span className="text-right font-bold text-white">{reserva.cenaPax}</span>
-
             </div>
-
             {(reserva.rosas || reserva.vino || reserva.vinoEspumoso) && (
-
               <div className="flex justify-between border-b border-gray-800 pb-2">
-
                 <span className="font-semibold text-gray-400">Extras Cenas:</span>
-
                 <span className="text-right font-bold text-green-400 text-xs">
-
                   {reserva.rosas && <span className="block">Rosas (+$50)</span>}
-
                   {reserva.vino && <span className="block">Vino (+$70)</span>}
-
                   {reserva.vinoEspumoso && <span className="block">Espumoso (+$70)</span>}
-
                 </span>
-
               </div>
-
             )}
-
           </>
-
         );
-
       } else if (reserva.tipoEspecial === 'hotel-hotel') {
-
         titleEspecial = "Traslado Hotel a Hotel";
-
         detailsBlock = (
-
           <>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Ruta:</span>
-
               <span className="text-right font-bold text-white text-xs text-balance max-w-[60%]">{reserva.hhOrigen?.split('|')[0]} <br />→ {reserva.hhDestino === 'sjc' ? 'San José del Cabo' : reserva.hhDestino === 'csl' ? 'Cabo San Lucas' : 'Corredor'}</span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Pasajeros:</span>
-
               <span className="text-right font-bold text-white">{reserva.hhPax}</span>
-
             </div>
-
           </>
-
         );
-
       } else if (reserva.tipoEspecial === 'golf') {
-
         titleEspecial = "Traslado Golf";
-
         detailsBlock = (
-
           <>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Campo:</span>
-
               <span className="text-right font-bold text-white max-w-[60%]">{reserva.golfNombre}</span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Origen:</span>
-
               <span className="text-right font-bold text-white max-w-[60%] text-balance">{reserva.golfOrigen?.split('|')[0]}</span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Horarios:</span>
-
               <span className="text-right font-bold text-white max-w-[60%] text-balance text-xs">
-
                 Hotel: {reserva.golfHora} <br />
-
                 Tee Time: {reserva.golfHoraReserva} <br />
-
                 Regreso: {reserva.golfHoraRegreso}
-
               </span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Pasajeros:</span>
-
               <span className="text-right font-bold text-white">{reserva.golfPax}</span>
-
             </div>
-
           </>
-
         );
-
       } else if (reserva.tipoEspecial === 'nightlife') {
-
         titleEspecial = "Traslado Nightlife";
-
         detailsBlock = (
-
           <>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
-
               <span className="font-semibold text-gray-400">Lugar:</span>
-
               <span className="text-right font-bold text-white max-w-[60%]">{reserva.nightlifeLugarNombre}</span>
-
             </div>
-
             <div className="flex justify-between border-b border-gray-800 pb-2">
 
               <span className="font-semibold text-gray-400">Origen:</span>
@@ -3549,115 +3344,63 @@ export default function App() {
 
 
         {/* 🔥 1. INYECCIÓN DE SCHEMA FAQ PARA GOOGLE RICH SNIPPETS 🔥 */}
-
         <Helmet>
-
           <script type="application/ld+json">
-
             {`
-
               {
-
                 "@context": "https://schema.org",
-
                 "@type": "FAQPage",
-
                 "mainEntity": [
-
                   {
-
                     "@type": "Question",
-
                     "name": "How much is transportation from SJD Airport to Cabo San Lucas?",
-
                     "acceptedAnswer": {
-
                       "@type": "Answer",
-
                       "text": "Prices for a private SJD airport transfer to Cabo San Lucas typically range between $80 and $120 USD depending on the exact resort zone and vehicle type (Luxury SUV or Sprinter Van)."
-
                     }
-
                   },
-
                   {
-
                     "@type": "Question",
-
                     "name": "Is Uber available at the Los Cabos Airport?",
-
                     "acceptedAnswer": {
-
                       "@type": "Answer",
-
                       "text": "While Uber operates in the city, they are legally restricted from picking up passengers directly inside the SJD Airport terminals. Booking private transportation in Cabo guarantees a driver will be waiting for you right outside the arrivals gate."
-
                     }
-
                   }
-
                 ]
-
               }
-
             `}
-
           </script>
-
         </Helmet>
 
 
 
         {/* 🔥 2. HERO SECTION CON VIDEO DE FONDO Y WIDGET 🔥 */}
-
         <div className="relative bg-gray-900 pb-32 pt-24 px-4 text-center overflow-hidden">
-
           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 z-0">
-
             <source src={`${process.env.PUBLIC_URL}/private-luxury-transfers-cabo-san-lucas.mp4`} type="video/mp4" />
-
           </video>
-
           <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-gray-900/80 z-10"></div>
 
-
-
           <div className="relative z-20 max-w-4xl mx-auto">
-
             <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">
-
-              {lang === 'es' ? 'Transporte Privado y Shuttles en Los Cabos' : 'Los Cabos Airport Shuttle & Private Transportation'}
+              {lang === 'es' ? 'Transporte Privado y Shuttles en Los Cabos' : 'Cabo Airport Shuttle, Taxi & Private Transportation'}
 
             </h1>
-
             <p className="text-gray-200 text-lg md:text-xl font-medium max-w-2xl mx-auto drop-shadow-md">
-
               {lang === 'es' ? 'Reserva tu traslado seguro, sin filas y puerta a puerta en el Aeropuerto SJD.' : 'Book reliable, skip-the-line, door-to-door SJD airport transportation.'}
-
             </p>
-
           </div>
-
         </div>
 
-
-
         {/* 🚀 WIDGET DE RESERVA 🚀 */}
-
         <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-24 mb-16">
-
           <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-gray-100">
-
             <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
-
               <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
-
                 <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
-
               </h3>
-
-              <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-6 md:h-8 object-contain" />
-
+              <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-6 md:h-8 object-contain" alt="Private Cabo Airport Shuttle Service"/>
             </div>
 
 
@@ -3916,7 +3659,7 @@ export default function App() {
 
                 <div className="flex -space-x-2">
 
-                  <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-8 h-8 rounded-full border-2 border-white z-30 object-contain bg-white shadow-sm" />
+                  <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-8 h-8 rounded-full border-2 border-white z-30 object-contain bg-white shadow-sm" alt="Private Cabo Airport Shuttle Service"/>
 
                   <div className="w-8 h-8 bg-white rounded-full border-2 border-white z-20 shadow-sm flex items-center justify-center">
 
@@ -3924,7 +3667,7 @@ export default function App() {
 
                   </div>
 
-                  <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-8 h-8 rounded-full border-2 border-white z-10 object-contain bg-white shadow-sm" />
+                  <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-8 h-8 rounded-full border-2 border-white z-10 object-contain bg-white shadow-sm" alt="Private Cabo Airport Shuttle Service"/>
 
                 </div>
 
@@ -4014,9 +3757,9 @@ export default function App() {
 
                     <div className="flex items-center gap-3 mb-4">
 
-                      {isFB && <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-6 h-6 object-contain" />}
+                      {isFB && <img src={`${process.env.PUBLIC_URL}/facebook.png`} alt="Facebook" className="w-6 h-6 object-contain" alt="Private Cabo Airport Shuttle Service"/>}
 
-                      {isTA && <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-6 h-6 object-contain" />}
+                      {isTA && <img src={`${process.env.PUBLIC_URL}/tripadvisor.png`} alt="TripAdvisor" className="w-6 h-6 object-contain" alt="Private Cabo Airport Shuttle Service"/>}
 
                       {isGoogle && (
 
@@ -4120,7 +3863,7 @@ export default function App() {
 
                       }}>
 
-                        <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <img src={tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
 
                       </div>
 
@@ -4226,7 +3969,7 @@ export default function App() {
 
               <div className="w-full lg:w-5/12 h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg shrink-0 relative group">
 
-                <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Cabo Airport Shuttle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Cabo Airport Shuttle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
 
               </div>
 
@@ -4268,7 +4011,7 @@ export default function App() {
 
               <div className="h-64 overflow-hidden relative">
 
-                <img src={`${process.env.PUBLIC_URL}/private-airport-transfer-sjd-pueblo-bonito-sunset-cabo.webp`} alt="Cabo Shuttle Services" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                <img src={`${process.env.PUBLIC_URL}/private-airport-transfer-sjd-pueblo-bonito-sunset-cabo.webp`} alt="Cabo Shuttle Services" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
 
               </div>
 
@@ -4310,7 +4053,7 @@ export default function App() {
 
               <div className="h-64 overflow-hidden relative">
 
-                <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Cabo Private Airport Transfers" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Cabo Private Airport Transfers" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
 
               </div>
 
@@ -4400,7 +4143,7 @@ export default function App() {
 
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
 
-                <img src={`${process.env.PUBLIC_URL}/Cabo-San-Lucas-Snorkel-Tour-3.webp`} alt="Cabo Tours and Activities" className="w-full h-48 object-cover rounded-xl mb-6" />
+                <img src={`${process.env.PUBLIC_URL}/Cabo-San-Lucas-Snorkel-Tour-3.webp`} alt="Cabo Tours and Activities" className="w-full h-48 object-cover rounded-xl mb-6" alt="Private Cabo Airport Shuttle Service"/>
 
                 <h4 className="font-bold text-lg text-gray-900 mb-2">{lang === 'es' ? 'Aprovecha al máximo tu visita' : 'Make the most of your visit'}</h4>
 
@@ -4611,713 +4354,360 @@ export default function App() {
 
 
         {/* SEÑALES E-E-A-T PARA GOOGLE SGE */}
-
         <section className="relative overflow-hidden bg-[#0f172a] text-white rounded-[2.5rem] p-8 md:p-14 mb-16 max-w-6xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-slate-800">
-
           <div className="absolute top-8 right-8 w-24 h-24 opacity-20 hidden md:block">
-
-            <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" />
-
+            <img src="/logo-sello-dorado.png" className="w-full h-full object-contain filter brightness-110" alt="Seal of Trust" alt="Private Cabo Airport Shuttle Service" alt="Private Cabo Airport Shuttle Service"/>
           </div>
-
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-
             <div className="lg:col-span-1">
-
               <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 italic">
-
                 Why Trust Ballard Tours?
-
               </h2>
-
               <p className="text-slate-300 text-lg leading-relaxed mb-8 font-light">
-
                 Ballard Tours is an exclusively licensed and premium transportation company, specializing in luxury travel across Los Cabos.
-
               </p>
-
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-b from-slate-700 to-slate-900 border border-slate-500 rounded-xl shadow-inner group hover:border-amber-400 transition-all duration-500">
-
                 <CheckCircle className="text-amber-400 group-hover:scale-110 transition-transform" size={22} />
-
                 <span className="text-sm font-bold tracking-widest uppercase text-slate-100">Federal SCT Licensed</span>
-
               </div>
-
             </div>
-
             <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-
               <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-
                 <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Users size={40} strokeWidth={1.5} /></div>
-
                 <h3 className="text-xl font-bold mb-4 text-slate-100">Certified Local Experts</h3>
-
                 <p className="text-slate-400 text-sm leading-relaxed font-light">Our certified local experts maintain our excellence, advocating for safety and premier service at all locations.</p>
-
               </div>
 
               <div className="bg-slate-950/50 p-8 rounded-3xl border border-amber-900/30 hover:border-amber-500/50 transition-all duration-700 group shadow-2xl">
-
                 <div className="mb-6 text-blue-400 group-hover:text-amber-400 transition-colors"><Car size={40} strokeWidth={1.5} /></div>
-
                 <h3 className="text-xl font-bold mb-4 text-slate-100">Immaculate Luxury Fleet</h3>
-
                 <p className="text-slate-400 text-sm leading-relaxed font-light">Immaculate luxury fleet, featuring top-tier vehicles daily inspected to ensure the highest comfort and safety standards.</p>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
 
-
-
         {/* 🔥 SECCIÓN DE ARTÍCULO DESTACADO (ESTILO BLOG) 🔥 */}
-
         <div className="max-w-7xl mx-auto px-4 mb-24 animate-fade-in">
-
           <div className="bg-white rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
-
             <div className="flex flex-col lg:flex-row">
 
-
-
               {/* Columna de Texto */}
-
               <div className="flex-1 p-8 md:p-12 lg:p-16">
-
                 <div className="inline-block bg-blue-100 text-blue-900 text-xs font-black px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
-
                   Featured Guide
-
                 </div>
-
                 <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 leading-tight">
-
                   Skip the Stress, Arrive in Style! <br />
-
                   <span className="text-blue-600">Your Ultimate Guide to Los Cabos Private Transportation</span>
-
                 </h2>
 
-
-
                 <div className="text-gray-600 space-y-5 text-sm md:text-base leading-relaxed mb-8">
-
                   <p>
-
                     Planning your dream getaway to Baja California Sur this year? Then you probably already know that figuring out airport logistics can be a bit overwhelming. Between navigating the terminal and dodging aggressive timeshare pitches inside the "Shark Tank," landing at SJD International Airport can quickly drain your vacation energy.
-
                   </p>
-
                   <p>
-
                     That’s where Ballard Tours steps in. We don’t just offer a ride; we provide a premium, seamless private chauffeur experience from the moment you step outside the terminal. No shared shuttles, no waiting on strangers, and absolutely NO hidden fees or surprise toll charges. Just you, a pristine air-conditioned luxury SUV or spacious van, complimentary cold drinks, and the open road.
-
                   </p>
-
                   <p className="font-bold text-gray-800">
-
                     We specialize in direct, VIP private airport transfers to the most exclusive, high-end resorts on the peninsula. Heading to one of Cabo’s legendary luxury enclaves? We’ve got you covered:
-
                   </p>
-
-
 
                   <ul className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100">
-
                     <li>
-
                       🎸 <Link to="/destinations/sjd-to-hard-rock" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Hard Rock Hotel Los Cabos</Link>
-
                       <p className="mt-1 text-sm">Rock your arrival! Avoid the headache of dynamic taxi rates. Our certified professional drivers will take you directly via the toll highway to the Pacific Zone so you can start enjoying the legendary Hard Rock amenities in no time.</p>
-
                     </li>
-
                     <li>
-
                       🍣🎋 <Link to="/destinations/sjd-to-nobu-hotel" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Nobu Hotel Los Cabos</Link>
-
                       <p className="mt-1 text-sm">Unmatched minimalist luxury deserves an equally flawless arrival. Since rideshare apps like Uber are heavily restricted or outright banned from entering the secure gates of ultra-exclusive resorts like Nobu, pre-booking your private federal-licensed transport with us is the safest and smartest way to guarantee a smooth check-in.</p>
-
                     </li>
-
                     <li>
-
                       🌊⛰️ <Link to="/destinations/sjd-to-waldorf-astoria" className="text-blue-600 font-bold hover:text-blue-800 transition-colors">SJD Airport to Waldorf Astoria Los Cabos Pedregal</Link>
-
                       <p className="mt-1 text-sm">Traverse the famous private tunnel in absolute elegance. Whether you choose one of our late-model Chevrolet Suburbans or a spacious Mercedes Sprinter for your group, we ensure your journey to Pedregal is private, secure, and deeply sophisticated.</p>
-
                     </li>
-
                   </ul>
-
-
 
                   <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Why choose the Ballard Tours Experience?</h3>
-
                   <ul className="space-y-2 list-none">
-
                     <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Real-Time Flight Tracking:</strong> Delayed or early flight? Our system monitors your tail number automatically. Your driver will be there exactly when you land.</span></li>
-
                     <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Family First:</strong> Traveling with little ones? We offer complimentary baby seats, car seats, and booster seats securely pre-installed upon request.</span></li>
-
                     <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Pre-Arranged Grocery Stops:</strong> Want to stock up at Costco or Walmart before reaching your resort? Add an optional 1-hour shopping stop to your booking!</span></li>
-
                     <li className="flex items-start gap-2"><CheckCircle size={18} className="text-green-500 mt-1 shrink-0" /> <span><strong>Flexible Payment:</strong> Lock in your flat rate online via PayPal or enjoy the flexibility of paying in cash directly to your chauffeur upon arrival.</span></li>
-
                   </ul>
 
-
-
                   <p className="pt-4 border-t border-gray-100">
-
                     Don’t risk your vacation comfort with unregulated rideshares or unpredictable airport taxis. Experience the pinnacle of Cabo logistics with a locally-owned, fully licensed, and trusted provider.
-
                   </p>
-
                   <p className="font-black text-gray-900">Ready to secure your 5-star private shuttle?</p>
-
                   <p>Click the link below to view our flat rates, check hotel zones, and book your private SUV in less than 2 minutes!</p>
-
                 </div>
-
-
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
-
                   <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); window.scrollTo(0, 0); }} className="bg-blue-900 hover:bg-blue-800 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-center">
-
                     Book Now
-
                   </button>
-
                   <Link to="/blog" className="bg-white hover:bg-gray-50 text-blue-900 border-2 border-gray-200 font-bold py-4 px-8 rounded-xl transition-all text-center flex items-center justify-center gap-2">
-
                     Ver más artículos <ChevronRight size={18} />
-
                   </Link>
-
                 </div>
-
               </div>
-
-
 
               {/* Columna de Imagen */}
-
               <div className="w-full lg:w-5/12 min-h-[400px] lg:min-h-full relative overflow-hidden bg-gray-100">
-
                 <img
-
                   src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`}
-
                   alt="Luxury SUV Cabo Transportation"
-
                   className="absolute inset-0 w-full h-full object-cover object-center"
-
                 />
-
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent lg:bg-gradient-to-l"></div>
-
                 <div className="absolute bottom-8 left-8 right-8">
-
                   <div className="bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg inline-block border border-white/50">
-
                     <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Premium Fleet</p>
-
                     <p className="font-black text-blue-900 text-lg">Chevrolet Suburban & Escalade</p>
-
                   </div>
-
                 </div>
-
               </div>
 
-
-
             </div>
-
           </div>
-
         </div>
-
-
 
         {/* DIRECTORIO DE ZONAS */}
-
         <div id="zonas" className="bg-white border border-gray-200 rounded-[2rem] p-6 md:p-10 shadow-lg scroll-mt-24 mb-16">
-
           <div className="text-center max-w-2xl mx-auto mb-10">
-
             <MapIcon className="w-12 h-12 text-blue-900 mx-auto mb-4" />
-
             <h2 className="text-3xl font-extrabold text-gray-900 mb-4">{t.step1.directory_title}</h2>
-
             <div className="relative max-w-md mx-auto mt-6">
-
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-
               <input type="text" placeholder={t.step1.search_placeholder} value={busquedaHotel} onChange={(e) => setBusquedaHotel(e.target.value)} className="w-full bg-gray-50 border-2 border-gray-200 rounded-2xl pl-12 pr-4 py-4 font-medium text-gray-900 focus:border-blue-900 focus:ring-0 outline-none transition-colors" />
-
             </div>
-
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
             {zonasVisibles.length > 0 ? (
-
               zonasVisibles.map(zona => (
-
                 <div key={zona.id} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 h-full flex flex-col">
-
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-4 mb-4 gap-4">
-
                     <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2"><MapPin className="text-blue-600" size={24} /> {zona.nombre}</h3>
-
                     <div className="flex gap-3 text-sm text-right">
-
                       <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Suburban (1-6)</p><p className="font-bold text-blue-900">${zona.tarifaSuburban} <span className="font-normal text-xs">USD</span></p></div>
-
                       <div className="bg-white px-3 py-1 rounded-lg border shadow-sm"><p className="text-[10px] font-bold text-gray-400 uppercase">Sprinter (1-10)</p><p className="font-bold text-blue-900">${zona.tarifaSprinter} <span className="font-normal text-xs">USD</span></p></div>
-
                     </div>
-
                   </div>
-
                   <div className="flex-grow">
-
                     <p className="text-xs font-bold text-gray-400 uppercase mb-3">{t.step1.hotels_in_zone}:</p>
-
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-gray-600">
-
                       {hotelesFiltrados.filter(h => h.zona === zona.id).map(hotel => (
-
                         <li key={hotel.id} className="flex items-start gap-2">
-
                           <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
-
                           <span className={busquedaHotel && hotel.nombre.toLowerCase().includes(busquedaHotel.toLowerCase()) ? 'font-bold text-gray-900 bg-yellow-100 px-1 rounded' : ''}>{hotel.nombre}</span>
-
                         </li>
-
                       ))}
-
                     </ul>
-
                   </div>
-
                 </div>
-
               ))
-
             ) : (
-
               <div className="col-span-full text-center py-10 bg-gray-50 rounded-2xl border border-dashed border-gray-300"><p className="text-gray-500 font-medium">{t.step1.not_found}</p></div>
-
             )}
-
           </div>
-
         </div>
-
-
 
         {/* 🔥 4 BENEFICIOS (ENTRE ZONAS Y FAQ) 🔥 */}
-
         <div className="max-w-5xl mx-auto mb-16 bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-gray-100">
-
           <div className="space-y-8 md:space-y-10">
-
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
               <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Clock size={32} className="text-blue-900" /></div>
-
               <div>
-
                 <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
-
                 <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
-
               </div>
-
             </div>
-
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
               <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Calendar size={32} className="text-blue-900" /></div>
-
               <div>
-
                 <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Asistencia de Itinerario Personalizada' : 'Personalized Itinerary Assistance'}</h3>
-
                 <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Si necesitas ajustar un horario o hacer una cancelación, nuestro equipo local te asistirá de inmediato.' : 'We have personalized assistance because sometimes you need to move a schedule or make a cancellation, our team will assist you.'}</p>
-
               </div>
-
             </div>
-
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
               <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Baby size={32} className="text-blue-900" /></div>
-
               <div>
-
                 <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Sillas de Seguridad Disponibles' : 'Child Safety Seats Available'}</h3>
-
                 <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'La seguridad de tu familia es nuestra prioridad. Proveemos sillas para bebés y asientos elevados sin costo adicional al reservar.' : 'Family safety is our priority. We provide infant car seats and booster seats completely free of charge upon request.'}</p>
-
               </div>
-
             </div>
-
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
               <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Banknote size={32} className="text-blue-900" /></div>
-
               <div>
-
                 <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Tarifas Accesibles y Transparentes' : 'Affordable Rates on Airport Transfers'}</h3>
-
                 <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Ofrecemos tarifas fijas y claras. Reserva con confianza sin preocuparte de cargos ocultos de última hora.' : 'With our efficient logistics, we offer transparent flat-rate pricing without any unexpected fees or hidden charges.'}</p>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-
-
 
         {/* 🔥 AQUÍ LLAMAS AL COMPONENTE FAQ QUE CREASTE 🔥 */}
-
         <FAQSection lang={lang} />
 
-
-
         {/* LOGOS DE PAGO Y TEXTO BILINGÜE AL FINAL */}
-
         <div className="w-full flex flex-col items-center pb-12 pt-6 px-4 max-w-4xl mx-auto text-center">
-
-          <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" />
-
+          <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" alt="Private Cabo Airport Shuttle Service"/>
           <h3 className="text-lg md:text-xl font-black text-gray-900 mb-3">
-
             {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
-
           </h3>
-
           <p className="text-sm md:text-base text-gray-500 leading-relaxed max-w-3xl">
-
             {lang === 'es'
-
               ? 'Sitio web de reservación fácil en tres clics en Ballard Tours. Simplemente ingrese su destino o lugar de recogida, elija su tipo de transporte y haga clic en enviar. Al final del formulario, encontrará la sección de pago, donde puede seleccionar entre las siguientes opciones: pagar con tarjeta de crédito, optar por el pago a la llegada o usar PayPal para mayor comodidad.'
-
               : 'Three-click easy reservation website. Simply enter your destination or pickup location, choose your shuttle type, and click submit. At the end of the form, you will find the payment section, where you can select from the following options: pay with a credit card, opt for payment on arrival, or use PayPal for convenience.'}
-
           </p>
-
         </div>
 
-
-
       </div>
-
     );
-
   };
 
-
-
   const renderPaso2 = () => {
-
     // VISTA DETALLADA DE TOUR
-
     if (servicioSeleccionado === 'tours' && reserva.tourId) {
-
       const tr = tours.find(t => t.id === reserva.tourId);
-
       return (
-
         <>
-
           <div className="animate-fade-in max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
-
             <div className="flex-1 bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
-
               <div className="relative h-64 md:h-80 w-full group cursor-pointer" onClick={() => {
-
                 const fotoActual = imagenTourDestacada || tr.imagenUrl;
-
                 let index = tr.galeria ? tr.galeria.indexOf(fotoActual) : 0;
-
                 if (index === -1) index = 0;
-
                 setLightboxIndice(index);
-
                 setLightboxAbierto(true);
-
               }}>
-
-                <img src={imagenTourDestacada || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-
+                <img src={imagenTourDestacada || tr.imagenUrl} alt={tr.nombre[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Private Cabo Airport Shuttle Service"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent pointer-events-none"></div>
 
-
-
                 <button onClick={(e) => {
-
                   e.stopPropagation();
-
                   setReserva(prev => ({ ...prev, tourId: '' }));
-
                   setImagenTourDestacada('');
-
                 }} className="absolute top-4 left-4 bg-white/90 backdrop-blur px-4 py-2 rounded-xl text-sm font-bold text-gray-800 flex items-center hover:bg-white transition-colors shadow-lg z-10"><ArrowLeft size={16} className="mr-2" /> {t.step2.choose_another}</button>
 
-
-
                 <div className="absolute bottom-6 left-6 right-6 text-white pointer-events-none z-10">
-
                   <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">{tr.nombre[lang]}</h2>
-
                 </div>
-
                 <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-
                   <ImageIcon size={16} /> Ver fotos en grande
-
                 </div>
-
               </div>
-
-
 
               <div className="p-6 md:p-8">
-
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">{tr.descripcion[lang]}</p>
 
-
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-
                   <div className="bg-green-50/50 border border-green-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-
                     <h4 className="font-bold text-green-800 mb-4 flex items-center gap-2"><CheckCircle size={20} /> {t.step2.includes || '¿Qué Incluye?'}</h4>
-
                     <ul className="space-y-3">
-
                       {tr.incluye[lang].map((item, idx) => (<li key={idx} className="flex items-start text-gray-700 text-sm gap-2"><Check size={16} className="text-green-500 shrink-0 mt-0.5" /> {item}</li>))}
-
                     </ul>
-
                   </div>
-
                   <div className="bg-orange-50/50 border border-orange-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-
                     <h4 className="font-bold text-orange-800 mb-4 flex items-center gap-2"><Info size={20} /> {tr.id === 'arco' ? (lang === 'es' ? 'Recomendaciones' : 'Recommendations') : (t.step2.reqs || 'Antes de Reservar / Seguridad')}</h4>
-
                     <ul className="space-y-3">
-
                       {Array.isArray(tr.requisitos[lang])
-
                         ? tr.requisitos[lang].map((item, idx) => (<li key={idx} className="flex items-start text-gray-700 text-sm gap-2"><span className="text-orange-500 font-bold mt-0.5">•</span> {item}</li>))
-
                         : <p className="text-gray-700 text-sm">{tr.requisitos[lang]}</p>
-
                       }
-
                     </ul>
-
                   </div>
-
                   {tr.cargosExtra && (
-
                     <div className="bg-red-50/50 border border-red-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-
                       <h4 className="font-bold text-red-800 mb-4 flex items-center gap-2"><Banknote size={20} /> Cargos Extra / Opcionales</h4>
-
                       <ul className="space-y-3">
-
                         {tr.cargosExtra[lang].map((item, idx) => (<li key={idx} className="flex items-start text-gray-700 text-sm gap-2"><span className="text-red-500 font-bold mt-0.5">+</span> {item}</li>))}
-
                       </ul>
-
                     </div>
-
                   )}
-
                   {tr.recomendaciones && (
-
                     <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-
                       <h4 className="font-bold text-blue-800 mb-4 flex items-center gap-2"><ShieldCheck size={20} /> Recomendaciones</h4>
-
                       <ul className="space-y-3">
-
                         {tr.recomendaciones[lang].map((item, idx) => (<li key={idx} className="flex items-start text-gray-700 text-sm gap-2"><span className="text-blue-500 font-bold mt-0.5">✓</span> {item}</li>))}
-
                       </ul>
-
                     </div>
-
                   )}
-
                 </div>
-
-
 
                 <div className="flex justify-between items-center mt-6 pt-6 border-t border-gray-100">
-
                   <p className="text-gray-800 font-bold flex items-center gap-2"><Clock size={20} className="text-blue-900" /> {tr.duracion[lang]}</p>
-
                   {tr.especial && <p className="text-sm text-blue-900 font-medium">Nota: Mínimo {tr.minPax} personas.</p>}
-
                 </div>
 
-
-
                 {tr.galeria && tr.galeria.length > 0 && (
-
                   <div className="mt-8 pt-6 border-t border-gray-100">
-
                     <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2"><ImageIcon size={20} className="text-blue-900" /> Galería de Imágenes</h4>
-
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-
                       {tr.galeria.map((foto, idx) => (
-
                         <img key={idx} src={foto} alt={`${tr.nombre[lang]} foto ${idx + 1}`} onClick={() => setImagenTourDestacada(foto)} className="w-full h-32 object-cover rounded-xl shadow-sm hover:scale-110 transition-transform duration-300 cursor-pointer" />
-
                       ))}
-
                     </div>
-
                   </div>
-
                 )}
-
               </div>
-
             </div>
 
-
-
             <div className="w-full lg:w-[400px] flex-shrink-0 animate-fade-in">
-
               <div className="bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 md:p-8 sticky top-28">
-
                 <h3 className="font-bold text-gray-800 mb-4">
-
                   Participantes
-
                   {tr.edadMinima > 0 && (
-
                     <span className="text-sm text-red-500 font-normal ml-2">
-
                       (Edad mínima: {tr.edadMinima} años)
-
                     </span>
-
                   )}
-
                 </h3>
-
                 <div className="space-y-6">
-
                   <div>
-
                     <label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.tour_date}</label>
-
                     <div className="relative"><Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} /><input type="date" name="fechaLlegada" value={reserva.fechaLlegada} onChange={handleChange} className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:ring-2 focus:ring-blue-900 outline-none" /></div>
-
                   </div>
-
                   <div>
-
                     <label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.pax} <span className="text-xs text-gray-400 font-normal">{t.step2.pax_min.replace('{n}', tr.minPax)}</span></label>
-
                     <div className="relative"><Users className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} /><input type="number" min={tr.minPax} max="20" name="pasajeros" value={reserva.pasajeros} onChange={handleChange} className={`w-full bg-white border rounded-lg pl-10 p-3 text-gray-800 outline-none transition-all ${servicioSeleccionado === 'tours' && reserva.pasajeros < 2 ? 'bg-red-50 border-red-500 text-red-700' : 'border-gray-300'}`} /></div>
-
                   </div>
-
                   <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mt-4">
-
                     <h4 className="text-sm font-bold text-gray-900 mb-3">{t.step2.participants}</h4>
-
                     <div className="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-
                       {reserva.participantes.map((part, index) => (
-
                         <div key={index} className="grid grid-cols-6 gap-2">
-
                           <div className="col-span-1 flex items-center justify-center bg-blue-900 text-white rounded-lg text-xs font-bold">{index + 1}</div>
-
                           <input type="text" placeholder={t.step2.name} value={part.nombre} onChange={(e) => handleParticipanteChange(index, 'nombre', e.target.value)} className="col-span-3 bg-white border border-gray-200 rounded-lg px-2 py-2 text-xs focus:ring-2 focus:ring-blue-900 outline-none" />
-
                           <input
-
                             type="number"
-
                             placeholder={t.step2.age}
-
                             min="1"
-
                             value={part.edad}
-
                             onChange={(e) => handleParticipanteChange(index, 'edad', e.target.value)}
-
                             className={`col-span-2 bg-white border rounded-lg p-2 text-sm outline-none transition-all ${part.edad && parseInt(part.edad) < (tr.edadMinima || 0)
-
                               ? 'bg-red-50 border-red-500 text-red-700 font-bold'
-
                               : 'border-gray-200 text-gray-800'
-
                               }`}
-
                           />
-
                         </div>
-
                       ))}
-
                     </div>
-
                   </div>
-
                   <div className="mt-4">
-
                     <label className="text-gray-700 text-sm font-bold mb-2 block">¿Dónde te recogemos? / Comentarios</label>
-
                     <textarea className="w-full bg-white border border-gray-300 rounded-lg p-3 text-gray-800" rows="3" placeholder="Ej: Hotel Riu Palace, Airbnb en el centro, etc..." value={reserva.comentarios || ''} onChange={(e) => setReserva({ ...reserva, comentarios: e.target.value })}></textarea>
-
                   </div>
-
                   <div className="border-t border-gray-100 pt-6 mt-6">
-
                     {reserva.tourId === 'camellos' && (
-
                       <div className="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-3 text-xs font-semibold mb-4 leading-relaxed animate-fade-in">
-
                         ⚠️ Importante: El costo de entrada al parque es de $25 USD por persona, el cual se pagará directamente en las taquillas el día de tu actividad.
-
                       </div>
-
                     )}
-
                     <div className="flex justify-between items-end mb-4">
-
                       <div>
-
                         <p className="text-gray-500 font-medium">{t.step2.summary}</p>
-
                         {(currentUser?.role === 'agency' || appliedPromo) && <p className="text-xs text-green-600 font-bold mt-1">{discountLabel}</p>}
 
                       </div>
@@ -5370,218 +4760,112 @@ export default function App() {
 
                 )}
 
-                <img src={tr.galeria ? tr.galeria[lightboxIndice] : (imagenTourDestacada || tr.imagenUrl)} alt="Zoom Tour" className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl animate-fade-in" />
-
+                <img src={tr.galeria ? tr.galeria[lightboxIndice] : (imagenTourDestacada || tr.imagenUrl)} alt="Zoom Tour" className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl animate-fade-in" alt="Private Cabo Airport Shuttle Service"/>
               </div>
-
               {tr.galeria && tr.galeria.length > 1 && (
-
                 <div className="absolute bottom-6 md:bottom-10 text-white/80 font-bold text-lg md:text-xl tracking-widest bg-black/50 px-6 py-2 rounded-full z-[10000]">
-
                   {lightboxIndice + 1} / {tr.galeria.length}
-
                 </div>
-
               )}
-
             </div>
-
           )}
-
         </>
-
       );
-
     }
 
-
-
     // VISTA FORMULARIO GENERAL
-
     return (
-
       <div className="animate-fade-in flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
-
         <div className="flex-1 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
-
           <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-
             {servicioSeleccionado === 'tours' ? <Compass className="text-blue-900" /> : <MapPin className="text-blue-900" />}
-
             {servicioSeleccionado === 'tours' ? t.step2.select_exp : t.step2.details}
-
           </h3>
-
           <div className="space-y-6">
 
-
-
             {servicioSeleccionado !== 'tours' && (
-
               <>
-
                 <div className="w-full mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-4">
-
                   <button onClick={() => { setServicioSeleccionado(''); setBusquedaHotelPrincipal(''); }} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition group">
-
                     <span className="mr-2 group-hover:-translate-x-1 transition-transform">←</span> {lang === 'es' ? 'Volver a las opciones' : 'Back to options'}
-
                   </button>
-
                   <button onClick={() => {
-
                     setPaso(1); limpiarFormularioActivo(); window.scrollTo(0, 0);
-
                   }}
-
                     className="text-gray-500 font-semibold flex items-center hover:text-gray-800 transition bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-lg"
-
                   >
-
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-
                     {lang === 'es' ? 'Ir al inicio' : 'Start over'}
-
                   </button>
-
                 </div>
-
-
 
                 <div className="flex flex-col relative mb-4">
-
                   <label className="text-sm font-semibold text-gray-700 mb-2">Selecciona tu hotel</label>
-
                   <input type="text" placeholder="Escribe para buscar tu hotel..." value={busquedaHotelPrincipal} onChange={(e) => { setBusquedaHotelPrincipal(e.target.value); setMostrarDropdownHotelPrincipal(true); }} onFocus={() => setMostrarDropdownHotelPrincipal(true)} onBlur={() => setTimeout(() => setMostrarDropdownHotelPrincipal(false), 200)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900 outline-none transition bg-white text-gray-700" />
-
                   {mostrarDropdownHotelPrincipal && (
-
                     <ul className="absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 top-[76px] max-h-60 overflow-y-auto">
-
                       {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes((busquedaHotelPrincipal || '').toLowerCase())).map(hotel => (
-
                         <li key={hotel.id || hotel.nombre} onMouseDown={() => {
-
                           const zona = hotel.zonaId || hotel.zona || "1";
-
                           setReserva({ ...reserva, hotelId: hotel.nombre, zonaId: zona });
-
                           setBusquedaHotelPrincipal(`${hotel.nombre}`);
-
                           setMostrarDropdownHotelPrincipal(false);
-
                         }} className="p-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 last:border-0 transition flex justify-between items-center"
-
                         >
-
                           <span>{hotel.nombre}</span><span className="text-xs font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded-md">Zona {hotel.zonaId || hotel.zona || 1}</span>
-
                         </li>
-
                       ))
-
                       }
-
                       {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes((busquedaHotelPrincipal || '').toLowerCase())).length === 0 && (
-
                         <li className="p-4 text-gray-500 text-sm text-center">No encontramos un hotel con ese nombre.</li>
-
                       )}
-
                     </ul>
-
                   )}
-
                 </div>
-
-
 
                 <div>
-
                   <label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.vehicle_type}</label>
-
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                     {VEHICULOS.map(v => (
-
                       <div key={v.id} onClick={() => setReserva(prev => ({ ...prev, vehiculo: v.id }))} className={`cursor-pointer border-2 rounded-xl p-4 transition-all ${reserva.vehiculo === v.id ? 'border-blue-900 bg-blue-50' : 'border-gray-200 hover:border-blue-300'}`}>
-
                         <div className="flex justify-between items-center mb-2"><span className="font-bold text-gray-900">{v.nombre}</span><Car className={reserva.vehiculo === v.id ? 'text-blue-900' : 'text-gray-400'} size={20} /></div>
-
                         <p className="text-xs text-gray-500">{v.descripcion[lang]}</p>
-
                         <p className="text-xs font-semibold text-gray-700 mt-2 flex items-center gap-1"><Users size={14} /> {t.step2.max_pax.replace('{n}', v.maxPax)}</p>
-
                       </div>
-
                     ))}
-
                   </div>
-
                 </div>
-
-
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-100 pt-6">
-
                   <div><label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.arrival_date}</label><input type="date" name="fechaLlegada" value={reserva.fechaLlegada} onChange={handleChange} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none" /></div>
-
                   <div><label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.pax}</label><input
-
                     type="number" name="pasajeros" min="1" max="10" value={reserva.pasajeros}
-
                     onChange={(e) => {
-
                       let numPasajeros = parseInt(e.target.value);
-
                       if (isNaN(numPasajeros) || numPasajeros < 1) numPasajeros = '';
-
                       if (numPasajeros > 10) numPasajeros = 10;
-
                       let nuevoVehiculo = reserva.vehiculo;
-
                       if (numPasajeros > 6) nuevoVehiculo = 'van';
-
                       setReserva({ ...reserva, pasajeros: numPasajeros, vehiculo: nuevoVehiculo });
-
                     }}
-
                     className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 outline-none focus:border-blue-900 transition text-gray-700"
-
                   /></div>
-
                   {servicioSeleccionado === 'redondo' && <div className="md:col-span-2"><label className="block text-sm font-semibold text-gray-700 mb-2">{t.step2.return_date}</label><input type="date" name="fechaSalida" value={reserva.fechaSalida} onChange={handleChange} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none" /></div>}
-
                 </div>
 
-
-
                 <div className="border-t border-gray-100 pt-6 mt-6">
-
                   <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2"><Baby className="text-blue-900" /> {t.step2.extras_title}</h4>
-
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-
                     <div className="bg-gray-50 border border-gray-200 rounded-xl p-3 flex flex-col justify-between">
-
                       <div className="mb-3"><p className="font-bold text-gray-800 text-sm">{t.step2.car_seat}</p><p className="text-xs text-green-600 font-bold">{t.step2.free}</p></div>
-
                       <div className="flex items-center justify-between bg-white border border-gray-200 rounded-lg overflow-hidden">
-
                         <button onClick={(e) => updateSeat(e, 'carSeat', false)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold">-</button>
-
                         <span className="text-sm font-bold">{reserva.carSeat}</span>
-
                         <button onClick={(e) => updateSeat(e, 'carSeat', true)} className="w-8 h-8 flex items-center justify-center bg-blue-50 hover:bg-blue-100 text-blue-900 font-bold">+</button>
-
                       </div>
-
                     </div>
-
                     <div className="bg-gray-50 border border-gray-200 rounded-xl p-3 flex flex-col justify-between">
-
                       <div className="mb-3"><p className="font-bold text-gray-800 text-sm">{t.step2.baby_seat}</p><p className="text-xs text-green-600 font-bold">{t.step2.free}</p></div>
-
                       <div className="flex items-center justify-between bg-white border border-gray-200 rounded-lg overflow-hidden">
 
                         <button onClick={(e) => updateSeat(e, 'babySeat', false)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold">-</button>
@@ -8341,103 +7625,54 @@ export default function App() {
         {/* 👇 1. CASCO GLOBAL (Aplica para toda la página, nunca cambia) 👇 */}
 
         <Helmet htmlAttributes={{ lang: lang === 'es' ? 'es-MX' : 'en-US' }}>
-
           <meta property="og:site_name" content="Ballard Tours Los Cabos" />
-
           <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
-
           <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_MX'} />
 
-
-
           {/* SCHEMA DE EMPRESA Y SITIO WEB (E-E-A-T) */}
-
           <script type="application/ld+json">
-
             {`
-
         {
-
           "@context": "https://schema.org",
-
           "@graph": [
-
             {
-
               "@type": "WebSite",
-
               "@id": "https://www.ballardtours.com/#website",
-
               "url": "https://www.ballardtours.com/",
-
               "name": "Ballard Tours Los Cabos",
-
               "description": "Los Cabos Private Transportation and Luxury Tours",
-
               "potentialAction": {
-
                 "@type": "SearchAction",
-
                 "target": "https://www.ballardtours.com/?search={search_term_string}",
-
                 "query-input": "required name=search_term_string"
-
               }
-
             },
-
             {
-
               "@type": "TravelAgency",
-
               "@id": "https://www.ballardtours.com/#organization",
-
               "name": "Ballard Tours",
-
               "url": "https://www.ballardtours.com/",
-
               "logo": "https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png",
-
               "image": "https://www.ballardtours.com/LOGO-BALLARD-SIN-FONDO.png",
-
-              "description": "Premium private transportation and tour provider in Los Cabos, Mexico.",
-
+              "description": "Cabo Airport Transportation & Shuttle  Private Taxi SJD in Los Cabos, Mexico.",
               "address": {
-
                 "@type": "PostalAddress",
-
                 "addressLocality": "Cabo San Lucas",
-
                 "addressRegion": "Baja California Sur",
-
                 "addressCountry": "MX"
-
               },
-
               "contactPoint": {
-
                 "@type": "ContactPoint",
-
                 "telephone": "+52-612-194-3286",
-
                 "contactType": "customer service",
-
                 "areaServed": "MX",
-
                 "availableLanguage": ["en", "es"]
-
               }
-
             }
-
           ]
-
         }
-
       `}
-
           </script>
-
         </Helmet>
 
 
@@ -8512,7 +7747,7 @@ export default function App() {
 
                     <meta name="twitter:card" content="summary_large_image" />
 
-                    <meta name="twitter:title" content="Los Cabos Private Transportation & Luxury Tours" />
+                    <meta name="twitter:title" content="Cabo Airport Transportation | Private Transfers Los Cabos | Ballard Tours" />
 
                     <meta name="twitter:description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours." />
 
@@ -8560,7 +7795,7 @@ export default function App() {
 
                   <Helmet>
 
-                    <title>SJD Cabo Airport Shuttle & Private Transportation | Ballard Tours</title>
+                    <title>Cabo Airport Transportation | Private Transfers Los Cabos | Ballard Tours</title>
 
                     <meta name="description" content="Exclusive reporter guide to Cabo airport transportation. Best private airport to hotel taxi & shuttles to Hyatt Ziva, Hard Rock, Cabo Azul, Paradisus & more." />
 
@@ -8570,7 +7805,7 @@ export default function App() {
 
                     <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es/transportation/airport-shuttle-sjd" />
 
-                    <meta property="og:title" content="SJD Cabo Airport Shuttle & Private Transportation | Ballard Tours" />
+                    <meta property="og:title" content="Cabo Airport Transportation | Private Transfers Los Cabos | Ballard Tours" />
 
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
 
@@ -8677,866 +7912,436 @@ export default function App() {
 
 
                           <p>
-
                             These are common concerns for travelers arriving at Los Cabos International Airport, and tourism experts recommend planning transportation before arrival to ensure a smooth and stress-free experience. Today, we take an in-depth look at transportation, weather, major resort destinations, and what visitors can expect during their stay in one of Mexico's most famous beach destinations.
-
                           </p>
-
-
-
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Los Cabos Welcomes Visitors from Across the United States</h2>
-
                           <p>
-
                             Los Cabos remains one of the most popular international destinations for American travelers. Located at the southern tip of the Baja California Peninsula, Los Cabos combines luxury resorts, world-class golf courses, beautiful beaches, ocean adventures, sport fishing, fine dining, and breathtaking desert landscapes. The destination includes two main areas: Cabo San Lucas and San José del Cabo, connected by a scenic tourist corridor hosting prestigous resorts like <strong>Hyatt Ziva Los Cabos</strong>, <strong>Cabo Azul Resort</strong>, and <strong>Paradisus Los Cabos</strong>.
-
                           </p>
-
-
 
                           {/* FOTO 1: PRIVADA EN AEROPUERTO */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Luxury Transfer" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Luxury Transfer" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
 
-
-
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Exiting Los Cabos International Airport</h2>
-
                           <p>
-
                             One of the first things visitors notice after landing is the process of exiting the airport. After clearing immigration and collecting luggage, travelers pass through customs and then enter an area where various representatives offer vacation packages, timeshare presentations, excursions, and transportation options. Experienced travelers often recommend proceeding directly toward the transportation exit if airport transportation has already been arranged.
-
                           </p>
-
                           <p>
-
                             Having a confirmed airport transportation reservation can significantly reduce stress after a long flight. Companies such as <strong>Ballard Tours</strong> have become increasingly popular among visitors seeking pre-arranged transportation from the airport directly to their resorts. Many travelers appreciate knowing that a professional driver will already be waiting upon arrival rather than searching for an unregulated ride after landing.
-
                           </p>
-
 
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Airport Taxi Hotel Transportation Remains a Popular Choice</h2>
-
                           <p>
-
                             One of the most searched travel services in Los Cabos is <strong>airport taxi hotel</strong> transportation. Visitors frequently search online for an <strong>airport taxi hotel</strong> service or direct private airport transfer. <strong>Airport taxi hotel</strong> transportation remains one of the fastest ways to reach accommodations throughout the region. Families, couples, business travelers, wedding guests, and golf enthusiasts often prefer direct transportation that eliminates multiple stops. A dedicated <strong>airport taxi hotel</strong> service allows visitors to travel directly from the airport to their destination without waiting for additional passengers. This convenience is especially appreciated after long flights.
-
                           </p>
 
-
-
                           {/* FOTO 2: HYATT ZIVA */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Hyatt Ziva Los Cabos Destination" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Hyatt Ziva Los Cabos Destination" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Weather Conditions Continue to Attract Travelers</h2>
-
                           <p>
-
                             Another major reason travelers choose Los Cabos is the weather. Los Cabos enjoys a desert climate that provides sunshine throughout much of the year. Typical conditions include winter (mid-70s to low-80s Fahrenheit), spring (warm temperatures and clear skies), summer (hotter conditions reaching the 90s Fahrenheit), and fall (excellent weather with warm temperatures and reduced humidity). Because of this consistent climate, outdoor activities remain available throughout much of the year.
-
                           </p>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Transportation to Premium Resorts: Hyatt Ziva, Cabo Azul, and Paradisus</h2>
-
                           <p>
-
                             One of the most requested transportation destinations is <strong>Hyatt Ziva Los Cabos</strong>. Located in San José del Cabo, <strong>Hyatt Ziva Los Cabos</strong> attracts families, couples, and groups seeking an all-inclusive beachfront experience. Airport transportation to <strong>Hyatt Ziva Los Cabos</strong> remains in high demand throughout the year. Travelers frequently book an <strong>airport taxi hotel</strong> service directly to <strong>Hyatt Ziva Los Cabos</strong> because they want to begin enjoying the resort immediately after arrival.
-
                           </p>
-
                           <p>
-
                             Another favorite destination among travelers is <strong>Cabo Azul Resort</strong>. Known for its dramatic architecture, pools, and beachfront setting, <strong>Cabo Azul Resort</strong> attracts visitors seeking luxury accommodations. An <strong>airport taxi hotel</strong> service to <strong>Cabo Azul Resort</strong> remains extremely popular. Likewise, luxury travelers continue choosing <strong>Paradisus Los Cabos</strong> as one of the region's premier all-inclusive resorts. Transportation to <strong>Paradisus Los Cabos</strong> is frequently requested by visitors eager to reach the resort quickly via an <strong>airport taxi hotel</strong> transfer, avoiding additional stops.
-
                           </p>
-
-
 
                           {/* FOTO 3: NOBU FLOTA */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Nobu Hotel Route Fleet" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Nobu Hotel Route Fleet" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Transportation to Fiesta Americana, Hard Rock, and Playa Grande</h2>
-
                           <p>
-
                             Another highly recognized destination is <strong>Fiesta Americana Los Cabos</strong>, welcoming travelers seeking beautiful ocean views and golf experiences. The location of <strong>Fiesta Americana Los Cabos</strong> along the Tourist Corridor makes reliable <strong>airport taxi hotel</strong> transportation especially important. Among family travelers and entertainment enthusiasts, <strong>Hard Rock Hotel Los Cabos</strong> remains a standout destination. Airport transportation demand to <strong>Hard Rock Hotel Los Cabos</strong> continues growing, and professional <strong>airport taxi hotel</strong> services help guests arrive comfortably to the Pacific zone.
-
                           </p>
 
                           <p>
-
                             Located near Cabo San Lucas Marina, <strong>Playa Grande Resort</strong> continues attracting travelers looking for convenient access to downtown attractions. Airport transportation to <strong>Playa Grande Resort</strong> remains among the most frequently requested services. Many travelers appreciate arranging <strong>airport taxi hotel</strong> transfers before arrival to ensure a seamless journey to <strong>Playa Grande Resort</strong>.
-
                           </p>
-
-
 
                           {/* FOTO 4: NOBU TRANSFER */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Private Premium Transfers" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Private Premium Transfers" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Round-Trip Transportation Is Becoming the Standard</h2>
-
                           <p>
-
                             Industry professionals report increasing demand for round-trip transportation services. Rather than arranging transportation separately, many visitors now reserve arrival and departure transfers at the same time for peace of mind. Companies like <strong>Ballard Tours</strong> frequently assist travelers with both arrival and departure transits. Hotel-to-airport transportation is particularly important because visitors must arrive at the airport with sufficient time.
-
                           </p>
-
                           <p>
-
                             Whether you are traveling to <strong>Hyatt Ziva Los Cabos</strong>, <strong>Cabo Azul Resort</strong>, <strong>Paradisus Los Cabos</strong>, <strong>Fiesta Americana Los Cabos</strong>, <strong>Hard Rock Hotel Los Cabos</strong>, or <strong>Playa Grande Resort</strong>, planning ahead with <strong>Ballard Tours</strong> guarantees fixed pricing, reduced airport stress, and professional drivers for a bright vacation experience.
-
                           </p>
-
                         </>
-
                       ) : (
-
                         /* ==========================================
-
                            CÓDIGO EN ESPAÑOL (TRADUCCIÓN ADAPTADA)
-
                            ========================================== */
-
                         <>
-
                           <p className="text-2xl font-sans font-medium text-gray-900 leading-snug">
-
                             A medida que miles de viajeros continúan llegando a Los Cabos cada semana desde ciudades de los Estados Unidos y Canadá, los profesionales del turismo local reportan una alta satisfacción de los visitantes, excelentes condiciones climáticas y una demanda continua de servicios confiables de transporte aeropuerto-hotel.
-
                           </p>
-
-
 
                           <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 font-sans text-base space-y-2 text-gray-800">
-
                             <p className="font-bold text-gray-900">Para muchos visitantes de primera vez, las preguntas más importantes comienzan antes de que la vacación verdaderamente empiece:</p>
-
                             <p>• ¿Cómo salgo del aeropuerto?</p>
-
                             <p>• ¿Qué transporte debería utilizar?</p>
-
                             <p>• ¿Cómo está el clima?</p>
-
                             <p>• ¿Qué tan lejos está mi resort?</p>
-
                             <p>• ¿Debería reservar el transporte del aeropuerto con anticipación?</p>
-
                           </div>
 
-
-
                           <p>
-
                             Estas son preocupaciones comunes para los viajeros que arriban al Aeropuerto Internacional de Los Cabos, y los expertos en turismo recomiendan planificar el transporte antes de la llegada para garantizar una experiencia fluida y sin estrés. Hoy, analizamos a fondo el transporte, el clima, los principales destinos turísticos y qué pueden esperar los visitantes durante su estadía en uno de los destinos de playa más famosos de México.
-
                           </p>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Los Cabos Continúa Recibiendo Visitantes de Todo el Mundo</h2>
-
                           <p>
-
                             Los Cabos sigue siendo uno de los destinos internacionales más populares. Ubicado en el extremo sur de la Península de Baja California, combina resorts de lujo, campos de golf de clase mundial, hermosas playas, aventuras oceánicas, pesca deportiva, alta cocina y paisajes desérticos impresionantes. El destino incluye dos áreas principales: Cabo San Lucas y San José del Cabo, conectadas por un corredor turístico escénico que alberga prestigiosos resorts como el <strong>Hyatt Ziva Los Cabos</strong>, <strong>Cabo Azul Resort</strong> y <strong>Paradisus Los Cabos</strong>.
-
                           </p>
-
-
 
                           {/* FOTO 1: PRIVADA EN AEROPUERTO */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Traslado de Lujo" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Ballard Tours Traslado de Lujo" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Saliendo del Aeropuerto Internacional de Los Cabos</h2>
-
                           <p>
-
                             Una de las primeras cosas que los visitantes notan después de aterrizar es el proceso de salida del aeropuerto. Tras pasar por inmigración y recoger el equipaje, los viajeros pasan por aduanas y entran a un área donde varios representantes ofrecen paquetes vacacionales, presentaciones de tiempo compartido, excursiones y opciones de transporte. Los viajeros experimentados a menudo recomiendan proceder directamente hacia la salida si el transporte ya ha sido organizado.
-
                           </p>
-
                           <p>
-
                             Tener una reservación confirmada de transporte puede reducir significativamente el estrés después de un largo vuelo. Empresas como <strong>Ballard Tours</strong> se han vuelto cada vez más populares entre los visitantes que buscan un transporte preorganizado desde el aeropuerto directamente hacia sus resorts, sabiendo que un conductor profesional ya los estará esperando afuera.
-
                           </p>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">El Servicio de Taxi Aeropuerto Hotel Sigue Siendo una Opción Preferida</h2>
-
                           <p>
-
                             Uno de los servicios de viaje más buscados en la región es el <strong>taxi de aeropuerto a hotel</strong>. Los visitantes buscan con frecuencia en línea un <strong>taxi de aeropuerto a hotel</strong> privado o un traslado directo. El servicio de <strong>taxi de aeropuerto a hotel</strong> sigue siendo una de las formas más rápidas de llegar a los alojamientos. Las familias, parejas, grupos de bodas y entusiastas del golf prefieren un transporte directo que elimine múltiples paradas. Un servicio dedicado de <strong>taxi de aeropuerto a hotel</strong> permite a los visitantes viajar directamente sin esperar a pasajeros adicionales, una conveniencia muy apreciada después de vuelos largos.
-
                           </p>
-
-
 
                           {/* FOTO 2: HYATT ZIVA */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Destino Hyatt Ziva Los Cabos" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/hyatt-ziva-los-cabos-airport-sjd.webp`} alt="Destino Hyatt Ziva Los Cabos" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Condiciones Climáticas que Atraen a los Viajeros</h2>
-
                           <p>
-
                             Otra razón principal para elegir Los Cabos es el clima. Disfruta de un clima desértico que proporciona sol durante gran parte del año. Las condiciones típicas incluyen invierno (temperaturas cómodas de mediados de los 70 a los 80 grados Fahrenheit), primavera (clima cálido y cielos despejados), verano (condiciones más calurosas que alcanzan los 90 grados Fahrenheit) y otoño (excelente clima con temperaturas cálidas y humedad reducida). Debido a este clima constante, las actividades al aire libre siguen disponibles todo el año.
-
                           </p>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Transporte a Resorts Premium: Hyatt Ziva, Cabo Azul y Paradisus</h2>
-
                           <p>
-
                             Uno de los destinos de transporte más solicitados es el <strong>Hyatt Ziva Los Cabos</strong>. Ubicado en San José del Cabo, <strong>Hyatt Ziva Los Cabos</strong> atrae a familias y grupos que buscan una experiencia de playa todo incluido. El transporte desde el aeropuerto hacia el <strong>Hyatt Ziva Los Cabos</strong> mantiene una alta demanda. Los viajeros reservan con frecuencia su servicio de <strong>taxi de aeropuerto a hotel</strong> directamente al <strong>Hyatt Ziva Los Cabos</strong> para comenzar a disfrutar de inmediato.
-
                           </p>
-
                           <p>
-
                             Otro destino favorito es <strong>Cabo Azul Resort</strong>. Conocido por su espectacular arquitectura y albercas, <strong>Cabo Azul Resort</strong> atrae a quienes buscan lujo. Un traslado en <strong>taxi de aeropuerto a hotel</strong> hacia <strong>Cabo Azul Resort</strong> es extremadamente popular. Asimismo, los viajeros de lujo eligen el <strong>Paradisus Los Cabos</strong> como uno de los resorts todo incluido más importantes, solicitando traslados directos en <strong>taxi de aeropuerto a hotel</strong> para llegar a <strong>Paradisus Los Cabos</strong> rápidamente y sin escalas.
-
                           </p>
-
-
 
                           {/* FOTO 3: NOBU FLOTA */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Ruta Nobu Flota" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/nobu-los-cabos-airport-sjd-ballard.webp`} alt="Ruta Nobu Flota" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">Transporte a Fiesta Americana, Hard Rock y Playa Grande</h2>
-
                           <p>
-
                             Otro destino muy reconocido es <strong>Fiesta Americana Los Cabos</strong>, que da la bienvenida a viajeros que buscan hermosas vistas al mar y experiencias de golf. La ubicación de <strong>Fiesta Americana Los Cabos</strong> en el Corredor Turístico hace que un servicio confiable de <strong>taxi de aeropuerto a hotel</strong> sea primordial. Por otro lado, el <strong>Hard Rock Hotel Los Cabos</strong> sigue siendo un destino destacado para entusiastas del entretenimiento. La demanda hacia el <strong>Hard Rock Hotel Los Cabos</strong> continúa creciendo, y nuestros servicios de <strong>taxi de aeropuerto a hotel</strong> ayudan a los huéspedes a llegar con total comodidad a la zona del Pacífico.
-
                           </p>
-
                           <p>
-
                             Ubicado cerca de la Marina de Cabo San Lucas, el <strong>Playa Grande Resort</strong> atrae a viajeros que buscan un acceso conveniente a las atracciones del centro. El transporte hacia <strong>Playa Grande Resort</strong> es sumamente solicitado, y muchos huéspedes aprecian organizar sus traslados en <strong>taxi de aeropuerto a hotel</strong> antes de su llegada para asegurar un viaje sin complicaciones a <strong>Playa Grande Resort</strong>.
-
                           </p>
-
-
 
                           {/* FOTO 4: NOBU TRANSFER */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Traslados Privados Premium" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`} alt="Traslados Privados Premium" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <h2 className="text-3xl font-black font-sans text-gray-900 mt-10 mb-4">El Traslado de Regreso: Hotel al Aeropuerto</h2>
-
                           <p>
-
                             Eventualmente, las vacaciones deben terminar. Si bien llegar es emocionante, la salida puede generar ansiedad si no se planifica. Perder un vuelo por no encontrar transporte es una pesadilla; por eso los traslados de **hotel al aeropuerto** son tan críticos como la llegada. Intentar conseguir un taxi público desde las puertas del <strong>Hard Rock</strong> o pedir un Uber que no puede ingresar a resorts como <strong>Paradisus</strong>, <strong>Fiesta Americana</strong>, <strong>Hyatt Ziva</strong>, <strong>Cabo Azul</strong> o <strong>Playa Grande</strong> es un riesgo innecesario.
-
                           </p>
-
                           <p>
-
                             Reservar tus traslados de **hotel al aeropuerto** ida y vuelta con <strong>Ballard Tours</strong> garantiza tarifas fijas, conductores profesionales y total puntualidad desde el lobby de tu resort (ya sea <strong>Hyatt Ziva Los Cabos</strong>, <strong>Cabo Azul Resort</strong>, <strong>Paradisus Los Cabos</strong>, <strong>Fiesta Americana Los Cabos</strong>, <strong>Hard Rock Hotel Los Cabos</strong> o <strong>Playa Grande Resort</strong>) de regreso seguro hacia el Aeropuerto SJD.
-
                           </p>
-
                         </>
-
                       )}
 
-
-
                       {/* MAPA DINÁMICO GRATUITO HACIA EL ENTORNO DE SJD */}
-
                       <section className="bg-gray-50 border border-gray-200 rounded-[2rem] p-8 shadow-sm my-10">
-
                         <h3 className="text-2xl font-black font-sans text-gray-900 mb-6">
-
                           {lang === 'es' ? 'Ubicación y Entorno del Aeropuerto SJD' : 'SJD Airport Location & Surroundings'}
-
                         </h3>
-
                         <div className="w-full h-96 rounded-2xl overflow-hidden shadow-md border border-gray-200 bg-gray-200">
-
                           <iframe
-
                             width="100%"
-
                             height="100%"
-
                             style={{ border: 0 }}
-
                             loading="lazy"
-
                             allowFullScreen
-
                             referrerPolicy="no-referrer-when-downgrade"
-
                             src={`https://maps.google.com/maps?q=${encodeURIComponent('San Jose del Cabo International Airport SJD')}&t=&z=12&ie=UTF8&iwloc=&output=embed`}
-
                           ></iframe>
-
                         </div>
-
                       </section>
-
                     </div>
-
-
 
                     {/* WIDGET LATERAL DE RESERVA FIJO */}
-
                     <div className="lg:col-span-1">
-
                       <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28 font-sans">
-
                         <h3 className="text-2xl font-black text-gray-900 mb-2">
-
                           {lang === 'es' ? 'Reserva tu Ruta' : 'Book Your Transfer'}
-
                         </h3>
-
                         <p className="text-gray-500 mb-6 text-sm">
-
                           {lang === 'es' ? 'Asegura tu tarifa fija hoy mismo.' : 'Secure your flat rate pricing today.'}
-
                         </p>
-
                         <div className="space-y-4 mb-8">
-
                           <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
-
                             <CheckCircle size={20} className="text-green-500 shrink-0" />
-
                             {lang === 'es' ? 'Evita el Tanque de Tiburones' : 'Bypass airport sales corridors'}
-
                           </div>
-
                           <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
-
                             <CheckCircle size={20} className="text-green-500 shrink-0" />
-
                             {lang === 'es' ? 'Bebidas refrescantes incluidas' : 'Complimentary cold drinks'}
-
                           </div>
-
                           <div className="flex items-center gap-3 text-sm font-medium text-gray-700">
-
                             <CheckCircle size={20} className="text-green-500 shrink-0" />
-
                             {lang === 'es' ? 'Monitoreo de vuelos en vivo' : 'Live flight status tracking'}
-
                           </div>
-
                         </div>
-
                         <button
-
                           onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setPaso(2); navigate("/"); window.scrollTo(0, 0); }}
-
                           className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30 uppercase tracking-wider"
-
                         >
-
                           {lang === 'es' ? 'Iniciar Reserva' : 'Book Private Ride'} <ChevronRight size={20} />
-
                         </button>
-
                       </div>
-
                     </div>
-
                   </div>
 
-
-
                   {/* ========================================================= */}
-
                   {/* 🟢 SECCIÓN INYECTADA DE LAS TRES IMÁGENES REQUERIDAS 🟢 */}
-
                   {/* ========================================================= */}
-
                   <div className="bg-gray-50 border-t border-gray-200">
-
                     <div className="max-w-6xl mx-auto px-4 py-16">
 
-
-
                       {/* 1. SECCIÓN DE BENEFICIOS (Imagen image_bfe903.png) */}
-
                       <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-lg border border-gray-100 mb-16 font-sans">
-
                         <div className="space-y-8 md:space-y-10">
-
                           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
                             <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Clock size={32} className="text-blue-900" /></div>
-
                             <div>
-
                               <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
-
                               <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
-
                             </div>
-
                           </div>
-
                           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
                             <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Calendar size={32} className="text-blue-900" /></div>
-
                             <div>
-
                               <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Asistencia de Itinerario Personalizada' : 'Personalized Itinerary Assistance'}</h3>
-
                               <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Si necesitas ajustar un horario o hacer una cancelación, nuestro equipo local te asistirá de inmediato.' : 'We have personalized assistance because sometimes you need to move a schedule or make a cancellation, our team will assist you.'}</p>
-
                             </div>
-
                           </div>
-
                           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
                             <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Baby size={32} className="text-blue-900" /></div>
-
                             <div>
-
                               <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Sillas de Seguridad Disponibles' : 'Child Safety Seats Available'}</h3>
-
                               <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'La seguridad de tu familia es nuestra prioridad. Proveemos sillas para bebés y asientos elevados sin costo adicional al reservar.' : 'Family safety is our priority. We provide infant car seats and booster seats completely free of charge upon request.'}</p>
-
                             </div>
-
                           </div>
-
                           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
-
                             <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Banknote size={32} className="text-blue-900" /></div>
-
                             <div>
-
                               <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Tarifas Accesibles y Transparentes' : 'Affordable Rates on Airport Transfers'}</h3>
-
                               <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Ofrecemos tarifas fijas y claras. Reserva con confianza sin preocuparte de cargos ocultos de última hora.' : 'With our efficient logistics, we offer transparent flat-rate pricing without any unexpected fees or hidden charges.'}</p>
-
                             </div>
-
                           </div>
-
                         </div>
-
                       </div>
-
-
 
                       {/* 2. COMPONENTE FAQ ORIGINAL (Imagen image_bfe8e5.png) */}
-
                       <FAQSection lang={lang} />
 
-
-
                       {/* 3. MÉTODOS DE PAGO (Imagen image_bfe8dd.png) */}
-
                       <div className="w-full flex flex-col items-center pt-16 pb-8 px-4 text-center font-sans">
-
-                        <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" />
-
+                        <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago" className="h-10 md:h-16 object-contain opacity-80 hover:opacity-100 transition-opacity mb-6" alt="Private Cabo Airport Shuttle Service"/>
                         <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4">
-
                           {lang === 'es' ? 'Reserva en Línea Fácil y Opciones de Pago Flexibles' : 'Easy Online Booking and Flexible Payment Options'}
-
                         </h3>
-
                         <p className="text-base text-gray-500 leading-relaxed max-w-4xl mx-auto">
-
                           {lang === 'es'
-
                             ? 'Sitio web de reservación fácil en tres clics en Ballard Tours. Simplemente ingrese su destino o lugar de recogida, elija su tipo de transporte y haga clic en enviar. Al final del formulario, encontrará la sección de pago, donde puede seleccionar entre las siguientes opciones: pagar con tarjeta de crédito, optar por el pago a la llegada o usar PayPal para mayor comodidad.'
-
                             : 'Three-click easy reservation website. Simply enter your destination or pickup location, choose your shuttle type, and click submit. At the end of the form, you will find the payment section, where you can select from the following options: pay with a credit card, opt for payment on arrival, or use PayPal for convenience.'}
-
                         </p>
-
                       </div>
 
-
-
                     </div>
-
                   </div>
-
                 </div>
-
               } />
 
-
-
               {/* 🏨 GENERADOR DINÁMICO DE RUTAS SEO PARA LOS HOTELES TOP */}
-
               {landingPagesSEO.map((hotel) => (
-
                 <Route key={hotel.slug} path={`/destinations/${hotel.slug}`} element={
-
                   <div className="animate-fade-in pb-10 bg-white">
-
                     <Helmet>
-
                       <title>Private Transportation from SJD Airport to {hotel.nombre}</title>
-
                       <meta name="description" content={`Book your private luxury transportation from SJD Airport to ${hotel.nombre}. Flat rates, bilingual drivers, and 100% private VIP service.`} />
-
                       <script type="application/ld+json">
-
                         {`
-
                           {
-
                             "@context": "https://schema.org",
-
                             "@type": "Service",
-
                             "name": "Private Transportation to ${hotel.nombre}",
-
                             "provider": {
-
                               "@type": "LocalBusiness",
-
                               "name": "Ballard Tours"
-
                             },
-
                             "areaServed": "Los Cabos, Baja California Sur",
-
                             "description": "Premium private airport transfer from SJD to ${hotel.nombre}."
-
                           }
-
                         `}
-
                       </script>
-
                     </Helmet>
 
-
-
                     {/* HERO DE RUTA ESPECÍFICA (Con imagen en la tira azul y opacidad baja) */}
-
                     <div className="relative bg-gray-900 text-white py-28 md:py-36 px-4 overflow-hidden shadow-xl rounded-b-[3rem] mb-12">
-
                       <div className="absolute inset-0 z-0">
-
-                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={`Airport transfer to ${hotel.nombre}`} className="w-full h-full object-cover opacity-80" />
-
+                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={`Airport transfer to ${hotel.nombre}`} className="w-full h-full object-cover opacity-80" alt="Private Cabo Airport Shuttle Service"/>
                       </div>
-
                       <div className="absolute inset-0 bg-blue-950/40 z-10"></div>
 
-
-
                       <div className="relative max-w-4xl mx-auto text-center z-20">
-
                         <div className="flex justify-center items-center gap-4 mb-6 text-blue-300">
-
                           <PlaneLanding size={28} />
-
                           <span className="border-t-2 border-dashed border-blue-400 w-16"></span>
-
                           <MapPin size={28} />
-
                         </div>
-
                         <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">
-
                           {lang === 'es' ? `Transporte Privado de SJD a ${hotel.nombre}` : `SJD Airport Transportation to ${hotel.nombre}`}
-
                         </h1>
-
                         <p className="text-lg md:text-xl text-gray-300 font-medium">
-
                           {lang === 'es' ? 'Servicio Exclusivo en Luxury SUV y Sprinter' : 'Exclusive Private Transportation & Luxury SUV Service'}
-
                         </p>
-
                       </div>
-
                     </div>
-
-
 
                     <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-
-
                       {/* CONTENIDO PRINCIPAL DE LA RUTA ADAPTADO Y EXTENSO */}
-
                       <div className="lg:col-span-2 space-y-10 text-gray-700 text-lg leading-relaxed">
 
-
-
                         <section>
-
                           <h2 className="text-3xl font-black text-gray-900 mb-6 border-b pb-4">
-
                             {lang === 'es' ? `Transporte al Aeropuerto hacia ${hotel.nombre}` : `Cabo airport transportation to ${hotel.nombre}`}
-
                           </h2>
-
                           <p className="mb-4">
-
                             {lang === 'es'
-
                               ? `¿Planeando un viaje a Cabo San Lucas o San José del Cabo? Asegurar un traslado sin contratiempos desde el Aeropuerto Internacional SJD hasta tu hotel es crucial. Cuando consideras el transporte hacia ${hotel.nombre}, un resort de primer nivel, no puedes dejar las cosas al azar. Tu lujosa estadía y ${hotel.desc} esperan por ti.`
-
                               : `Planning a trip to Cabo San Lucas or San Jose del Cabo? Ensuring smooth airport transportation from Cabo Airport to your hotel is crucial. When considering Cabo Airport transportation to ${hotel.nombre}, a top resort, you shouldn't leave logistics to chance. Your luxurious stay and ${hotel.desc} awaits your arrival.`}
-
                           </p>
-
                         </section>
-
-
 
                         {/* CAJA DE BENEFICIOS KEY TAKEAWAYS */}
-
                         <section className="bg-blue-50 border-l-4 border-blue-900 p-8 rounded-r-3xl my-10 shadow-sm">
-
                           <h3 className="text-2xl font-black text-blue-900 mb-6">{lang === 'es' ? 'Puntos Clave' : 'Key Takeaways'}</h3>
-
                           <ul className="space-y-4 text-blue-900 text-base font-medium">
-
                             <li className="flex items-start gap-3">
-
                               <CheckCircle size={22} className="shrink-0 mt-0.5 text-blue-600" />
-
                               <span>{lang === 'es' ? `El servicio de transporte desde el Aeropuerto de Los Cabos a ${hotel.nombre} ofrece viajes 100% privados desde $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD.` : `Shuttle service from Los Cabos Airport to ${hotel.nombre} offers 100% private rides starting at $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD.`}</span>
-
                             </li>
-
                             <li className="flex items-start gap-3">
-
                               <CheckCircle size={22} className="shrink-0 mt-0.5 text-blue-600" />
-
                               <span>{lang === 'es' ? `Reservar con anticipación en Ballard Tours garantiza un servicio puntual, bebidas incluidas y traslados sin esperas.` : `Pre-booking at Ballard Tours guarantees your ${hotel.nombre} shuttle with timely service, complimentary beverages, and smooth transfers.`}</span>
-
                             </li>
-
                             <li className="flex items-start gap-3">
-
                               <CheckCircle size={22} className="shrink-0 mt-0.5 text-blue-600" />
-
                               <span>{lang === 'es' ? `Las opciones de transporte incluyen SUVs de Lujo Privadas y Sprinter Vans (Evita el transporte compartido).` : `Transportation options focus on Private Transfers, including Luxury SUVs and Sprinter Vans, catering to comfort and VIP needs.`}</span>
-
                             </li>
-
                             <li className="flex items-start gap-3">
-
                               <CheckCircle size={22} className="shrink-0 mt-0.5 text-blue-600" />
-
                               <span>{lang === 'es' ? `Consejos de reserva: pre-reserva para mayor seguridad, revisa las opiniones reales y verifica que sea un servicio con placas federales.` : `Booking tips: pre-book for assurance, check reviews, and verify Federal SCT service credentials for reliability.`}</span>
-
                             </li>
-
                           </ul>
-
                         </section>
-
-
 
                         <section>
-
                           <h2 className="text-3xl font-black text-gray-900 mb-6 border-b pb-4">
-
                             {lang === 'es' ? `Traslados Privados desde SJD a ${hotel.nombre} – Tarifas y Reserva` : `Exclusive Private Airport Transfers from SJD International to ${hotel.nombre}`}
-
                           </h2>
-
                           <ul className="list-disc pl-5 space-y-3 mb-8 text-gray-700">
-
                             <li>{lang === 'es' ? `Traslado exclusivo y directo desde el aeropuerto SJD a ${hotel.nombre} servicio puerta a puerta profesional.` : `Exclusive, non‑stop transfer directly from SJD airport to ${hotel.nombre} door to door professional service.`}</li>
-
                             <li>{lang === 'es' ? 'Salida flexible—tu horario, tu traslado.' : 'Flexible departure—your schedule, your transfer.'}</li>
-
                             <li>{lang === 'es' ? 'Vehículos modernos con choferes bilingües y bebidas de cortesía incluidas.' : 'Modern, comfortable vehicles with licensed bilingual drivers, beverages included.'}</li>
-
                             <li>{lang === 'es' ? 'Viaja en vehículos lujosos, espaciosos y desinfectados.' : 'Travel in spacious, sanitized, and air-conditioned luxury vehicles.'}</li>
-
                             <li>{lang === 'es' ? 'Precio garantizado—sin tarifas ocultas ni tarifas dinámicas.' : 'Guaranteed pricing—no hidden fees, toll charges, or surge rates.'}</li>
-
                           </ul>
 
-
-
                           {/* IMAGEN DE LA CAMIONETA DENTRO DEL TEXTO */}
-
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Luxury Cabo Transportation" className="w-full h-auto object-cover max-h-[400px]" />
-
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Luxury Cabo Transportation" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
                           </div>
-
-
 
                           <p className="mb-4">
-
                             {lang === 'es'
-
                               ? `Una de las mejores partes de organizar un traslado desde el Aeropuerto de Cabo a ${hotel.nombre} con anticipación es asegurar una tarifa accesible. Nuestro servicio de transporte privado ofrece una tarifa fija de $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD por un viaje sencillo. (Esta tarifa cubre un vehículo tipo SUV para hasta 6 pasajeros).`
-
                               : `One of the best parts of organizing a shuttle from Cabo Airport to ${hotel.nombre} in advance is locking in an affordable rate. Our private service offers a flat rate of $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD for a one-way trip. (This vehicle rate covers a Luxury SUV for up to 6 passengers).`}
-
                           </p>
-
                           <p className="mb-8">
-
                             {lang === 'es'
-
                               ? `Si reservas un viaje redondo, ahorras dinero en tu viaje de regreso y te aseguras de que tu traslado al aeropuerto al final de tu estadía esté preorganizado. ¡Reserva hoy en nuestra plataforma en línea o envíanos un WhatsApp!`
-
                               : `If you book a round-trip transfer, you save money on your return journey and ensure your ride back to the airport at the end of your stay is pre-arranged. Reserve today through our online platform or send us a WhatsApp!`}
-
                           </p>
-
                         </section>
-
-
 
                         {/* MAPA DINÁMICO CON API DIRECTIONS */}
-
                         <section className="bg-gray-50 border border-gray-200 rounded-[2rem] p-8 shadow-sm my-10">
-
                           <h3 className="text-2xl font-black text-gray-900 mb-6">
-
                             {lang === 'es' ? `Ruta de Viaje: Aeropuerto a ${hotel.nombre}` : `Travel Route: SJD Airport to ${hotel.nombre}`}
-
                           </h3>
-
                           <div className="w-full h-96 rounded-2xl overflow-hidden shadow-md border border-gray-200 bg-gray-200">
-
                             {/* Reemplaza TU_API_KEY_DE_GOOGLE por tu clave real de Google Maps Embed API para mostrar la ruta exacta. Si no tienes, usa el iframe básico de búsqueda de lugares. */}
-
                             {/* MAPA DINÁMICO GRATUITO (Sin API Key) */}
-
                             <iframe
-
                               width="100%"
-
                               height="100%"
-
                               style={{ border: 0 }}
-
                               loading="lazy"
-
                               allowFullScreen
-
                               referrerPolicy="no-referrer-when-downgrade"
-
                               src={`https://maps.google.com/maps?q=${encodeURIComponent(hotel.nombre + ' Los Cabos Baja California Sur')}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
-
                             ></iframe>
-
                           </div>
-
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-
                             <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100">
-
                               <Clock className="mx-auto text-blue-600 mb-2" size={24} />
-
                               <p className="font-bold text-gray-900 text-xs uppercase tracking-widest">{lang === 'es' ? 'Tiempo' : 'Time'}</p>
-
                               <p className="text-gray-600 text-sm">{hotel.tiempo}</p>
-
                             </div>
-
                             <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100">
-
                               <MapPin className="mx-auto text-blue-600 mb-2" size={24} />
-
                               <p className="font-bold text-gray-900 text-xs uppercase tracking-widest">{lang === 'es' ? 'Distancia' : 'Distance'}</p>
-
                               <p className="text-gray-600 text-sm">{hotel.dist}</p>
-
                             </div>
-
                             <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100">
-
                               <MapIcon className="mx-auto text-blue-600 mb-2" size={24} />
-
                               <p className="font-bold text-gray-900 text-xs uppercase tracking-widest">{lang === 'es' ? 'Zona' : 'Zone'}</p>
-
                               <p className="text-gray-600 text-sm">{hotel.zonaText}</p>
-
                             </div>
-
                             <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100">
-
                               <ShieldCheck className="mx-auto text-green-500 mb-2" size={24} />
-
                               <p className="font-bold text-gray-900 text-xs uppercase tracking-widest">{lang === 'es' ? 'Servicio' : 'Service'}</p>
-
                               <p className="text-gray-600 text-sm">{lang === 'es' ? '100% Privado' : '100% Private'}</p>
-
                             </div>
-
                           </div>
-
                         </section>
-
-
 
                         <section>
 
@@ -9614,7 +8419,7 @@ export default function App() {
 
                           <div className="my-8 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
 
-                            <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={hotel.nombre} className="w-full h-auto object-cover max-h-[400px]" />
+                            <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={hotel.nombre} className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service"/>
 
                           </div>
 
