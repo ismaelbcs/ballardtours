@@ -1899,104 +1899,57 @@ export default function App() {
   };
 
 
-
   const procesarConfirmacion = (e) => {
-
     if (e && e.preventDefault) e.preventDefault();
 
-
-
     // RASTREADORES PARA LA CONSOLA
-
     console.log("🚨 PASO 1: ¡El clic del botón sí funciona!");
-
     console.log("🚨 PASO 2: Los datos del cliente son:", datosCliente);
 
 
-
     // 🛡️ CORRECCIÓN: Detectamos de forma segura si los datos vienen como 'nombre' o 'clienteNombre'
-
     const nombreCliente = datosCliente.clienteNombre || datosCliente.nombre || 'Pasajero';
-
     const apellidosCliente = datosCliente.clienteApellidos || datosCliente.apellidos || '';
-
     const emailCliente = datosCliente.clienteEmail || datosCliente.email;
-
-
-
     // Si se aplicó un código de promoción, enviar WhatsApp silencioso al OPC/Chofer usando Meta API
 
     if (appliedPromo) {
 
 
-
       // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
-
       // Guardamos en Firebase que este usuario ya usó este código para bloquearlo en el futuro
-
       // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
-
       // 👇 PEGAR AQUÍ EL NUEVO REGISTRO 👇
-
       if (appliedPromo && appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentUser) {
-
         const emailUsuario = String(currentUser.email || currentUser.correo || "").trim().toLowerCase();
-
         const codigoLimpio = String(appliedPromo.codigo).trim().toUpperCase();
-
-
-
         const historialRef = collection(db, "cupones_usados");
 
         addDoc(historialRef, {
-
           correo: emailUsuario,
-
           codigo: codigoLimpio
-
         })
-
           .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
-
           .catch(err => console.error("❌ Error al registrar el código como usado:", err));
 
       }
-
       // 👆 HASTA AQUÍ 👆
-
     }
-
     setProcesandoPago(true);
-
-
-
     // 👇 AQUÍ ESTÁ LA MAGIA: Quitamos el "async" y reordenamos
 
     setTimeout(async () => {
-
       setProcesandoPago(false);
 
-
-
       const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
-
       setNumConfirmacionGlobal(nuevoNumConfirmacion);
-
       setCorreoAdminEnviado(false);
 
-
-
       // 1️⃣ ¡EL TRUCO! Avanzamos de paso INMEDIATAMENTE para no trabar al cliente
-
       avanzarPaso();
 
-
-
       try {
-
         console.log("Preparando datos de correos para Firebase...");
-
-
 
         // ==========================================
 
@@ -2005,125 +1958,70 @@ export default function App() {
         // ==========================================
 
         let indexCliente = 1;
-
         for (const item of carrito) {
-
           const docIdCliente = `${nuevoNumConfirmacion}_cliente_${indexCliente}`;
-
           await setDoc(doc(db, "correos", docIdCliente), {
-
             to: emailCliente || "reservationballard@gmail.com",
-
             message: {
-
               subject: `Confirmación de Reserva: ${item.titulo} - Ballard Tours`,
-
               html: generarHtmlCorreoCliente(item, datosCliente, nuevoNumConfirmacion)
-
             }
-
           });
-
           indexCliente++;
-
         }
-
-
-
         // ==========================================
 
         // CORREO 2: PARA LA EMPRESA
 
         // ==========================================
-
         let indexAdmin = 1;
-
         for (const item of carrito) {
-
           const docIdAdmin = `${nuevoNumConfirmacion}_admin_${indexAdmin}`;
-
           await setDoc(doc(db, "correos", docIdAdmin), {
-
             to: "reservationballard@gmail.com",
-
             message: {
-
               subject: `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`,
-
               html: generarHtmlCorreoAdmin(item, datosCliente, nuevoNumConfirmacion)
-
             }
-
           });
 
           indexAdmin++;
-
         }
 
-
-
         // ==========================================
-
         // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
-
         // ==========================================
 
         if (appliedPromo && (appliedPromo.CORREO || appliedPromo.correo)) {
-
           const correoChofer = appliedPromo.CORREO || appliedPromo.correo;
-
           const nombreChofer = appliedPromo.NOMBRE || appliedPromo.nombre || "Chofer";
-
           const comision = carritoTotal * 0.10;
-
           const serviciosResumen = carrito.map(item => item.titulo).join(', ');
-
           const fechaServicio = carrito[0]?.config?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
 
-
-
           const docIdChofer = `${nuevoNumConfirmacion}_chofer_${appliedPromo.codigo}`;
-
-
-
           await setDoc(doc(db, "correos", docIdChofer), {
 
             to: correoChofer,
-
             message: {
-
               subject: `¡Nueva Venta! Comisión Generada - Ballard Tours`,
-
               html: `
-
               <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
-
                 <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-
-                  
 
                   <div style="background-color: #15803d; padding: 25px; text-align: center; color: white;">
 
                     <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombreChofer}! 🎉</h2>
-
                     <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Has generado una nueva comisión de venta</p>
-
                   </div>
 
 
-
                   <div style="padding: 30px;">
-
                     <p style="font-size: 16px; color: #334155;">Un cliente acaba de realizar una reserva utilizando tu código de descuento (<strong>${appliedPromo.codigo || 'Tu Código'}</strong>).</p>
 
-                    
-
                     <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
-
                       <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
-
                       <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
-
                       <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s) reservados:</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
 
                     </div>
@@ -2131,73 +2029,46 @@ export default function App() {
 
 
                     <div style="background-color: #dcfce3; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bbf7d0;">
-
                       <p style="margin: 0; font-size: 14px; color: #166534; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Generada (10%)</p>
-
                       <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #15803d;">$${comision.toFixed(2)} USD</p>
-
                     </div>
 
 
 
                     <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
-
                       <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
-
                         ⚠️ La comisión se pagará el día del servicio.
-
                       </p>
-
                     </div>
 
 
 
                   </div>
-
                 </div>
-
               </div>
-
             `
-
             }
-
           });
 
         }
 
-
-
         console.log("✅ Correos registrados en Firebase exitosamente.");
 
-
-
         // 👇 REGISTRO DE CUPONES USADOS 👇
-
         if (appliedPromo && appliedPromo.codigo && appliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentUser) {
 
           const emailUsuario = String(currentUser.email || currentUser.correo || "").trim().toLowerCase();
-
           const codigoLimpio = String(appliedPromo.codigo).trim().toUpperCase();
 
-
-
           // ID: correo_codigo (ej. frasfit@gmail.com_ISMAEL)
-
           const docIdCupon = `${emailUsuario}_${codigoLimpio}`;
-
-
-
           setDoc(doc(db, "cupones_usados", docIdCupon), {
 
             correo: emailUsuario,
-
             codigo: codigoLimpio
-
           })
 
             .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
-
             .catch(err => console.error("❌ Error al registrar el código como usado:", err));
 
         }
@@ -2213,113 +2084,73 @@ export default function App() {
         if (appliedPromo && appliedPromo.correo_promotor) {
 
           const correoPromotor = appliedPromo.correo_promotor;
-
           const nombrePromotor = appliedPromo.nombre_promotor || "Promotor";
-
           const nombreVendedor = appliedPromo.NOMBRE || appliedPromo.nombre || "Un vendedor de tu red";
-
           const comisionPromotor = carritoTotal * 0.05; // 5% de comisión para el promotor
-
           const serviciosResumen = carrito.map(item => item.titulo).join(', ');
-
           const fechaServicio = carrito[0]?.config?.fechaLlegada || carrito[0]?.config?.fechaTour || carrito[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
-
-
 
           const docIdPromotor = `${nuevoNumConfirmacion}_promotor_${appliedPromo.codigo}`;
 
 
 
           await setDoc(doc(db, "correos", docIdPromotor), {
-
             to: correoPromotor,
-
             message: {
-
               subject: `¡Ingreso Pasivo! Tu red generó una venta 📈 - Ballard Tours`,
-
               html: `
-
               <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
-
                 <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
 
                   
 
                   <div style="background-color: #0369a1; padding: 25px; text-align: center; color: white;">
-
                     <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombrePromotor}! 📈</h2>
-
                     <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Tu red de vendedores acaba de generar ventas</p>
-
                   </div>
 
 
 
                   <div style="padding: 30px;">
-
                     <p style="font-size: 16px; color: #334155;">El vendedor <strong>${nombreVendedor}</strong> (Código: ${appliedPromo.codigo || ''}) acaba de cerrar una venta en la web.</p>
 
                     
 
                     <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
-
                       <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
-
                       <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
-
                       <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s):</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
-
                     </div>
 
 
 
                     <div style="background-color: #e0f2fe; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bae6fd;">
-
                       <p style="margin: 0; font-size: 14px; color: #0369a1; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Pasiva (5%)</p>
-
                       <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #0284c7;">$${comisionPromotor.toFixed(2)} USD</p>
-
                     </div>
 
 
 
                     <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
-
                       <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
-
                         ⚠️ La comisión se pagará el día del servicio.
-
                       </p>
-
                     </div>
 
-
-
                   </div>
-
                 </div>
-
               </div>
-
             `
-
             }
-
           });
-
         }
 
 
 
       } catch (error) {
-
         console.error("❌ Error al registrar los correos en Firebase:", error);
-
       }
-
     }, 500);
-
   };
 
 
@@ -2327,27 +2158,17 @@ export default function App() {
   const regresarPaso = () => {
 
     if (paso === 2 && servicioSeleccionado === 'tours' && reserva.tourId) {
-
       setReserva(prev => ({ ...prev, tourId: '' }));
-
     } else if (paso === 2 && reserva.tipoEspecial) {
-
       setReserva(prev => ({ ...prev, tipoEspecial: null }));
-
     } else if (paso === 3) {
-
       setPaso(1);
-
       setVerCarrito(true);
-
       return;
-
     }
 
     setPaso(p => p - 1);
-
     window.scrollTo(0, 0);
-
   };
 
 
@@ -2355,28 +2176,18 @@ export default function App() {
   const procesarCodigo = async (codigo, userLogueado = currentUser) => {
 
     if (!codigo) {
-
       setPromoError('Ingresa un código por favor.');
-
       return;
-
     }
 
 
 
     if (!userLogueado) {
-
       setPendingPromoCode(codigo);
-
       setShowPromoModal(false);
-
       setShowAuthModal(true);
-
       return;
-
     }
-
-
 
     setPromoError(''); // Limpiamos errores previos
 
@@ -2385,17 +2196,10 @@ export default function App() {
     try {
 
       // 👇 REGLA MEJORADA: Limpiamos espacios y mayúsculas para evitar errores
-
       const emailUsuario = String(userLogueado.email || userLogueado.correo || "").trim().toLowerCase();
-
       const codigoLimpio = String(codigo).trim().toUpperCase();
-
-
-
       const historialRef = collection(db, "cupones_usados");
-
       const qHistorial = query(historialRef, where("correo", "==", emailUsuario), where("codigo", "==", codigoLimpio));
-
       const historialSnap = await getDocs(qHistorial);
 
 
@@ -2403,390 +2207,214 @@ export default function App() {
       if (!historialSnap.empty) {
 
         setPromoError('Ya has utilizado este código de descuento anteriormente.');
-
         setShowPromoModal(true);
-
         return;
-
       }
 
       // 👆 FIN DE LA NUEVA REGLA
 
-
-
       // 1. Apuntamos a la colección 'codigos_descuento'
-
       const codigosRef = collection(db, "codigos_descuento");
 
-
-
       // 2. Creamos la consulta buscando donde 'codigo' sea exactamente igual al escrito
-
       const q = query(codigosRef, where("codigo", "==", codigoLimpio));
-
       const querySnapshot = await getDocs(q);
 
-
-
       // 3. Si la búsqueda regresó vacía, es que el código no existe
-
       if (querySnapshot.empty) {
-
         setShowPromoModal(true);
-
         setPromoError('Código inválido o no existe.');
-
         return;
-
       }
 
-
-
       // 4. Si lo encontró, extraemos los datos del primer resultado
-
       let dataResult = null;
-
       querySnapshot.forEach((doc) => {
-
         dataResult = doc.data();
-
       });
 
 
 
       console.log("¡Código encontrado con éxito en Firebase!", dataResult);
 
-
-
       // 5. Aplicamos el descuento y cerramos la ventana
-
       setAppliedPromo(dataResult);
-
       setShowPromoModal(false);
-
       // 👇 NOTIFICACIÓN ESTILO EMIL KOWALSKI (SONNER) 👇
 
       toast.success(`¡Código ${codigoLimpio} Activado!`, {
-
         description: 'El descuento se ha aplicado automáticamente para tu próxima compra.',
-
         duration: 5000,
-
       });
 
-
-
     } catch (err) {
-
       console.error("Error al conectar con Firebase:", err);
-
       setPromoError('Error de conexión con Firebase. Intenta de nuevo.');
-
       setShowPromoModal(true);
-
     }
-
   };
 
-
-
   const handleLogout = () => {
-
     setCurrentUser(null);
-
     setAppliedPromo(null);
-
   };
 
 
 
   const calculoHorasCena = useMemo(() => {
-
     if (!cenaHoraReserva || !cenaHoraRegreso) return { error: false, diffMin: 0 };
-
     const [sH, sM] = cenaHoraReserva.split(':').map(Number);
-
     const [eH, eM] = cenaHoraRegreso.split(':').map(Number);
-
     let startMin = sH * 60 + sM;
-
     let endMin = eH * 60 + eM;
-
     if (endMin < startMin) endMin += 24 * 60; // Maneja si cruza la medianoche
-
     const diff = endMin - startMin;
-
     return { error: diff > 180, diffMin: diff };
-
   }, [cenaHoraReserva, cenaHoraRegreso]);
 
 
 
   const calculoHorasGolf = useMemo(() => {
-
     if (!golfHoraReserva || !golfHoraRegreso) return { error: false, diffMin: 0 };
-
     const [sH, sM] = golfHoraReserva.split(':').map(Number);
-
     const [eH, eM] = golfHoraRegreso.split(':').map(Number);
-
     let startMin = sH * 60 + sM;
-
     let endMin = eH * 60 + eM;
-
     if (endMin < startMin) endMin += 24 * 60;
-
     const diff = endMin - startMin;
-
     return { error: diff > 180, diffMin: diff };
-
   }, [golfHoraReserva, golfHoraRegreso]);
 
 
-
   const calculoHorasNightlife = useMemo(() => {
-
     if (!nightlifeHoraReserva || !nightlifeHoraRegreso) return { error: false, diffMin: 0 };
-
     const [sH, sM] = nightlifeHoraReserva.split(':').map(Number);
-
     const [eH, eM] = nightlifeHoraRegreso.split(':').map(Number);
-
     let startMin = sH * 60 + sM;
-
     let endMin = eH * 60 + eM;
-
     if (endMin < startMin) endMin += 24 * 60;
-
     const diff = endMin - startMin;
-
     return { error: diff > 240, diffMin: diff }; // 4 horas máximo
-
   }, [nightlifeHoraReserva, nightlifeHoraRegreso]);
 
 
 
   const seleccionarTourDesdeInicio = (tourId) => {
-
     const tour = tours.find(t => t.id === tourId);
 
-
-
     // Si el tour tiene un enlace SEO (slug), lo mandamos a su landing page
-
     if (tour && tour.slug) {
-
       navigate(`/tours/${tour.slug}`);
-
       window.scrollTo(0, 0);
-
     } else {
 
       // Sistema de respaldo: si no tiene slug, abre el formulario normal
-
       setServicioSeleccionado('tours');
-
       setReserva(prev => ({ ...prev, tourId, pasajeros: Math.max(prev.pasajeros, tour.minPax), shoppingStop: false }));
-
       setImagenTourDestacada(tour?.imagenUrl);
-
       setPaso(2);
-
       window.scrollTo(0, 0);
-
     }
-
   };
 
 
 
   const handleAuthSubmit = async (e) => {
-
     e.preventDefault();
-
     setAuthError('');
 
-
-
     if (authMode === 'login') {
-
       // --- INICIO DE SESIÓN CON FIREBASE ---
-
       const usuariosRef = collection(db, "Usuarios");
-
       const q = query(usuariosRef,
-
         where("correo", "==", authForm.email),
-
         where("contrasena", "==", authForm.password)
-
       );
-
       const querySnapshot = await getDocs(q);
-
-
 
       let user = null;
 
-
-
       if (!querySnapshot.empty) {
-
         querySnapshot.forEach((doc) => {
-
           user = doc.data();
-
         });
-
       } else {
-
         setAuthError('Usuario no encontrado o correo incorrecto');
-
         return;
-
       }
 
-
-
       if (user) {
-
         // Guardamos los datos del usuario incluyendo si tiene descuento de agencia
-
         const userData = {
-
           email: user.correo,
-
           nombre: user.nombre,
-
           role: user.descuento_agencia ? 'agency' : 'client',
-
           descuento: user.descuento_agencia || 0
 
         };
 
 
-
         setCurrentUser(userData);
-
         setShowAuthModal(false);
-
         setDatosCliente(prev => ({ ...prev, clienteNombre: user.nombre.split(' ')[0], clienteEmail: user.correo }));
-
         setAuthForm({ nombre: '', email: '', password: '' });
 
-
-
         // Si es una agencia con descuento, aplicamos el 20% automáticamente a toda la página
-
         if (user.descuento_agencia) {
-
           setAppliedPromo({
-
             codigo: "DESCUENTO_AGENCIA",
-
             porcentaje_descuento: user.descuento_agencia
-
           });
 
         } else if (pendingPromoCode) {
-
           procesarCodigo(pendingPromoCode, userData);
-
           setPendingPromoCode('');
-
         }
-
       }
-
     } else {
-
       // --- REGISTRO CON FIREBASE ---
-
       const usuariosRef = collection(db, "Usuarios");
-
       const q = query(usuariosRef, where("correo", "==", authForm.email));
-
       const querySnapshot = await getDocs(q);
 
-
-
       if (!querySnapshot.empty) {
-
         setAuthError('Este correo ya está registrado');
-
         return;
-
       }
-
-
 
       // Guardamos en la base de datos con ID personalizado (ej. ismaelalvarez28052026)
-
       const fechaActual = new Date();
-
       const dia = String(fechaActual.getDate()).padStart(2, '0');
-
       const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-
       const anio = fechaActual.getFullYear();
-
       const nombreLimpio = authForm.nombre.replace(/\s+/g, '').toLowerCase(); // Quita espacios y pone minúsculas
-
       const docIdUsuario = `${nombreLimpio}${dia}${mes}${anio}`;
 
-
-
       await setDoc(doc(db, "Usuarios", docIdUsuario), {
-
         nombre: authForm.nombre,
-
         correo: authForm.email,
-
         contrasena: authForm.password
-
       });
 
-
-
       // Iniciar sesión automáticamente después de registrarse
-
       const newUser = { email: authForm.email, nombre: authForm.nombre, role: 'client' };
-
       setCurrentUser(newUser);
-
       setShowAuthModal(false);
-
       setDatosCliente(prev => ({ ...prev, clienteNombre: authForm.nombre.split(' ')[0], clienteEmail: authForm.email }));
-
       setAuthForm({ nombre: '', email: '', password: '' });
 
-
-
       if (pendingPromoCode) {
-
         procesarCodigo(pendingPromoCode, newUser);
-
         setPendingPromoCode('');
-
       }
-
     }
-
   };
-
   // 💬 WIDGET: WhatsApp Inteligente CRO
-
   const WhatsAppButton = () => {
-
     // Reemplaza este número con el tuyo. IMPORTANTE: Debe llevar el código de país, ej. 52 para México, sin el símbolo +
-
     const numeroWhatsApp = "526121943286";
-
     const mensajePredefinido = "Hi Ballard Tours! I'm interested in booking private transportation/tours in Los Cabos. Can you help me?";
-
     const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajePredefinido)}`;
-
-
 
     return (
 
@@ -8848,7 +8476,7 @@ export default function App() {
 
                   <Helmet>
 
-                    <title>Los Cabos Private Transportation & Best Tours | Ballard Tours</title>
+                    <title>Cabo Airport Transportation | Private Transfers Los Cabos | Ballard Tours</title>
 
                     <meta name="description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours. VIP service to Nobu, Hard Rock & Cabo resorts." />
 
@@ -8868,7 +8496,7 @@ export default function App() {
 
                     {/* Open Graph (Facebook/WhatsApp) */}
 
-                    <meta property="og:title" content="Los Cabos Private Transportation & Best Tours | Ballard Tours" />
+                    <meta property="og:title" content="Cabo Airport Transportation | Private Transfers Los Cabos | Ballard Tours" />
 
                     <meta property="og:description" content="Book premium Los Cabos private transportation, luxury airport transfers, and the best Cabo San Lucas tours. VIP service to Nobu, Hard Rock & Cabo resorts." />
 
