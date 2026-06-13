@@ -6536,21 +6536,18 @@ export default function App() {
                 </div>
               } /> {/* AQUÍ TERMINA TU ÚLTIMA RUTA VÁLIDA */}
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-
               <Route path="/about-us" element={<AboutUs lang={lang} />} />
-
               <Route path="/politicas-de-cancelacion" element={<PoliticasCancelacion />} />
-
               <Route path="/contact" element={<Contact />} />
-              {/* 👇 AGREGAR ESTA LÍNEA 👇 */}
-              <Route path="/flotas" element={<Fleet lang={lang} />} />
 
+              {/* 👇 AGREGAR ESTA LÍNEA 👇 */}
+
+              <Route path="/flotas" element={<Fleet lang={lang} />} />
               <Route path="/tours" element={<ToursPage lang={lang} />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
               {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
               <Route path="/destinations" element={<DestinationsHub hoteles={hotelesSEO} />} />
-
               {/* RUTA 404 CATCH-ALL */}
               <Route path="*" element={
                 <>
@@ -6568,7 +6565,7 @@ export default function App() {
                   </div>
                 </>
               } />
-              </Routes>
+            </Routes> 
           </main>
 
           {/* 👇 AQUÍ VA TU NUEVO FOOTER GLOBAL 👇 */}
