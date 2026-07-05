@@ -7709,7 +7709,7 @@ export default function App() {
                     {/* HERO DE RUTA ESPECÍFICA (Con imagen en la tira azul y opacidad baja) */}
                     <div className="relative bg-gray-900 text-white py-28 md:py-36 px-4 overflow-hidden shadow-xl rounded-b-[3rem] mb-12">
                       <div className="absolute inset-0 z-0">
-                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} alt={`Airport transfer to ${hotel.nombre}`} className="w-full h-full object-cover opacity-80" alt="Private Cabo Airport Shuttle Service" />
+                        <img src={`${process.env.PUBLIC_URL}/${hotel.image}`} className="w-full h-full object-cover opacity-80" alt={`Airport transfer to ${hotel.nombre}`} />
                       </div>
                       <div className="absolute inset-0 bg-blue-950/40 z-10"></div>
 
@@ -7750,7 +7750,7 @@ export default function App() {
                           <ul className="space-y-4 text-blue-900 text-base font-medium">
                             <li className="flex items-start gap-3">
                               <CheckCircle size={22} className="shrink-0 mt-0.5 text-blue-600" />
-                              <span>{lang === 'es' ? `El servicio de transporte desde el Aeropuerto de Los Cabos a ${hotel.nombre} ofrece viajes 100% privados desde $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD.` : `Shuttle service from Los Cabos Airport to ${hotel.nombre} offers 100% private rides starting at $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD.`}</span>
+                              <span>{lang === 'es' ? `El servicio de transporte desde el Aeropuerto de Los Cabos a ${hotel.nombre} ofrece viajes 100% privados desde $${(zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80} USD.` : `Shuttle service from Los Cabos Airport to ${hotel.nombre} offers 100% private rides starting at $${(zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80} USD.`}</span>
                             </li>
                             <li className="flex items-start gap-3">
                               <CheckCircle size={22} className="shrink-0 mt-0.5 text-blue-600" />
@@ -7781,13 +7781,13 @@ export default function App() {
 
                           {/* IMAGEN DE LA CAMIONETA DENTRO DEL TEXTO */}
                           <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
-                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} alt="Luxury Cabo Transportation" className="w-full h-auto object-cover max-h-[400px]" alt="Private Cabo Airport Shuttle Service" />
+                            <img src={`${process.env.PUBLIC_URL}/private-transportation-sjd-airport-los-cabos-luxury.webp`} className="w-full h-auto object-cover max-h-[400px]" alt="Luxury Cabo Transportation" />
                           </div>
 
                           <p className="mb-4">
                             {lang === 'es'
-                              ? `Una de las mejores partes de organizar un traslado desde el Aeropuerto de Cabo a ${hotel.nombre} con anticipación es asegurar una tarifa accesible. Nuestro servicio de transporte privado ofrece una tarifa fija de $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD por un viaje sencillo. (Esta tarifa cubre un vehículo tipo SUV para hasta 6 pasajeros).`
-                              : `One of the best parts of organizing a shuttle from Cabo Airport to ${hotel.nombre} in advance is locking in an affordable rate. Our private service offers a flat rate of $${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80} USD for a one-way trip. (This vehicle rate covers a Luxury SUV for up to 6 passengers).`}
+                              ? `Una de las mejores partes de organizar un traslado desde el Aeropuerto de Cabo a ${hotel.nombre} con anticipación es asegurar una tarifa accesible. Nuestro servicio de transporte privado ofrece una tarifa fija de $${(zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80} USD por un viaje sencillo. (Esta tarifa cubre un vehículo tipo SUV para hasta 6 pasajeros).`
+                              : `One of the best parts of organizing a shuttle from Cabo Airport to ${hotel.nombre} in advance is locking in an affordable rate. Our private service offers a flat rate of $${(zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80} USD for a one-way trip. (This vehicle rate covers a Luxury SUV for up to 6 passengers).`}
                           </p>
                           <p className="mb-8">
                             {lang === 'es'
@@ -7804,16 +7804,22 @@ export default function App() {
                           <div className="w-full h-96 rounded-2xl overflow-hidden shadow-md border border-gray-200 bg-gray-200">
                             {/* Reemplaza TU_API_KEY_DE_GOOGLE por tu clave real de Google Maps Embed API para mostrar la ruta exacta. Si no tienes, usa el iframe básico de búsqueda de lugares. */}
                             {/* MAPA DINÁMICO GRATUITO (Sin API Key) */}
-                            <iframe
-                              title="Mapa de ubicación"
-                              width="100%"
-                              height="100%"
-                              style={{ border: 0 }}
-                              loading="lazy"
-                              allowFullScreen
-                              referrerPolicy="no-referrer-when-downgrade"
-                              src={`https://maps.google.com/maps?q=${encodeURIComponent(hotel.nombre + ' Los Cabos Baja California Sur')}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
-                            ></iframe>
+                            {navigator.userAgent !== 'ReactSnap' ? (
+                              <iframe
+                                title="Mapa de ubicación"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                loading="lazy"
+                                allowFullScreen
+                                referrerPolicy="no-referrer-when-downgrade"
+                                src={`https://maps.google.com/maps?q=${encodeURIComponent(hotel.nombre + ' Los Cabos Baja California Sur')}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                              ></iframe>
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-200">
+                                Mapa Interactivo
+                              </div>
+                            )}
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                             <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100">
@@ -7955,55 +7961,57 @@ export default function App() {
 
                       {/* WIDGET DE RESERVA LATERAL (FIJO) */}
                       <div className="lg:col-span-1 order-first lg:order-last mb-8 lg:mb-0">
-                        <div className="bg-white border-2 border-blue-900 p-6 md:p-8 rounded-[2rem] shadow-2xl sticky top-28">
+                        <div className="bg-white border border-blue-100 p-6 rounded-[2rem] shadow-xl sticky top-28">
                           <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
                             <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
-                              <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
+                              <MapPin className="text-blue-600" size={20} /> {lang === 'es' ? 'Detalles de Reserva' : 'Booking Details'}
                             </h3>
-                            <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-5 object-contain" />
+                            <div className="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                              <ShieldCheck size={14} className="text-orange-400" /> Secure Payment
+                            </div>
                           </div>
 
-                          <div className="space-y-5 mb-6">
+                          <div className="space-y-6 mb-8">
                             {/* HOTEL PREFILLED */}
                             <div>
-                              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                                {lang === 'es' ? 'Tu Hotel' : 'Select Your Hotel'}
+                              <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">
+                                {lang === 'es' ? 'Selecciona tu Hotel' : 'Select Your Hotel'}
                               </label>
                               <input
                                 type="text"
                                 readOnly
                                 value={hotel.nombre}
-                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none text-gray-800 font-bold cursor-not-allowed"
+                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none text-gray-800 font-medium text-sm cursor-not-allowed"
                               />
                             </div>
 
                             {/* VEHICLE OPTIONS */}
                             <div>
-                              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                              <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">
                                 {lang === 'es' ? 'Tipo de Vehículo' : 'Vehicle Type'}
                               </label>
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'suburban' }))} className={`cursor-pointer border-2 rounded-xl p-3 transition-all ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'border-blue-900 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300'}`}>
-                                  <div className="flex justify-between items-center mb-1">
-                                    <span className="font-black text-gray-900 text-[13px]">Luxury SUV</span>
-                                    <Car className={reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'text-blue-900' : 'text-gray-400'} size={18} />
+                                <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'suburban' }))} className={`cursor-pointer border rounded-xl p-4 transition-all ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'border-gray-200 bg-white shadow-sm ring-1 ring-blue-100' : 'border-gray-100 hover:border-gray-200'}`}>
+                                  <div className="flex justify-between items-center mb-2">
+                                    <span className="font-black text-gray-900 text-sm">Luxury SUV</span>
+                                    <Car className="text-gray-400" size={16} />
                                   </div>
-                                  <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Elegancia y confort para familias o grupos pequeños.' : 'Elegance and comfort for families or small groups.'}</p>
-                                  <div className="flex justify-between items-center mt-1">
-                                    <p className="text-[10px] font-bold text-gray-600 flex items-center gap-1"><Users size={10} /> Máx 6 pax</p>
-                                    <span className="font-black text-gray-900 text-sm">${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80}</span>
+                                  <p className="text-[10px] text-gray-500 mb-4 leading-tight h-6">{lang === 'es' ? 'Elegancia y confort para familias o grupos pequeños.' : 'Elegance and comfort for families or small groups.'}</p>
+                                  <div className="flex justify-between items-center mt-auto">
+                                    <p className="text-[10px] font-bold text-gray-400 flex items-center gap-1"><Users size={12} /> MAX 6 PAX</p>
+                                    <span className="font-black text-gray-900 text-sm">${(zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80}</span>
                                   </div>
                                 </div>
                                 
-                                <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'sprinter' }))} className={`cursor-pointer border-2 rounded-xl p-3 transition-all ${reserva.vehiculo === 'sprinter' ? 'border-blue-900 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300'}`}>
-                                  <div className="flex justify-between items-center mb-1">
-                                    <span className="font-black text-gray-900 text-[13px]">Van</span>
-                                    <Car className={reserva.vehiculo === 'sprinter' ? 'text-blue-900' : 'text-gray-400'} size={18} />
+                                <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'sprinter' }))} className={`cursor-pointer border rounded-xl p-4 transition-all ${reserva.vehiculo === 'sprinter' ? 'border-gray-200 bg-white shadow-sm ring-1 ring-blue-100' : 'border-gray-100 hover:border-gray-200'}`}>
+                                  <div className="flex justify-between items-center mb-2">
+                                    <span className="font-black text-gray-900 text-sm">Van</span>
+                                    <Car className="text-gray-400" size={16} />
                                   </div>
-                                  <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Amplitud y lujo para grupos grandes.' : 'Spaciousness and luxury for large groups.'}</p>
-                                  <div className="flex justify-between items-center mt-1">
-                                    <p className="text-[10px] font-bold text-gray-600 flex items-center gap-1"><Users size={10} /> Máx 10 pax</p>
-                                    <span className="font-black text-gray-900 text-sm">${zonas.find(z => z.id === hotel.zona)?.tarifaSprinter || 110}</span>
+                                  <p className="text-[10px] text-gray-500 mb-4 leading-tight h-6">{lang === 'es' ? 'Amplitud y lujo para grupos grandes.' : 'Spaciousness and luxury for large groups.'}</p>
+                                  <div className="flex justify-between items-center mt-auto">
+                                    <p className="text-[10px] font-bold text-gray-400 flex items-center gap-1"><Users size={12} /> MAX 10 PAX</p>
+                                    <span className="font-black text-gray-900 text-sm">${(zonas.find(z => z.id === hotel.zona) || {}).tarifaSprinter || 110}</span>
                                   </div>
                                 </div>
                               </div>
@@ -8011,42 +8019,42 @@ export default function App() {
 
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{lang === 'es' ? 'Fecha de Llegada' : 'Arrival Date'}</label>
-                                <input type="date" name="fechaLlegada" value={reserva.fechaLlegada} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium text-sm" />
+                                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">{lang === 'es' ? 'Fecha de Llegada' : 'Arrival Date'}</label>
+                                <input type="date" name="fechaLlegada" value={reserva.fechaLlegada} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none text-gray-800 font-medium text-sm" />
                               </div>
                               <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{lang === 'es' ? 'Pasajeros' : 'Passengers'}</label>
+                                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">{lang === 'es' ? 'Pasajeros' : 'Passengers'}</label>
                                 <div className="relative">
-                                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                     <Users className="text-gray-400" size={16} />
                                   </div>
-                                  <input type="number" min="1" max="10" name="pasajeros" value={reserva.pasajeros} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium text-sm" />
+                                  <input type="number" min="1" max="10" name="pasajeros" value={reserva.pasajeros} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-4 py-3 outline-none text-gray-800 font-medium text-sm" />
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="border-t border-gray-100 pt-5 mt-2">
-                            <label className="block text-[10px] font-bold text-blue-900 uppercase tracking-wider mb-3 text-center">
+                          <div className="pt-2">
+                            <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4 text-center">
                               {lang === 'es' ? 'Elige un servicio para continuar' : 'Choose a service to continue'}
                             </label>
 
-                            <div className="grid grid-cols-2 gap-2">
-                              <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl p-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
-                                <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneLanding size={20} strokeWidth={1.5} /></div>
-                                <span className="font-bold text-gray-900 text-[11px] text-center leading-tight">{lang === 'es' ? 'Aeropuerto → Hotel' : 'Airport → Hotel'}</span>
+                            <div className="grid grid-cols-2 gap-3">
+                              <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl py-4 px-2 hover:border-gray-300 transition-all group">
+                                <div className="text-gray-500 mb-2 group-hover:text-blue-600 transition-colors"><PlaneLanding size={22} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-gray-900 text-xs text-center">{lang === 'es' ? 'Aeropuerto → Hotel' : 'Airport → Hotel'}</span>
                               </button>
-                              <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl p-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
-                                <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneTakeoff size={20} strokeWidth={1.5} /></div>
-                                <span className="font-bold text-gray-900 text-[11px] text-center leading-tight">{lang === 'es' ? 'Hotel → Aeropuerto' : 'Hotel → Airport'}</span>
+                              <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl py-4 px-2 hover:border-gray-300 transition-all group">
+                                <div className="text-gray-500 mb-2 group-hover:text-blue-600 transition-colors"><PlaneTakeoff size={22} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-gray-900 text-xs text-center">{lang === 'es' ? 'Hotel → Aeropuerto' : 'Hotel → Airport'}</span>
                               </button>
-                              <button onClick={() => { setServicioSeleccionado('redondo'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl p-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
-                                <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><RefreshCw size={20} strokeWidth={1.5} /></div>
-                                <span className="font-bold text-gray-900 text-[11px] text-center leading-tight">{lang === 'es' ? 'Viaje Redondo' : 'Round Trip'}</span>
+                              <button onClick={() => { setServicioSeleccionado('redondo'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl py-4 px-2 hover:border-gray-300 transition-all group">
+                                <div className="text-gray-500 mb-2 group-hover:text-blue-600 transition-colors"><RefreshCw size={22} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-gray-900 text-xs text-center">{lang === 'es' ? 'Viaje Redondo' : 'Round Trip'}</span>
                               </button>
-                              <button onClick={() => { setServicioSeleccionado('tours'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-gray-900 border border-gray-900 rounded-xl p-3 hover:bg-gray-800 transition-all group shadow-sm">
-                                <div className="text-white mb-1 group-hover:scale-110 transition-transform"><Compass size={20} strokeWidth={1.5} /></div>
-                                <span className="font-bold text-white text-[11px] text-center leading-tight">{lang === 'es' ? 'Tours y Especiales' : 'Tours & Specials'}</span>
+                              <button onClick={() => { setServicioSeleccionado('tours'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-[#0f172a] border border-[#0f172a] rounded-xl py-4 px-2 hover:bg-black transition-all group">
+                                <div className="text-white mb-2"><Compass size={22} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-white text-xs text-center">{lang === 'es' ? 'Tours y Especiales' : 'Tours & Specials'}</span>
                               </button>
                             </div>
                           </div>
@@ -11044,57 +11052,37 @@ export default function App() {
 
 
           {/* SECCIÓN DE FACEBOOK EN EL FOOTER */}
-
           <div className="bg-gray-100 py-10 border-t border-gray-200">
-
             <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
-
               <h3 className="text-xl font-bold text-blue-900 mb-6 uppercase tracking-wider">
-
                 Síguenos en Facebook
-
               </h3>
 
-
-
               {/* Contenedor del Plugin */}
-
               <div className="bg-white p-2 rounded-lg shadow-md">
-
-                <div
-
-                  className="fb-page"
-
-                  data-href="https://www.facebook.com/ballardtourservices" // 👈 REEMPLAZA ESTO CON TU URL
-
-                  data-tabs="timeline"
-
-                  data-width="340"
-
-                  data-height="500"
-
-                  data-small-header="false"
-
-                  data-adapt-container-width="true"
-
-                  data-hide-cover="false"
-
-                  data-show-facepile="true"
-
-                >
-
-                  <blockquote cite="https://www.facebook.com/ballardtourservices" className="fb-xfbml-parse-ignore">
-
-                    <a href="https://www.facebook.com/ballardtourservices">Ballard Tours</a>
-
-                  </blockquote>
-
-                </div>
-
+                {navigator.userAgent !== 'ReactSnap' ? (
+                  <div
+                    className="fb-page"
+                    data-href="https://www.facebook.com/ballardtourservices"
+                    data-tabs="timeline"
+                    data-width="340"
+                    data-height="500"
+                    data-small-header="false"
+                    data-adapt-container-width="true"
+                    data-hide-cover="false"
+                    data-show-facepile="true"
+                  >
+                    <blockquote cite="https://www.facebook.com/ballardtourservices" className="fb-xfbml-parse-ignore">
+                      <a href="https://www.facebook.com/ballardtourservices">Ballard Tours</a>
+                    </blockquote>
+                  </div>
+                ) : (
+                  <div className="p-4 text-center text-gray-500 w-[340px] h-[500px] flex items-center justify-center">
+                    Facebook Plugin
+                  </div>
+                )}
               </div>
-
             </div>
-
           </div>
 
 
