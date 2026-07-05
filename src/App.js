@@ -187,73 +187,36 @@ const generarHtmlCorreoAdmin = (item, datosCliente, numConfirmacion) => {
   // A) RUTAS DE SERVICIOS ESPECIALES O HOTEL NORMAL
 
   if (item.tipoEspecial) {
-
     let origenEspecial = item.extrasEspeciales?.cenaOrigen || item.extrasEspeciales?.golfOrigen || item.extrasEspeciales?.nightlifeOrigen || item.extrasEspeciales?.hotelOrigen || item.config?.hhOrigen || item.config?.hotelId || 'N/A';
-
     if (origenEspecial.includes('|')) origenEspecial = origenEspecial.split('|')[0];
-
-
-
     let destinoLugar = item.extrasEspeciales?.cenaRestauranteNombre || item.extrasEspeciales?.golfNombre || item.extrasEspeciales?.nightlifeLugarNombre || item.extrasEspeciales?.hotelNombre || item.config?.hhDestino || 'N/A';
-
-
-
     let detallesHorarios = '';
-
     if (item.tipoEspecial === 'cena') {
-
       detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Hora Reserva: ${item.extrasEspeciales?.cenaHoraReserva || item.config?.cenaHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.cenaHoraRegreso || item.config?.cenaHoraRegreso || 'N/A'}</span>`;
-
     } else if (item.tipoEspecial === 'golf') {
-
       detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Tee Time: ${item.extrasEspeciales?.golfHoraReserva || item.config?.golfHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.golfHoraRegreso || item.config?.golfHoraRegreso || 'N/A'}</span>`;
-
     } else if (item.tipoEspecial === 'nightlife') {
-
       detallesHorarios = `<br><span style="color: #64748b; font-size: 12px; font-weight: normal;">Llegada: ${item.extrasEspeciales?.nightlifeHoraReserva || item.config?.nightlifeHoraReserva || 'N/A'} | Regreso: ${item.extrasEspeciales?.nightlifeHoraRegreso || item.config?.nightlifeHoraRegreso || 'N/A'}</span>`;
-
     }
-
-
-
     logisticaHtml += `
-
         <tr style="border-bottom: 1px solid #f8fafc;">
-
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Cuadro de Recogida (Ruta):</td>
-
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">
-
             <span style="color: #1e3a8a;">Origen:</span> ${origenEspecial}<br>
-
             <span style="color: #ea580c;">Destino:</span> ${destinoLugar}
-
             ${detallesHorarios}
-
           </td>
-
         </tr>
-
       `;
-
   } else if (item.servicio !== 'tours') {
-
     let hotelNormal = item.config?.hotelId || 'N/A';
-
     if (hotelNormal.includes('|')) hotelNormal = hotelNormal.split('|')[0];
-
     logisticaHtml += `
-
         <tr style="border-bottom: 1px solid #f8fafc;">
-
           <td style="padding: 10px 0; font-size: 14px; color: #64748b; width: 40%; vertical-align: top;">Hotel / Destino:</td>
-
           <td style="padding: 10px 0; font-size: 14px; font-weight: 600; color: #1e293b; width: 60%; vertical-align: top; text-align: right;">${hotelNormal}</td>
-
         </tr>
-
       `;
-
   }
 
 
@@ -4733,528 +4696,283 @@ export default function App() {
 
 
             {/* 1. MENÚ BIFURCADO (TOURS O ESPECIALES) */}
-
             {servicioSeleccionado === 'tours' && !reserva.tourId && !subCategoria && (
-
               <div className="max-w-4xl mx-auto mb-12 animate-fade-in">
-
                 <div className="w-full mb-6 flex justify-start">
-
                   <button onClick={() => { setServicioSeleccionado(''); setPaso(1); }} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition">
-
                     <span className="mr-2">←</span> {t.step2.back_home}
-
                   </button>
-
                 </div>
 
                 <h2 className="text-2xl font-extrabold text-gray-900 text-center mb-8">{t.step2.select_category}</h2>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                   <button onClick={() => setSubCategoria('tours')} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition text-left w-full cursor-pointer flex flex-col group">
-
                     <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-100 transition"><Compass size={24} /></div>
-
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-900 transition">{t.step2.tours_only}</h3>
-
                     <p className="text-sm text-gray-500 mt-2">{t.step1.tours_desc}</p>
-
                   </button>
-
                   <button onClick={() => setSubCategoria('especiales')} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition text-left w-full cursor-pointer flex flex-col group">
-
                     <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-100 transition"><Car size={24} /></div>
-
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-900 transition">{t.step2.special_title}</h3>
-
                     <p className="text-sm text-gray-500 mt-2">{t.step2.special_desc}</p>
-
                   </button>
-
                 </div>
-
               </div>
-
             )}
 
 
 
             {/* 2. CATÁLOGO DE SERVICIOS ESPECIALES */}
-
             {servicioSeleccionado === 'tours' && !reserva.tourId && subCategoria === 'especiales' && (
-
               <div className="max-w-4xl mx-auto mb-12 animate-fade-in">
 
-
-
                 {/* VISTA A: LAS 4 TARJETAS */}
-
                 {!vistaEspecial && (
-
                   <div className="w-full">
-
                     <div className="w-full mb-6 flex justify-start">
-
                       <button onClick={() => setSubCategoria('')} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition">
-
                         <span className="mr-2">←</span> {lang === 'es' ? 'Volver a Categorías' : 'Back to categories'}
-
                       </button>
-
                     </div>
-
                     <h2 className="text-2xl font-extrabold text-gray-900 text-center mb-8">
-
                       {lang === 'es' ? 'Servicios Especiales' : 'Special Services'}
-
                     </h2>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
                       <div onClick={() => setVistaEspecial('cenas')} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition cursor-pointer text-left group flex flex-col h-full">
-
                         <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors">
-
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 
                             <path d="M6 3 C 4.5 3, 4 5, 4 7 C 4 9, 4.5 10, 6 10 C 7.5 10, 8 9, 8 7 C 8 5, 7.5 3, 6 3 Z" />
-
                             <path d="M6 10 V 21" />
-
                             <path d="M10 3 V 7 C 10 8.5, 11 9.5, 12 9.5 C 13 9.5, 14 8.5, 14 7 V 3" />
-
                             <path d="M12 3 V 21" />
-
                             <path d="M18 3 H 19.5 C 20.5 3, 21 4, 21 6 V 9 C 21 10, 20.5 10.5, 19.5 10.5 H 18" />
-
                             <path d="M18 3 V 21" />
-
                           </svg>
-
                         </div>
 
                         <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-900 transition-colors">Cenas y Restaurantes</h3>
-
                         <p className="text-sm text-gray-500 mt-2 flex-grow">Disfruta tu velada sin preocuparte por el volante.</p>
-
                         <div className="mt-auto pt-4 inline-flex items-center text-sm font-bold text-blue-900 group-hover:translate-x-1 transition-transform">
-
                           Configurar Traslado <span className="ml-1">›</span>
-
                         </div>
-
                       </div>
 
 
 
                       <div onClick={() => setVistaEspecial('nightlife')} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition cursor-pointer text-left group flex flex-col h-full">
-
                         <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors text-2xl">🍸</div>
-
                         <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-900 transition-colors">Nightlife</h3>
-
                         <p className="text-sm text-gray-500 mt-2 flex-grow">Transporte seguro para disfrutar la vida nocturna de Los Cabos.</p>
-
                         <div className="mt-auto pt-4 inline-flex items-center text-sm font-bold text-blue-900 group-hover:translate-x-1 transition-transform">
-
                           Configurar Traslado <span className="ml-1">›</span>
-
                         </div>
-
                       </div>
-
-
 
                       <div onClick={() => setVistaEspecial('hotel')} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition cursor-pointer text-left group flex flex-col h-full">
-
                         <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors"><Car size={24} /></div>
-
                         <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-900 transition-colors">Traslado de Hotel a Hotel</h3>
-
                         <p className="text-sm text-gray-500 mt-2 flex-grow">Cambia de resort con total comodidad y espacio para tu equipaje.</p>
-
                         <div className="mt-auto pt-4 inline-flex items-center text-sm font-bold text-blue-900 group-hover:translate-x-1 transition-transform">
-
                           Configurar Traslado <span className="ml-1">›</span>
-
                         </div>
-
                       </div>
-
-
 
                       <div onClick={() => setVistaEspecial('golf')} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition cursor-pointer text-left group flex flex-col h-full">
-
                         <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors">
-
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-
                             <circle cx="12" cy="8" r="6" />
-
                             <path d="M11.5 6 v .01" />
-
                             <path d="M14 7.5 v .01" />
-
                             <path d="M13 10 v .01" />
-
                             <path d="M10 8.5 v .01" />
-
                             <path d="M9 13.8 Q 11 15 11 18 V 21" />
-
                             <path d="M15 13.8 Q 13 15 13 18 V 21" />
-
                             <path d="M8 21 H 16" />
-
                           </svg>
-
                         </div>
-
                         <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-900 transition-colors">Campos de Golf</h3>
-
                         <p className="text-sm text-gray-500 mt-2 flex-grow">Transporte ida y vuelta a los mejores campos de Los Cabos.</p>
-
                         <div className="mt-auto pt-4 inline-flex items-center text-sm font-bold text-blue-900 group-hover:translate-x-1 transition-transform">
-
                           Configurar Traslado <span className="ml-1">›</span>
-
                         </div>
-
                       </div>
-
                     </div>
-
                   </div>
-
                 )}
 
 
 
                 {/* VISTA B: FORMULARIO DE CENAS */}
-
                 {vistaEspecial === 'cenas' && (
-
                   <div className="animate-fade-in">
-
                     <div className="w-full mb-6 flex justify-start">
-
                       <button onClick={() => { setVistaEspecial(null); setCenaOrigen(''); setCenaDestino(''); setCenaPax('1-4'); setCenaRestauranteNombre(''); setCenaHoraReserva(''); setCenaHoraRegreso(''); setCenaHora(''); setBusquedaCenaOrigen(''); setReserva(prev => ({ ...prev, rosas: false, vino: false, vinoEspumoso: false })); }} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition">
-
                         <span className="mr-2">←</span> {lang === 'es' ? 'Volver a Servicios Especiales' : 'Back to Special Services'}
-
                       </button>
-
                     </div>
-
-
 
                     {(() => {
 
                       const matrizPreciosCenas = {
-
                         'sjc': { '1': 120, '2': 150, '3': 170, '4': 250 },
-
                         'corredor': { '1': 140, '2': 120, '3': 150, '4': 200 },
-
                         'csl': { '1': 170, '2': 150, '3': 140, '4': 220 },
-
                         'pacifico': { '1': 250, '2': 230, '3': 220, '4': 220 }
-
                       };
 
                       const recargoCenas = { '1-4': 0, '5-8': 30, '9-10': 45 };
 
-
-
                       let totalPrecioCena = 0;
-
                       if (vistaEspecial === 'cenas' && cenaOrigen && cenaDestino) {
-
                         const zonaSeleccionada = String(cenaOrigen.split('|')[1]) || "1";
-
                         const precioBase = Number(matrizPreciosCenas[cenaDestino]?.[zonaSeleccionada] || 0);
-
                         totalPrecioCena = precioBase + Number(recargoCenas[cenaPax] || 0);
-
                       }
 
 
 
                       const costoExtras = (reserva.rosas ? 50 : 0) + (reserva.vino ? 70 : 0) + (reserva.vinoEspumoso ? 70 : 0);
-
                       const granTotalCena = totalPrecioCena > 0 ? totalPrecioCena + costoExtras : 0;
-
-
 
                       return (
 
                         <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8">
-
                           <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-xl p-4 text-sm font-semibold mb-6 flex items-start gap-3">
-
                             <Info size={20} className="shrink-0 mt-0.5" />
-
                             <p>El servicio de traslado para cenas contempla un <strong>máximo de 3 horas</strong> de espera en el restaurante. Por favor, organiza tus horarios de regreso tomando esto en cuenta.</p>
-
                           </div>
-
-
 
                           <div className="mb-8">
-
                             <h2 className="text-2xl font-extrabold text-gray-900">Reserva de Transporte para Cenas</h2>
-
                             <p className="text-sm text-gray-500">Completa los datos para calcular tu tarifa y asegurar tu traslado.</p>
-
                           </div>
 
-
-
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                             <div className="flex flex-col relative">
-
                               <label className="text-sm font-semibold text-gray-700 mb-2">¿De dónde sales?</label>
-
                               <input type="text" placeholder="Escribe para buscar tu hotel..." value={busquedaCenaOrigen} onChange={(e) => { setBusquedaCenaOrigen(e.target.value); setMostrarDropdownCena(true); if (e.target.value === '') setCenaOrigen(''); }} onFocus={() => setMostrarDropdownCena(true)} onBlur={() => setTimeout(() => setMostrarDropdownCena(false), 200)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 outline-none transition text-gray-700" />
-
                               {mostrarDropdownCena && (
 
                                 <ul className="absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 top-[76px] max-h-60 overflow-y-auto">
-
                                   {hoteles.filter(h => h.nombre.toLowerCase().includes((busquedaCenaOrigen || '').toLowerCase())).map(hotel => (
-
                                     <li key={hotel.id} onMouseDown={() => { const zona = hotel.zonaId || hotel.zona || "1"; setCenaOrigen(`${hotel.nombre}|${zona}`); setBusquedaCenaOrigen(`${hotel.nombre} (Zona ${zona})`); setMostrarDropdownCena(false); }} className="p-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 last:border-0 transition flex justify-between" >
-
                                       <span>{hotel.nombre}</span><span className="text-xs font-bold text-blue-900 bg-blue-100 px-2 py-1 rounded-md">Zona {hotel.zona}</span>
-
                                     </li>
-
                                   ))
-
                                   }
-
                                 </ul>
-
                               )}
-
                             </div>
-
-
-
                             <div className="flex flex-col">
-
                               <label className="text-sm font-semibold text-gray-700 mb-2">¿En qué área está el restaurante?</label>
-
                               <select value={cenaDestino} onChange={(e) => setCenaDestino(e.target.value)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 outline-none text-gray-700">
-
                                 <option value="" disabled>Selecciona una opción...</option>
-
                                 <option value="sjc">San José del Cabo</option>
-
                                 <option value="corredor">Corredor Turístico</option>
-
                                 <option value="csl">Cabo San Lucas</option>
-
                                 <option value="pacifico">Sitio Pacífico</option>
-
                               </select>
-
                             </div>
 
-
-
                             <div className="flex flex-col">
-
                               <label className="text-sm font-semibold text-gray-700 mb-2">Nombre exacto del Restaurante</label>
-
                               <input type="text" placeholder="Ej. Flora Farms, Acre, etc." value={cenaRestauranteNombre} onChange={(e) => setCenaRestauranteNombre(e.target.value)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 outline-none text-gray-700" />
-
                             </div>
-
-
 
                             <div className="flex flex-col">
-
                               <label className="text-sm font-semibold text-gray-700 mb-2">Número de Pasajeros</label>
-
                               <select value={cenaPax} onChange={(e) => setCenaPax(e.target.value)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 outline-none text-gray-700">
-
                                 <option value="1-4">1 a 4 Pasajeros</option>
-
                                 <option value="5-8">5 a 8 Pasajeros</option>
-
                                 <option value="9-10">9 a 10 Pasajeros</option>
-
                               </select>
-
                             </div>
-
-
 
                             <div className="flex flex-col md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
-
                               <div className="flex flex-col">
-
                                 <label className="text-sm font-semibold text-gray-700 mb-2">Hora de recolección (Hotel)</label>
-
                                 <input type="time" value={cenaHora} onChange={(e) => setCenaHora(e.target.value)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 outline-none text-gray-700" />
-
                               </div>
-
                               <div className="flex flex-col">
-
                                 <label className="text-sm font-semibold text-gray-700 mb-2">Hora de reserva (Restaurante)</label>
-
                                 <input type="time" value={cenaHoraReserva} onChange={(e) => setCenaHoraReserva(e.target.value)} className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-900 outline-none text-gray-700" />
-
                               </div>
 
                               <div className="flex flex-col">
-
                                 <label className="text-sm font-semibold text-gray-700 mb-2">Hora de regreso (Restaurante)</label>
-
                                 <input type="time" value={cenaHoraRegreso} onChange={(e) => setCenaHoraRegreso(e.target.value)} className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-900 outline-none text-gray-700 ${calculoHorasCena.error ? 'border-red-500 bg-red-50' : 'border-gray-200'}`} />
-
                               </div>
 
                               {calculoHorasCena.error && (
-
                                 <div className="md:col-span-3">
-
                                   <p className="text-xs text-red-500 font-bold">⚠️ Estás programando {Math.floor(calculoHorasCena.diffMin / 60)}h {calculoHorasCena.diffMin % 60}m de espera. El máximo incluido es de 3 horas.</p>
-
                                 </div>
-
                               )}
-
                             </div>
 
-
-
                             <div className="border-t border-gray-100 pt-6 mt-2 md:col-span-2">
-
                               <h4 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">✨ Hazlo Especial</h4>
-
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-
                                 <label className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer transition-colors ${reserva.rosas ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-pink-200'}`}>
-
                                   <input type="checkbox" checked={reserva.rosas} onChange={(e) => setReserva({ ...reserva, rosas: e.target.checked })} className="w-5 h-5 accent-pink-600" />
-
                                   <div className="text-2xl">🌹</div>
-
                                   <div className="flex-1">
-
                                     <p className="font-bold text-gray-900 text-sm leading-tight">Rosas <span className="text-pink-600 block font-extrabold mt-1">+$50 USD</span></p>
-
                                   </div>
-
                                 </label>
-
                                 <label className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer transition-colors ${reserva.vino ? 'border-purple-800 bg-purple-50' : 'border-gray-200 hover:border-purple-300'}`}>
-
                                   <input type="checkbox" checked={reserva.vino} onChange={(e) => setReserva({ ...reserva, vino: e.target.checked })} className="w-5 h-5 accent-purple-800" />
-
                                   <div className="text-2xl">🍷</div>
-
                                   <div className="flex-1">
-
                                     <p className="font-bold text-gray-900 text-sm leading-tight">Botella de Vino <span className="text-purple-800 block font-extrabold mt-1">+$70 USD</span></p>
-
                                   </div>
-
                                 </label>
-
                                 <label className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer transition-colors ${reserva.vinoEspumoso ? 'border-amber-500 bg-amber-50' : 'border-gray-200 hover:border-amber-300'}`}>
-
                                   <input type="checkbox" checked={reserva.vinoEspumoso} onChange={(e) => setReserva({ ...reserva, vinoEspumoso: e.target.checked })} className="w-5 h-5 accent-amber-600" />
-
                                   <div className="text-2xl">🥂</div>
 
                                   <div className="flex-1">
-
                                     <p className="font-bold text-gray-900 text-sm leading-tight">Vino Espumoso <span className="text-amber-600 block font-extrabold mt-1">+$70 USD</span></p>
-
                                   </div>
-
                                 </label>
-
                               </div>
-
                             </div>
-
-
 
                             <div className="md:col-span-2 mt-4 bg-slate-900 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between text-white shadow-md">
-
                               <div className="mb-4 md:mb-0 text-center md:text-left">
-
                                 <p className="text-sm text-gray-400 font-medium mb-1">Costo de este servicio (USD)</p>
-
                                 {(currentUser?.role === 'agency' || appliedPromo) && granTotalCena > 0 && (
-
                                   <p className="text-sm text-green-400 mb-1 line-through">${granTotalCena.toFixed(2)}</p>
-
                                 )}
-
                                 <h3 className="text-4xl md:text-5xl font-bold tracking-tight">
-
                                   {granTotalCena > 0 ? `$${(currentUser?.role === 'agency' ? granTotalCena * 0.8 : (appliedPromo ? granTotalCena * 0.9 : granTotalCena)).toFixed(2)}` : '---'}
-
                                 </h3>
-
                                 {granTotalCena === 0 ? (
-
                                   <p className="text-xs text-yellow-400 mt-2 font-medium">Selecciona área del restaurante para calcular</p>
-
                                 ) : (
-
                                   <div className="mt-2">
-
                                     {(currentUser?.role === 'agency' || appliedPromo) && <p className="text-xs text-green-400 font-bold mb-1">✓ {discountLabel}</p>}
-
                                     <p className="text-xs text-gray-400 flex items-center justify-center md:justify-start"><CheckCircle size={14} className="mr-1" /> Impuestos incluidos</p>
-
                                   </div>
-
                                 )}
-
                               </div>
-
                               <button
-
                                 disabled={!cenaOrigen || !cenaDestino || !cenaRestauranteNombre || !cenaHora || !cenaHoraReserva || !cenaHoraRegreso || calculoHorasCena.error}
-
                                 onClick={() => {
-
                                   setReserva(prev => ({ ...prev, tipoEspecial: 'cena', precioBaseEspecial: granTotalCena, cenaRestaurante: cenaRestauranteNombre, cenaOrigen, cenaPax, cenaHora, cenaHoraReserva, cenaHoraRegreso }));
-
                                   setTimeout(agregarAlCombo, 50);
-
                                 }}
-
                                 className="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold transition flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
-
                                 <Plus size={20} className="mr-2" /> Añadir a mi Combo
-
                               </button>
-
                             </div>
-
                           </div>
-
                         </div>
-
                       );
-
                     })()}
-
                   </div>
-
                 )}
-
-
 
                 {/* --- VISTA C: FORMULARIO TRASLADO HOTEL A HOTEL --- */}
 
@@ -5277,15 +4995,10 @@ export default function App() {
                     {(() => {
 
                       const matrizPreciosHotel = {
-
                         'sjc': { '1': 50, '2': 80, '3': 110, '4': 140 },
-
                         'csl': { '1': 110, '2': 90, '3': 60, '4': 50 },
-
                         'corredor': { '1': 80, '2': 60, '3': 70, '4': 90 },
-
                         'pacifico': { '1': 200, '2': 180, '3': 160, '4': 160 }
-
                       };
 
                       const recargoHotel = { '1-4': 0, '5-8': 20, '9-10': 30 };
@@ -5579,15 +5292,10 @@ export default function App() {
                     {(() => {
 
                       const matrizPreciosGolf = {
-
                         'sjc': { '1': 60, '2': 90, '3': 120, '4': 150 },
-
                         'csl': { '1': 110, '2': 85, '3': 65, '4': 50 },
-
                         'corredor': { '1': 80, '2': 60, '3': 70, '4': 95 },
-
                         'pacifico': { '1': 160, '2': 140, '3': 120, '4': 80 }
-
                       };
 
                       const recargoGolf = { '1-4': 0, '5-8': 40, '9-10': 60 };
@@ -5847,13 +5555,9 @@ export default function App() {
                       // Matriz con los precios exactos que pediste para Zona 1. Las demás zonas tienen un estimado para evitar errores si las seleccionan.
 
                       const matrizPreciosNightlife = {
-
                         'sjc': { '1': 200, '2': 250, '3': 300, '4': 350 },
-
                         'corredor': { '1': 250, '2': 200, '3': 250, '4': 300 },
-
                         'csl': { '1': 300, '2': 250, '3': 200, '4': 250 },
-
                         'pacifico': { '1': 380, '2': 330, '3': 280, '4': 200 }
 
                       };
@@ -6725,51 +6429,31 @@ export default function App() {
 
 
   const [idModificar, setIdModificar] = useState('');
-
   const [cargandoModificar, setCargandoModificar] = useState(false);
-
   const [guardadoExitoso, setGuardadoExitoso] = useState(false);
 
 
 
   // 👇 ESTADOS DEL BUSCADOR INTEGRADOS CORRECTAMENTE 👇
-
   const [sugerencias, setSugerencias] = useState([]);
-
   const [mostrarSugerencias, setMostrarSugerencias] = useState(false);
-
-
 
   const [datosModificar, setDatosModificar] = useState({
 
     nombre: '',
-
     hotel: '',
-
     zonaOriginal: 1,
-
     zonaNueva: 1,
-
     metodoPagoExtra: '',
-
     fechaLlegada: '',
-
     aerolineaLlegada: '',
-
     vueloLlegada: '',
-
     horaLlegada: '',
-
     fechaSalida: '',
-
     aerolineaSalida: '',
-
     vueloSalida: '',
-
     horaSalida: '',
-
     horaPickUp: ''
-
   });
 
 
@@ -8270,111 +7954,103 @@ export default function App() {
 
 
                       {/* WIDGET DE RESERVA LATERAL (FIJO) */}
-
-                      <div className="lg:col-span-1">
-
-                        <div className="bg-white border-2 border-blue-900 p-8 rounded-[2rem] shadow-2xl sticky top-28">
-
-                          <h3 className="text-2xl font-black text-gray-900 mb-2">
-
-                            {lang === 'es' ? 'Reserva esta Ruta' : 'Book This Route'}
-
-                          </h3>
-
-                          <p className="text-gray-500 mb-6 text-sm">
-
-                            {lang === 'es' ? `Selecciona tu vehículo para ${hotel.nombre}.` : `Select your vehicle for ${hotel.nombre}.`}
-
-                          </p>
-
-
-
-                          <div className="space-y-4 mb-6">
-
-                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center hover:bg-blue-50 transition-colors">
-
-                              <div>
-
-                                <p className="font-bold text-gray-900 text-sm">Luxury Suburban</p>
-
-                                <p className="text-xs text-gray-500">{lang === 'es' ? 'Hasta 6 pasajeros' : 'Up to 6 passengers'}</p>
-
-                              </div>
-
-                              <span className="font-black text-blue-900 text-xl">${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80}</span>
-
-                            </div>
-
-                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center hover:bg-blue-50 transition-colors">
-
-                              <div>
-
-                                <p className="font-bold text-gray-900 text-sm">Sprinter Van</p>
-
-                                <p className="text-xs text-gray-500">{lang === 'es' ? 'Hasta 10 pasajeros' : 'Up to 10 passengers'}</p>
-
-                              </div>
-
-                              <span className="font-black text-blue-900 text-xl">${zonas.find(z => z.id === hotel.zona)?.tarifaSprinter || 110}</span>
-
-                            </div>
-
+                      <div className="lg:col-span-1 order-first lg:order-last mb-8 lg:mb-0">
+                        <div className="bg-white border-2 border-blue-900 p-6 md:p-8 rounded-[2rem] shadow-2xl sticky top-28">
+                          <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
+                            <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
+                              <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
+                            </h3>
+                            <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-5 object-contain" />
                           </div>
 
+                          <div className="space-y-5 mb-6">
+                            {/* HOTEL PREFILLED */}
+                            <div>
+                              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                                {lang === 'es' ? 'Tu Hotel' : 'Select Your Hotel'}
+                              </label>
+                              <input
+                                type="text"
+                                readOnly
+                                value={hotel.nombre}
+                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 outline-none text-gray-800 font-bold cursor-not-allowed"
+                              />
+                            </div>
 
+                            {/* VEHICLE OPTIONS */}
+                            <div>
+                              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                                {lang === 'es' ? 'Tipo de Vehículo' : 'Vehicle Type'}
+                              </label>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'suburban' }))} className={`cursor-pointer border-2 rounded-xl p-3 transition-all ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'border-blue-900 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300'}`}>
+                                  <div className="flex justify-between items-center mb-1">
+                                    <span className="font-black text-gray-900 text-[13px]">Luxury SUV</span>
+                                    <Car className={reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'text-blue-900' : 'text-gray-400'} size={18} />
+                                  </div>
+                                  <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Elegancia y confort para familias o grupos pequeños.' : 'Elegance and comfort for families or small groups.'}</p>
+                                  <div className="flex justify-between items-center mt-1">
+                                    <p className="text-[10px] font-bold text-gray-600 flex items-center gap-1"><Users size={10} /> Máx 6 pax</p>
+                                    <span className="font-black text-gray-900 text-sm">${zonas.find(z => z.id === hotel.zona)?.tarifaSuburban || 80}</span>
+                                  </div>
+                                </div>
+                                
+                                <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'sprinter' }))} className={`cursor-pointer border-2 rounded-xl p-3 transition-all ${reserva.vehiculo === 'sprinter' ? 'border-blue-900 bg-blue-50 shadow-sm' : 'border-gray-200 hover:border-blue-300'}`}>
+                                  <div className="flex justify-between items-center mb-1">
+                                    <span className="font-black text-gray-900 text-[13px]">Van</span>
+                                    <Car className={reserva.vehiculo === 'sprinter' ? 'text-blue-900' : 'text-gray-400'} size={18} />
+                                  </div>
+                                  <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Amplitud y lujo para grupos grandes.' : 'Spaciousness and luxury for large groups.'}</p>
+                                  <div className="flex justify-between items-center mt-1">
+                                    <p className="text-[10px] font-bold text-gray-600 flex items-center gap-1"><Users size={10} /> Máx 10 pax</p>
+                                    <span className="font-black text-gray-900 text-sm">${zonas.find(z => z.id === hotel.zona)?.tarifaSprinter || 110}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 
-                          <button
-
-                            onClick={() => {
-
-                              setServicioSeleccionado('aeropuerto_hotel');
-
-                              setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: 'suburban' }));
-
-                              setBusquedaHotelPrincipal(hotel.nombre);
-
-                              setPaso(2);
-
-                              navigate('/');
-
-                              window.scrollTo(0, 0);
-
-                            }}
-
-                            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-black py-5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30 uppercase tracking-wider"
-
-                          >
-
-                            {lang === 'es' ? 'Reservar Ahora' : 'Select Details & Book'} <ChevronRight size={20} />
-
-                          </button>
-
-
-
-                          <div className="mt-6 pt-6 border-t border-gray-100 space-y-3">
-
-                            <p className="text-xs text-gray-500 font-bold flex items-center gap-2">
-
-                              <CheckCircle size={16} className="text-green-500" /> {lang === 'es' ? 'Confirmación Instantánea' : 'Instant Confirmation'}
-
-                            </p>
-
-                            <p className="text-xs text-gray-500 font-bold flex items-center gap-2">
-
-                              <CheckCircle size={16} className="text-green-500" /> {lang === 'es' ? 'Bebidas de Cortesía' : 'Complimentary Drinks'}
-
-                            </p>
-
-                            <p className="text-xs text-gray-500 font-bold flex items-center gap-2">
-
-                              <CheckCircle size={16} className="text-green-500" /> {lang === 'es' ? 'Seguimiento de Vuelo Incluido' : 'Flight Tracking Included'}
-
-                            </p>
-
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{lang === 'es' ? 'Fecha de Llegada' : 'Arrival Date'}</label>
+                                <input type="date" name="fechaLlegada" value={reserva.fechaLlegada} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl px-3 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium text-sm" />
+                              </div>
+                              <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{lang === 'es' ? 'Pasajeros' : 'Passengers'}</label>
+                                <div className="relative">
+                                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <Users className="text-gray-400" size={16} />
+                                  </div>
+                                  <input type="number" min="1" max="10" name="pasajeros" value={reserva.pasajeros} onChange={handleChange} className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-3 outline-none focus:ring-2 focus:ring-blue-900 text-gray-800 font-medium text-sm" />
+                                </div>
+                              </div>
+                            </div>
                           </div>
 
+                          <div className="border-t border-gray-100 pt-5 mt-2">
+                            <label className="block text-[10px] font-bold text-blue-900 uppercase tracking-wider mb-3 text-center">
+                              {lang === 'es' ? 'Elige un servicio para continuar' : 'Choose a service to continue'}
+                            </label>
+
+                            <div className="grid grid-cols-2 gap-2">
+                              <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl p-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+                                <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneLanding size={20} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-gray-900 text-[11px] text-center leading-tight">{lang === 'es' ? 'Aeropuerto → Hotel' : 'Airport → Hotel'}</span>
+                              </button>
+                              <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl p-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+                                <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneTakeoff size={20} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-gray-900 text-[11px] text-center leading-tight">{lang === 'es' ? 'Hotel → Aeropuerto' : 'Hotel → Airport'}</span>
+                              </button>
+                              <button onClick={() => { setServicioSeleccionado('redondo'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-xl p-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+                                <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><RefreshCw size={20} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-gray-900 text-[11px] text-center leading-tight">{lang === 'es' ? 'Viaje Redondo' : 'Round Trip'}</span>
+                              </button>
+                              <button onClick={() => { setServicioSeleccionado('tours'); setReserva(prev => ({ ...prev, hotelId: hotel.nombre, zonaId: hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setBusquedaHotelPrincipal(hotel.nombre); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-gray-900 border border-gray-900 rounded-xl p-3 hover:bg-gray-800 transition-all group shadow-sm">
+                                <div className="text-white mb-1 group-hover:scale-110 transition-transform"><Compass size={20} strokeWidth={1.5} /></div>
+                                <span className="font-bold text-white text-[11px] text-center leading-tight">{lang === 'es' ? 'Tours y Especiales' : 'Tours & Specials'}</span>
+                              </button>
+                            </div>
+                          </div>
                         </div>
-
                       </div>
 
                     </div>
