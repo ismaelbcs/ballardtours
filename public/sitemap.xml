@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
+  <url>
     <loc>https://www.ballardtours.com/destinations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -87,7 +87,7 @@
   </url>
 
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-alegranza-luxury-resort</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-alegranza</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -112,7 +112,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-surf-hotel-spa</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-surf-hotel</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -162,11 +162,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-el-encanto-inn-suites</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-el-zalate-condominiums-costa-azul</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -187,7 +182,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-gr-solaris-lighthouse-los-cabos</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-gr-solaris-lighthouse</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -212,7 +207,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-hotel-casa-costa-azul</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-casa-costa-azul</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -232,7 +227,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-krystal-grand-los-cabos</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-krystal-grand</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -272,7 +267,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-las-olas-condominiums-lets-do-mexico</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-las-olas-condominiums</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -342,22 +337,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-park-royal-homestay-los-cabos</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-posada-real</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-pueblo-pueblo-san-jose</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-punta-bella</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -383,11 +368,6 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-royal-decameron</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-royal-decameron-los-cabos</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -432,7 +412,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-viceroy-los-cabos</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-viceroy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -472,6 +452,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-real</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-real-estates</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -497,6 +482,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-casa-cielo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-casa-de-la-paz-palmilla</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -507,12 +497,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-casa-del-mar-residences</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-casa-del-mar-zoetry</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-casa-del-mar-zoetry</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-casa-del-mar-residences</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -572,17 +562,17 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-chileno-bay-resort-residences</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-chileno-bay-resort-residences-auberge-collection</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-chileno-bay-resort</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-chileno-point-villas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-club-regina</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -603,6 +593,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-cuenca-cabo-real</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-dorado</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -647,17 +642,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-grand-velas-boutique</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-garza-blanca</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-grand-velas-boutique-los-cabos</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-grand-velas</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-hampton-inn</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -677,11 +672,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-jw-marriott-los-cabos-beach-resort-spa</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-la-loretana-palmilla</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -693,6 +683,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-la-pacifica</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-las-gardenias-condominiums</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -712,7 +707,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-las-residencias-golf-beach-club</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-las-residencias</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -722,12 +717,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-las-ventanas-al-paraiso-a-rosewood-resort</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-le-blanc-spa-resort</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-le-blanc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -812,12 +802,17 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-secrets-puerto-los-cabos-golf-spa-resort</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-sol-de-cabo</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-solaz</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-solaz-resort</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -833,6 +828,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-the-enclaves-at-a-ritz-carlton-reserve</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-westin-los-cabos</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -872,12 +872,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-villa-del-mar</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-villa-del-mar-el-dorado</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-villa-la-valencia</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-villa-la-valencia-resort</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -927,12 +932,17 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-zadun-a-ritz-carlton-reserve</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-zadun</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-bahia-hotel-beach-house</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-altamira-residencial</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-bahia-hotel</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -947,12 +957,17 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-blue-net-hospitals-condos-zona-medica</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-breathless</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-breathless-cabo-san-lucas-resort-spa</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-brisas-del-mar-condos</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -968,6 +983,16 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-cush-hotel</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-del-mar-village-condos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-fino</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1007,7 +1032,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-vista-hotel</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-cabo-vista</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1112,7 +1137,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-city-express-plus-by-marriott-cabo-san-lucas</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-city-express-plus</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1128,6 +1153,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-condominios-cabo-san-lucas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-condominios-el-dorado</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1177,7 +1207,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-corazon-cabo-resort-spa</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-corazon-cabo</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1217,7 +1247,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-esperanza-auberge-resorts-collection</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-esperanza</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1228,11 +1258,6 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-fairfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-fairfield-inn-by-marriott-los-cabos</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1267,12 +1292,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-hacienda-del-mar-los-cabos-resort</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-hacienda-encantada-resort-residences</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-hacienda-encantada</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1287,7 +1307,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-holiday-inn-express-cabo-san-lucas</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-holiday-inn-express-csl</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1337,6 +1357,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-la-jolla-residential</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-la-ribera-condominios</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1377,7 +1402,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-los-milagros-hotel</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-los-milagros</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1407,7 +1432,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-marina-fiesta-resort-spa</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-marina-fiesta</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1472,7 +1497,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-park-hyatt-los-cabos-at-cabo-del-sol</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-park-hyatt</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1483,6 +1508,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-playa-grande</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-plaza-del-rey-residencial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1507,11 +1537,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-pueblo-bonito-blanco-los-cabos-beach-resort</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-pueblo-bonito-rose</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1528,6 +1553,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-puerta-del-sol-cabo-del-sol</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-punta-arenas-condominios</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1553,6 +1583,11 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-rancho-paraiso-estates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-residencial-cabo-san-lucas</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1627,7 +1662,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-sirena-del-mar-hyatt-vacation-club</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-sirena-del-mar</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1667,7 +1702,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-the-bungalows-hotel</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-the-bungalows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1677,7 +1712,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-the-cape-a-thompson-hotel</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-the-cape</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1822,11 +1857,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-villa-del-arco-beach-resort-spa</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-villa-del-corazon-punta-ballena</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1838,11 +1868,6 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-villa-del-palmar</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-villa-del-palmar-beach-resort-spa</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1893,11 +1918,6 @@
   </url>
   <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-villa-la-estancia</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-villa-la-estancia-beach-resort-spa</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2047,12 +2067,17 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-villas-de-cabo-del-sol</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-villas-cabo-del-sol</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-villas-de-hacienda-encantada</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-villas-hacienda-encantada</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-villas-de-la-montana</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2087,7 +2112,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-vista-encantada-spa-resort-residences</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-vista-encantada</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2127,7 +2152,72 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-alvar-at-quivira</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-copala-at-quivira</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-copala-casas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-copala-condominiums</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-coronado-at-quivira</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-beach-estates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.ballardtours.com/destinations/sjd-to-diamante</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-casitas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-crystal-lagoon-suites</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-golf-villas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-lagoon-penthouses</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-ocean-club-residences</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-sunset-hill-estates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-diamante-the-woods</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2142,7 +2232,32 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-montecristo-estates-luxury-villas</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-hard-rock-residences-los-cabos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-las-estancias-at-diamante</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-mavila-at-quivira</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-mavila-towers</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-montecristo-estates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-montecristo-penthouses</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2152,7 +2267,27 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-pueblo-bonito-pacifica-y-the-towers</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-nobu-residences-los-cabos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-norman-estates-at-rancho-san-lucas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-novaispania-villas-y-custom-estates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-old-lighthouse-club-quivira</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-pueblo-bonito-pacifica-towers</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2162,22 +2297,37 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-pueblo-bonito-sunset-beach</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-quivira-novaispania</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-quivira-novaispania-residences</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-rancho-san-lucas-private-estates</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-the-st-regis-los-cabos-at-quivira</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-rolling-hills-estates</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ballardtours.com/destinations/sjd-to-waldorf-astoria-los-cabos-pedregal</loc>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-the-residences-at-grand-solmar-pacific-dunes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-st-regis-los-cabos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-the-st-regis-residences-los-cabos</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ballardtours.com/destinations/sjd-to-the-villas-at-rancho-san-lucas</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

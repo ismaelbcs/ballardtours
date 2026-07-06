@@ -118,30 +118,30 @@ export default function TransportationPage({ lang = 'es', setServicioSeleccionad
 
   const popularRoutes = [
     { name: "Airport SJD to Nobu Hotel Los Cabos", path: "/destinations/sjd-to-nobu-hotel" },
-    { name: "Airport SJD to Riu Palace Baja California", path: "/destinations/sjd-to-riu-palace" },
+    { name: "Airport SJD to Riu Palace Baja California", path: "/destinations/sjd-to-riu-palace-baja-california" },
     { name: "Airport SJD to Grand Velas Los Cabos", path: "/destinations/sjd-to-grand-velas" },
     { name: "Airport SJD to Marquis Los Cabos", path: "/destinations/sjd-to-marquis" },
     { name: "Airport SJD to Hilton Los Cabos", path: "/destinations/sjd-to-hilton-los-cabos" },
     { name: "Airport SJD to Dreams Los Cabos Suites Golf Resort & Spa", path: "/destinations/sjd-to-dreams-los-cabos" },
     { name: "Airport SJD to Pueblo Bonito Sunset Beach", path: "/destinations/sjd-to-pueblo-bonito-sunset" },
     { name: "Airport SJD to Garza Blanca Los Cabos", path: "/destinations/sjd-to-garza-blanca" },
-    { name: "Airport SJD to Solaz Resort Los Cabos", path: "/destinations/sjd-to-solaz" },
+    { name: "Airport SJD to Solaz Resort Los Cabos", path: "/destinations/sjd-to-solaz-resort" },
     { name: "Airport SJD to One&Only Palmilla", path: "/destinations/sjd-to-one-and-only-palmilla" },
     { name: "Airport SJD to JW Marriott Los Cabos", path: "/destinations/sjd-to-jw-marriott" },
     { name: "Airport SJD to Villa del Palmar", path: "/destinations/sjd-to-villa-del-palmar" },
-    { name: "Airport SJD to Sandos Finisterra", path: "/destinations/sjd-to-sandos-finisterra" },
+    { name: "Airport SJD to Sandos Finisterra", path: "/destinations/sjd-to-sandos-finisterra-los-cabos" },
     { name: "Airport SJD to Hard Rock Hotel Los Cabos", path: "/destinations/sjd-to-hard-rock" },
     { name: "Airport SJD to Riu Santa Fe", path: "/destinations/sjd-to-riu-santa-fe" },
     { name: "Airport SJD to Waldorf Astoria Los Cabos Pedregal", path: "/destinations/sjd-to-waldorf-astoria" },
     { name: "Airport SJD to Secrets Puerto Los Cabos", path: "/destinations/sjd-to-secrets-puerto-los-cabos" },
     { name: "Airport SJD to Hyatt Ziva Los Cabos", path: "/destinations/sjd-to-hyatt-ziva" },
     { name: "Airport SJD to Breathless Cabo San Lucas", path: "/destinations/sjd-to-breathless" },
-    { name: "Airport SJD to Pueblo Bonito Pacifica", path: "/destinations/sjd-to-pueblo-bonito-pacifica" },
+    { name: "Airport SJD to Pueblo Bonito Pacifica", path: "/destinations/sjd-to-pueblo-bonito-pacifica-towers" },
     { name: "Airport SJD to Le Blanc Spa Resort Los Cabos", path: "/destinations/sjd-to-le-blanc" },
     { name: "Airport SJD to Four Seasons Cabo Del Sol", path: "/destinations/sjd-to-four-seasons" },
     { name: "Airport SJD to Zadún Ritz-Carlton Reserve", path: "/destinations/sjd-to-zadun" },
     { name: "Airport SJD to The Cape Hotel", path: "/destinations/sjd-to-the-cape" },
-    { name: "Airport SJD to Villa La Valencia", path: "/destinations/sjd-to-villa-la-valencia" }
+    { name: "Airport SJD to Villa La Valencia", path: "/destinations/sjd-to-villa-la-valencia-resort" }
   ];
 
   const handleBookTransport = (vehicleType) => {
