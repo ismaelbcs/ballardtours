@@ -1,1 +1,16 @@
-{"projectId":"prj_e3l7APA8V3hiJjZcmINyNvW2JOrM","orgId":"team_430oHKtHnrnAaP3aCgyejy1E","projectName":"ballardtours-vswb"}
+{
+  "projectId": "prj_e3l7APA8V3hiJjZcmINyNvW2JOrM",
+  "orgId": "team_430oHKtHnrnAaP3aCgyejy1E",
+  "projectName": "ballardtours-vswb",
+  "settings": {
+    "createdAt": 1779678535563,
+    "framework": null,
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": "CI=false npm run build",
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}
