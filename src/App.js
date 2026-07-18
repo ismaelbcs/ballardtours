@@ -8053,7 +8053,7 @@ export default function App() {
                                 loading="lazy"
                                 allowFullScreen
                                 referrerPolicy="no-referrer-when-downgrade"
-                                src={`https://maps.google.com/maps?q=${encodeURIComponent(hotel.nombre + ' Los Cabos Baja California Sur')}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                                src={`https://maps.google.com/maps?saddr=${encodeURIComponent('Aeropuerto Internacional de Los Cabos')}&daddr=${encodeURIComponent(hotel.nombre + ' Los Cabos Baja California Sur')}&output=embed`}
                               ></iframe>
                             ) : (
                               <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-200">
