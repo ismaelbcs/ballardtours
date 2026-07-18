@@ -75,14 +75,14 @@ const allDestinationsRoutes = catalogoHoteles.map(hotel => {
   if (existing) {
     return {
       ...existing,
-      imagen: existing.image ? `${process.env.PUBLIC_URL}/${existing.image}` : `${process.env.PUBLIC_URL}/suburban-airport-los-cabos-ballard-sjd.webp`
+      imagen: existing.image ? `/${existing.image}` : `/suburban-airport-los-cabos-ballard-sjd.webp`
     };
   }
   
   return {
     ...hotel,
     slug: `sjd-to-${hotel.nombre.toLowerCase().replace(/[^a-z0-9áéíóúüñ]+/gi, '-')}`,
-    imagen: `${process.env.PUBLIC_URL}/suburban-airport-los-cabos-ballard-sjd.webp`,
+    imagen: `/suburban-airport-los-cabos-ballard-sjd.webp`,
     desc: 'a wonderful place to stay',
     tiempo: hotel.zona === 1 ? '20-25 min' : hotel.zona === 2 ? '35-45 min' : hotel.zona === 3 ? '45-55 min' : '60-70 min',
     dist: hotel.zona === 1 ? '15 km' : hotel.zona === 2 ? '25 km' : hotel.zona === 3 ? '40 km' : '50 km',
