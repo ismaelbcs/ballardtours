@@ -1032,6 +1032,37 @@ const HotelSidebarWidget = ({ hotel, lang, reserva, setReserva, zonas, hoteles, 
               <span className="font-black text-white text-[11px] text-center uppercase tracking-wider">{lang === 'es' ? 'Viaje Redondo (Recomendado)' : 'Round Trip'}</span>
             </button>
           </div>
+
+          {/* CAJA DE BENEFICIOS VERDE */}
+          <div className="mt-5 bg-green-50/80 border border-green-100 rounded-xl p-4 shadow-sm">
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+                <span className="text-xs text-green-900 font-medium leading-tight">
+                  {lang === 'es' ? 'Cancelación gratuita (Hasta 24 horas antes)' : 'Free Cancellation (Up to 24 hours before)'}
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+                <span className="text-xs text-green-900 font-medium leading-tight">
+                  {lang === 'es' ? 'Reserva ahora, paga después (o paga al llegar)' : 'Book now, pay later (or pay on arrival)'}
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+                <span className="text-xs text-green-900 font-medium leading-tight">
+                  {lang === 'es' ? 'Monitoreo de vuelo gratis (Te esperamos sin costo extra)' : 'Free flight monitoring (We wait at no extra cost)'}
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+                <span className="text-xs text-green-900 font-medium leading-tight">
+                  {lang === 'es' ? 'Sin tarifas ocultas (El precio que ves es final)' : 'No hidden fees (The price you see is final)'}
+                </span>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>
