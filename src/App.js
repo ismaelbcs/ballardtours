@@ -3639,7 +3639,13 @@ export default function App() {
 
               { platform: 'google', name: "Ana Palacio Rhi", date: "7 de febrero de 2023", text: { es: "Muy agradable el servicio, la camioneta limpia y segura, nos dieron de regalo aguas y cervezas", en: "Very pleasant service, clean and safe van, they gave us water and beers as a gift" } },
 
-              { platform: 'google', name: "Usuario de TripAdvisor", title: "Muy fiable", text: { es: "Nos recogieron a su llegada por Martin y él ya estaba afuera esperándonos cuando salimos del aeropuerto, era muy servicial, amable y profesional.", en: "We were picked up upon arrival by Martin and he was already outside waiting for us... he was very helpful, friendly and professional." } }
+              { platform: 'google', name: "Usuario de TripAdvisor", title: "Muy fiable", text: { es: "Nos recogieron a su llegada por Martin y él ya estaba afuera esperándonos cuando salimos del aeropuerto, era muy servicial, amable y profesional.", en: "We were picked up upon arrival by Martin and he was already outside waiting for us... he was very helpful, friendly and professional." } },
+
+              { platform: 'google', name: "Diana V", date: "Hace 1 mes", text: { es: "Excelente servicio de transporte. El conductor fue muy amable y nos dio mucha información útil sobre Los Cabos en el camino. ¡Definitivamente los volveremos a usar!", en: "Excellent transportation service. The driver was very friendly and gave us a lot of useful information about Los Cabos on the way. We will definitely use them again!" } },
+
+              { platform: 'google', name: "Robert M", date: "Hace 2 meses", text: { es: "Nuestra experiencia con Ballard Tours fue fantástica. La camioneta estaba impecable, el aire acondicionado funcionaba perfecto y las bebidas de cortesía fueron un gran detalle tras el vuelo.", en: "Our experience with Ballard Tours was fantastic. The van was spotless, the AC worked perfectly, and the complimentary drinks were a great touch after the flight." } },
+
+              { platform: 'google', name: "Ignacio R", date: "Hace 3 meses", text: { es: "Puntuales y muy profesionales. Reservar fue muy fácil por WhatsApp y siempre estuvieron atentos a los cambios de nuestro vuelo. 100% recomendados.", en: "Punctual and very professional. Booking was very easy via WhatsApp and they were always attentive to our flight changes. 100% recommended." } }
 
             ].map((review, idx) => {
 
