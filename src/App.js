@@ -70,6 +70,26 @@ import { Drawer } from 'vaul';
 
 import { Toaster, toast } from 'sonner';
 
+const allDestinationsRoutes = catalogoHoteles.map(hotel => {
+  const existing = landingPagesSEO.find(h => h.nombre === hotel.nombre);
+  if (existing) {
+    return {
+      ...existing,
+      imagen: existing.image ? `${process.env.PUBLIC_URL}/${existing.image}` : `${process.env.PUBLIC_URL}/suburban-airport-los-cabos-ballard-sjd.webp`
+    };
+  }
+  
+  return {
+    ...hotel,
+    slug: `sjd-to-${hotel.nombre.toLowerCase().replace(/[^a-z0-9áéíóúüñ]+/gi, '-')}`,
+    imagen: `${process.env.PUBLIC_URL}/suburban-airport-los-cabos-ballard-sjd.webp`,
+    desc: 'a wonderful place to stay',
+    tiempo: hotel.zona === 1 ? '20-25 min' : hotel.zona === 2 ? '35-45 min' : hotel.zona === 3 ? '45-55 min' : '60-70 min',
+    dist: hotel.zona === 1 ? '15 km' : hotel.zona === 2 ? '25 km' : hotel.zona === 3 ? '40 km' : '50 km',
+    zonaText: (zonasData.find(z => z.id === hotel.zona) || {}).nombre || 'Los Cabos'
+  };
+});
+
 
 
 
@@ -7818,7 +7838,7 @@ export default function App() {
               } />
 
               {/* 🏨 GENERADOR DINÁMICO DE RUTAS SEO PARA LOS HOTELES TOP */}
-              {landingPagesSEO.map((hotel) => (
+              {allDestinationsRoutes.map((hotel) => (
                 <Route key={hotel.slug} path={`/destinations/${hotel.slug}`} element={
                   <div className="animate-fade-in pb-10 bg-white">
                     <Helmet>
@@ -11099,7 +11119,7 @@ export default function App() {
 
               {/* RUTA DE DIRECTORIO HOTELES HUB (SEO) */}
 
-              <Route path="/destinations" element={<DestinationsHub hoteles={hotelesSEO} />} />
+              <Route path="/destinations" element={<DestinationsHub hoteles={allDestinationsRoutes} />} />
 
 
 
