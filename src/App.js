@@ -8078,6 +8078,41 @@ export default function App() {
                           </div>
                         </section>
 
+                        {/* CUSTOMER PHOTOS CAROUSEL */}
+                        <section className="my-8">
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                               <div className="w-6 h-6 flex items-center justify-center bg-white rounded-full border border-gray-100 shadow-sm">
+                                  <ImageIcon size={12} className="text-[#4285F4]" />
+                               </div>
+                               {lang === 'es' ? 'Fotos que han dejado nuestros clientes' : 'Photos left by our customers'}
+                            </h3>
+                            <div className="hidden md:flex gap-2">
+                              <button onClick={() => { const c = document.getElementById(`photos-carousel-${hotel.slug}`); if (c) c.scrollBy({ left: -300, behavior: 'smooth' }); }} className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+                                <ChevronLeft size={16} />
+                              </button>
+                              <button onClick={() => { const c = document.getElementById(`photos-carousel-${hotel.slug}`); if (c) c.scrollBy({ left: 300, behavior: 'smooth' }); }} className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+                                <ChevronRight size={16} />
+                              </button>
+                            </div>
+                          </div>
+                          <div id={`photos-carousel-${hotel.slug}`} className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                            {customerPhotos.map((photo, i) => (
+                              <div 
+                                key={i} 
+                                onClick={() => setSelectedCustomerPhotoIndex(i)}
+                                className="snap-center shrink-0 w-[260px] md:w-[280px] h-[200px] md:h-[220px] bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden group"
+                              >
+                                <img 
+                                  src={`/${photo}`} 
+                                  alt={`Customer photo ${i+1}`} 
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+
                         {/* CAJA DE BENEFICIOS KEY TAKEAWAYS */}
                         <section className="bg-blue-50 border-l-4 border-blue-900 p-8 rounded-r-3xl my-10 shadow-sm">
                           <h3 className="text-2xl font-black text-blue-900 mb-6">{lang === 'es' ? 'Puntos Clave' : 'Key Takeaways'}</h3>
@@ -8204,7 +8239,6 @@ export default function App() {
                               <div className="absolute top-0 right-0 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">{lang === 'es' ? 'Recomendado' : 'Recommended'}</div>
 
                               <h4 className="text-xl font-black text-blue-900 flex items-center gap-2 mb-3"><Car size={24} /> {lang === 'es' ? 'Traslados Privados VIP (SUVs)' : 'Private Transfers (SUVs)'}</h4>
-
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Proporcionan servicio directo y personalizado hasta el lobby de tu hotel. Sin filas de espera, con flexibilidad de tiempo, bebidas frías y privacidad total.' : 'Provide direct, personalized service to your hotel lobby. No wait times, complete flexibility, complimentary cold drinks, and ultimate privacy.'}</p>
                             </div>
                             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
@@ -8213,7 +8247,6 @@ export default function App() {
                             </div>
                             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
                               <h4 className="text-xl font-bold text-gray-700 flex items-center gap-2 mb-3"><Banknote size={24} /> {lang === 'es' ? 'Taxis de Aeropuerto' : 'Airport Taxis'}</h4>
-
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Disponibles al momento, pero las tarifas son impredecibles y suelen ser más costosas que los servicios pre-reservados. No garantizan un vehículo de lujo.' : 'Readily available, but fares can be unpredictable, dynamic, and potentially much higher than pre-booked services. No guarantee of a luxury vehicle.'}</p>
 
                             </div>
