@@ -1097,6 +1097,18 @@ export default function App() {
 
   const t = translations[lang];
 
+  const [selectedCustomerPhotoIndex, setSelectedCustomerPhotoIndex] = useState(null);
+  const customerPhotos = [
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-1.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-2.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-3.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-4.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-5.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-6.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-7.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-8.webp"
+  ];
+
 
 
   /// 1. Mantenemos la sesión activa
@@ -3769,6 +3781,88 @@ export default function App() {
               return <a key={idx} href="https://g.page/r/CYogd8iYqsEMEAE/review" target="_blank" rel="noopener noreferrer" className={`${cardClasses} cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-transform`}>{cardContent}</a>;
 
             })}
+
+          </div>
+
+        </div>
+
+
+
+        {/* 🌟 FOTOS DE CLIENTES 🌟 */}
+
+        <div className="max-w-7xl mx-auto px-4 mb-16 animate-fade-in">
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+
+            <div>
+
+              <div className="flex items-center gap-3 mb-3">
+
+                <div className="w-8 h-8 bg-white rounded-full border-2 border-white shadow-sm flex items-center justify-center">
+
+                  <ImageIcon size={14} className="text-[#4285F4]" />
+
+                </div>
+
+              </div>
+
+              <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+
+                {lang === 'es' ? 'Fotos que han dejado nuestros clientes' : 'Photos left by our customers'}
+
+              </h2>
+
+            </div>
+
+            <div className="flex items-center gap-4">
+
+              <div className="hidden md:flex gap-2">
+
+                <button onClick={() => { const c = document.getElementById('photos-carousel-home'); if (c) c.scrollBy({ left: -340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+
+                  <ChevronLeft size={20} />
+
+                </button>
+
+                <button onClick={() => { const c = document.getElementById('photos-carousel-home'); if (c) c.scrollBy({ left: 340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+
+                  <ChevronRight size={20} />
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div id="photos-carousel-home" className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+
+            {customerPhotos.map((photo, i) => (
+
+              <div 
+
+                key={i} 
+
+                onClick={() => setSelectedCustomerPhotoIndex(i)}
+
+                className="snap-center shrink-0 w-[85vw] sm:w-[320px] lg:w-[360px] h-[250px] md:h-[300px] bg-white border border-gray-200 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden group"
+
+              >
+
+                <img 
+
+                  src={`/${photo}`} 
+
+                  alt={`Customer photo ${i+1}`} 
+
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+
+                />
+
+              </div>
+
+            ))}
 
           </div>
 
@@ -8112,19 +8206,12 @@ export default function App() {
                               <h4 className="text-xl font-black text-blue-900 flex items-center gap-2 mb-3"><Car size={24} /> {lang === 'es' ? 'Traslados Privados VIP (SUVs)' : 'Private Transfers (SUVs)'}</h4>
 
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Proporcionan servicio directo y personalizado hasta el lobby de tu hotel. Sin filas de espera, con flexibilidad de tiempo, bebidas frías y privacidad total.' : 'Provide direct, personalized service to your hotel lobby. No wait times, complete flexibility, complimentary cold drinks, and ultimate privacy.'}</p>
-
                             </div>
-
                             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
-
                               <h4 className="text-xl font-bold text-gray-700 flex items-center gap-2 mb-3"><Users size={24} /> {lang === 'es' ? 'Shuttles Compartidos' : 'Shared Shuttles'}</h4>
-
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Económicos para viajeros solos. Sin embargo, requieren esperar en el aeropuerto hasta que la van se llene, y hacer múltiples paradas en otros hoteles antes de llegar al tuyo.' : 'Budget-friendly for solo travelers. However, they require waiting at the airport for other passengers and making multiple stops before reaching your destination.'}</p>
-
                             </div>
-
                             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
-
                               <h4 className="text-xl font-bold text-gray-700 flex items-center gap-2 mb-3"><Banknote size={24} /> {lang === 'es' ? 'Taxis de Aeropuerto' : 'Airport Taxis'}</h4>
 
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Disponibles al momento, pero las tarifas son impredecibles y suelen ser más costosas que los servicios pre-reservados. No garantizan un vehículo de lujo.' : 'Readily available, but fares can be unpredictable, dynamic, and potentially much higher than pre-booked services. No guarantee of a luxury vehicle.'}</p>
@@ -11247,6 +11334,100 @@ export default function App() {
             <p>© {new Date().getFullYear()} Ballard Tours Los Cabos. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
 
           </footer>
+
+
+
+          {/* LIGHTBOX MODAL PARA FOTOS DE CLIENTES */}
+
+          {selectedCustomerPhotoIndex !== null && (
+
+            <div 
+
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 transition-opacity p-4"
+
+              onClick={() => setSelectedCustomerPhotoIndex(null)}
+
+            >
+
+              <button 
+
+                onClick={(e) => { e.stopPropagation(); setSelectedCustomerPhotoIndex(null); }}
+
+                className="absolute top-4 right-4 text-white hover:text-gray-300 z-50 p-2"
+
+              >
+
+                <X size={32} />
+
+              </button>
+
+              
+
+              <button 
+
+                onClick={(e) => {
+
+                  e.stopPropagation();
+
+                  setSelectedCustomerPhotoIndex((prev) => (prev === 0 ? customerPhotos.length - 1 : prev - 1));
+
+                }}
+
+                className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-50 p-2 bg-black bg-opacity-50 rounded-full"
+
+              >
+
+                <ChevronLeft size={32} />
+
+              </button>
+
+
+
+              <div 
+
+                className="relative max-w-full max-h-full overflow-hidden flex items-center justify-center"
+
+                onClick={(e) => e.stopPropagation()}
+
+              >
+
+                <img 
+
+                  src={`/${customerPhotos[selectedCustomerPhotoIndex]}`} 
+
+                  alt="Customer" 
+
+                  className="max-w-[95vw] max-h-[90vh] object-contain select-none"
+
+                  style={{ touchAction: 'pan-y pinch-zoom' }}
+
+                />
+
+              </div>
+
+
+
+              <button 
+
+                onClick={(e) => {
+
+                  e.stopPropagation();
+
+                  setSelectedCustomerPhotoIndex((prev) => (prev === customerPhotos.length - 1 ? 0 : prev + 1));
+
+                }}
+
+                className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-50 p-2 bg-black bg-opacity-50 rounded-full"
+
+              >
+
+                <ChevronRight size={32} />
+
+              </button>
+
+            </div>
+
+          )}
 
 
 
