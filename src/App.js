@@ -1106,7 +1106,11 @@ export default function App() {
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-5.webp",
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-6.webp",
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-7.webp",
-    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-8.webp"
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-8.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-9.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-10.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-11.webp",
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-12.webp"
   ];
 
 
