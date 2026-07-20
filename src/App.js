@@ -8313,6 +8313,142 @@ export default function App() {
 
                         </section>
 
+                        {/* NUEVO CONTENIDO SEO DE TRANSPORTE PRIVADO AL HOTEL */}
+                        {lang === 'es' && (
+                          <section className="mt-12">
+                            <h2 className="text-3xl font-black text-gray-900 mb-6 border-b pb-4">
+                              ¿Por qué elegir transporte privado hacia {hotel.nombre}?
+                            </h2>
+                            <div className="space-y-4">
+                              <p>
+                                Comenzar tus vacaciones de la mejor manera significa evitar largas filas, esperas innecesarias y transporte compartido. Nuestro servicio de transporte privado desde el Aeropuerto Internacional de Los Cabos (SJD) hasta {hotel.nombre} está diseñado para ofrecer una experiencia cómoda, segura y completamente personalizada desde el momento en que aterrizas.
+                              </p>
+                              <p>
+                                Al reservar tu transporte privado hacia {hotel.nombre}, uno de nuestros conductores monitorea el estado de tu vuelo en tiempo real para asegurarse de recibirte incluso si tu vuelo presenta retrasos o llega antes de lo previsto. Esto significa que nunca tendrás que preocuparte por buscar transporte al llegar al aeropuerto.
+                              </p>
+                              <p className="font-bold">
+                                Nuestro objetivo es que el trayecto hacia {hotel.nombre} sea parte de tus vacaciones y no simplemente un traslado.
+                              </p>
+                              
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte directo del Aeropuerto de Los Cabos a {hotel.nombre}</h3>
+                              <p>Después de un vuelo largo, lo último que deseas es esperar a otros pasajeros o realizar múltiples paradas antes de llegar a tu alojamiento.</p>
+                              <p>Con Ballard Tours disfrutarás de un traslado completamente privado hacia {hotel.nombre}, sin compartir el vehículo con otros viajeros.</p>
+                              <p>Tu conductor te estará esperando en el aeropuerto con instrucciones claras de encuentro y te llevará directamente hasta la recepción de {hotel.nombre}.</p>
+                              <p>No existen rutas compartidas, cambios de vehículo ni tiempos de espera adicionales.</p>
+                              
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Servicio personalizado para llegar a {hotel.nombre}</h3>
+                              <p>Cada reserva incluye atención personalizada desde el momento en que confirmas tu traslado.</p>
+                              <p>Nuestro equipo permanece disponible por WhatsApp para responder cualquier duda relacionada con tu llegada a {hotel.nombre}, cambios de vuelo, modificaciones de horario o solicitudes especiales.</p>
+                              <p>Si necesitas agregar una parada para comprar bebidas, alimentos, medicamentos o cualquier otro artículo antes de llegar a {hotel.nombre}, podemos incluirla durante tu recorrido.</p>
+                              
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Vehículos de lujo para tu traslado a {hotel.nombre}</h3>
+                              <p>Disponemos de vehículos modernos y perfectamente mantenidos para brindar el mejor servicio de transporte hacia {hotel.nombre}.</p>
+                              <p>Nuestra flotilla incluye:</p>
+                              <ul className="list-disc pl-5 space-y-2">
+                                <li>Luxury SUVs para hasta 6 pasajeros.</li>
+                                <li>Mercedes Sprinter para grupos grandes.</li>
+                                <li>Vehículos con aire acondicionado.</li>
+                                <li>Espacio amplio para equipaje.</li>
+                                <li>Asientos cómodos.</li>
+                                <li>Agua embotellada.</li>
+                                <li>Cervezas de cortesía.</li>
+                                <li>Sillas para bebé sin costo adicional.</li>
+                              </ul>
+                              <p>Todos nuestros vehículos son limpiados y desinfectados constantemente para garantizar un viaje seguro hasta {hotel.nombre}.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Conductores profesionales</h3>
+                              <p>Todos nuestros operadores cuentan con amplia experiencia transportando visitantes hacia {hotel.nombre} y otros hoteles de Los Cabos.</p>
+                              <p>Nuestros choferes son:</p>
+                              <ul className="list-disc pl-5 space-y-2">
+                                <li>Bilingües.</li>
+                                <li>Puntuales.</li>
+                                <li>Uniformados.</li>
+                                <li>Amables.</li>
+                                <li>Con licencia federal.</li>
+                                <li>Con amplio conocimiento turístico.</li>
+                              </ul>
+                              <p>Durante el trayecto hacia {hotel.nombre} podrán responder preguntas sobre restaurantes, playas, actividades, tours y recomendaciones para disfrutar al máximo tu estancia.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Ventajas del transporte privado a {hotel.nombre}</h3>
+                              <p>Reservar un transporte privado hacia {hotel.nombre} ofrece numerosos beneficios:</p>
+                              <ul className="grid grid-cols-2 md:grid-cols-3 gap-2 list-disc pl-5 mt-2">
+                                <li>Sin esperas.</li>
+                                <li>Sin compartir vehículo.</li>
+                                <li>Atención personalizada.</li>
+                                <li>Tarifas fijas.</li>
+                                <li>Sin cargos ocultos.</li>
+                                <li>Seguimiento de vuelo.</li>
+                                <li>Atención por WhatsApp.</li>
+                                <li>Servicio puerta a puerta.</li>
+                                <li>Vehículos de lujo.</li>
+                                <li>Máxima comodidad.</li>
+                                <li>Mayor privacidad.</li>
+                                <li>Chofer profesional.</li>
+                                <li>Viaje seguro.</li>
+                                <li>Llegada directa a {hotel.nombre}.</li>
+                              </ul>
+                              <p className="mt-4">Miles de viajeros prefieren reservar con anticipación su transporte hacia {hotel.nombre} para evitar inconvenientes durante su llegada.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">¿Qué sucede cuando aterrizas en Los Cabos?</h3>
+                              <p>Una vez que aterrices en el Aeropuerto Internacional de Los Cabos, solo tendrás que seguir nuestras sencillas instrucciones de encuentro.</p>
+                              <p>Nuestro conductor estará listo para recibirte y ayudarte con tu equipaje antes de iniciar el viaje hacia {hotel.nombre}.</p>
+                              <p>No tendrás que negociar tarifas con taxis ni buscar transporte disponible.</p>
+                              <p>Todo estará previamente organizado para que llegues a {hotel.nombre} de forma rápida y cómoda.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Servicio disponible los 365 días del año</h3>
+                              <p>Operamos todos los días del año, incluyendo fines de semana y días festivos.</p>
+                              <p>Sin importar si tu vuelo llega temprano por la mañana o durante la noche, siempre tendrás un conductor disponible para llevarte hasta {hotel.nombre}.</p>
+                              <p>Nuestro servicio funciona las 24 horas.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte para familias que visitan {hotel.nombre}</h3>
+                              <p>Si viajas con niños pequeños, ofrecemos sillas para bebé y booster seats sin costo adicional.</p>
+                              <p>Las familias que se hospedan en {hotel.nombre} suelen elegir nuestro servicio por la comodidad de viajar directamente al hotel sin interrupciones.</p>
+                              <p>Además, nuestros vehículos cuentan con espacio suficiente para carriolas, maletas y equipaje adicional.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte para grupos</h3>
+                              <p>Si viajas con amigos, familiares o compañeros de trabajo, nuestras Mercedes Sprinter permiten transportar grupos completos hacia {hotel.nombre}.</p>
+                              <p>Viajar todos juntos hace que el traslado sea mucho más cómodo y económico que dividirse en varios taxis.</p>
+                              <p>También ofrecemos transporte para bodas, convenciones y eventos especiales realizados en {hotel.nombre}.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte de regreso desde {hotel.nombre} al aeropuerto</h3>
+                              <p>No solo realizamos traslados desde el aeropuerto hacia {hotel.nombre}, también organizamos tu regreso al Aeropuerto Internacional de Los Cabos.</p>
+                              <p>Al reservar viaje redondo, tu transporte desde {hotel.nombre} queda programado desde el primer día.</p>
+                              <p>Monitoreamos el tráfico y las condiciones de tu vuelo para salir con suficiente anticipación y asegurar tu llegada puntual al aeropuerto.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Más que un traslado</h3>
+                              <p>Además del transporte hacia {hotel.nombre}, Ballard Tours ofrece servicios adicionales para que aproveches al máximo tu visita a Los Cabos.</p>
+                              <p>Entre ellos encontrarás:</p>
+                              <ul className="grid grid-cols-2 list-disc pl-5 mt-2 mb-4">
+                                <li>Tours al Arco.</li>
+                                <li>Paseos en camello.</li>
+                                <li>Aventuras en ATV.</li>
+                                <li>Paseos en barco.</li>
+                                <li>Snorkel.</li>
+                                <li>Pesca deportiva.</li>
+                                <li>Transporte a restaurantes.</li>
+                                <li>Traslados privados entre hoteles.</li>
+                                <li>Excursiones de día completo.</li>
+                                <li>Transporte para bodas.</li>
+                              </ul>
+                              <p>Muchos huéspedes de {hotel.nombre} aprovechan nuestros servicios para desplazarse cómodamente por Los Cabos durante toda su estancia.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Reserva hoy tu transporte hacia {hotel.nombre}</h3>
+                              <p>Reservar tu transporte privado hacia {hotel.nombre} es rápido, sencillo y completamente seguro.</p>
+                              <p>Solo necesitas indicar:</p>
+                              <ul className="list-disc pl-5 mt-2 mb-4">
+                                <li>Fecha de llegada.</li>
+                                <li>Número de vuelo.</li>
+                                <li>Hora estimada.</li>
+                                <li>Número de pasajeros.</li>
+                                <li>Cantidad de equipaje.</li>
+                                <li>Solicitudes especiales.</li>
+                              </ul>
+                              <p>Nuestro equipo confirmará tu reserva y permanecerá disponible antes, durante y después de tu traslado hacia {hotel.nombre}.</p>
+                              <p>Miles de viajeros nacionales e internacionales ya han confiado en Ballard Tours para su transporte privado hacia {hotel.nombre}, disfrutando de un servicio confiable, puntual y con la comodidad que merecen desde el primer minuto de sus vacaciones.</p>
+                            </div>
+                          </section>
+                        )}
+
 
 
                       </div>
