@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ChevronDown } from 'lucide-react';
 
-export const FAQSection = ({ lang }) => {
+export const FAQSection = ({ lang, hotelName }) => {
   const [openFAQ, setOpenFAQ] = useState(null);
 
   const faqs = [
@@ -18,22 +18,22 @@ export const FAQSection = ({ lang }) => {
     },
     {
       q: { 
-        es: "¿A qué áreas de Los Cabos ofrecen servicio de transporte?", 
-        en: "What areas do you provide transportation to in Los Cabos?" 
+        es: hotelName ? `¿Ofrecen servicio de transporte hacia ${hotelName}?` : "¿A qué áreas de Los Cabos ofrecen servicio de transporte?", 
+        en: hotelName ? `Do you provide transportation to ${hotelName}?` : "What areas do you provide transportation to in Los Cabos?" 
       },
       a: { 
-        es: "Ofrecemos transporte privado a todos los resorts y destinos de Baja California Sur. Nuestras rutas principales incluyen San José del Cabo, el Corredor Turístico, Cabo San Lucas y la Zona del Pacífico (Diamante, Nobu, Hard Rock).", 
-        en: "We offer private transportation across the entire Baja California Sur peninsula. Our main routes include San Jose del Cabo, the Tourist Corridor, Cabo San Lucas, and the Pacific Zone (Diamante, Nobu, Hard Rock)." 
+        es: `Ofrecemos transporte privado a todos los resorts y destinos de Baja California Sur${hotelName ? `, incluyendo traslados directos hacia ${hotelName}` : ''}. Nuestras rutas principales incluyen San José del Cabo, el Corredor Turístico, Cabo San Lucas y la Zona del Pacífico.`, 
+        en: `We offer private transportation across the entire Baja California Sur peninsula${hotelName ? `, including direct transfers to ${hotelName}` : ''}. Our main routes include San Jose del Cabo, the Tourist Corridor, Cabo San Lucas, and the Pacific Zone.` 
       }
     },
     {
       q: { 
-        es: "¿El servicio de transporte de aeropuerto es compartido o privado?", 
-        en: "Are your airport transfer services shared or private?" 
+        es: hotelName ? `¿El servicio de transporte a ${hotelName} es compartido o privado?` : "¿El servicio de transporte de aeropuerto es compartido o privado?", 
+        en: hotelName ? `Is the shuttle service to ${hotelName} shared or private?` : "Are your airport transfer services shared or private?" 
       },
       a: { 
-        es: "Todos los traslados de Ballard Tours son 100% privados. Nunca compartirá su SUV de lujo o van Sprinter con desconocidos, garantizando un viaje directo y sin paradas hacia su hotel.", 
-        en: "All Ballard Tours airport shuttles and transfers are 100% private. You will never share your luxury SUV or Sprinter van with strangers, ensuring a direct, non-stop ride to your resort." 
+        es: `Todos los traslados de Ballard Tours${hotelName ? ` hacia ${hotelName}` : ''} son 100% privados. Nunca compartirá su SUV de lujo o van Sprinter con desconocidos, garantizando un viaje directo y sin paradas hacia su destino.`, 
+        en: `All Ballard Tours airport shuttles and transfers${hotelName ? ` to ${hotelName}` : ''} are 100% private. You will never share your luxury SUV or Sprinter van with strangers, ensuring a direct, non-stop ride to your resort.` 
       }
     },
     {
@@ -48,8 +48,8 @@ export const FAQSection = ({ lang }) => {
     },
     {
       q: { 
-        es: "¿Podemos hacer una parada para comprar despensa en el camino al hotel?", 
-        en: "Can we stop for groceries or drinks on the way to our hotel?" 
+        es: hotelName ? `¿Podemos hacer una parada para comprar despensa en el camino a ${hotelName}?` : "¿Podemos hacer una parada para comprar despensa en el camino al hotel?", 
+        en: hotelName ? `Can we stop for groceries or drinks on the way to ${hotelName}?` : "Can we stop for groceries or drinks on the way to our hotel?" 
       },
       a: { 
         es: "¡Por supuesto! Ofrecemos una parada de compras pre-programada (hasta por 1 hora) en tiendas populares como Costco, Walmart o Fresko por una pequeña tarifa adicional de $30 USD. Puede seleccionar esta opción al reservar.", 
@@ -72,8 +72,8 @@ export const FAQSection = ({ lang }) => {
         en: "What type of vehicles do you use for your transportation services?" 
       },
       a: { 
-        es: "Nuestra flota premium consiste en vehículos de modelo reciente con clima controlado. Utilizamos SUV de Lujo (como Chevrolet Suburban) para hasta 6 pasajeros, y amplias Vanes Mercedes Benz Sprinter para grupos de hasta 10 pasajeros.", 
-        en: "Our premium fleet consists of late-model, climate-controlled vehicles. We use Luxury SUVs (like Chevrolet Suburbans) for up to 6 passengers, and spacious Mercedes Benz Sprinter Vans for larger groups of up to 10 passengers." 
+        es: `Nuestra flota premium consiste en vehículos de modelo reciente con clima controlado${hotelName ? `, ideales para su viaje a ${hotelName}` : ''}. Utilizamos SUV de Lujo (como Chevrolet Suburban) para hasta 6 pasajeros, y amplias Vanes Mercedes Benz Sprinter para grupos de hasta 10 pasajeros.`, 
+        en: `Our premium fleet consists of late-model, climate-controlled vehicles${hotelName ? `, ideal for your trip to ${hotelName}` : ''}. We use Luxury SUVs (like Chevrolet Suburbans) for up to 6 passengers, and spacious Mercedes Benz Sprinter Vans for larger groups of up to 10 passengers.` 
       }
     },
     {

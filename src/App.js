@@ -8550,7 +8550,7 @@ export default function App() {
 
                       {/* 2. COMPONENTE FAQ ORIGINAL (Como en tu primera imagen) */}
 
-                      <FAQSection lang={lang} />
+                      <FAQSection lang={lang} hotelName={hotel.nombre} />
 
 
 
