@@ -903,171 +903,397 @@ const generarHtmlModificacionAdmin = (idModificar, datosModificar, costoDiferenc
 
 
 
+const HelpBookingWidget = ({ lang }) => {
+
+  return (
+
+    <div className="bg-white border border-gray-200 rounded-[1.5rem] p-5 shadow-sm mb-4 flex justify-between items-center">
+
+      <div className="flex-1">
+
+        <h3 className="text-xl font-black text-blue-900 leading-tight mb-2">
+
+          {lang === 'es' ? '¿Necesitas ayuda con tu reserva?' : 'Need help with your booking?'}
+
+        </h3>
+
+        <p className="text-gray-600 text-sm mb-1">
+
+          {lang === 'es' ? 'Envía SMS al' : 'Send SMS to'}
+
+        </p>
+
+        <a 
+
+          href="sms:+526241393497" 
+
+          onClick={() => navigator.clipboard.writeText('+526241393497')}
+
+          className="text-blue-600 font-bold text-lg hover:underline cursor-pointer block"
+
+        >
+
+          +52 624 139 3497
+
+        </a>
+
+      </div>
+
+      <div className="w-24 h-24 flex-shrink-0 ml-4">
+
+        <img 
+
+          src={lang === 'es' ? '/qr-es.png' : '/qr-en.png'} 
+
+          alt="QR Contact" 
+
+          className="w-full h-full object-contain rounded-lg"
+
+        />
+
+      </div>
+
+    </div>
+
+  );
+
+};
+
 
 
 const HotelSidebarWidget = ({ hotel, lang, reserva, setReserva, zonas, hoteles, setServicioSeleccionado, setBusquedaHotelPrincipal, setPaso, navigate, handleChange }) => {
+
   const [localBusqueda, setLocalBusqueda] = useState(hotel.nombre);
+
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
 
+
+
   useEffect(() => {
+
     setLocalBusqueda(hotel.nombre);
+
   }, [hotel.nombre]);
 
+
+
   return (
+
     <div className="lg:col-span-1 order-first lg:order-last mb-8 lg:mb-0">
-      <div className="bg-white border-2 border-blue-900 p-5 rounded-[1.5rem] shadow-2xl sticky top-28">
+
+      <div className="sticky top-28 z-40">
+
+        <HelpBookingWidget lang={lang} />
+
+        <div className="bg-white border-2 border-blue-900 p-5 rounded-[1.5rem] shadow-2xl">
+
         <div className="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+
           <h3 className="text-lg font-black text-blue-900 flex items-center gap-2">
+
             <MapPin className="text-blue-900" size={18} /> {lang === 'es' ? 'Detalles de Reserva' : 'Booking Details'}
+
           </h3>
+
           <div className="flex items-center gap-1 text-[9px] font-bold text-gray-500 uppercase tracking-wider">
+
             <ShieldCheck size={12} className="text-orange-400" /> Secure Payment
+
           </div>
+
         </div>
+
+
 
         <div className="space-y-4 mb-5">
+
           {/* HOTEL EDITABLE */}
+
           <div className="relative">
+
             <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">
+
               {lang === 'es' ? 'Selecciona tu Hotel' : 'Select Your Hotel'}
+
             </label>
+
             <input
+
               type="text"
+
               value={localBusqueda}
+
               onChange={(e) => {
+
                 setLocalBusqueda(e.target.value);
+
                 setMostrarDropdown(true);
+
               }}
+
               onFocus={() => setMostrarDropdown(true)}
+
               onBlur={() => setTimeout(() => setMostrarDropdown(false), 200)}
+
               placeholder={lang === 'es' ? "Escribe para buscar tu hotel..." : "Type to search your hotel..."}
+
               className="w-full bg-white border-2 border-gray-100 focus:border-blue-900 rounded-lg px-3 py-2 outline-none text-gray-800 font-bold text-xs transition-colors"
+
             />
+
             {mostrarDropdown && (
+
               <ul className="absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 top-[100%] max-h-56 overflow-y-auto custom-scrollbar">
+
                 {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes(localBusqueda.toLowerCase())).map(h => (
+
                   <li key={h.id || h.nombre} onMouseDown={() => {
+
                     const zona = h.zonaId || h.zona || "1";
+
                     setLocalBusqueda(h.nombre);
+
                     setReserva(prev => ({ ...prev, hotelId: h.nombre, zonaId: zona }));
+
                     setBusquedaHotelPrincipal(h.nombre);
+
                     setMostrarDropdown(false);
+
                   }} className="p-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 transition flex justify-between items-center text-xs">
+
                     <span className="font-bold">{h.nombre}</span>
+
                     <span className="text-[9px] font-black uppercase text-blue-900 bg-blue-100 px-2 py-1 rounded-md">Zona {h.zonaId || h.zona || 1}</span>
+
                   </li>
+
                 ))}
+
                 {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes(localBusqueda.toLowerCase())).length === 0 && (
+
                   <li className="p-3 text-gray-500 text-xs text-center">{lang === 'es' ? 'Hotel no encontrado' : 'Hotel not found'}</li>
+
                 )}
+
               </ul>
+
             )}
+
           </div>
+
+
 
           {/* VEHICLE OPTIONS */}
+
           <div>
+
             <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">
+
               {lang === 'es' ? 'Tipo de Vehículo' : 'Vehicle Type'}
+
             </label>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+
               <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'suburban' }))} className={`cursor-pointer border-2 rounded-lg p-3 transition-all ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'border-blue-900 bg-blue-50/50 shadow-sm' : 'border-gray-100 hover:border-gray-300'}`}>
+
                 <div className="flex justify-between items-center mb-1">
+
                   <span className={`font-black text-sm ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'text-blue-900' : 'text-gray-700'}`}>Luxury SUV</span>
+
                   <Car className={reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'text-blue-900' : 'text-gray-400'} size={14} />
+
                 </div>
+
                 <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Familias o pequeños grupos.' : 'Families or small groups.'}</p>
+
                 <div className="flex justify-between items-center mt-auto">
+
                   <p className="text-[9px] font-bold text-gray-400 flex items-center gap-1"><Users size={10} /> MAX 6 PAX</p>
+
                   <span className="font-black text-gray-900 text-sm">${(zonas.find(z => z.id === reserva.zonaId) || {}).tarifaSuburban || (zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80}</span>
+
                 </div>
+
               </div>
+
               
+
               <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'sprinter' }))} className={`cursor-pointer border-2 rounded-lg p-3 transition-all ${reserva.vehiculo === 'sprinter' ? 'border-blue-900 bg-blue-50/50 shadow-sm' : 'border-gray-100 hover:border-gray-300'}`}>
+
                 <div className="flex justify-between items-center mb-1">
+
                   <span className={`font-black text-sm ${reserva.vehiculo === 'sprinter' ? 'text-blue-900' : 'text-gray-700'}`}>Van</span>
+
                   <Car className={reserva.vehiculo === 'sprinter' ? 'text-blue-900' : 'text-gray-400'} size={14} />
+
                 </div>
+
                 <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Lujo para grupos grandes.' : 'Luxury for large groups.'}</p>
+
                 <div className="flex justify-between items-center mt-auto">
+
                   <p className="text-[9px] font-bold text-gray-400 flex items-center gap-1"><Users size={10} /> MAX 10 PAX</p>
+
                   <span className="font-black text-gray-900 text-sm">${(zonas.find(z => z.id === reserva.zonaId) || {}).tarifaSprinter || (zonas.find(z => z.id === hotel.zona) || {}).tarifaSprinter || 110}</span>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
+
 
           <div className="grid grid-cols-2 gap-3">
+
             <div>
+
               <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">{lang === 'es' ? 'Llegada' : 'Arrival Date'}</label>
+
               <input type="date" name="fechaLlegada" value={reserva.fechaLlegada || ''} onChange={handleChange} className="w-full bg-white border-2 border-gray-100 focus:border-blue-900 rounded-lg px-3 py-2 outline-none text-gray-800 font-bold text-xs transition-colors" />
+
             </div>
+
             <div>
+
               <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">{lang === 'es' ? 'Pasajeros' : 'Passengers'}</label>
+
               <div className="relative">
+
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
                   <Users className="text-gray-400" size={14} />
+
                 </div>
+
                 <input type="number" min="1" max="10" name="pasajeros" value={reserva.pasajeros || 1} onChange={handleChange} className="w-full bg-white border-2 border-gray-100 focus:border-blue-900 rounded-lg pl-8 pr-3 py-2 outline-none text-gray-800 font-bold text-xs transition-colors" />
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
+
 
         <div className="pt-2">
+
           <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-3 text-center">
+
             {lang === 'es' ? 'Elige tu servicio para continuar' : 'Choose service to continue'}
+
           </label>
 
+
+
           <div className="grid grid-cols-2 gap-2">
+
             <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setBusquedaHotelPrincipal(reserva.hotelId || hotel.nombre); setReserva(prev => ({ ...prev, hotelId: prev.hotelId || hotel.nombre, zonaId: prev.zonaId || hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-lg py-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+
               <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneLanding size={18} strokeWidth={2} /></div>
+
               <span className="font-bold text-blue-900 text-[10px] text-center uppercase">{lang === 'es' ? 'Aero → Hotel' : 'Airport → Hotel'}</span>
+
             </button>
+
             <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); setBusquedaHotelPrincipal(reserva.hotelId || hotel.nombre); setReserva(prev => ({ ...prev, hotelId: prev.hotelId || hotel.nombre, zonaId: prev.zonaId || hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-lg py-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+
               <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneTakeoff size={18} strokeWidth={2} /></div>
+
               <span className="font-bold text-blue-900 text-[10px] text-center uppercase">{lang === 'es' ? 'Hotel → Aero' : 'Hotel → Airport'}</span>
+
             </button>
+
             <button onClick={() => { setServicioSeleccionado('redondo'); setBusquedaHotelPrincipal(reserva.hotelId || hotel.nombre); setReserva(prev => ({ ...prev, hotelId: prev.hotelId || hotel.nombre, zonaId: prev.zonaId || hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-blue-900 border-2 border-blue-900 rounded-lg py-3 hover:bg-blue-800 transition-all group col-span-2 shadow-md shadow-blue-900/30">
+
               <div className="text-white mb-1 group-hover:scale-110 transition-transform"><RefreshCw size={18} strokeWidth={2} /></div>
+
               <span className="font-black text-white text-[11px] text-center uppercase tracking-wider">{lang === 'es' ? 'Viaje Redondo (Recomendado)' : 'Round Trip'}</span>
+
             </button>
+
           </div>
+
+
 
           {/* CAJA DE BENEFICIOS VERDE */}
+
           <div className="mt-5 bg-green-50/80 border border-green-100 rounded-xl p-4 shadow-sm">
+
             <ul className="space-y-3">
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Cancelación gratuita (Hasta 24 horas antes)' : 'Free Cancellation (Up to 24 hours before)'}
+
                 </span>
+
               </li>
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Reserva ahora, paga después (o paga al llegar)' : 'Book now, pay later (or pay on arrival)'}
+
                 </span>
+
               </li>
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Monitoreo de vuelo gratis (Te esperamos sin costo extra)' : 'Free flight monitoring (We wait at no extra cost)'}
+
                 </span>
+
               </li>
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Sin tarifas ocultas (El precio que ves es final)' : 'No hidden fees (The price you see is final)'}
+
                 </span>
+
               </li>
+
             </ul>
+
           </div>
 
+
+
         </div>
+
       </div>
+
+        </div>
+
     </div>
+
   );
+
 };
+
+
 
 export default function App() {
 
@@ -1098,19 +1324,33 @@ export default function App() {
   const t = translations[lang];
 
   const [selectedCustomerPhotoIndex, setSelectedCustomerPhotoIndex] = useState(null);
+
   const customerPhotos = [
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-1.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-2.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-3.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-4.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-5.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-6.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-7.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-8.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-9.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-10.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-11.webp",
+
     "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-12.webp"
+
   ];
 
 
@@ -3144,7 +3384,7 @@ export default function App() {
 
                   onClick={onContinue}
 
-                  className={`flex-1 py-4 rounded-xl font-bold flex justify-center items-center transition-all active:scale-[0.98] ${disabledBtn ? 'bg-gray-300 lg:bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 text-white shadow-lg shadow-blue-900/30'}`}
+                  className={`flex-1 py-4 rounded-xl font-bold flex justify-center items-center transition-all ${disabledBtn ? 'bg-gray-300 lg:bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 text-white shadow-lg shadow-blue-900/30'}`}
 
                 >
 
