@@ -903,171 +903,397 @@ const generarHtmlModificacionAdmin = (idModificar, datosModificar, costoDiferenc
 
 
 
+const HelpBookingWidget = ({ lang }) => {
+
+  return (
+
+    <div className="bg-white border border-gray-200 rounded-[1.5rem] p-5 shadow-sm mb-4 flex justify-between items-center">
+
+      <div className="flex-1">
+
+        <h3 className="text-xl font-black text-blue-900 leading-tight mb-2">
+
+          {lang === 'es' ? '¿Necesitas ayuda con tu reserva?' : 'Need help with your booking?'}
+
+        </h3>
+
+        <p className="text-gray-600 text-sm mb-1">
+
+          {lang === 'es' ? 'Envía SMS al' : 'Send SMS to'}
+
+        </p>
+
+        <a 
+
+          href="sms:+526241393497" 
+
+          onClick={() => navigator.clipboard.writeText('+526241393497')}
+
+          className="text-blue-600 font-bold text-lg hover:underline cursor-pointer block"
+
+        >
+
+          +52 624 139 3497
+
+        </a>
+
+      </div>
+
+      <div className="w-24 h-24 flex-shrink-0 ml-4">
+
+        <img 
+
+          src={lang === 'es' ? '/qr-es.png' : '/qr-en.png'} 
+
+          alt="QR Contact" 
+
+          className="w-full h-full object-contain rounded-lg"
+
+        />
+
+      </div>
+
+    </div>
+
+  );
+
+};
+
 
 
 const HotelSidebarWidget = ({ hotel, lang, reserva, setReserva, zonas, hoteles, setServicioSeleccionado, setBusquedaHotelPrincipal, setPaso, navigate, handleChange }) => {
+
   const [localBusqueda, setLocalBusqueda] = useState(hotel.nombre);
+
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
 
+
+
   useEffect(() => {
+
     setLocalBusqueda(hotel.nombre);
+
   }, [hotel.nombre]);
 
+
+
   return (
+
     <div className="lg:col-span-1 order-first lg:order-last mb-8 lg:mb-0">
-      <div className="bg-white border-2 border-blue-900 p-5 rounded-[1.5rem] shadow-2xl sticky top-28">
+
+      <div className="sticky top-28 z-40">
+
+        <HelpBookingWidget lang={lang} />
+
+        <div className="bg-white border-2 border-blue-900 p-5 rounded-[1.5rem] shadow-2xl">
+
         <div className="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+
           <h3 className="text-lg font-black text-blue-900 flex items-center gap-2">
+
             <MapPin className="text-blue-900" size={18} /> {lang === 'es' ? 'Detalles de Reserva' : 'Booking Details'}
+
           </h3>
+
           <div className="flex items-center gap-1 text-[9px] font-bold text-gray-500 uppercase tracking-wider">
+
             <ShieldCheck size={12} className="text-orange-400" /> Secure Payment
+
           </div>
+
         </div>
+
+
 
         <div className="space-y-4 mb-5">
+
           {/* HOTEL EDITABLE */}
+
           <div className="relative">
+
             <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">
+
               {lang === 'es' ? 'Selecciona tu Hotel' : 'Select Your Hotel'}
+
             </label>
+
             <input
+
               type="text"
+
               value={localBusqueda}
+
               onChange={(e) => {
+
                 setLocalBusqueda(e.target.value);
+
                 setMostrarDropdown(true);
+
               }}
+
               onFocus={() => setMostrarDropdown(true)}
+
               onBlur={() => setTimeout(() => setMostrarDropdown(false), 200)}
+
               placeholder={lang === 'es' ? "Escribe para buscar tu hotel..." : "Type to search your hotel..."}
+
               className="w-full bg-white border-2 border-gray-100 focus:border-blue-900 rounded-lg px-3 py-2 outline-none text-gray-800 font-bold text-xs transition-colors"
+
             />
+
             {mostrarDropdown && (
+
               <ul className="absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 top-[100%] max-h-56 overflow-y-auto custom-scrollbar">
+
                 {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes(localBusqueda.toLowerCase())).map(h => (
+
                   <li key={h.id || h.nombre} onMouseDown={() => {
+
                     const zona = h.zonaId || h.zona || "1";
+
                     setLocalBusqueda(h.nombre);
+
                     setReserva(prev => ({ ...prev, hotelId: h.nombre, zonaId: zona }));
+
                     setBusquedaHotelPrincipal(h.nombre);
+
                     setMostrarDropdown(false);
+
                   }} className="p-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 transition flex justify-between items-center text-xs">
+
                     <span className="font-bold">{h.nombre}</span>
+
                     <span className="text-[9px] font-black uppercase text-blue-900 bg-blue-100 px-2 py-1 rounded-md">Zona {h.zonaId || h.zona || 1}</span>
+
                   </li>
+
                 ))}
+
                 {hoteles.filter(h => h.nombre && h.nombre.toLowerCase().includes(localBusqueda.toLowerCase())).length === 0 && (
+
                   <li className="p-3 text-gray-500 text-xs text-center">{lang === 'es' ? 'Hotel no encontrado' : 'Hotel not found'}</li>
+
                 )}
+
               </ul>
+
             )}
+
           </div>
+
+
 
           {/* VEHICLE OPTIONS */}
+
           <div>
+
             <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">
+
               {lang === 'es' ? 'Tipo de Vehículo' : 'Vehicle Type'}
+
             </label>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+
               <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'suburban' }))} className={`cursor-pointer border-2 rounded-lg p-3 transition-all ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'border-blue-900 bg-blue-50/50 shadow-sm' : 'border-gray-100 hover:border-gray-300'}`}>
+
                 <div className="flex justify-between items-center mb-1">
+
                   <span className={`font-black text-sm ${reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'text-blue-900' : 'text-gray-700'}`}>Luxury SUV</span>
+
                   <Car className={reserva.vehiculo === 'suburban' || !reserva.vehiculo ? 'text-blue-900' : 'text-gray-400'} size={14} />
+
                 </div>
+
                 <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Familias o pequeños grupos.' : 'Families or small groups.'}</p>
+
                 <div className="flex justify-between items-center mt-auto">
+
                   <p className="text-[9px] font-bold text-gray-400 flex items-center gap-1"><Users size={10} /> MAX 6 PAX</p>
+
                   <span className="font-black text-gray-900 text-sm">${(zonas.find(z => z.id === reserva.zonaId) || {}).tarifaSuburban || (zonas.find(z => z.id === hotel.zona) || {}).tarifaSuburban || 80}</span>
+
                 </div>
+
               </div>
+
               
+
               <div onClick={() => setReserva(prev => ({ ...prev, vehiculo: 'sprinter' }))} className={`cursor-pointer border-2 rounded-lg p-3 transition-all ${reserva.vehiculo === 'sprinter' ? 'border-blue-900 bg-blue-50/50 shadow-sm' : 'border-gray-100 hover:border-gray-300'}`}>
+
                 <div className="flex justify-between items-center mb-1">
+
                   <span className={`font-black text-sm ${reserva.vehiculo === 'sprinter' ? 'text-blue-900' : 'text-gray-700'}`}>Van</span>
+
                   <Car className={reserva.vehiculo === 'sprinter' ? 'text-blue-900' : 'text-gray-400'} size={14} />
+
                 </div>
+
                 <p className="text-[9px] text-gray-500 mb-2 leading-tight h-6">{lang === 'es' ? 'Lujo para grupos grandes.' : 'Luxury for large groups.'}</p>
+
                 <div className="flex justify-between items-center mt-auto">
+
                   <p className="text-[9px] font-bold text-gray-400 flex items-center gap-1"><Users size={10} /> MAX 10 PAX</p>
+
                   <span className="font-black text-gray-900 text-sm">${(zonas.find(z => z.id === reserva.zonaId) || {}).tarifaSprinter || (zonas.find(z => z.id === hotel.zona) || {}).tarifaSprinter || 110}</span>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
+
 
           <div className="grid grid-cols-2 gap-3">
+
             <div>
+
               <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">{lang === 'es' ? 'Llegada' : 'Arrival Date'}</label>
+
               <input type="date" name="fechaLlegada" value={reserva.fechaLlegada || ''} onChange={handleChange} className="w-full bg-white border-2 border-gray-100 focus:border-blue-900 rounded-lg px-3 py-2 outline-none text-gray-800 font-bold text-xs transition-colors" />
+
             </div>
+
             <div>
+
               <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1.5">{lang === 'es' ? 'Pasajeros' : 'Passengers'}</label>
+
               <div className="relative">
+
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
                   <Users className="text-gray-400" size={14} />
+
                 </div>
+
                 <input type="number" min="1" max="10" name="pasajeros" value={reserva.pasajeros || 1} onChange={handleChange} className="w-full bg-white border-2 border-gray-100 focus:border-blue-900 rounded-lg pl-8 pr-3 py-2 outline-none text-gray-800 font-bold text-xs transition-colors" />
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
+
 
         <div className="pt-2">
+
           <label className="block text-[9px] font-black text-blue-900 uppercase tracking-widest mb-3 text-center">
+
             {lang === 'es' ? 'Elige tu servicio para continuar' : 'Choose service to continue'}
+
           </label>
 
+
+
           <div className="grid grid-cols-2 gap-2">
+
             <button onClick={() => { setServicioSeleccionado('aeropuerto_hotel'); setBusquedaHotelPrincipal(reserva.hotelId || hotel.nombre); setReserva(prev => ({ ...prev, hotelId: prev.hotelId || hotel.nombre, zonaId: prev.zonaId || hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-lg py-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+
               <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneLanding size={18} strokeWidth={2} /></div>
+
               <span className="font-bold text-blue-900 text-[10px] text-center uppercase">{lang === 'es' ? 'Aero → Hotel' : 'Airport → Hotel'}</span>
+
             </button>
+
             <button onClick={() => { setServicioSeleccionado('hotel_aeropuerto'); setBusquedaHotelPrincipal(reserva.hotelId || hotel.nombre); setReserva(prev => ({ ...prev, hotelId: prev.hotelId || hotel.nombre, zonaId: prev.zonaId || hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-white border-2 border-gray-100 rounded-lg py-3 hover:border-blue-900 hover:bg-blue-50 transition-all group">
+
               <div className="text-blue-900 mb-1 group-hover:scale-110 transition-transform"><PlaneTakeoff size={18} strokeWidth={2} /></div>
+
               <span className="font-bold text-blue-900 text-[10px] text-center uppercase">{lang === 'es' ? 'Hotel → Aero' : 'Hotel → Airport'}</span>
+
             </button>
+
             <button onClick={() => { setServicioSeleccionado('redondo'); setBusquedaHotelPrincipal(reserva.hotelId || hotel.nombre); setReserva(prev => ({ ...prev, hotelId: prev.hotelId || hotel.nombre, zonaId: prev.zonaId || hotel.zona, vehiculo: prev.vehiculo || 'suburban' })); setPaso(2); navigate('/'); window.scrollTo(0, 0); }} className="flex flex-col items-center justify-center bg-blue-900 border-2 border-blue-900 rounded-lg py-3 hover:bg-blue-800 transition-all group col-span-2 shadow-md shadow-blue-900/30">
+
               <div className="text-white mb-1 group-hover:scale-110 transition-transform"><RefreshCw size={18} strokeWidth={2} /></div>
+
               <span className="font-black text-white text-[11px] text-center uppercase tracking-wider">{lang === 'es' ? 'Viaje Redondo (Recomendado)' : 'Round Trip'}</span>
+
             </button>
+
           </div>
+
+
 
           {/* CAJA DE BENEFICIOS VERDE */}
+
           <div className="mt-5 bg-green-50/80 border border-green-100 rounded-xl p-4 shadow-sm">
+
             <ul className="space-y-3">
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Cancelación gratuita (Hasta 24 horas antes)' : 'Free Cancellation (Up to 24 hours before)'}
+
                 </span>
+
               </li>
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Reserva ahora, paga después (o paga al llegar)' : 'Book now, pay later (or pay on arrival)'}
+
                 </span>
+
               </li>
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Monitoreo de vuelo gratis (Te esperamos sin costo extra)' : 'Free flight monitoring (We wait at no extra cost)'}
+
                 </span>
+
               </li>
+
               <li className="flex items-start gap-2">
+
                 <CheckCircle className="text-green-600 shrink-0 mt-0.5" size={14} />
+
                 <span className="text-xs text-green-900 font-medium leading-tight">
+
                   {lang === 'es' ? 'Sin tarifas ocultas (El precio que ves es final)' : 'No hidden fees (The price you see is final)'}
+
                 </span>
+
               </li>
+
             </ul>
+
           </div>
 
+
+
         </div>
+
       </div>
+
+        </div>
+
     </div>
+
   );
+
 };
+
+
 
 export default function App() {
 
@@ -1096,6 +1322,36 @@ export default function App() {
   const [lang, setLang] = useState('es');
 
   const t = translations[lang];
+
+  const [selectedCustomerPhotoIndex, setSelectedCustomerPhotoIndex] = useState(null);
+
+  const customerPhotos = [
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-1.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-2.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-3.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-4.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-5.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-6.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-7.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-8.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-9.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-10.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-11.webp",
+
+    "transportation-private-airport-taxi-ballard-uber-shuttle-los-cabos-sjd-cabo-private-12.webp"
+
+  ];
 
 
 
@@ -3128,7 +3384,7 @@ export default function App() {
 
                   onClick={onContinue}
 
-                  className={`flex-1 py-4 rounded-xl font-bold flex justify-center items-center transition-all active:scale-[0.98] ${disabledBtn ? 'bg-gray-300 lg:bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 text-white shadow-lg shadow-blue-900/30'}`}
+                  className={`flex-1 py-4 rounded-xl font-bold flex justify-center items-center transition-all ${disabledBtn ? 'bg-gray-300 lg:bg-gray-700 text-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 text-white shadow-lg shadow-blue-900/30'}`}
 
                 >
 
@@ -3788,6 +4044,88 @@ export default function App() {
               return <a key={idx} href="https://g.page/r/CYogd8iYqsEMEAE/review" target="_blank" rel="noopener noreferrer" className={`${cardClasses} cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-transform`}>{cardContent}</a>;
 
             })}
+
+          </div>
+
+        </div>
+
+
+
+        {/* 🌟 FOTOS DE CLIENTES 🌟 */}
+
+        <div className="max-w-7xl mx-auto px-4 mb-16 animate-fade-in">
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+
+            <div>
+
+              <div className="flex items-center gap-3 mb-3">
+
+                <div className="w-8 h-8 bg-white rounded-full border-2 border-white shadow-sm flex items-center justify-center">
+
+                  <ImageIcon size={14} className="text-[#4285F4]" />
+
+                </div>
+
+              </div>
+
+              <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+
+                {lang === 'es' ? 'Fotos que han dejado nuestros clientes' : 'Photos left by our customers'}
+
+              </h2>
+
+            </div>
+
+            <div className="flex items-center gap-4">
+
+              <div className="hidden md:flex gap-2">
+
+                <button onClick={() => { const c = document.getElementById('photos-carousel-home'); if (c) c.scrollBy({ left: -340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+
+                  <ChevronLeft size={20} />
+
+                </button>
+
+                <button onClick={() => { const c = document.getElementById('photos-carousel-home'); if (c) c.scrollBy({ left: 340, behavior: 'smooth' }); }} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+
+                  <ChevronRight size={20} />
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div id="photos-carousel-home" className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+
+            {customerPhotos.map((photo, i) => (
+
+              <div 
+
+                key={i} 
+
+                onClick={() => setSelectedCustomerPhotoIndex(i)}
+
+                className="snap-center shrink-0 w-[85vw] sm:w-[320px] lg:w-[360px] h-[250px] md:h-[300px] bg-white border border-gray-200 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden group"
+
+              >
+
+                <img 
+
+                  src={`/${photo}`} 
+
+                  alt={`Customer photo ${i+1}`} 
+
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+
+                />
+
+              </div>
+
+            ))}
 
           </div>
 
@@ -8003,6 +8341,41 @@ export default function App() {
                           </div>
                         </section>
 
+                        {/* CUSTOMER PHOTOS CAROUSEL */}
+                        <section className="my-8">
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                               <div className="w-6 h-6 flex items-center justify-center bg-white rounded-full border border-gray-100 shadow-sm">
+                                  <ImageIcon size={12} className="text-[#4285F4]" />
+                               </div>
+                               {lang === 'es' ? 'Fotos que han dejado nuestros clientes' : 'Photos left by our customers'}
+                            </h3>
+                            <div className="hidden md:flex gap-2">
+                              <button onClick={() => { const c = document.getElementById(`photos-carousel-${hotel.slug}`); if (c) c.scrollBy({ left: -300, behavior: 'smooth' }); }} className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+                                <ChevronLeft size={16} />
+                              </button>
+                              <button onClick={() => { const c = document.getElementById(`photos-carousel-${hotel.slug}`); if (c) c.scrollBy({ left: 300, behavior: 'smooth' }); }} className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm">
+                                <ChevronRight size={16} />
+                              </button>
+                            </div>
+                          </div>
+                          <div id={`photos-carousel-${hotel.slug}`} className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                            {customerPhotos.map((photo, i) => (
+                              <div 
+                                key={i} 
+                                onClick={() => setSelectedCustomerPhotoIndex(i)}
+                                className="snap-center shrink-0 w-[260px] md:w-[280px] h-[200px] md:h-[220px] bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden group"
+                              >
+                                <img 
+                                  src={`/${photo}`} 
+                                  alt={`Customer photo ${i+1}`} 
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+
                         {/* CAJA DE BENEFICIOS KEY TAKEAWAYS */}
                         <section className="bg-blue-50 border-l-4 border-blue-900 p-8 rounded-r-3xl my-10 shadow-sm">
                           <h3 className="text-2xl font-black text-blue-900 mb-6">{lang === 'es' ? 'Puntos Clave' : 'Key Takeaways'}</h3>
@@ -8129,23 +8502,14 @@ export default function App() {
                               <div className="absolute top-0 right-0 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">{lang === 'es' ? 'Recomendado' : 'Recommended'}</div>
 
                               <h4 className="text-xl font-black text-blue-900 flex items-center gap-2 mb-3"><Car size={24} /> {lang === 'es' ? 'Traslados Privados VIP (SUVs)' : 'Private Transfers (SUVs)'}</h4>
-
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Proporcionan servicio directo y personalizado hasta el lobby de tu hotel. Sin filas de espera, con flexibilidad de tiempo, bebidas frías y privacidad total.' : 'Provide direct, personalized service to your hotel lobby. No wait times, complete flexibility, complimentary cold drinks, and ultimate privacy.'}</p>
-
                             </div>
-
                             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
-
                               <h4 className="text-xl font-bold text-gray-700 flex items-center gap-2 mb-3"><Users size={24} /> {lang === 'es' ? 'Shuttles Compartidos' : 'Shared Shuttles'}</h4>
-
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Económicos para viajeros solos. Sin embargo, requieren esperar en el aeropuerto hasta que la van se llene, y hacer múltiples paradas en otros hoteles antes de llegar al tuyo.' : 'Budget-friendly for solo travelers. However, they require waiting at the airport for other passengers and making multiple stops before reaching your destination.'}</p>
-
                             </div>
-
                             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
-
                               <h4 className="text-xl font-bold text-gray-700 flex items-center gap-2 mb-3"><Banknote size={24} /> {lang === 'es' ? 'Taxis de Aeropuerto' : 'Airport Taxis'}</h4>
-
                               <p className="text-base text-gray-600">{lang === 'es' ? 'Disponibles al momento, pero las tarifas son impredecibles y suelen ser más costosas que los servicios pre-reservados. No garantizan un vehículo de lujo.' : 'Readily available, but fares can be unpredictable, dynamic, and potentially much higher than pre-booked services. No guarantee of a luxury vehicle.'}</p>
 
                             </div>
@@ -8211,6 +8575,142 @@ export default function App() {
                           </div>
 
                         </section>
+
+                        {/* NUEVO CONTENIDO SEO DE TRANSPORTE PRIVADO AL HOTEL */}
+                        {lang === 'es' && (
+                          <section className="mt-12">
+                            <h2 className="text-3xl font-black text-gray-900 mb-6 border-b pb-4">
+                              ¿Por qué elegir transporte privado hacia {hotel.nombre}?
+                            </h2>
+                            <div className="space-y-4">
+                              <p>
+                                Comenzar tus vacaciones de la mejor manera significa evitar largas filas, esperas innecesarias y transporte compartido. Nuestro servicio de transporte privado desde el Aeropuerto Internacional de Los Cabos (SJD) hasta {hotel.nombre} está diseñado para ofrecer una experiencia cómoda, segura y completamente personalizada desde el momento en que aterrizas.
+                              </p>
+                              <p>
+                                Al reservar tu transporte privado hacia {hotel.nombre}, uno de nuestros conductores monitorea el estado de tu vuelo en tiempo real para asegurarse de recibirte incluso si tu vuelo presenta retrasos o llega antes de lo previsto. Esto significa que nunca tendrás que preocuparte por buscar transporte al llegar al aeropuerto.
+                              </p>
+                              <p className="font-bold">
+                                Nuestro objetivo es que el trayecto hacia {hotel.nombre} sea parte de tus vacaciones y no simplemente un traslado.
+                              </p>
+                              
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte directo del Aeropuerto de Los Cabos a {hotel.nombre}</h3>
+                              <p>Después de un vuelo largo, lo último que deseas es esperar a otros pasajeros o realizar múltiples paradas antes de llegar a tu alojamiento.</p>
+                              <p>Con Ballard Tours disfrutarás de un traslado completamente privado hacia {hotel.nombre}, sin compartir el vehículo con otros viajeros.</p>
+                              <p>Tu conductor te estará esperando en el aeropuerto con instrucciones claras de encuentro y te llevará directamente hasta la recepción de {hotel.nombre}.</p>
+                              <p>No existen rutas compartidas, cambios de vehículo ni tiempos de espera adicionales.</p>
+                              
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Servicio personalizado para llegar a {hotel.nombre}</h3>
+                              <p>Cada reserva incluye atención personalizada desde el momento en que confirmas tu traslado.</p>
+                              <p>Nuestro equipo permanece disponible por WhatsApp para responder cualquier duda relacionada con tu llegada a {hotel.nombre}, cambios de vuelo, modificaciones de horario o solicitudes especiales.</p>
+                              <p>Si necesitas agregar una parada para comprar bebidas, alimentos, medicamentos o cualquier otro artículo antes de llegar a {hotel.nombre}, podemos incluirla durante tu recorrido.</p>
+                              
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Vehículos de lujo para tu traslado a {hotel.nombre}</h3>
+                              <p>Disponemos de vehículos modernos y perfectamente mantenidos para brindar el mejor servicio de transporte hacia {hotel.nombre}.</p>
+                              <p>Nuestra flotilla incluye:</p>
+                              <ul className="list-disc pl-5 space-y-2">
+                                <li>Luxury SUVs para hasta 6 pasajeros.</li>
+                                <li>Mercedes Sprinter para grupos grandes.</li>
+                                <li>Vehículos con aire acondicionado.</li>
+                                <li>Espacio amplio para equipaje.</li>
+                                <li>Asientos cómodos.</li>
+                                <li>Agua embotellada.</li>
+                                <li>Cervezas de cortesía.</li>
+                                <li>Sillas para bebé sin costo adicional.</li>
+                              </ul>
+                              <p>Todos nuestros vehículos son limpiados y desinfectados constantemente para garantizar un viaje seguro hasta {hotel.nombre}.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Conductores profesionales</h3>
+                              <p>Todos nuestros operadores cuentan con amplia experiencia transportando visitantes hacia {hotel.nombre} y otros hoteles de Los Cabos.</p>
+                              <p>Nuestros choferes son:</p>
+                              <ul className="list-disc pl-5 space-y-2">
+                                <li>Bilingües.</li>
+                                <li>Puntuales.</li>
+                                <li>Uniformados.</li>
+                                <li>Amables.</li>
+                                <li>Con licencia federal.</li>
+                                <li>Con amplio conocimiento turístico.</li>
+                              </ul>
+                              <p>Durante el trayecto hacia {hotel.nombre} podrán responder preguntas sobre restaurantes, playas, actividades, tours y recomendaciones para disfrutar al máximo tu estancia.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Ventajas del transporte privado a {hotel.nombre}</h3>
+                              <p>Reservar un transporte privado hacia {hotel.nombre} ofrece numerosos beneficios:</p>
+                              <ul className="grid grid-cols-2 md:grid-cols-3 gap-2 list-disc pl-5 mt-2">
+                                <li>Sin esperas.</li>
+                                <li>Sin compartir vehículo.</li>
+                                <li>Atención personalizada.</li>
+                                <li>Tarifas fijas.</li>
+                                <li>Sin cargos ocultos.</li>
+                                <li>Seguimiento de vuelo.</li>
+                                <li>Atención por WhatsApp.</li>
+                                <li>Servicio puerta a puerta.</li>
+                                <li>Vehículos de lujo.</li>
+                                <li>Máxima comodidad.</li>
+                                <li>Mayor privacidad.</li>
+                                <li>Chofer profesional.</li>
+                                <li>Viaje seguro.</li>
+                                <li>Llegada directa a {hotel.nombre}.</li>
+                              </ul>
+                              <p className="mt-4">Miles de viajeros prefieren reservar con anticipación su transporte hacia {hotel.nombre} para evitar inconvenientes durante su llegada.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">¿Qué sucede cuando aterrizas en Los Cabos?</h3>
+                              <p>Una vez que aterrices en el Aeropuerto Internacional de Los Cabos, solo tendrás que seguir nuestras sencillas instrucciones de encuentro.</p>
+                              <p>Nuestro conductor estará listo para recibirte y ayudarte con tu equipaje antes de iniciar el viaje hacia {hotel.nombre}.</p>
+                              <p>No tendrás que negociar tarifas con taxis ni buscar transporte disponible.</p>
+                              <p>Todo estará previamente organizado para que llegues a {hotel.nombre} de forma rápida y cómoda.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Servicio disponible los 365 días del año</h3>
+                              <p>Operamos todos los días del año, incluyendo fines de semana y días festivos.</p>
+                              <p>Sin importar si tu vuelo llega temprano por la mañana o durante la noche, siempre tendrás un conductor disponible para llevarte hasta {hotel.nombre}.</p>
+                              <p>Nuestro servicio funciona las 24 horas.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte para familias que visitan {hotel.nombre}</h3>
+                              <p>Si viajas con niños pequeños, ofrecemos sillas para bebé y booster seats sin costo adicional.</p>
+                              <p>Las familias que se hospedan en {hotel.nombre} suelen elegir nuestro servicio por la comodidad de viajar directamente al hotel sin interrupciones.</p>
+                              <p>Además, nuestros vehículos cuentan con espacio suficiente para carriolas, maletas y equipaje adicional.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte para grupos</h3>
+                              <p>Si viajas con amigos, familiares o compañeros de trabajo, nuestras Mercedes Sprinter permiten transportar grupos completos hacia {hotel.nombre}.</p>
+                              <p>Viajar todos juntos hace que el traslado sea mucho más cómodo y económico que dividirse en varios taxis.</p>
+                              <p>También ofrecemos transporte para bodas, convenciones y eventos especiales realizados en {hotel.nombre}.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Transporte de regreso desde {hotel.nombre} al aeropuerto</h3>
+                              <p>No solo realizamos traslados desde el aeropuerto hacia {hotel.nombre}, también organizamos tu regreso al Aeropuerto Internacional de Los Cabos.</p>
+                              <p>Al reservar viaje redondo, tu transporte desde {hotel.nombre} queda programado desde el primer día.</p>
+                              <p>Monitoreamos el tráfico y las condiciones de tu vuelo para salir con suficiente anticipación y asegurar tu llegada puntual al aeropuerto.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Más que un traslado</h3>
+                              <p>Además del transporte hacia {hotel.nombre}, Ballard Tours ofrece servicios adicionales para que aproveches al máximo tu visita a Los Cabos.</p>
+                              <p>Entre ellos encontrarás:</p>
+                              <ul className="grid grid-cols-2 list-disc pl-5 mt-2 mb-4">
+                                <li>Tours al Arco.</li>
+                                <li>Paseos en camello.</li>
+                                <li>Aventuras en ATV.</li>
+                                <li>Paseos en barco.</li>
+                                <li>Snorkel.</li>
+                                <li>Pesca deportiva.</li>
+                                <li>Transporte a restaurantes.</li>
+                                <li>Traslados privados entre hoteles.</li>
+                                <li>Excursiones de día completo.</li>
+                                <li>Transporte para bodas.</li>
+                              </ul>
+                              <p>Muchos huéspedes de {hotel.nombre} aprovechan nuestros servicios para desplazarse cómodamente por Los Cabos durante toda su estancia.</p>
+
+                              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Reserva hoy tu transporte hacia {hotel.nombre}</h3>
+                              <p>Reservar tu transporte privado hacia {hotel.nombre} es rápido, sencillo y completamente seguro.</p>
+                              <p>Solo necesitas indicar:</p>
+                              <ul className="list-disc pl-5 mt-2 mb-4">
+                                <li>Fecha de llegada.</li>
+                                <li>Número de vuelo.</li>
+                                <li>Hora estimada.</li>
+                                <li>Número de pasajeros.</li>
+                                <li>Cantidad de equipaje.</li>
+                                <li>Solicitudes especiales.</li>
+                              </ul>
+                              <p>Nuestro equipo confirmará tu reserva y permanecerá disponible antes, durante y después de tu traslado hacia {hotel.nombre}.</p>
+                              <p>Miles de viajeros nacionales e internacionales ya han confiado en Ballard Tours para su transporte privado hacia {hotel.nombre}, disfrutando de un servicio confiable, puntual y con la comodidad que merecen desde el primer minuto de sus vacaciones.</p>
+                            </div>
+                          </section>
+                        )}
 
 
 
@@ -8313,7 +8813,7 @@ export default function App() {
 
                       {/* 2. COMPONENTE FAQ ORIGINAL (Como en tu primera imagen) */}
 
-                      <FAQSection lang={lang} />
+                      <FAQSection lang={lang} hotelName={hotel.nombre} />
 
 
 
@@ -11266,6 +11766,100 @@ export default function App() {
             <p>© {new Date().getFullYear()} Ballard Tours Los Cabos. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
 
           </footer>
+
+
+
+          {/* LIGHTBOX MODAL PARA FOTOS DE CLIENTES */}
+
+          {selectedCustomerPhotoIndex !== null && (
+
+            <div 
+
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 transition-opacity p-4"
+
+              onClick={() => setSelectedCustomerPhotoIndex(null)}
+
+            >
+
+              <button 
+
+                onClick={(e) => { e.stopPropagation(); setSelectedCustomerPhotoIndex(null); }}
+
+                className="absolute top-4 right-4 text-white hover:text-gray-300 z-50 p-2"
+
+              >
+
+                <X size={32} />
+
+              </button>
+
+              
+
+              <button 
+
+                onClick={(e) => {
+
+                  e.stopPropagation();
+
+                  setSelectedCustomerPhotoIndex((prev) => (prev === 0 ? customerPhotos.length - 1 : prev - 1));
+
+                }}
+
+                className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-50 p-2 bg-black bg-opacity-50 rounded-full"
+
+              >
+
+                <ChevronLeft size={32} />
+
+              </button>
+
+
+
+              <div 
+
+                className="relative max-w-full max-h-full overflow-hidden flex items-center justify-center"
+
+                onClick={(e) => e.stopPropagation()}
+
+              >
+
+                <img 
+
+                  src={`/${customerPhotos[selectedCustomerPhotoIndex]}`} 
+
+                  alt="Customer" 
+
+                  className="max-w-[95vw] max-h-[90vh] object-contain select-none"
+
+                  style={{ touchAction: 'pan-y pinch-zoom' }}
+
+                />
+
+              </div>
+
+
+
+              <button 
+
+                onClick={(e) => {
+
+                  e.stopPropagation();
+
+                  setSelectedCustomerPhotoIndex((prev) => (prev === customerPhotos.length - 1 ? 0 : prev + 1));
+
+                }}
+
+                className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-50 p-2 bg-black bg-opacity-50 rounded-full"
+
+              >
+
+                <ChevronRight size={32} />
+
+              </button>
+
+            </div>
+
+          )}
 
 
 
