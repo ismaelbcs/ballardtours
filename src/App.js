@@ -924,17 +924,16 @@ const HelpBookingWidget = ({ lang }) => {
         </p>
 
         <a 
-
           href="sms:+526241393497" 
-
-          onClick={() => navigator.clipboard.writeText('+526241393497')}
-
+          onClick={(e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText('+526241393497');
+            toast.success(lang === 'es' ? 'Número copiado al portapapeles' : 'Number copied to clipboard');
+          }}
+          title={lang === 'es' ? 'Haz clic para copiar el número' : 'Click to copy number'}
           className="text-blue-600 font-bold text-lg hover:underline cursor-pointer block"
-
         >
-
           +52 624 139 3497
-
         </a>
 
       </div>
@@ -3633,7 +3632,18 @@ export default function App() {
                     )}
                   </h4>
                   <p className="text-gray-500 text-xs md:text-sm">{lang === 'es' ? 'Envía SMS al' : 'Send SMS to'}</p>
-                  <p className="text-blue-600 font-bold text-sm md:text-base">+52 624 139 3497</p>
+                  <a 
+                    href="sms:+526241393497" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigator.clipboard.writeText('+526241393497');
+                      toast.success(lang === 'es' ? 'Número copiado al portapapeles' : 'Number copied to clipboard');
+                    }}
+                    title={lang === 'es' ? 'Haz clic para copiar el número' : 'Click to copy number'}
+                    className="text-blue-600 font-bold text-sm md:text-base hover:underline cursor-pointer transition-colors hover:text-blue-800 inline-block"
+                  >
+                    +52 624 139 3497
+                  </a>
                 </div>
                 <img 
                   src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/526241393497" 
