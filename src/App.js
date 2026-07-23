@@ -8494,7 +8494,7 @@ export default function App() {
                         )}
 
                         {/* SECCIÓN ESPECÍFICA DE PARK ROYAL */}
-                        {hotel.slug === 'sjd-to-park-royal-homestay-los-cabos' && (
+                        {hotel.slug === 'sjd-to-park-royal' && (
                           <section className="bg-white border border-gray-200 rounded-[2rem] p-8 shadow-lg my-10 font-sans">
                             <h3 className="text-2xl font-black text-gray-900 mb-6 border-b pb-4">
                               {lang === 'es' ? 'Información y Reservas: Park Royal Homestay Los Cabos' : 'Information & Booking: Park Royal Homestay Los Cabos'}
