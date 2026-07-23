@@ -924,17 +924,16 @@ const HelpBookingWidget = ({ lang }) => {
         </p>
 
         <a 
-
           href="sms:+526241393497" 
-
-          onClick={() => navigator.clipboard.writeText('+526241393497')}
-
+          onClick={(e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText('+526241393497');
+            toast.success(lang === 'es' ? 'Número copiado al portapapeles' : 'Number copied to clipboard');
+          }}
+          title={lang === 'es' ? 'Haz clic para copiar el número' : 'Click to copy number'}
           className="text-blue-600 font-bold text-lg hover:underline cursor-pointer block"
-
         >
-
           +52 624 139 3497
-
         </a>
 
       </div>
@@ -3615,14 +3614,44 @@ export default function App() {
         {/* 🚀 WIDGET DE RESERVA 🚀 */}
         <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-24 mb-16">
           <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] p-6 md:p-8 border border-gray-100">
-            <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-6">
-              <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
-                <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
-              </h3>
-              <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-6 md:h-8 object-contain" alt="Private Cabo Airport Shuttle Service" />
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-100 pb-4 mb-6 gap-6">
+              <div className="flex flex-col gap-3">
+                <h3 className="text-xl font-black text-gray-900 flex items-center gap-2">
+                  <MapPin className="text-blue-900" size={24} /> {lang === 'es' ? 'Detalles de tu Reserva' : 'Booking Details'}
+                </h3>
+                <img src={`${process.env.PUBLIC_URL}/pago-tarjetas.png`} alt="Métodos de Pago Aceptados" className="h-6 md:h-8 object-contain object-left" />
+              </div>
+              
+              <div className="border border-gray-200 rounded-[1.5rem] p-4 flex items-center gap-4 bg-white w-full md:w-auto shadow-sm self-stretch md:self-auto">
+                <div className="flex-1 md:flex-none">
+                  <h4 className="text-blue-900 font-black text-[15px] md:text-base leading-tight mb-1">
+                    {lang === 'es' ? (
+                      <>¿Necesitas ayuda con<br />tu reserva?</>
+                    ) : (
+                      <>Need help with<br />your booking?</>
+                    )}
+                  </h4>
+                  <p className="text-gray-500 text-xs md:text-sm">{lang === 'es' ? 'Envía SMS al' : 'Send SMS to'}</p>
+                  <a 
+                    href="sms:+526241393497" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigator.clipboard.writeText('+526241393497');
+                      toast.success(lang === 'es' ? 'Número copiado al portapapeles' : 'Number copied to clipboard');
+                    }}
+                    title={lang === 'es' ? 'Haz clic para copiar el número' : 'Click to copy number'}
+                    className="text-blue-600 font-bold text-sm md:text-base hover:underline cursor-pointer transition-colors hover:text-blue-800 inline-block"
+                  >
+                    +52 624 139 3497
+                  </a>
+                </div>
+                <img 
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/526241393497" 
+                  alt="QR Contact" 
+                  className="w-20 h-20 rounded-md object-contain shrink-0" 
+                />
+              </div>
             </div>
-
-
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
 
