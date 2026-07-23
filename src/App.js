@@ -8409,6 +8409,61 @@ export default function App() {
                           </p>
                         </section>
 
+                        {/* SECCIÓN ESPECÍFICA DE HACIENDA DEL MAR */}
+                        {hotel.slug === 'sjd-to-hacienda-del-mar' && (
+                          <section className="bg-white border border-gray-200 rounded-[2rem] p-8 shadow-lg my-10">
+                            <h3 className="text-2xl font-black text-gray-900 mb-6 border-b pb-4">
+                              {lang === 'es' ? 'Información y Reservas: Hacienda del Mar' : 'Information & Booking: Hacienda del Mar'}
+                            </h3>
+                            <div className="flex flex-wrap gap-4 mb-8">
+                              <a href="https://www.haciendadelmar.com.mx/es" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-slate-800 transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                <Globe size={18} /> Sitio Oficial
+                              </a>
+                              <a href="https://www.booking.com/hotel/mx/hacienda-del-mar-vacation-club.es-mx.html?chal_t=1784846669258&force_referer=https%3A%2F%2Fwww.google.com%2F" target="_blank" rel="noopener noreferrer" className="bg-[#003580] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#002255] transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Booking.com
+                              </a>
+                              <a href="https://www.kayak.com.mx/Cabo-San-Lucas-Hoteles-Hacienda-del-Mar-Los-Cabos.420442.ksp" target="_blank" rel="noopener noreferrer" className="bg-[#ff690f] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#e65c00] transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Kayak
+                              </a>
+                              <a href="https://www.hoteles.com/ho462332/hacienda-del-mar-los-cabos-resort-villas-golf-los-cabos-mexico/?locale=es_MX&siteid=300400003" target="_blank" rel="noopener noreferrer" className="bg-[#d32f2f] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#b71c1c] transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Hoteles.com
+                              </a>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                              <div className="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-full border border-blue-100 text-blue-600">
+                                <span className="font-bold">★</span>
+                              </div>
+                              {lang === 'es' ? 'Comentarios Destacados de Huéspedes' : 'Featured Guest Reviews'}
+                            </h4>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              {[
+                                { name: "Rodger Perry", date: "Hace un mes (Google)", rating: "5/5", type: "Vacaciones | Familiar", text: "We stayed at Hacienda Del Mar for the first time in late May...what a magnificent experience! The property is beautiful and the location is perfect whether you like the beach, the pool, or going out on excursions to boat, hike or golf." },
+                                { name: "Michael Nader Musleh", date: "Hace 4 meses (Google)", rating: "5/5", text: "Comfortable stay overall. The place was clean and the food was fresh, the tacos are great, definitely stick to those. Most restaurants had good service and the Tomato breakfast buffet was a hit every morning." },
+                                { name: "Claudia Garduño Vilchis", date: "Hace un mes (Google)", rating: "5/5", type: "Vacaciones | Familiar", text: "From the moment we arrived, the service was exceptional. Every staff member we encountered was friendly, attentive, and welcoming. Our room offered a beautiful view of the Sea of Cortez and was cleaned daily." },
+                                { name: "Patrick Andy Cross", date: "2 semanas atrás (Google)", rating: "5/5", type: "Vacaciones | Amigos", text: "Absolutely fantastic visit! We’ve been to Cabo 7 or 8 times and this was our first time doing all inclusive and it was fantastic! Tons of food options and all delicious! Tons of fresh food and Mexican specialties!" },
+                                { name: "Eva Dahm", date: "Hace 4 meses (Google)", rating: "5/5", type: "Vacaciones | Familiar", text: "Lovely two bedroom suite with three bathrooms! Great full kitchen so we ate some meals and leftovers in our room. Pull-out couch could handle two more quests for a total of six. We stay here every year..." },
+                                { name: "Ben Quinto", date: "Hace 4 meses (Google)", rating: "5/5", text: "I really can’t understand how this place gets anything but a 5 star review. We just returned after a 7 night stay with our 4 and 2 year olds, and we left saying we would 100% come back." },
+                                { name: "Sarah Kosari", date: "Hace 6 meses (Google)", rating: "5/5", type: "Vacaciones | Familiar", text: "We had an amazing 5-day stay at this all-inclusive resort in Los Cabos and couldn’t have asked for a better experience. The staff were super friendly, always smiling, welcoming, and going out of their way to make sure we were comfortable and well taken care of." },
+                                { name: "Traveler567246", date: "Hace un mes (Tripadvisor)", rating: "5/5", text: "Amazing stay at a beautiful Mexican resort. First of all, the service is unbeatable. Pool, room, and restaurants. The entire staff were available to make our stay incredible." },
+                                { name: "alexisdS3643FR", date: "Hace 2 meses (Tripadvisor)", rating: "5/5", text: "After spending a beautiful week in Los Cabos Mexico, my family and I are beyond impressed with the exceptional service we received throughout our stay. …" }
+                              ].map((review, i) => (
+                                <div key={i} className="bg-gray-50 border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                  <div className="flex justify-between items-start mb-3">
+                                    <div>
+                                      <p className="font-bold text-gray-900 text-sm">{review.name}</p>
+                                      <p className="text-xs text-gray-500">{review.date} • {review.rating}</p>
+                                    </div>
+                                    {review.type && <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">{review.type}</span>}
+                                  </div>
+                                  <p className="text-gray-600 text-sm italic leading-relaxed">"{review.text}"</p>
+                                </div>
+                              ))}
+                            </div>
+                          </section>
+                        )}
+
                         {/* MAPA DINÁMICO CON API DIRECTIONS */}
                         <section className="bg-gray-50 border border-gray-200 rounded-[2rem] p-8 shadow-sm my-10">
                           <h3 className="text-2xl font-black text-gray-900 mb-6">
