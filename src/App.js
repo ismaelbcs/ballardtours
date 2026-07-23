@@ -8493,6 +8493,71 @@ export default function App() {
                           </section>
                         )}
 
+                        {/* SECCIÓN ESPECÍFICA DE PARK ROYAL */}
+                        {hotel.slug === 'sjd-to-park-royal-homestay-los-cabos' && (
+                          <section className="bg-white border border-gray-200 rounded-[2rem] p-8 shadow-lg my-10 font-sans">
+                            <h3 className="text-2xl font-black text-gray-900 mb-6 border-b pb-4">
+                              {lang === 'es' ? 'Información y Reservas: Park Royal Homestay Los Cabos' : 'Information & Booking: Park Royal Homestay Los Cabos'}
+                            </h3>
+                            <div className="flex flex-wrap gap-4 mb-8">
+                              <a href="https://www.park-royalhotels.com/" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-slate-800 transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                <Globe size={18} /> Sitio Oficial
+                              </a>
+                              <a href="https://www.booking.com/hotel/mx/park-royal-los-cabos.es-mx.html" target="_blank" rel="noopener noreferrer" className="bg-[#003580] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#002255] transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Booking.com
+                              </a>
+                              <a href="https://www.hoteles.com/ho170939/park-royal-homestay-los-cabos-san-jose-del-cabo-mexico/" target="_blank" rel="noopener noreferrer" className="bg-[#d32f2f] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#b71c1c] transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Hoteles.com
+                              </a>
+                              <a href="https://www.pricetravel.com/es/hotel/park-royal-homestay-los-cabos_a102196" target="_blank" rel="noopener noreferrer" className="bg-[#0033a0] text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#002266] transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                                PriceTravel
+                              </a>
+                            </div>
+
+                            <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                              {lang === 'es' ? 'Lo que más les gustó a los huéspedes:' : 'What guests loved most:'}
+                            </h4>
+                            
+                            <div className="relative group">
+                              <div className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                                {[
+                                  { initial: "G", color: "bg-gray-800", name: "Garcia", country: "México", text: "exelente servicio, el personal muy atento en todo momento cuando estuvimos arreglandonos para la boda de mi hija" },
+                                  { initial: "E", color: "bg-[#795548]", name: "Ely", country: "México", text: "Las instalaciones súper bien, tienen cocina,refri, horno en perfecto estado y las habitaciones muy limpias y amplias, el personal atento y muy lindo en todo momento! Una estancia muy genial!" },
+                                  { initial: "E", color: "bg-[#1b5e20]", name: "Edmundo", country: "México", text: "El personal es muy amable. El hotel es pequeño y muy tranquilo, las instalaciones son muy bonitas y muy limpias. El restaurante es independiente y con buenos platillos." },
+                                  { initial: "M", color: "bg-blue-600", name: "Michel Karina Gonzàlez", country: "México", text: "Es un lugar muy agradable. Las albercas están limpias y frescas. Las habitaciones son amplias aunque un poco viejitas. El servicio es excelente. Me la pasé increíble. Muy cerca del centro y cerca de la playa." },
+                                  { initial: "T", color: "bg-purple-600", name: "Trip.com Member", country: "USA", text: "Everything and everyone was great. From check in with Lilianas beautiful smile, to Dante, Jose and Rosalinas assistance when needed. Close to 2 great supermarkets, a Oxxo , a Starbucks, and even a McDonald's." },
+                                  { initial: "M", color: "bg-pink-600", name: "marysolcuan", country: "México", text: "Fui con toda mi familia y nos la pasamos muy bien, todo el personal amable, las instalaciones que si bien tienen algunos detalles de remodelacion en general todo bien y limpio..." },
+                                  { initial: "A", color: "bg-teal-600", name: "alelar", country: "Argentina", text: "Buen hotel. Tranquilo, junto a un campo de golf. Pocos vecinos en una calle poco transitada. Cerca de buenos restaurantes y supermercados. La habitación tenía heladera y cocina." },
+                                  { initial: "E", color: "bg-indigo-600", name: "Enrique Martinez", country: "México", text: "Nos tocó estar en temporada baja, inicios de junio,,, y hay muy poca gente, las albercas con poca gente, el personal de aseo es muy amable, a media hora Cabo San Lucas y a 2 horas La Paz..." },
+                                  { initial: "B", color: "bg-red-500", name: "Brian Speck", country: "Canadá", text: "We had a 21 day stay in suite 311... Check-in was easy and Manuel & Ricardo made it an professional and quick process. The wifi was top notch in the rooms and workable poolside." },
+                                  { initial: "M", color: "bg-cyan-600", name: "MichelleH3860", country: "USA", text: "I suspect Park Royal has been around for a couple of decades as it does show its age. …" },
+                                  { initial: "J", color: "bg-rose-500", name: "Jade Kovacs", country: "USA", text: "Everyone was really nice here, cute spot to stay at and chill. Complimentary iguanas having daily poolside hangs and hello to Marina, thanks for being kind to my mom and I! ❤️" },
+                                  { initial: "Y", color: "bg-orange-500", name: "Yadira Mendez Ramirez", country: "México", text: "Las habitaciones son muy amplias, bonitas y limpias, tiene cocina, mesa con sillas, sofá, cama cómoda, baño agradable, tocador y closet, plancha, caja de seguridad." },
+                                  { initial: "H", color: "bg-emerald-600", name: "Hugo Camacho", country: "México", text: "El hotel es sumamente tranquilo Y las instalaciones muy bonitas, nos relajamos bastante y disfrutamos mucho de las albercas" }
+                                ].map((review, i) => (
+                                  <div key={i} className="snap-center shrink-0 w-[280px] md:w-[320px] bg-white border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                                    <div>
+                                      <div className="flex items-center gap-3 mb-4">
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg ${review.color}`}>
+                                          {review.initial}
+                                        </div>
+                                        <div>
+                                          <p className="font-bold text-gray-900 text-sm">{review.name}</p>
+                                          <div className="flex items-center gap-1 text-xs text-gray-500">
+                                            <span>🇲🇽</span> <span>{review.country}</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p className="text-gray-700 text-[13px] leading-relaxed mb-4 line-clamp-4">"{review.text}"</p>
+                                    </div>
+                                    <a href="#" className="text-blue-600 text-sm font-medium hover:underline">Más info</a>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </section>
+                        )}
+
                         {/* MAPA DINÁMICO CON API DIRECTIONS */}
                         <section className="bg-gray-50 border border-gray-200 rounded-[2rem] p-8 shadow-sm my-10">
                           <h3 className="text-2xl font-black text-gray-900 mb-6">
