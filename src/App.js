@@ -1402,62 +1402,6 @@ export default function App() {
 
 
 
-  // Efecto inteligente: Muestra el pop-up a los 5 segundos o al hacer scroll
-
-  useEffect(() => {
-
-    const detonarPopup = () => {
-
-      setShowPromoModal(true);
-
-      window.removeEventListener('scroll', vigilarScroll);
-
-      clearTimeout(temporizador);
-
-    };
-
-
-
-    const vigilarScroll = () => {
-
-      if (window.scrollY > 300) {
-
-        detonarPopup();
-
-      }
-
-    };
-
-
-
-    // Activa el vigilante del scroll
-
-    window.addEventListener('scroll', vigilarScroll);
-
-
-
-    // Activa el cronómetro de 5 segundos
-
-    const temporizador = setTimeout(() => {
-
-      detonarPopup();
-
-    }, 5000);
-
-
-
-    // Limpieza al desmontar
-
-    return () => {
-
-      window.removeEventListener('scroll', vigilarScroll);
-
-      clearTimeout(temporizador);
-
-    };
-
-  }, []);
-
   const [promoInput, setPromoInput] = useState('');
 
   const [promoError, setPromoError] = useState('');
@@ -1465,34 +1409,6 @@ export default function App() {
   const [appliedPromo, setAppliedPromo] = useState(null);
 
   const [pendingPromoCode, setPendingPromoCode] = useState('');
-
-  // =========================================================
-
-  // LECTOR MÁGICO DE CÓDIGOS QR (PARÁMETRO ?promo=)
-
-  // =========================================================
-
-  useEffect(() => {
-
-    // Leemos la URL actual buscando la palabra "promo"
-
-    const params = new URLSearchParams(window.location.search);
-
-    const codigoPromoUrl = params.get('promo');
-
-
-
-    // Si encontramos un código en el link (ej: ?promo=CHOFER10)
-
-    if (codigoPromoUrl) {
-
-      setPromoInput(codigoPromoUrl.toUpperCase()); // Lo escribimos en el campo
-
-      setShowPromoModal(true); // Abrimos la ventana de inmediato sin esperar 5 segundos
-
-    }
-
-  }, []);
 
 
 
