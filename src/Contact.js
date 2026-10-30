@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Phone, MessageCircle, Send, User, BookOpen, CheckCircle, Mail } from 'lucide-react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from './firebase'; // Asegúrate de que la ruta a tu archivo firebase.js sea correcta
+import { sendEmail } from './utils/sendEmail';
 import { FAQSection } from './FAQSection'; // <-- AQUÍ IMPORTAMOS LAS PREGUNTAS FRECUENTES
 
 export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por defecto para el idioma
@@ -21,15 +22,11 @@ export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por d
     setEnviando(true);
 
     try {
-      // Reutilizamos tu lógica de Firebase para enviar correos
-      await addDoc(collection(db, "correos"), {
-        to: "reservationballard@gmail.com",
-        message: {
-          subject: `NUEVO MENSAJE WEB: ${formData.asunto} - ${formData.nombre}`,
-          html: `
+      const subjectMsg = `NUEVO MENSAJE WEB: ${formData.asunto} - ${formData.nombre}`;
+      const htmlMsg = `
             <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8fafc; padding: 30px; color: #1e293b;">
               <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; padding: 30px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <h2 style="color: #1e3a8a; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Nuevo Mensaje de Contacto</h2>
+                <h2 style="color: #1e3a8a; margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Nuevo Mensaje de Contacto (BallardTours.com)</h2>
                 <p style="font-size: 16px;"><strong>👤 Cliente:</strong> ${formData.nombre}</p>
                 <p style="font-size: 16px;"><strong>📌 Asunto:</strong> ${formData.asunto}</p>
                 <h3 style="color: #64748b; font-size: 14px; text-transform: uppercase; margin-top: 25px;">Mensaje:</h3>
@@ -38,9 +35,28 @@ export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por d
                 </div>
               </div>
             </div>
-          `
-        }
+          `;
+
+      // 1. Envío directo inmediato por Nodemailer (API /api/send-email)
+      await sendEmail({
+        to: "reservationballard@gmail.com",
+        subject: subjectMsg,
+        html: htmlMsg
       });
+
+      // 2. Respaldo en Firebase
+      try {
+        await addDoc(collection(db, "correos"), {
+          to: "reservationballard@gmail.com",
+          message: {
+            subject: subjectMsg,
+            html: htmlMsg
+          }
+        });
+      } catch (errFb) {
+        console.error("Error guardando respaldo en Firebase:", errFb);
+      }
+
       setEnviado(true);
       setFormData({ nombre: '', asunto: '', comentario: '' });
       
