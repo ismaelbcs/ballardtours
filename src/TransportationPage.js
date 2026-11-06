@@ -262,6 +262,86 @@ export default function TransportationPage({ lang = 'es', setServicioSeleccionad
           </div>
         </div>
 
+        {/* HUB DE SERVICIOS ESPECIALIZADOS DE TRANSPORTE */}
+        <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8 md:p-12">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 bg-amber-500 text-blue-950 font-black px-4 py-1.5 rounded-full text-xs uppercase tracking-widest mb-3">
+              {lang === 'es' ? 'Servicios Especializados' : 'Specialized Chauffeur Services'}
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
+              {lang === 'es' ? 'Explora Nuestras Soluciones de Transporte Privado' : 'Explore Our Private Transportation Solutions in Cabo'}
+            </h2>
+            <p className="text-gray-600 text-sm md:text-base">
+              {lang === 'es'
+                ? 'Selecciona la modalidad exacta que necesitas para tu viaje en Cabo San Lucas, San José del Cabo y el Corredor Turístico.'
+                : 'Select the exact private transfer service tailored to your itinerary across Cabo San Lucas, San Jose del Cabo, and the Tourist Corridor.'}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                path: '/transportation/airport-shuttle-sjd',
+                title: lang === 'es' ? 'Shuttle Aeropuerto SJD' : 'SJD Airport Shuttle',
+                desc: lang === 'es' ? 'Recepción privada directa en Terminal 1 y 2 con rastreo de vuelo.' : 'Direct private pickup at SJD Terminal 1 & 2 with live flight tracking.'
+              },
+              {
+                path: '/transportation/luxury-suv-service',
+                title: lang === 'es' ? 'Servicio de SUV de Lujo' : 'Luxury SUV Service',
+                desc: lang === 'es' ? 'Chevrolet Suburban y GMC Yukon VIP hasta para 6 pasajeros.' : 'Late-model Chevrolet Suburban & GMC Yukon VIP for up to 6 passengers.'
+              },
+              {
+                path: '/transportation/group-sprinter-van-shuttle',
+                title: lang === 'es' ? 'Vans y Sprinters para Grupos' : 'Group Sprinter & Van Shuttle',
+                desc: lang === 'es' ? 'Mercedes-Benz Sprinter y Toyota Hiace para bodas, familias y grupos.' : 'Mercedes-Benz Sprinter & Toyota Hiace vans for weddings and large groups.'
+              },
+              {
+                path: '/transportation/dinner-and-restaurants',
+                title: lang === 'es' ? 'Traslados a Restaurantes' : 'Dinner & Restaurant Transfers',
+                desc: lang === 'es' ? 'Chofer privado de ida y vuelta a Flora Farms, Acre, Sunset Monalisa y más.' : 'Round-trip private driver to Flora Farms, Acre, Sunset Monalisa & more.'
+              },
+              {
+                path: '/transportation/golf-course-transfers',
+                title: lang === 'es' ? 'Transporte a Campos de Golf' : 'Golf Course Transfers',
+                desc: lang === 'es' ? 'Traslados puntuales con amplio espacio para bastones de golf a Quivira, Diamante y Palmilla.' : 'Punctual transfers with full golf bag capacity to Quivira, Diamante & Palmilla.'
+              },
+              {
+                path: '/transportation/hotel-to-hotel-transfers',
+                title: lang === 'es' ? 'Traslado Hotel a Hotel' : 'Hotel-to-Hotel Transfers',
+                desc: lang === 'es' ? 'Cambio de resort o villa puerta a puerta en Los Cabos, Todos Santos y East Cape.' : 'Seamless door-to-door resort and villa transfers across Baja California Sur.'
+              },
+              {
+                path: '/transportation/nightlife-private-driver',
+                title: lang === 'es' ? 'Chofer Privado Vida Nocturna' : 'Nightlife Private Driver',
+                desc: lang === 'es' ? 'Disfruta el centro de Cabo San Lucas con regreso seguro garantizado a tu hotel.' : 'Enjoy downtown Cabo San Lucas nightlife with a guaranteed safe ride back.'
+              },
+              {
+                path: '/destinations',
+                title: lang === 'es' ? 'Directorio de +500 Hoteles' : 'All 500+ Hotel Destinations',
+                desc: lang === 'es' ? 'Consulta tiempos y tarifas exactas hacia cualquier hotel o villa en Los Cabos.' : 'Check exact travel times and flat rates to every resort and villa in Los Cabos.'
+              }
+            ].map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.path}
+                onClick={() => window.scrollTo(0, 0)}
+                className="group bg-gray-50 hover:bg-blue-900 p-6 rounded-2xl border border-gray-200 hover:border-blue-900 transition-all flex flex-col justify-between shadow-sm hover:shadow-md"
+              >
+                <div>
+                  <h3 className="font-black text-blue-900 group-hover:text-amber-400 text-base mb-2 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-gray-600 group-hover:text-blue-100 leading-relaxed transition-colors">
+                    {item.desc}
+                  </p>
+                </div>
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-black text-blue-600 group-hover:text-white uppercase tracking-wider">
+                  {lang === 'es' ? 'Ver Servicio →' : 'View Service →'}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* TEXTO SEO 500 PALABRAS INYECTADO */}
         <div className="bg-gray-50 p-8 md:p-12 rounded-[2rem] border border-gray-200">
           <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-6">{t.seoTextTitle}</h2>

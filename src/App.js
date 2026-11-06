@@ -16,6 +16,17 @@ import ToursPage from './ToursPage'; // <--- AGREGAR ESTO
 
 import PoliticasCancelacion from './PoliticasCancelacion';
 
+import {
+  LuxurySuvPage,
+  GroupVanPage,
+  DinnerTransfersPage,
+  GolfTransfersPage,
+  HotelToHotelPage,
+  NightlifeTransfersPage,
+  FaqsPage,
+  PrivacyPolicyPage
+} from './SpecialServicesPages';
+
 import { hotelesSEO } from './datosHoteles';
 
 import { BrowserRouter as Router, Routes, useLocation, Route, useNavigate } from 'react-router-dom';
@@ -72,25 +83,78 @@ import { Drawer } from 'vaul';
 
 import { Toaster, toast } from 'sonner';
 
-const allDestinationsRoutes = catalogoHoteles.map(hotel => {
-  const existing = landingPagesSEO.find(h => h.nombre === hotel.nombre);
-  if (existing) {
-    return {
-      ...existing,
-      imagen: existing.image ? `/${existing.image}` : `/suburban-airport-los-cabos-ballard-sjd.webp`
-    };
+const allDestinationsRoutes = (() => {
+  const routesMap = new Map();
+
+  // 1. Primero registramos todos los hoteles de catalogoHoteles (485)
+  catalogoHoteles.forEach(hotel => {
+    const existing = landingPagesSEO.find(h => h.nombre === hotel.nombre);
+    if (existing) {
+      routesMap.set(existing.slug, {
+        ...existing,
+        imagen: existing.image ? `/${existing.image}` : `/suburban-airport-los-cabos-ballard-sjd.webp`
+      });
+    } else {
+      const slug = `sjd-to-${hotel.nombre.toLowerCase().replace(/[^a-z0-9áéíóúüñ]+/gi, '-')}`;
+      routesMap.set(slug, {
+        ...hotel,
+        slug,
+        imagen: `/suburban-airport-los-cabos-ballard-sjd.webp`,
+        desc: 'a wonderful place to stay',
+        tiempo: hotel.zona === 1 ? '20-25 min' : hotel.zona === 2 ? '35-45 min' : hotel.zona === 3 ? '45-55 min' : '60-70 min',
+        dist: hotel.zona === 1 ? '15 km' : hotel.zona === 2 ? '25 km' : hotel.zona === 3 ? '40 km' : '50 km',
+        zonaText: (zonasData.find(z => z.id === hotel.zona) || {}).nombre || 'Los Cabos'
+      });
+    }
+  });
+
+  // 2. Agregamos los 53+ hoteles adicionales de landingPagesSEO que no estaban en catalogoHoteles
+  landingPagesSEO.forEach(item => {
+    if (item && item.slug && !routesMap.has(item.slug)) {
+      routesMap.set(item.slug, {
+        ...item,
+        imagen: item.image ? `/${item.image}` : `/suburban-airport-los-cabos-ballard-sjd.webp`,
+        desc: item.desc || 'a wonderful luxury resort in Los Cabos',
+        tiempo: item.tiempo || (item.zona === 1 ? '20-25 min' : item.zona === 2 ? '35-45 min' : item.zona === 3 ? '45-55 min' : '60-70 min'),
+        dist: item.dist || (item.zona === 1 ? '15 km' : item.zona === 2 ? '25 km' : item.zona === 3 ? '40 km' : '50 km'),
+        zonaText: item.zonaText || (zonasData.find(z => z.id === item.zona) || {}).nombre || 'Los Cabos'
+      });
+    }
+  });
+
+  // 3. Aseguramos la ruta sjd-to-four-seasons enlazada en páginas internas
+  if (!routesMap.has('sjd-to-four-seasons')) {
+    routesMap.set('sjd-to-four-seasons', {
+      id: 'h-four-seasons-cabo',
+      nombre: 'Four Seasons Resort Los Cabos',
+      zona: 2,
+      slug: 'sjd-to-four-seasons',
+      imagen: '/suburban-airport-los-cabos-ballard-sjd.webp',
+      desc: 'an ultra-luxury beachfront resort in Los Cabos',
+      tiempo: '35-40 min',
+      dist: '32 km',
+      zonaText: 'Corredor Turístico'
+    });
   }
-  
-  return {
-    ...hotel,
-    slug: `sjd-to-${hotel.nombre.toLowerCase().replace(/[^a-z0-9áéíóúüñ]+/gi, '-')}`,
-    imagen: `/suburban-airport-los-cabos-ballard-sjd.webp`,
-    desc: 'a wonderful place to stay',
-    tiempo: hotel.zona === 1 ? '20-25 min' : hotel.zona === 2 ? '35-45 min' : hotel.zona === 3 ? '45-55 min' : '60-70 min',
-    dist: hotel.zona === 1 ? '15 km' : hotel.zona === 2 ? '25 km' : hotel.zona === 3 ? '40 km' : '50 km',
-    zonaText: (zonasData.find(z => z.id === hotel.zona) || {}).nombre || 'Los Cabos'
-  };
-});
+
+  return Array.from(routesMap.values());
+})();
+
+const allToursLandingRoutes = (() => {
+  const list = [...toursLandingPages];
+  const aliases = [
+    { from: 'clear-boat-tour-cabo-arch', alias: 'clear-boat-tour-cabo-san-lucas-arch' },
+    { from: 'espiritu-santo-island-tour-from-la-paz', alias: 'espiritu-santo-island-tour-from-cabo' },
+    { from: 'san-jose-del-cabo-art-walk-tour', alias: 'san-jose-del-cabo-art-walk' }
+  ];
+  aliases.forEach(({ from, alias }) => {
+    const base = toursLandingPages.find(t => t.slug === from);
+    if (base && !list.some(t => t.slug === alias)) {
+      list.push({ ...base, slug: alias, canonicalSlug: base.slug });
+    }
+  });
+  return list;
+})();
 
 
 
@@ -1468,8 +1532,6 @@ export default function App() {
 
   const [procesandoPago, setProcesandoPago] = useState(false);
 
-  const [, setCorreoAdminEnviado] = useState(false);
-
   const [numConfirmacionGlobal, setNumConfirmacionGlobal] = useState('');
 
 
@@ -2322,7 +2384,6 @@ export default function App() {
 
       const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
       setNumConfirmacionGlobal(nuevoNumConfirmacion);
-      setCorreoAdminEnviado(false);
 
       // 1️⃣ Avanzamos de paso para mostrar confirmación al cliente
       avanzarPaso();
@@ -4594,13 +4655,13 @@ export default function App() {
 
                   <li>• <Link to="/tours/camel-safari-tour-cabo-san-lucas" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Camel Safari Tour</Link></li>
 
-                  <li>• <Link to="/tours/clear-boat-tour-cabo-san-lucas-arch" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Clear Boat Tour to the Arch</Link></li>
+                  <li>• <Link to="/tours/clear-boat-tour-cabo-arch" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Clear Boat Tour to the Arch</Link></li>
 
-                  <li>• <Link to="/tours/espiritu-santo-island-tour-from-cabo" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Espiritu Santo Island Tour</Link></li>
+                  <li>• <Link to="/tours/espiritu-santo-island-tour-from-la-paz" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Espiritu Santo Island Tour</Link></li>
 
                   <li>• <Link to="/tours/pirate-ship-sunset-tour-cabo" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Pirate Ship Sunset Tour</Link></li>
 
-                  <li>• <Link to="/tours/san-jose-del-cabo-art-walk" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">San Jose del Cabo Art Walk</Link></li>
+                  <li>• <Link to="/tours/san-jose-del-cabo-art-walk-tour" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">San Jose del Cabo Art Walk</Link></li>
 
                   <li>• <Link to="/tours/sunset-fajita-cruise-cabo" onClick={() => window.scrollTo(0, 0)} className="text-orange-600 hover:underline">Sunset Fajita Cruise</Link></li>
 
@@ -7733,15 +7794,9 @@ export default function App() {
 
 
 
-                    {/* Etiquetas Canónicas y hreflang (SEO Internacional) */}
+                    {/* Etiquetas Canónicas */}
 
                     <link rel="canonical" href="https://www.ballardtours.com/" />
-
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
-
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-
-                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
 
 
 
@@ -7817,11 +7872,11 @@ export default function App() {
 
                     <link rel="canonical" href="https://www.ballardtours.com/transportation/airport-shuttle-sjd" />
 
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/transportation/airport-shuttle-sjd" />
-
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es/transportation/airport-shuttle-sjd" />
-
                     <meta property="og:title" content="Cabo Airport Transportation | Private Transfers Los Cabos | Ballard Tours" />
+
+                    <meta property="og:description" content="Exclusive reporter guide to Cabo airport transportation. Best private airport to hotel taxi & shuttles to Hyatt Ziva, Hard Rock, Cabo Azul, Paradisus & more." />
+
+                    <meta property="og:url" content="https://www.ballardtours.com/transportation/airport-shuttle-sjd" />
 
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
 
@@ -8211,6 +8266,11 @@ export default function App() {
                     <Helmet>
                       <title>Private Transportation from SJD Airport to {hotel.nombre}</title>
                       <meta name="description" content={`Book your private luxury transportation from SJD Airport to ${hotel.nombre}. Flat rates, bilingual drivers, and 100% private VIP service.`} />
+                      <link rel="canonical" href={`https://www.ballardtours.com/destinations/${hotel.slug}`} />
+                      <meta property="og:title" content={`Private Transportation from SJD Airport to ${hotel.nombre} | Ballard Tours`} />
+                      <meta property="og:description" content={`Book your private luxury transportation from SJD Airport to ${hotel.nombre}. Flat rates, bilingual drivers, and 100% private VIP service.`} />
+                      <meta property="og:url" content={`https://www.ballardtours.com/destinations/${hotel.slug}`} />
+                      <meta property="og:type" content="website" />
                       <script type="application/ld+json">
                         {`
                           {
@@ -8966,9 +9026,15 @@ export default function App() {
 
                     <link rel="canonical" href="https://www.ballardtours.com/blog" />
 
+                    <meta property="og:title" content="Los Cabos Travel Blog & Guides | Ballard Tours" />
+
+                    <meta property="og:description" content="Discover the best tips, transportation guides, and luxury excursions in Los Cabos. Read our latest articles and plan your perfect vacation." />
+
+                    <meta property="og:url" content="https://www.ballardtours.com/blog" />
+
+                    <meta property="og:type" content="website" />
+
                   </Helmet>
-
-
 
                   {/* Header del Hub de Posts */}
 
@@ -8990,17 +9056,13 @@ export default function App() {
 
                   </div>
 
-
-
                   {/* Grid de Tarjetas de Posts */}
 
                   <div className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-
-
-                      {/* Tarjeta del Post 1 (El que acabamos de agregar) */}
+                      {/* Tarjeta del Post 1 */}
 
                       <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
 
@@ -9040,7 +9102,7 @@ export default function App() {
 
                           <div className="mt-auto pt-4 border-t border-gray-100">
 
-                            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
+                            <Link to="/cabo-airport-transportation" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
 
                               Read Full Article <ChevronRight size={18} className="ml-1" />
 
@@ -9052,9 +9114,7 @@ export default function App() {
 
                       </div>
 
-
-
-                      {/* Tarjeta del Post 2 (Ejemplo para llenar la página) */}
+                      {/* Tarjeta del Post 2 */}
 
                       <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
 
@@ -9082,7 +9142,7 @@ export default function App() {
 
                           <h2 className="text-xl font-black text-gray-900 mb-3 leading-snug">
 
-                            Top 5 Luxury Experiences in Cabo San Lucas You Can't Miss
+                            Top 10 Luxury Experiences & Things to Do in Cabo San Lucas
 
                           </h2>
 
@@ -9106,9 +9166,7 @@ export default function App() {
 
                       </div>
 
-
-
-                      {/* Tarjeta del Post 3 (Ejemplo para llenar la página) */}
+                      {/* Tarjeta del Post 3 */}
 
                       <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
 
@@ -9160,135 +9218,107 @@ export default function App() {
 
                       </div>
 
+                      {/* Tarjeta del Post 4 */}
 
+                      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
 
-                    </div>
+                        <div className="h-56 relative overflow-hidden bg-gray-200">
 
-                  </div>
+                          <img
 
-                </div>
+                            src={`${process.env.PUBLIC_URL}/suburban-airport-los-cabos-ballard-sjd.webp`}
 
-              } />
+                            alt="Cabo Airport Transportation Prices"
 
+                            className="w-full h-full object-cover"
 
+                          />
 
-              {/* Aquí agregaremos las demás URLs de hoteles, rutas y SEO */}
+                          <div className="absolute top-4 left-4 bg-blue-900 text-amber-400 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
 
+                            Pricing Guide
 
+                          </div>
 
-              {/* 📚 URL 5: HUB DEL BLOG (tudominio.com/blog) */}
+                        </div>
 
-              <Route path="/blog" element={
+                        <div className="p-8 flex flex-col flex-grow">
 
-                <div className="animate-fade-in pb-20 bg-gray-50">
+                          <h2 className="text-xl font-black text-gray-900 mb-3 leading-snug">
 
-                  <Helmet>
+                            Cabo Airport Transportation Prices & Rates (2026 Guide)
 
-                    {/* Básicos */}
+                          </h2>
 
-                    <title>Los Cabos Travel Guide, Tips & Insider News | Ballard Tours</title>
+                          <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
 
-                    <meta name="description" content="Discover the best travel tips, transportation guides, and luxury experiences in Los Cabos. Expert advice from Ballard Tours." />
+                            Budgeting for your Los Cabos vacation shouldn't involve guessing games at the airport taxi stand. Discover exact flat-rate zone pricing for San Jose del Cabo, the Corridor, and Cabo San Lucas.
 
+                          </p>
 
+                          <div className="mt-auto pt-4 border-t border-gray-100">
 
-                    {/* Canonical */}
+                            <Link to="/blog/cabo-airport-transportation-prices" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
 
-                    <link rel="canonical" href="https://www.ballardtours.com/travel-guide" />
+                              Read Full Article <ChevronRight size={18} className="ml-1" />
 
-                    {/* hreflang para SEO Internacional */}
+                            </Link>
 
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
+                          </div>
 
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-
-                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
-
-
-
-                    {/* Open Graph (Facebook/WhatsApp) */}
-
-                    <meta property="og:title" content="Los Cabos Travel Guide, Tips & Insider News | Ballard Tours" />
-
-                    <meta property="og:description" content="Discover the best travel tips, transportation guides, and luxury experiences in Los Cabos. Expert advice from Ballard Tours." />
-
-                    <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
-
-                    <meta property="og:url" content="https://www.ballardtours.com/travel-guide" />
-
-                    <meta property="og:type" content="website" />
-
-                    {/* Idioma y Región */}
-
-                    <meta property="og:locale" content="en_US" />
-
-                    <meta property="og:locale:alternate" content="es_MX" />
-
-
-
-                    {/* Twitter / X Cards */}
-
-                    <meta name="twitter:card" content="summary_large_image" />
-
-                    <meta name="twitter:title" content="Los Cabos Travel Guide, Tips & Insider News | Ballard Tours" />
-
-                    <meta name="twitter:description" content="Discover the best travel tips, transportation guides, and luxury experiences in Los Cabos. Expert advice from Ballard Tours." />
-
-                    <meta name="twitter:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
-
-                  </Helmet>
-
-
-
-                  <div className="bg-blue-900 text-white pt-24 pb-16 px-4 text-center rounded-b-[3rem] shadow-xl">
-
-                    <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Los Cabos Insider Guide</h1>
-
-                    <p className="text-lg text-blue-100 max-w-2xl mx-auto">Expert tips, transportation guides, and local secrets to make your Cabo vacation unforgettable.</p>
-
-                  </div>
-
-
-
-                  <div className="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    {/* Tarjeta de Artículo 1 */}
-
-                    <Link to="/blog/uber-vs-private-transportation-cabo" className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col">
-
-                      <div className="h-48 bg-gray-200 relative overflow-hidden">
-
-                        <img src="https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=800" alt="Cabo Transportation" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-
-                        <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Transportation Guide</div>
+                        </div>
 
                       </div>
 
-                      <div className="p-6 flex flex-col flex-grow">
+                      {/* Tarjeta del Post 5 */}
 
-                        <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">Uber vs. Private Transportation in Los Cabos (2026 Guide)</h2>
+                      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
 
-                        <p className="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">Wondering if you can use Uber at the Cabo Airport? Compare prices, safety, and reliability between rideshares and private SUVs.</p>
+                        <div className="h-56 relative overflow-hidden bg-gray-200">
 
-                        <div className="text-blue-900 font-bold text-sm flex items-center">Read Article <ChevronRight size={16} className="ml-1" /></div>
+                          <img
 
-                      </div>
+                            src={`${process.env.PUBLIC_URL}/private-transportation-nobu-hotel-los-cabos.webp`}
 
-                    </Link>
+                            alt="How to Get from SJD Airport to Cabo San Lucas"
 
+                            className="w-full h-full object-cover"
 
+                          />
 
-                    {/* Tarjeta Placeholder 2 (Puedes duplicar esto para futuros artículos) */}
+                          <div className="absolute top-4 left-4 bg-orange-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden opacity-70 flex flex-col">
+                            Route Logistics
 
-                      <div className="h-48 bg-gray-200 flex items-center justify-center text-gray-400 font-bold">Coming Soon</div>
+                          </div>
 
-                      <div className="p-6 flex flex-col flex-grow">
+                        </div>
 
-                        <h2 className="text-xl font-bold text-gray-900 mb-3">Top 10 Ultra-Luxury Resorts in Los Cabos</h2>
+                        <div className="p-8 flex flex-col flex-grow">
 
-                        <p className="text-gray-500 text-sm mb-4">Discover where celebrities stay and the best premium accommodations in Baja.</p>
+                          <h2 className="text-xl font-black text-gray-900 mb-3 leading-snug">
+
+                            How to Get from SJD Airport to Cabo San Lucas (Best Options)
+
+                          </h2>
+
+                          <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+
+                            Landed at SJD International Airport and heading to Cabo San Lucas? Compare distance, highway travel times, private SUVs, and shuttles to make your arrival effortless.
+
+                          </p>
+
+                          <div className="mt-auto pt-4 border-t border-gray-100">
+
+                            <Link to="/blog/how-to-get-from-sjd-airport-to-cabo-san-lucas" onClick={() => window.scrollTo(0, 0)} className="text-blue-600 font-bold flex items-center hover:text-blue-800 transition-colors">
+
+                              Read Full Article <ChevronRight size={18} className="ml-1" />
+
+                            </Link>
+
+                          </div>
+
+                        </div>
 
                       </div>
 
@@ -9316,21 +9346,9 @@ export default function App() {
 
                     <meta name="description" content="Wondering if you can use Uber at the Cabo Airport? Compare prices, safety, and reliability between Uber and private transportation in Los Cabos." />
 
+                    {/* Canonical */}
 
-
-                    {/* Canonical - ¡Ojo! Cambia la URL por la ruta real de tu artículo */}
-
-                    <link rel="canonical" href="https://www.ballardtours.com/blog/uber-vs-private-transportation-los-cabos" />
-
-                    {/* hreflang para SEO Internacional */}
-
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
-
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-
-                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
-
-
+                    <link rel="canonical" href="https://www.ballardtours.com/blog/uber-vs-private-transportation-cabo" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
 
@@ -9340,9 +9358,9 @@ export default function App() {
 
                     <meta property="og:image" content="https://www.ballardtours.com/uber-vs-private-transportation-los-cabos.webp" />
 
-                    <meta property="og:url" content="https://www.ballardtours.com/blog/uber-vs-private-transportation-los-cabos" />
+                    <meta property="og:url" content="https://www.ballardtours.com/blog/uber-vs-private-transportation-cabo" />
 
-                    <meta property="og:type" content="article" /> {/* 👈 Cambiado a "article" para blogs */}
+                    <meta property="og:type" content="article" />
 
                     {/* Idioma y Región */}
 
@@ -9754,16 +9772,6 @@ export default function App() {
 
                     <link rel="canonical" href="https://www.ballardtours.com/cabo-airport-transportation" />
 
-                    {/* hreflang para SEO Internacional */}
-
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
-
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-
-                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
-
-
-
                     {/* Open Graph (Facebook/WhatsApp) */}
 
                     <meta property="og:title" content="Cabo Airport Transportation | Private Airport Transfer Los Cabos" />
@@ -10074,7 +10082,7 @@ export default function App() {
 
               {/* 🌊 GENERADOR DINÁMICO DE TOURS ESTRELLA */}
 
-              {toursLandingPages.map((tour) => (
+              {allToursLandingRoutes.map((tour) => (
 
                 <Route key={tour.slug} path={`/tours/${tour.slug}`} element={
 
@@ -10090,15 +10098,7 @@ export default function App() {
 
                       {/* URL Absoluta Canónica */}
 
-                      <link rel="canonical" href={`https://www.ballardtours.com/tours/${tour.slug}`} />
-
-                      {/* hreflang para SEO Internacional */}
-
-                      <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
-
-                      <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-
-                      <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
+                      <link rel="canonical" href={`https://www.ballardtours.com/tours/${tour.canonicalSlug || tour.slug}`} />
 
 
 
@@ -10110,7 +10110,7 @@ export default function App() {
 
                       <meta property="og:image" content={tour.imageUrl || tour.imagenUrl} />
 
-                      <meta property="og:url" content={`https://www.ballardtours.com/tours/${tour.slug}`} />
+                      <meta property="og:url" content={`https://www.ballardtours.com/tours/${tour.canonicalSlug || tour.slug}`} />
 
                       <meta property="og:type" content="article" />
 
@@ -10690,7 +10690,7 @@ export default function App() {
 
                     {/* ========================================================================= */}
 
-                    {tour.slug === 'san-jose-del-cabo-art-walk' && (
+                    {(tour.slug === 'san-jose-del-cabo-art-walk' || tour.slug === 'san-jose-del-cabo-art-walk-tour') && (
 
                       <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
 
@@ -10830,7 +10830,7 @@ export default function App() {
 
                     {/* ========================================================================= */}
 
-                    {tour.slug === 'clear-boat-tour-cabo-san-lucas-arch' && (
+                    {(tour.slug === 'clear-boat-tour-cabo-san-lucas-arch' || tour.slug === 'clear-boat-tour-cabo-arch') && (
 
                       <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
 
@@ -10978,7 +10978,7 @@ export default function App() {
 
                     {/* ========================================================================= */}
 
-                    {tour.slug === 'vip-snorkeling-sea-scooter-cabo-san-lucas' && (
+                    {(tour.slug === 'vip-snorkeling-sea-scooter-cabo-san-lucas' || tour.slug === 'cabo-san-lucas-snorkel-tour') && (
 
                       <div className="border-t border-gray-200 pt-16 max-w-4xl mx-auto px-4 mt-8">
 
@@ -11424,19 +11424,9 @@ export default function App() {
 
 
 
-                    {/* Canonical - Ajusta la URL según la ruta exacta de tu artículo */}
+                    {/* Canonical */}
 
-                    <link rel="canonical" href="https://www.ballardtours.com/blog/top-10-things-to-do-in-cabo-san-lucas" />
-
-                    {/* hreflang para SEO Internacional */}
-
-                    <link rel="alternate" hreflang="en" href="https://www.ballardtours.com/" />
-
-                    <link rel="alternate" hreflang="es" href="https://www.ballardtours.com/es" />
-
-                    <link rel="alternate" hreflang="x-default" href="https://www.ballardtours.com/" />
-
-
+                    <link rel="canonical" href="https://www.ballardtours.com/things-to-do-in-cabo-san-lucas" />
 
                     {/* Open Graph (Facebook/WhatsApp) */}
 
@@ -11446,7 +11436,7 @@ export default function App() {
 
                     <meta property="og:image" content="https://www.ballardtours.com/private-transportation-sjd-airport-los-cabos-luxury.webp" />
 
-                    <meta property="og:url" content="https://www.ballardtours.com/blog/top-10-things-to-do-in-cabo-san-lucas" />
+                    <meta property="og:url" content="https://www.ballardtours.com/things-to-do-in-cabo-san-lucas" />
 
                     <meta property="og:type" content="article" /> {/* 👈 Declarado como artículo */}
 
@@ -11742,7 +11732,21 @@ export default function App() {
 
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage lang={lang} />} />
 
+              <Route path="/faqs" element={<FaqsPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} />} />
+
+              <Route path="/transportation/luxury-suv-service" element={<LuxurySuvPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/transportation/group-sprinter-van-shuttle" element={<GroupVanPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/transportation/dinner-and-restaurants" element={<DinnerTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/transportation/golf-course-transfers" element={<GolfTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/transportation/hotel-to-hotel-transfers" element={<HotelToHotelPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/transportation/nightlife-private-driver" element={<NightlifeTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
 
               <Route path="/about-us" element={<AboutUs lang={lang} />} />
 

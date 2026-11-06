@@ -139,12 +139,12 @@ const Footer = () => {
                     </p>
                 </div>
 
-                {/* 2. Páginas de Confianza */}
+                {/* 2. Páginas de Confianza y Servicios */}
                 <div>
                     <h4 className="text-2xl font-bold text-white mb-6 border-b border-blue-700 pb-3 inline-block w-full">
-                        Company
+                        Company & Services
                     </h4>
-                    <ul className="flex flex-col space-y-4 text-lg text-blue-100">
+                    <ul className="flex flex-col space-y-3 text-base text-blue-100">
                         <li>
                             <Link
                                 to="/about-us"
@@ -156,11 +156,38 @@ const Footer = () => {
                         </li>
                         <li>
                             <Link
-                                to="/contact"
+                                to="/transportation"
                                 onClick={() => window.scrollTo(0, 0)}
                                 className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
                             >
-                                Contact Us
+                                Airport Transportation
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/transportation/luxury-suv-service"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Luxury SUV & VIP Service
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/transportation/group-sprinter-van-shuttle"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Group Sprinter & Van Shuttle
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/destinations"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Hotel Destinations Directory
                             </Link>
                         </li>
                         <li>
@@ -169,10 +196,9 @@ const Footer = () => {
                                 onClick={() => window.scrollTo(0, 0)}
                                 className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 font-bold text-amber-400"
                             >
-                                Flotas
+                                Flotas / Our Fleet
                             </Link>
                         </li>
-                        {/* 👇 AQUÍ ESTÁ EL NUEVO ENLACE DE TOURS 👇 */}
                         <li>
                             <Link
                                 to="/tours"
@@ -182,15 +208,78 @@ const Footer = () => {
                                 Tours & Excursions
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                to="/contact"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Contact Us
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 
-                {/* 3. Páginas Legales */}
+                {/* 3. Servicios Especiales y Páginas Legales */}
                 <div>
                     <h4 className="text-2xl font-bold text-white mb-6 border-b border-blue-700 pb-3 inline-block w-full">
-                        Legal
+                        Special Transfers & Legal
                     </h4>
-                    <ul className="flex flex-col space-y-4 text-lg text-blue-100">
+                    <ul className="flex flex-col space-y-3 text-base text-blue-100">
+                        <li>
+                            <Link
+                                to="/transportation/dinner-and-restaurants"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Dinner & Restaurant Transfers
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/transportation/golf-course-transfers"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Golf Course Transportation
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/transportation/hotel-to-hotel-transfers"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Hotel-to-Hotel Transfers
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/transportation/nightlife-private-driver"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Nightlife Private Driver
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/faqs"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                FAQs / Help Center
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/blog"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
+                            >
+                                Cabo Travel Blog
+                            </Link>
+                        </li>
                         <li>
                             <Link
                                 to="/terms-and-conditions"
