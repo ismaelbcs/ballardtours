@@ -1382,19 +1382,35 @@ export default function App() {
 
   const { pathname } = useLocation();
 
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined' && /^\/en(\/|$)/i.test(window.location.pathname)) {
+      return 'en';
+    }
+    return 'es';
+  });
 
-
-  // 👇 2. Efecto global: Cada vez que cambie la URL, la pantalla se va hasta arriba
-
+  // 👇 2. Efecto global: Cada vez que cambie la URL, normaliza prefijos /en o /es y sube el scroll
   useEffect(() => {
-
+    const langMatch = pathname.match(/^\/(en|es)(\/.*|$)/i);
+    if (langMatch) {
+      const targetLang = langMatch[1].toLowerCase();
+      setLang(targetLang);
+      let restPath = langMatch[2] || '/';
+      if (restPath === '/transfers') restPath = '/transportation';
+      if (restPath === '/fleet') restPath = '/flotas';
+      navigate(restPath, { replace: true });
+      return;
+    }
+    if (pathname === '/transfers') {
+      navigate('/transportation', { replace: true });
+      return;
+    }
+    if (pathname === '/fleet') {
+      navigate('/flotas', { replace: true });
+      return;
+    }
     window.scrollTo(0, 0);
-
-  }, [pathname]);
-
-
-
-  const [lang, setLang] = useState('es');
+  }, [pathname, navigate]);
 
   const t = translations[lang];
 
@@ -2313,7 +2329,7 @@ export default function App() {
     currentUser
   };
 
-  const procesarConfirmacion = (e = null, detallesPago = null, metodoOverride = null) => {
+  const procesarConfirmacion = async (e = null, detallesPago = null, metodoOverride = null) => {
     if (e && e.preventDefault) e.preventDefault();
 
     const current = latestBookingStateRef.current;
@@ -2379,232 +2395,228 @@ export default function App() {
 
     setProcesandoPago(true);
 
-    setTimeout(async () => {
-      setProcesandoPago(false);
+    const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
+    setNumConfirmacionGlobal(nuevoNumConfirmacion);
 
-      const nuevoNumConfirmacion = Math.random().toString(36).substr(2, 8).toUpperCase();
-      setNumConfirmacionGlobal(nuevoNumConfirmacion);
+    try {
+      console.log("Enviando correos mediante API Nodemailer (/api/send-email)...");
 
-      // 1️⃣ Avanzamos de paso para mostrar confirmación al cliente
-      avanzarPaso();
+      // ==========================================
+      // 1. PRIORIDAD #1: ENVIAR CORREOS POR NODEMAILER CON AWAIT (ADMIN Y CLIENTE)
+      // ==========================================
+      let indexItem = 1;
+      for (const item of itemsConfirmados) {
+        const docIdCliente = `${nuevoNumConfirmacion}_cliente_${indexItem}`;
+        const subjectCliente = `Confirmación de Reserva: ${item.titulo} - Ballard Tours`;
+        const htmlCliente = generarHtmlCorreoCliente(item, datosFinalesCliente, nuevoNumConfirmacion);
 
-      try {
-        console.log("Enviando correos mediante API Nodemailer (/api/send-email)...");
+        const docIdAdmin = `${nuevoNumConfirmacion}_admin_${indexItem}`;
+        const subjectAdmin = `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`;
+        const htmlAdmin = generarHtmlCorreoAdmin(item, datosFinalesCliente, nuevoNumConfirmacion);
 
-        // ==========================================
-        // 1. PRIORIDAD #1: ENVIAR CORREOS POR NODEMAILER CON AWAIT (ADMIN Y CLIENTE)
-        // ==========================================
-        let indexItem = 1;
-        for (const item of itemsConfirmados) {
-          const docIdCliente = `${nuevoNumConfirmacion}_cliente_${indexItem}`;
-          const subjectCliente = `Confirmación de Reserva: ${item.titulo} - Ballard Tours`;
-          const htmlCliente = generarHtmlCorreoCliente(item, datosFinalesCliente, nuevoNumConfirmacion);
+        // A. Envío inmediato al Administrador (CON AWAIT)
+        try {
+          await sendEmail({
+            to: "reservationballard@gmail.com",
+            subject: subjectAdmin,
+            html: htmlAdmin
+          });
+        } catch (errAdminMail) {
+          console.error("Error enviando correo admin:", errAdminMail);
+        }
 
-          const docIdAdmin = `${nuevoNumConfirmacion}_admin_${indexItem}`;
-          const subjectAdmin = `🚨 SERVICIO: ${item.titulo} - ${nombreCliente} (${nuevoNumConfirmacion})`;
-          const htmlAdmin = generarHtmlCorreoAdmin(item, datosFinalesCliente, nuevoNumConfirmacion);
-
-          // A. Envío inmediato al Administrador (CON AWAIT)
+        // B. Envío inmediato al Cliente (CON AWAIT)
+        if (emailCliente) {
           try {
             await sendEmail({
-              to: "reservationballard@gmail.com",
+              to: emailCliente,
+              subject: subjectCliente,
+              html: htmlCliente
+            });
+          } catch (errClientMail) {
+            console.error("Error enviando correo cliente:", errClientMail);
+          }
+        }
+
+        // C. Respaldo en colección "correos" de Firebase (protegido con try/catch individual)
+        try {
+          await setDoc(doc(db, "correos", docIdAdmin), {
+            to: "reservationballard@gmail.com",
+            message: {
               subject: subjectAdmin,
               html: htmlAdmin
-            });
-          } catch (errAdminMail) {
-            console.error("Error enviando correo admin:", errAdminMail);
-          }
-
-          // B. Envío inmediato al Cliente (CON AWAIT)
-          if (emailCliente) {
-            try {
-              await sendEmail({
-                to: emailCliente,
-                subject: subjectCliente,
-                html: htmlCliente
-              });
-            } catch (errClientMail) {
-              console.error("Error enviando correo cliente:", errClientMail);
             }
-          }
-
-          // C. Respaldo en colección "correos" de Firebase (protegido con try/catch individual)
-          try {
-            await setDoc(doc(db, "correos", docIdAdmin), {
-              to: "reservationballard@gmail.com",
-              message: {
-                subject: subjectAdmin,
-                html: htmlAdmin
-              }
-            });
-            await setDoc(doc(db, "correos", docIdCliente), {
-              to: emailCliente || "reservationballard@gmail.com",
-              message: {
-                subject: subjectCliente,
-                html: htmlCliente
-              }
-            });
-          } catch (errFbCorreo) {
-            console.error("Error guardando respaldo de correo en Firebase:", errFbCorreo);
-          }
-
-          indexItem++;
+          });
+          await setDoc(doc(db, "correos", docIdCliente), {
+            to: emailCliente || "reservationballard@gmail.com",
+            message: {
+              subject: subjectCliente,
+              html: htmlCliente
+            }
+          });
+        } catch (errFbCorreo) {
+          console.error("Error guardando respaldo de correo en Firebase:", errFbCorreo);
         }
 
-        // Guardar también en colección "reservas" de Firebase (sanitizado contra undefined)
-        try {
-          const reservaPayload = JSON.parse(JSON.stringify({
-            numeroConfirmacion: nuevoNumConfirmacion,
-            sitio: 'ballardtours.com',
-            estado: metodoReal === 'paypal' ? "Pagado (PayPal)" : "Pendiente (Efectivo)",
-            cliente: datosFinalesCliente,
-            servicios: itemsConfirmados,
-            totalPagado: Number(paypalAmount || currentCarritoTotal || 0),
-            paypalOrderId: paypalOrderId || null,
-            fecha: new Date().toISOString()
-          }));
-          await setDoc(doc(db, "reservas", nuevoNumConfirmacion), reservaPayload);
-        } catch (errFbReserva) {
-          console.error("Error guardando reserva en Firebase:", errFbReserva);
-        }
-
-        // ==========================================
-        // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
-        // ==========================================
-        if (currentAppliedPromo && (currentAppliedPromo.CORREO || currentAppliedPromo.correo)) {
-          const correoChofer = currentAppliedPromo.CORREO || currentAppliedPromo.correo;
-          const nombreChofer = currentAppliedPromo.NOMBRE || currentAppliedPromo.nombre || "Chofer";
-          const comision = currentCarritoTotal * 0.10;
-          const serviciosResumen = itemsConfirmados.map(item => item.titulo).join(', ');
-          const fechaServicio = itemsConfirmados[0]?.config?.fechaLlegada || itemsConfirmados[0]?.config?.fechaTour || itemsConfirmados[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
-          const subjectChofer = `¡Nueva Venta! Comisión Generada - Ballard Tours`;
-          const htmlChofer = `
-              <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
-                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                  <div style="background-color: #15803d; padding: 25px; text-align: center; color: white;">
-                    <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombreChofer}! 🎉</h2>
-                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Has generado una nueva comisión de venta</p>
-                  </div>
-                  <div style="padding: 30px;">
-                    <p style="font-size: 16px; color: #334155;">Un cliente acaba de realizar una reserva utilizando tu código de descuento (<strong>${currentAppliedPromo.codigo || 'Tu Código'}</strong>).</p>
-                    <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
-                      <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
-                      <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
-                      <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s) reservados:</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
-                    </div>
-                    <div style="background-color: #dcfce3; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bbf7d0;">
-                      <p style="margin: 0; font-size: 14px; color: #166534; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Generada (10%)</p>
-                      <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #15803d;">$${comision.toFixed(2)} USD</p>
-                    </div>
-                    <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
-                      <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
-                        ⚠️ La comisión se pagará el día del servicio.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-
-          try {
-            await sendEmail({
-              to: correoChofer,
-              subject: subjectChofer,
-              html: htmlChofer
-            });
-          } catch (errMailChofer) {
-            console.error("Error enviando correo a chofer:", errMailChofer);
-          }
-
-          try {
-            const docIdChofer = `${nuevoNumConfirmacion}_chofer_${currentAppliedPromo.codigo}`;
-            await setDoc(doc(db, "correos", docIdChofer), {
-              to: correoChofer,
-              message: { subject: subjectChofer, html: htmlChofer }
-            });
-          } catch (errFbChofer) {
-            console.error("Error guardando correo chofer en Firebase:", errFbChofer);
-          }
-        }
-
-        // 👇 REGISTRO DE CUPONES USADOS 👇
-        if (currentAppliedPromo && currentAppliedPromo.codigo && currentAppliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentAuthUser) {
-          const emailUsuario = String(currentAuthUser.email || currentAuthUser.correo || "").trim().toLowerCase();
-          const codigoLimpio = String(currentAppliedPromo.codigo).trim().toUpperCase();
-          const docIdCupon = `${emailUsuario}_${codigoLimpio}`;
-          setDoc(doc(db, "cupones_usados", docIdCupon), {
-            correo: emailUsuario,
-            codigo: codigoLimpio
-          })
-            .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
-            .catch(err => console.error("❌ Error al registrar el código como usado:", err));
-        }
-
-        // ==========================================
-        // CORREO 4: PARA EL PROMOTOR (RED DE AFILIADOS - 5%)
-        // ==========================================
-        if (currentAppliedPromo && currentAppliedPromo.correo_promotor) {
-          const correoPromotor = currentAppliedPromo.correo_promotor;
-          const nombrePromotor = currentAppliedPromo.nombre_promotor || "Promotor";
-          const nombreVendedor = currentAppliedPromo.NOMBRE || currentAppliedPromo.nombre || "Un vendedor de tu red";
-          const comisionPromotor = currentCarritoTotal * 0.05;
-          const serviciosResumen = itemsConfirmados.map(item => item.titulo).join(', ');
-          const fechaServicio = itemsConfirmados[0]?.config?.fechaLlegada || itemsConfirmados[0]?.config?.fechaTour || itemsConfirmados[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
-          const subjectPromotor = `¡Ingreso Pasivo! Tu red generó una venta 📈 - Ballard Tours`;
-          const htmlPromotor = `
-              <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
-                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                  <div style="background-color: #0369a1; padding: 25px; text-align: center; color: white;">
-                    <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombrePromotor}! 📈</h2>
-                    <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Tu red de vendedores acaba de generar ventas</p>
-                  </div>
-                  <div style="padding: 30px;">
-                    <p style="font-size: 16px; color: #334155;">El vendedor <strong>${nombreVendedor}</strong> (Código: ${currentAppliedPromo.codigo || ''}) acaba de cerrar una venta en la web.</p>
-                    <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
-                      <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
-                      <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
-                      <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s):</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
-                    </div>
-                    <div style="background-color: #e0f2fe; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bae6fd;">
-                      <p style="margin: 0; font-size: 14px; color: #0369a1; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Pasiva (5%)</p>
-                      <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #0284c7;">$${comisionPromotor.toFixed(2)} USD</p>
-                    </div>
-                    <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
-                      <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
-                        ⚠️ La comisión se pagará el día del servicio.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-
-          try {
-            await sendEmail({
-              to: correoPromotor,
-              subject: subjectPromotor,
-              html: htmlPromotor
-            });
-          } catch (errMailProm) {
-            console.error("Error enviando correo a promotor:", errMailProm);
-          }
-
-          try {
-            const docIdPromotor = `${nuevoNumConfirmacion}_promotor_${currentAppliedPromo.codigo}`;
-            await setDoc(doc(db, "correos", docIdPromotor), {
-              to: correoPromotor,
-              message: { subject: subjectPromotor, html: htmlPromotor }
-            });
-          } catch (errFbProm) {
-            console.error("Error guardando correo promotor en Firebase:", errFbProm);
-          }
-        }
-
-        console.log("✅ Correos enviados y registrados exitosamente.");
-      } catch (error) {
-        console.error("❌ Error al procesar los correos:", error);
+        indexItem++;
       }
-    }, 500);
+
+      // Guardar también en colección "reservas" de Firebase (sanitizado contra undefined)
+      try {
+        const reservaPayload = JSON.parse(JSON.stringify({
+          numeroConfirmacion: nuevoNumConfirmacion,
+          sitio: 'ballardtours.com',
+          estado: metodoReal === 'paypal' ? "Pagado (PayPal)" : "Pendiente (Efectivo)",
+          cliente: datosFinalesCliente,
+          servicios: itemsConfirmados,
+          totalPagado: Number(paypalAmount || currentCarritoTotal || 0),
+          paypalOrderId: paypalOrderId || null,
+          fecha: new Date().toISOString()
+        }));
+        await setDoc(doc(db, "reservas", nuevoNumConfirmacion), reservaPayload);
+      } catch (errFbReserva) {
+        console.error("Error guardando reserva en Firebase:", errFbReserva);
+      }
+
+      // ==========================================
+      // CORREO 3: PARA EL CHOFER (SI USÓ CÓDIGO)
+      // ==========================================
+      if (currentAppliedPromo && (currentAppliedPromo.CORREO || currentAppliedPromo.correo)) {
+        const correoChofer = currentAppliedPromo.CORREO || currentAppliedPromo.correo;
+        const nombreChofer = currentAppliedPromo.NOMBRE || currentAppliedPromo.nombre || "Chofer";
+        const comision = currentCarritoTotal * 0.10;
+        const serviciosResumen = itemsConfirmados.map(item => item.titulo).join(', ');
+        const fechaServicio = itemsConfirmados[0]?.config?.fechaLlegada || itemsConfirmados[0]?.config?.fechaTour || itemsConfirmados[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
+        const subjectChofer = `¡Nueva Venta! Comisión Generada - Ballard Tours`;
+        const htmlChofer = `
+            <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
+              <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                <div style="background-color: #15803d; padding: 25px; text-align: center; color: white;">
+                  <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombreChofer}! 🎉</h2>
+                  <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Has generado una nueva comisión de venta</p>
+                </div>
+                <div style="padding: 30px;">
+                  <p style="font-size: 16px; color: #334155;">Un cliente acaba de realizar una reserva utilizando tu código de descuento (<strong>${currentAppliedPromo.codigo || 'Tu Código'}</strong>).</p>
+                  <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
+                    <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
+                    <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
+                    <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s) reservados:</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
+                  </div>
+                  <div style="background-color: #dcfce3; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bbf7d0;">
+                    <p style="margin: 0; font-size: 14px; color: #166534; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Generada (10%)</p>
+                    <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #15803d;">$${comision.toFixed(2)} USD</p>
+                  </div>
+                  <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
+                      ⚠️ La comisión se pagará el día del servicio.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        try {
+          await sendEmail({
+            to: correoChofer,
+            subject: subjectChofer,
+            html: htmlChofer
+          });
+        } catch (errMailChofer) {
+          console.error("Error enviando correo a chofer:", errMailChofer);
+        }
+
+        try {
+          const docIdChofer = `${nuevoNumConfirmacion}_chofer_${currentAppliedPromo.codigo}`;
+          await setDoc(doc(db, "correos", docIdChofer), {
+            to: correoChofer,
+            message: { subject: subjectChofer, html: htmlChofer }
+          });
+        } catch (errFbChofer) {
+          console.error("Error guardando correo chofer en Firebase:", errFbChofer);
+        }
+      }
+
+      // 👇 REGISTRO DE CUPONES USADOS 👇
+      if (currentAppliedPromo && currentAppliedPromo.codigo && currentAppliedPromo.codigo !== "DESCUENTO_AGENCIA" && currentAuthUser) {
+        const emailUsuario = String(currentAuthUser.email || currentAuthUser.correo || "").trim().toLowerCase();
+        const codigoLimpio = String(currentAppliedPromo.codigo).trim().toUpperCase();
+        const docIdCupon = `${emailUsuario}_${codigoLimpio}`;
+        setDoc(doc(db, "cupones_usados", docIdCupon), {
+          correo: emailUsuario,
+          codigo: codigoLimpio
+        })
+          .then(() => console.log("✅ Código registrado como usado por:", emailUsuario))
+          .catch(err => console.error("❌ Error al registrar el código como usado:", err));
+      }
+
+      // ==========================================
+      // CORREO 4: PARA EL PROMOTOR (RED DE AFILIADOS - 5%)
+      // ==========================================
+      if (currentAppliedPromo && currentAppliedPromo.correo_promotor) {
+        const correoPromotor = currentAppliedPromo.correo_promotor;
+        const nombrePromotor = currentAppliedPromo.nombre_promotor || "Promotor";
+        const nombreVendedor = currentAppliedPromo.NOMBRE || currentAppliedPromo.nombre || "Un vendedor de tu red";
+        const comisionPromotor = currentCarritoTotal * 0.05;
+        const serviciosResumen = itemsConfirmados.map(item => item.titulo).join(', ');
+        const fechaServicio = itemsConfirmados[0]?.config?.fechaLlegada || itemsConfirmados[0]?.config?.fechaTour || itemsConfirmados[0]?.extrasEspeciales?.cenaHora || 'Fecha en sistema';
+        const subjectPromotor = `¡Ingreso Pasivo! Tu red generó una venta 📈 - Ballard Tours`;
+        const htmlPromotor = `
+            <div style="font-family: Arial, sans-serif; background-color: #f1f5f9; padding: 30px; color: #1e293b;">
+              <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                <div style="background-color: #0369a1; padding: 25px; text-align: center; color: white;">
+                  <h2 style="margin: 0; font-size: 24px;">¡Felicidades ${nombrePromotor}! 📈</h2>
+                  <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 15px;">Tu red de vendedores acaba de generar ventas</p>
+                </div>
+                <div style="padding: 30px;">
+                  <p style="font-size: 16px; color: #334155;">El vendedor <strong>${nombreVendedor}</strong> (Código: ${currentAppliedPromo.codigo || ''}) acaba de cerrar una venta en la web.</p>
+                  <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; border: 1px solid #e2e8f0; margin: 20px 0;">
+                    <p style="margin: 0 0 10px 0; color: #475569;"><strong>👤 Cliente:</strong> <span style="color: #0f172a;">${nombreCliente}</span></p>
+                    <p style="margin: 0 0 10px 0; color: #475569;"><strong>📅 Fecha del producto:</strong> <span style="color: #0f172a;">${fechaServicio}</span></p>
+                    <p style="margin: 0; color: #475569;"><strong>🛍️ Producto(s):</strong> <span style="color: #0f172a;">${serviciosResumen}</span></p>
+                  </div>
+                  <div style="background-color: #e0f2fe; padding: 25px; border-radius: 8px; text-align: center; border: 1px solid #bae6fd;">
+                    <p style="margin: 0; font-size: 14px; color: #0369a1; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Tu Comisión Pasiva (5%)</p>
+                    <p style="margin: 8px 0 0 0; font-size: 36px; font-weight: 900; color: #0284c7;">$${comisionPromotor.toFixed(2)} USD</p>
+                  </div>
+                  <div style="margin-top: 25px; background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 14px; color: #b45309; font-weight: bold; text-align: center;">
+                      ⚠️ La comisión se pagará el día del servicio.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        try {
+          await sendEmail({
+            to: correoPromotor,
+            subject: subjectPromotor,
+            html: htmlPromotor
+          });
+        } catch (errMailProm) {
+          console.error("Error enviando correo a promotor:", errMailProm);
+        }
+
+        try {
+          const docIdPromotor = `${nuevoNumConfirmacion}_promotor_${currentAppliedPromo.codigo}`;
+          await setDoc(doc(db, "correos", docIdPromotor), {
+            to: correoPromotor,
+            message: { subject: subjectPromotor, html: htmlPromotor }
+          });
+        } catch (errFbProm) {
+          console.error("Error guardando correo promotor en Firebase:", errFbProm);
+        }
+      }
+
+      console.log("✅ Correos enviados y registrados exitosamente.");
+    } catch (error) {
+      console.error("❌ Error al procesar los correos:", error);
+    } finally {
+      setProcesandoPago(false);
+      avanzarPaso();
+    }
   };
 
 
@@ -6964,9 +6976,12 @@ export default function App() {
 
                   onApprove={(data, actions) => {
                     return actions.order.capture().then((details) => {
-                      // Cuando el pago sea exitoso, pasamos los detalles de PayPal a la función de confirmación
-                      procesarConfirmacion(null, details, 'paypal');
+                      // Cuando el pago sea exitoso, pasamos los detalles de PayPal a la función de confirmación y esperamos el envío de correos
+                      return procesarConfirmacion(null, details, 'paypal');
                     });
+                  }}
+                  onError={(err) => {
+                    console.error("PayPal Checkout Error:", err);
                   }}
 
                 />
