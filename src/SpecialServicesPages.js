@@ -681,8 +681,8 @@ export function FaqsPage({ lang = 'es' }) {
               : 'Our local team is available 24/7 via WhatsApp, phone, or email to help you customize your transfer or excursion.'}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="https://wa.me/526241393497" target="_blank" rel="noopener noreferrer" className="bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-8 rounded-xl shadow-md transition">
-              WhatsApp: +52 (624) 139-3497
+            <a href="https://wa.me/526121943286" target="_blank" rel="noopener noreferrer" className="bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-8 rounded-xl shadow-md transition">
+              WhatsApp: +52 (612) 194-3286
             </a>
             <Link to="/contact" className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-xl shadow-md transition">
               {isEs ? 'Ir a Contacto' : 'Contact Us'}
@@ -737,8 +737,8 @@ export function PrivacyPolicyPage({ lang = 'es' }) {
         </h2>
         <p className="mb-4 leading-relaxed">
           {isEs
-            ? 'Ballard Tour Services ("Ballard Tours"), con domicilio operativo en Cabo San Lucas, Baja California Sur, México, es responsable del tratamiento y protección de los datos personales que usted nos proporciona a través de https://www.ballardtours.com, WhatsApp (+52 624 139 3497) o correo electrónico (reservationballard@gmail.com).'
-            : 'Ballard Tour Services ("Ballard Tours"), operating in Cabo San Lucas, Baja California Sur, Mexico, is responsible for collecting, processing, and protecting the personal information you provide through https://www.ballardtours.com, WhatsApp (+52 624 139 3497), or email (reservationballard@gmail.com).'}
+            ? 'Ballard Tour Services ("Ballard Tours"), con domicilio operativo en Cabo San Lucas, Baja California Sur, México, es responsable del tratamiento y protección de los datos personales que usted nos proporciona a través de https://www.ballardtours.com, WhatsApp (+52 612 194 3286) o correo electrónico (reservationballard@gmail.com).'
+            : 'Ballard Tour Services ("Ballard Tours"), operating in Cabo San Lucas, Baja California Sur, Mexico, is responsible for collecting, processing, and protecting the personal information you provide through https://www.ballardtours.com, WhatsApp (+52 612 194 3286), or email (reservationballard@gmail.com).'}
         </p>
 
         <h2 className="text-2xl font-bold text-blue-800 mt-10 mb-4 border-b pb-2">
@@ -780,7 +780,7 @@ export function PrivacyPolicyPage({ lang = 'es' }) {
             : 'You may request access, correction, or deletion of your personal data at any time by contacting us at: '}
           <a href="mailto:reservationballard@gmail.com" className="text-blue-600 font-bold hover:underline">reservationballard@gmail.com</a>
           <br />
-          WhatsApp / Tel: +52 (624) 139-3497
+          WhatsApp / Tel: +52 (612) 194-3286
         </p>
       </section>
     </>

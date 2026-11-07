@@ -329,13 +329,13 @@ export default function ToursPage({ lang = 'es' }) {
             ========================================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {/* WhatsApp Reservations */}
-          <a href="https://wa.me/526241393497" target="_blank" rel="noopener noreferrer" className="bg-white border border-gray-100 rounded-3xl p-5 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+          <a href="https://wa.me/526121943286" target="_blank" rel="noopener noreferrer" className="bg-white border border-gray-100 rounded-3xl p-5 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
             <div className="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center shrink-0">
               <MessageCircle size={28} />
             </div>
             <div>
               <h4 className="font-bold text-gray-900 text-sm">WhatsApp (Reservations)</h4>
-              <p className="text-gray-500 text-xs mt-0.5">+52 (624) 139-3497</p>
+              <p className="text-gray-500 text-xs mt-0.5">+52 (612) 194-3286</p>
               <p className="text-green-600 text-xs font-bold mt-1.5 group-hover:translate-x-1 transition-transform">Click to chat →</p>
             </div>
           </a>
@@ -353,13 +353,13 @@ export default function ToursPage({ lang = 'es' }) {
           </a>
 
           {/* Call Us */}
-          <a href="tel:+526241393497" className="bg-white border border-gray-100 rounded-3xl p-5 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+          <a href="tel:+526121943286" className="bg-white border border-gray-100 rounded-3xl p-5 flex items-center gap-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
             <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
               <Phone size={28} />
             </div>
             <div>
               <h4 className="font-bold text-gray-900 text-sm">Call Us Directly</h4>
-              <p className="text-gray-500 text-xs mt-0.5">+52 (624) 139-3497</p>
+              <p className="text-gray-500 text-xs mt-0.5">+52 (612) 194-3286</p>
               <p className="text-blue-600 text-xs font-bold mt-1.5 group-hover:translate-x-1 transition-transform">Click to call →</p>
             </div>
           </a>
@@ -458,7 +458,7 @@ export default function ToursPage({ lang = 'es' }) {
               <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Clock size={32} className="text-blue-900" /></div>
               <div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
-                <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 612 194 3286 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 612 194 3286 anytime for immediate assistance.'}</p>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">

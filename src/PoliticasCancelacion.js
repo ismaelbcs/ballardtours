@@ -39,7 +39,7 @@ export default function PoliticasCancelacion() {
         <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 my-8 rounded-r-lg shadow-sm">
           <h3 className="font-bold text-yellow-800 mb-2">Canales oficiales para cancelaciones:</h3>
           <ul className="list-disc ml-6 space-y-1 text-yellow-900">
-            <li>WhatsApp: +52 624 139 3497</li>
+            <li>WhatsApp: +52 612 194 3286</li>
             <li>Correo: <a href="mailto:reservationballard@gmail.com" className="hover:underline">reservationballard@gmail.com</a></li>
             <li>Llamada telefónica con confirmación escrita</li>
           </ul>
@@ -218,7 +218,7 @@ export default function PoliticasCancelacion() {
             <strong>Ballard Tour Services</strong><br />
             Sitio web: <a href="https://www.ballardtours.com" className="text-blue-600 hover:underline">https://www.ballardtours.com</a><br />
             Correo: <a href="mailto:reservationballard@gmail.com" className="text-blue-600 hover:underline">reservationballard@gmail.com</a><br />
-            Teléfono: +52 624 139 3497
+            Teléfono: +52 612 194 3286
           </p>
         </div>
       </section>

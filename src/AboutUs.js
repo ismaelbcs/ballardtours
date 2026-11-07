@@ -333,7 +333,7 @@ export default function AboutUs({ lang = 'es' }) {
               </p>
               <div className="text-sm text-gray-300 space-y-3">
                 <p>Los Cabos, Baja California Sur, Mexico</p>
-                <p className="font-bold text-white text-lg">Phone: +52 624 139 3497</p>
+                <p className="font-bold text-white text-lg">Phone: +52 612 194 3286</p>
                 <p>Email: <a href="mailto:reservationballard@gmail.com" className="text-blue-400 hover:underline">reservationballard@gmail.com</a></p>
               </div>
             </div>

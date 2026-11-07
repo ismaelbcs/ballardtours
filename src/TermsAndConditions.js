@@ -49,9 +49,9 @@ const TermsAndConditions = () => {
         <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Canales Oficiales</h3>
         <ul className="list-disc list-inside mb-6 space-y-2 text-gray-700 ml-4">
           <li>Sitio web: <a href="https://www.ballardtours.com" className="text-blue-600 hover:underline">https://www.ballardtours.com</a></li>
-          <li>WhatsApp: +52 624 139 3497</li>
+          <li>WhatsApp: +52 612 194 3286</li>
           <li>Correo electrónico: <a href="mailto:reservationballard@gmail.com" className="text-blue-600 hover:underline">reservationballard@gmail.com</a></li>
-          <li>Teléfono: +52 624 139 3497</li>
+          <li>Teléfono: +52 612 194 3286</li>
         </ul>
 
         <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Información requerida</h3>
@@ -232,7 +232,7 @@ const TermsAndConditions = () => {
           <strong>Ballard Tour Services</strong><br />
           Sitio web: <a href="https://www.ballardtours.com" className="text-blue-600 hover:underline">https://www.ballardtours.com</a><br />
           Correo: <a href="mailto:reservationballard@gmail.com" className="text-blue-600 hover:underline">reservationballard@gmail.com</a><br />
-          Teléfono: +52 624 139 3497
+          Teléfono: +52 612 194 3286
         </p>
 
         <h2 className="text-2xl font-bold text-blue-800 mt-10 mb-4 border-b pb-2">18. Aceptación</h2>

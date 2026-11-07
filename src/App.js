@@ -1000,16 +1000,16 @@ const HelpBookingWidget = ({ lang }) => {
         </p>
 
         <a 
-          href="sms:+526241393497" 
+          href="sms:+526121943286" 
           onClick={(e) => {
             e.preventDefault();
-            navigator.clipboard.writeText('+526241393497');
+            navigator.clipboard.writeText('+526121943286');
             toast.success(lang === 'es' ? 'Número copiado al portapapeles' : 'Number copied to clipboard');
           }}
           title={lang === 'es' ? 'Haz clic para copiar el número' : 'Click to copy number'}
           className="text-blue-600 font-bold text-lg hover:underline cursor-pointer block"
         >
-          +52 624 139 3497
+          +52 612 194 3286
         </a>
 
       </div>
@@ -3691,20 +3691,20 @@ export default function App() {
                   </h4>
                   <p className="text-gray-500 text-xs md:text-sm">{lang === 'es' ? 'Envía SMS al' : 'Send SMS to'}</p>
                   <a 
-                    href="sms:+526241393497" 
+                    href="sms:+526121943286" 
                     onClick={(e) => {
                       e.preventDefault();
-                      navigator.clipboard.writeText('+526241393497');
+                      navigator.clipboard.writeText('+526121943286');
                       toast.success(lang === 'es' ? 'Número copiado al portapapeles' : 'Number copied to clipboard');
                     }}
                     title={lang === 'es' ? 'Haz clic para copiar el número' : 'Click to copy number'}
                     className="text-blue-600 font-bold text-sm md:text-base hover:underline cursor-pointer transition-colors hover:text-blue-800 inline-block"
                   >
-                    +52 624 139 3497
+                    +52 612 194 3286
                   </a>
                 </div>
                 <img 
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/526241393497" 
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/526121943286" 
                   alt="QR Contact" 
                   className="w-20 h-20 rounded-md object-contain shrink-0" 
                 />
@@ -3933,7 +3933,7 @@ export default function App() {
 
                 <CheckCircle className="text-green-600 shrink-0 mt-1" size={20} />
 
-                <p className="text-sm text-gray-700"><strong>{lang === 'es' ? 'Reserva Online o por Teléfono:' : 'Book Online or Call:'}</strong> {lang === 'es' ? 'Reserva en www.ballardtours.com, llama gratis o envía WhatsApp al +52 624 139 3497.' : 'Pre-book online, call toll-free, or WhatsApp +52 624 139 3497 for peace of mind.'}</p>
+                <p className="text-sm text-gray-700"><strong>{lang === 'es' ? 'Reserva Online o por Teléfono:' : 'Book Online or Call:'}</strong> {lang === 'es' ? 'Reserva en www.ballardtours.com, llama gratis o envía WhatsApp al +52 612 194 3286.' : 'Pre-book online, call toll-free, or WhatsApp +52 612 194 3286 for peace of mind.'}</p>
 
               </div>
 
@@ -4341,9 +4341,9 @@ export default function App() {
 
                     {lang === 'es'
 
-                      ? <>Cuando viajes, confía en <strong>Ballard Tours</strong> para un traslado profesional puerta a puerta. Reservar en línea o llamar al <strong>+52 624 139 3497</strong> te garantiza un viaje sin estrés y total tranquilidad desde que aterrizas.</>
+                      ? <>Cuando viajes, confía en <strong>Ballard Tours</strong> para un traslado profesional puerta a puerta. Reservar en línea o llamar al <strong>+52 612 194 3286</strong> te garantiza un viaje sin estrés y total tranquilidad desde que aterrizas.</>
 
-                      : <>When you travel, consider <strong>Ballard Tours</strong> and the convenience of a professional door-to-door service. Pre-booking online or calling toll-free at <strong>+52 624 139 3497</strong> ensures a smooth journey and absolute peace of mind.</>}
+                      : <>When you travel, consider <strong>Ballard Tours</strong> and the convenience of a professional door-to-door service. Pre-booking online or calling toll-free at <strong>+52 612 194 3286</strong> ensures a smooth journey and absolute peace of mind.</>}
 
                   </p>
 
@@ -4904,7 +4904,7 @@ export default function App() {
               <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Clock size={32} className="text-blue-900" /></div>
               <div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
-                <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 612 194 3286 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 612 194 3286 anytime for immediate assistance.'}</p>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
@@ -8226,7 +8226,7 @@ export default function App() {
                             <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-blue-50 rounded-full flex items-center justify-center shadow-inner border border-blue-100"><Clock size={32} className="text-blue-900" /></div>
                             <div>
                               <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
-                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
+                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 612 194 3286 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 612 194 3286 anytime for immediate assistance.'}</p>
                             </div>
                           </div>
                           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
@@ -8931,7 +8931,7 @@ export default function App() {
 
                               <h3 className="text-xl font-black text-gray-900 mb-2">{lang === 'es' ? 'Soporte en Línea 24/7' : '24 / 7 Online Support'}</h3>
 
-                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 624 139 3497 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 624 139 3497 anytime for immediate assistance.'}</p>
+                              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{lang === 'es' ? 'Nos esforzamos por responder lo más rápido posible. Contáctanos por WhatsApp al +52 612 194 3286 en cualquier momento.' : 'We strive to respond as quickly as possible. Reach out via WhatsApp at +52 612 194 3286 anytime for immediate assistance.'}</p>
 
                             </div>
 

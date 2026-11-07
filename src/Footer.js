@@ -36,29 +36,16 @@ const Footer = () => {
 
                             {/* --- LLAMADA TELEFÓNICA (Abre la app de teléfono) --- */}
                             <a
-                                href="tel:+526241393497"
+                                href="tel:+526121943286"
                                 className="flex items-center gap-4 hover:text-blue-200 transition-colors duration-300 group"
                             >
                                 <svg className="w-6 h-6 text-green-400 flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                                 </svg>
-                                <span>+52 (624) 139-3497</span>
+                                <span>+52 (612) 194-3286</span>
                             </a>
 
-                            {/* --- WHATSAPP 1 (Abre chat directo) --- */}
-                            <a
-                                href="https://wa.me/526241393497"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-4 hover:text-blue-200 transition-colors duration-300 group"
-                            >
-                                <svg className="w-6 h-6 text-white flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.46 14.15c-.23.64-1.33 1.23-1.84 1.34-.48.11-1.12.23-3.23-.64-2.52-1.04-4.14-3.61-4.26-3.78-.13-.17-1.02-1.36-1.02-2.6 0-1.24.64-1.85.87-2.1.22-.24.48-.3.64-.3h.46c.16 0 .38-.06.59.43.23.55.77 1.88.84 2.02.06.14.11.3.02.49-.09.18-.13.3-.26.46-.13.15-.27.32-.38.44-.13.13-.26.28-.11.54.15.26.68 1.13 1.46 1.83.99.9 1.85 1.19 2.11 1.32.26.13.41.11.57-.08.15-.2.67-.78.85-1.04.18-.26.36-.22.6-.13.24.09 1.54.73 1.81.86.26.13.44.2.5.31.06.11.06.66-.17 1.3z" />
-                                </svg>
-                                <span>+52 (624) 139-3497</span>
-                            </a>
-
-                            {/* --- WHATSAPP 2 (Abre chat directo) --- */}
+                            {/* --- WHATSAPP (Abre chat directo) --- */}
                             <a
                                 href="https://wa.me/526121943286"
                                 target="_blank"

@@ -103,13 +103,13 @@ export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por d
           <div className="lg:col-span-1 space-y-4">
             
             {/* WhatsApp 1 */}
-            <a href="https://wa.me/526241393497" target="_blank" rel="noopener noreferrer" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-start gap-4 hover:-translate-y-1 hover:border-green-400 transition-all group">
+            <a href="https://wa.me/526121943286" target="_blank" rel="noopener noreferrer" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-start gap-4 hover:-translate-y-1 hover:border-green-400 transition-all group">
               <div className="bg-green-100 text-green-600 p-3 rounded-xl group-hover:bg-green-500 group-hover:text-white transition-colors">
                 <MessageCircle size={28} />
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 text-lg">WhatsApp (Reservations)</h3>
-                <p className="text-gray-500 mb-1">+52 (624) 139-3497</p>
+                <p className="text-gray-500 mb-1">+52 (612) 194-3286</p>
                 <span className="text-xs font-bold text-green-600">Click to chat &rarr;</span>
               </div>
             </a>
@@ -127,13 +127,13 @@ export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por d
             </a>
 
             {/* Teléfono */}
-            <a href="tel:+526241393497" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-start gap-4 hover:-translate-y-1 hover:border-blue-400 transition-all group">
+            <a href="tel:+526121943286" className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-start gap-4 hover:-translate-y-1 hover:border-blue-400 transition-all group">
               <div className="bg-blue-100 text-blue-600 p-3 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
                 <Phone size={28} />
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 text-lg">Call Us Directly</h3>
-                <p className="text-gray-500 mb-1">+52 (624) 139-3497</p>
+                <p className="text-gray-500 mb-1">+52 (612) 194-3286</p>
                 <span className="text-xs font-bold text-blue-600">Click to call &rarr;</span>
               </div>
             </a>
