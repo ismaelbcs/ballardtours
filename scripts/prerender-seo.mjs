@@ -7,6 +7,7 @@ import {
   catalogoHoteles,
   zonasData
 } from '../src/data/seoData.js';
+import { restaurantSEOData } from '../src/data/restaurantSEOData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -304,11 +305,22 @@ const hotelPages = allHotels.map((hotel) => {
   };
 });
 
+const restaurantPages = restaurantSEOData.map((rest) => ({
+  path: `/restaurants/${rest.slug}`,
+  canonicalPath: `/restaurants/${rest.slug}`,
+  includeInSitemap: true,
+  priority: '0.8',
+  changefreq: 'monthly',
+  title: `Private Transportation to ${rest.nombre} (${rest.zonaText}) | Ballard Tours`,
+  description: `Book luxury private round-trip dinner transportation to ${rest.nombre} in ${rest.zonaText}. Punctual private chauffeur service and up to 3 hours of waiting time.`
+}));
+
 const allPages = [
   ...staticPages.map((p) => ({ ...p, canonicalPath: p.path, includeInSitemap: true })),
   ...tourPages,
   ...tourAliases,
-  ...hotelPages
+  ...hotelPages,
+  ...restaurantPages
 ];
 
 // 5. Generar Sitemap XML (solo rutas canónicas únicas)

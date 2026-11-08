@@ -24,7 +24,8 @@ import {
   HotelToHotelPage,
   NightlifeTransfersPage,
   FaqsPage,
-  PrivacyPolicyPage
+  PrivacyPolicyPage,
+  RestaurantSeoPage
 } from './SpecialServicesPages';
 
 import { hotelesSEO } from './datosHoteles';
@@ -11755,7 +11756,11 @@ export default function App() {
 
               <Route path="/transportation/group-sprinter-van-shuttle" element={<GroupVanPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
 
-              <Route path="/transportation/dinner-and-restaurants" element={<DinnerTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
+              <Route path="/transportation/dinner-and-restaurants" element={<DinnerTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setSubCategoria={setSubCategoria} setVistaEspecial={setVistaEspecial} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/dinners" element={<DinnerTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setSubCategoria={setSubCategoria} setVistaEspecial={setVistaEspecial} setPaso={setPaso} setReserva={setReserva} />} />
+
+              <Route path="/restaurants/:slug" element={<RestaurantSeoPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setSubCategoria={setSubCategoria} setVistaEspecial={setVistaEspecial} setPaso={setPaso} setReserva={setReserva} agregarAlCombo={agregarAlCombo} />} />
 
               <Route path="/transportation/golf-course-transfers" element={<GolfTransfersPage lang={lang} setServicioSeleccionado={setServicioSeleccionado} setPaso={setPaso} setReserva={setReserva} />} />
 

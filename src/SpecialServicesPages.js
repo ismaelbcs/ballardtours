@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   ShieldCheck,
   Clock,
@@ -9,9 +9,17 @@ import {
   Star,
   Baby,
   ShoppingBag,
-  ChevronRight
+  ChevronRight,
+  MapPin,
+  Users,
+  Banknote,
+  Calendar,
+  Plus,
+  Map
 } from 'lucide-react';
 import { FAQSection } from './FAQSection';
+import { restaurantSEOData } from './data/restaurantSEOData';
+import { catalogoHoteles } from './data/seoData';
 
 // ============================================================================
 // 1. LUXURY SUV SERVICE (/transportation/luxury-suv-service)
@@ -341,15 +349,49 @@ export function DinnerTransfersPage({ lang = 'es', setServicioSeleccionado, setS
           <h2 className="text-2xl md:text-3xl font-black text-blue-900 mb-6">
             {isEs ? 'Restaurantes Más Solicitados en Los Cabos' : 'Most Requested Fine Dining Destinations in Los Cabos'}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {topRestaurants.map((r, i) => (
-              <div key={i} onClick={handleBookDinner} className="cursor-pointer p-4 rounded-2xl bg-gray-50 hover:bg-blue-50 border border-gray-200 transition flex items-center justify-between">
-                <div>
-                  <p className="font-bold text-gray-900">{r.name}</p>
-                  <p className="text-xs text-gray-500">{r.zone}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {restaurantSEOData.map((r) => (
+              <Link
+                key={r.slug}
+                to={`/restaurants/${r.slug}`}
+                className="group bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-900/40 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                  <img
+                    src={`/${r.imageDiners || r.image}`}
+                    alt={`Transfer to ${r.nombre}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      e.currentTarget.src = '/suburban-airport-los-cabos-ballard.webp';
+                    }}
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-950/80 backdrop-blur-md text-white border border-white/10">
+                      {r.zonaText}
+                    </span>
+                  </div>
                 </div>
-                <span className="text-xs font-bold text-blue-600">{isEs ? 'Reservar →' : 'Book →'}</span>
-              </div>
+                <div className="p-5 flex flex-col flex-1 justify-between">
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-base group-hover:text-blue-900 transition-colors line-clamp-1 mb-2">
+                      {r.nombre}
+                    </h3>
+                    <div className="flex items-center gap-3 text-xs text-gray-500 font-medium mb-4">
+                      <span className="flex items-center gap-1">
+                        <Clock size={13} className="text-gray-400" /> {isEs ? '3 hrs espera incl.' : '3 hrs wait incl.'}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <MapPin size={13} className="text-gray-400" /> {r.zonaText}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-blue-900">
+                    <span>{isEs ? 'Ver información y tarifas' : 'View rates & transfer'}</span>
+                    <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -786,4 +828,621 @@ export function PrivacyPolicyPage({ lang = 'es' }) {
     </>
   );
 }
+
+// ============================================================================
+// 8. RESTAURANT SEO LANDING PAGES (/restaurants/:slug)
+// ============================================================================
+export function RestaurantSeoPage({
+  lang = 'en',
+  setServicioSeleccionado,
+  setSubCategoria,
+  setVistaEspecial,
+  setPaso,
+  setReserva,
+  agregarAlCombo
+}) {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+
+  const seoData = restaurantSEOData.find((item) => item.slug === slug);
+
+  const [cenaOrigen, setCenaOrigen] = useState('');
+  const [busquedaCenaOrigen, setBusquedaCenaOrigen] = useState('');
+  const [mostrarDropdownCena, setMostrarDropdownCena] = useState(false);
+  const [cenaRestauranteNombre, setCenaRestauranteNombre] = useState(seoData ? seoData.nombre : '');
+  const [cenaDestino, setCenaDestino] = useState(
+    seoData ? (seoData.zona === 1 ? 'sjc' : seoData.zona === 2 ? 'corredor' : seoData.zona === 3 ? 'csl' : 'pacifico') : ''
+  );
+  const [cenaFecha, setCenaFecha] = useState('');
+  const [cenaPax, setCenaPax] = useState('1-4');
+  const [cenaHora, setCenaHora] = useState('');
+  const [cenaHoraRegreso, setCenaHoraRegreso] = useState('');
+  const [reservaLocal, setReservaLocal] = useState({
+    rosas: false,
+    vino: false,
+    vinoEspumoso: false
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (seoData) {
+      setCenaRestauranteNombre(seoData.nombre);
+      setCenaDestino(seoData.zona === 1 ? 'sjc' : seoData.zona === 2 ? 'corredor' : seoData.zona === 3 ? 'csl' : 'pacifico');
+    }
+  }, [slug, seoData]);
+
+  if (!seoData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            {lang === 'es' ? 'Restaurante no encontrado' : 'Restaurant not found'}
+          </h1>
+          <Link to="/transportation/dinner-and-restaurants" className="text-blue-600 hover:underline font-bold">
+            {lang === 'es' ? 'Ver todos los restaurantes' : 'View all restaurants'}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const matrizPreciosCenas = {
+    sjc: { '1': 120, '2': 140, '3': 170, '4': 250, '5': 300, '6': 400 },
+    corredor: { '1': 140, '2': 120, '3': 140, '4': 220, '5': 300, '6': 400 },
+    csl: { '1': 170, '2': 140, '3': 120, '4': 220, '5': 300, '6': 400 },
+    pacifico: { '1': 250, '2': 220, '3': 220, '4': 180, '5': 300, '6': 400 }
+  };
+  const recargoCenas = { '1-4': 0, '5-8': 30, '9-10': 45 };
+
+  let totalPrecioCena = 0;
+  if (cenaOrigen && cenaDestino) {
+    const zonaSeleccionada = String(cenaOrigen.split('|')[1]) || '1';
+    const precioBase = Number(matrizPreciosCenas[cenaDestino]?.[zonaSeleccionada] || 0);
+    totalPrecioCena = precioBase + Number(recargoCenas[cenaPax] || 0);
+  }
+
+  const costoExtras = (reservaLocal.rosas ? 50 : 0) + (reservaLocal.vino ? 70 : 0) + (reservaLocal.vinoEspumoso ? 70 : 0);
+  const granTotalCena = totalPrecioCena > 0 ? totalPrecioCena + costoExtras : 0;
+
+  const isEs = lang === 'es';
+  const t = {
+    title: isEs ? `Traslados Privados a ${seoData.nombre}` : `Private Transfers to ${seoData.nombre}`,
+    subtitle: isEs
+      ? `Reserva transporte de lujo, seguro y confiable a ${seoData.nombre} en ${seoData.zonaText}. Evita Ubers y taxis. ¡Reserva en línea!`
+      : `Book safe, reliable luxury transportation to ${seoData.nombre} in ${seoData.zonaText}. Avoid Ubers and taxis. Book online!`,
+    keyPointTitle: isEs ? 'Puntos Clave' : 'Key Takeaways',
+    keyPointDesc: isEs
+      ? `Disfruta de ${seoData.desc} en ${seoData.nombre} sin preocuparte por el viaje. Nuestro transporte privado en Cabo te lleva directamente desde tu resort o villa, asegurando una velada perfecta de principio a fin.`
+      : `Enjoy ${seoData.desc} at ${seoData.nombre} without worrying about the ride. Our Cabo private transfers take you directly from your resort or villa, ensuring a perfect evening from start to finish.`,
+    ratesTitle: isEs ? 'Tarifas y Beneficios Exclusivos' : 'Exclusive Rates and Benefits',
+    ratesDesc: isEs
+      ? `Ofrecemos tarifas fijas para traslados privados a ${seoData.nombre}. A diferencia de los taxis o Uber en Cabo que pueden cambiar sus precios, nosotros garantizamos el mejor transporte de lujo en Los Cabos.`
+      : `We offer flat rates for private transfers to ${seoData.nombre}. Unlike Cabo taxis or Uber which might change pricing, we guarantee the finest luxury transportation in Los Cabos.`,
+    routeTitle: isEs ? 'Ruta de Viaje y Logística' : 'Route and Logistics',
+    routeDesc: isEs
+      ? `Viajar a ${seoData.zonaText} es cómodo y escénico. Nuestros chóferes conocen la ruta perfecta hacia ${seoData.nombre} y te estarán esperando hasta 3 horas para regresarte con la misma comodidad.`
+      : `Traveling to ${seoData.zonaText} is comfortable and scenic. Our chauffeurs know the perfect route to ${seoData.nombre} and will wait up to 3 hours to take you back in complete comfort.`,
+    compareTitle: isEs ? 'Comparando Opciones en Cabo' : 'Comparing Options in Cabo',
+    compareDesc: isEs
+      ? `Los taxis regulares en Cabo suelen ser costosos y los Ubers no siempre pueden ingresar a ciertas áreas como ${seoData.nombre}. Nuestros traslados privados en Los Cabos son la opción confiable y lujosa para que disfrutes sin preocupaciones.`
+      : `Regular Cabo taxis are often overpriced, and Ubers face restrictions entering exclusive areas like ${seoData.nombre}. Our private transfers in Cabo San Jose and Cabo San Lucas are the reliable, luxury choice for a worry-free experience.`,
+    tipsTitle: isEs ? 'Consejos para Reservar y Reseñas de Viajeros' : 'Booking Tips & Traveler Reviews',
+    tipsDesc: isEs
+      ? `Reserva tu transporte a ${seoData.nombre} con anticipación. Miles de viajeros recomiendan Ballard Tours por encima de los shuttles tradicionales por nuestra puntualidad y vehículos premium.`
+      : `Book your transportation to ${seoData.nombre} in advance. Thousands of travelers recommend Ballard Tours over traditional shuttles due to our punctuality and premium vehicles.`,
+    bookingTitle: isEs ? 'Reserva en Línea Fácil' : 'Easy Online Booking',
+    bookingDesc: isEs
+      ? `Utiliza nuestro formulario para asegurar tu traslado de lujo a ${seoData.nombre}. Aceptamos opciones de pago flexibles.`
+      : `Use our form to secure your luxury transfer to ${seoData.nombre}. We accept flexible payment options.`
+  };
+
+  return (
+    <div className="animate-fade-in pb-10 bg-white font-sans">
+      <Helmet>
+        <title>
+          {isEs
+            ? `Transporte Privado a Restaurante ${seoData.nombre} (${seoData.zonaText}) | Ballard Tours`
+            : `Private Transportation to ${seoData.nombre} (${seoData.zonaText}) | Ballard Tours`}
+        </title>
+        <meta
+          name="description"
+          content={
+            isEs
+              ? `Reserva transporte privado y seguro de ida y vuelta para tu cena en ${seoData.nombre} (${seoData.zonaText}). Chofer bilingüe y hasta 3 horas de espera incluidas.`
+              : `Book luxury private round-trip dinner transportation to ${seoData.nombre} in ${seoData.zonaText}. Punctual private chauffeur service and up to 3 hours of waiting time.`
+          }
+        />
+        <link rel="canonical" href={`https://www.ballardtours.com/restaurants/${seoData.slug}`} />
+      </Helmet>
+
+      {/* 1. HERO SECTION CON FOTO DE PORTADA DEL RESTAURANTE */}
+      <div className="relative bg-blue-950 text-white py-28 md:py-36 px-4 overflow-hidden shadow-xl rounded-b-[2.5rem] mb-12 border-b border-blue-900">
+        <div className="absolute inset-0 z-0">
+          <img
+            src={`/${seoData.image}`}
+            alt={seoData.nombre}
+            className="w-full h-full object-cover opacity-55"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/50 to-blue-950/30 z-10"></div>
+
+        <div className="relative max-w-4xl mx-auto text-center z-20">
+          <div className="flex justify-center items-center gap-4 mb-6 text-blue-300">
+            <Car size={28} />
+            <span className="border-t border-dashed border-blue-400 w-16"></span>
+            <MapPin size={28} />
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight leading-tight text-white drop-shadow-md">
+            {t.title}
+          </h1>
+          <p className="text-lg md:text-xl text-blue-100 font-medium mt-4">
+            {isEs ? 'Servicio Exclusivo en Luxury SUV y Sprinter' : 'Exclusive Private Transportation & Luxury SUV Service'}
+          </p>
+        </div>
+      </div>
+
+      {/* 2. MAIN CONTENT GRID */}
+      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-12">
+        {/* LEFT: SEO CONTENT */}
+        <div className="lg:col-span-2 space-y-12 text-gray-700 text-lg leading-relaxed order-2 lg:order-1">
+          <section>
+            <h2 className="text-2xl md:text-3xl font-black text-blue-900 mb-6 border-b border-gray-100 pb-4 tracking-tight">
+              {isEs ? `Traslados VIP hacia ${seoData.nombre}` : `VIP Transportation to ${seoData.nombre}`}
+            </h2>
+            <p className="mb-4 text-gray-600 text-base md:text-lg">{t.subtitle}</p>
+            <p className="mb-4 text-gray-600 text-base md:text-lg">{t.keyPointDesc}</p>
+          </section>
+
+          <section className="bg-blue-50 border-l-4 border-blue-900 p-8 rounded-r-3xl my-10 shadow-sm">
+            <h3 className="text-xl font-bold text-blue-900 mb-6 tracking-tight">{t.keyPointTitle}</h3>
+            <ul className="space-y-4 text-blue-900 text-sm md:text-base font-medium">
+              <li className="flex items-start gap-3">
+                <CheckCircle size={20} className="shrink-0 mt-0.5 text-blue-600" />
+                <span>
+                  {isEs
+                    ? `El servicio directo ofrece viajes 100% privados hacia ${seoData.nombre}.`
+                    : `Service offers 100% private, direct rides to ${seoData.nombre}.`}
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle size={20} className="shrink-0 mt-0.5 text-blue-600" />
+                <span>
+                  {isEs
+                    ? 'Reservar con anticipación en Ballard Tours garantiza puntualidad, bebidas de cortesía y cero tiempos de espera.'
+                    : 'Pre-booking at Ballard Tours guarantees timely service, complimentary beverages, and zero wait times.'}
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle size={20} className="shrink-0 mt-0.5 text-blue-600" />
+                <span>
+                  {isEs
+                    ? 'La flota incluye SUVs de Lujo y Sprinter Vans para asegurar la máxima comodidad VIP.'
+                    : 'Transportation options focus on Private Transfers, including Luxury SUVs and Sprinter Vans, catering to comfort and VIP needs.'}
+                </span>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-6 border-b border-gray-100 pb-4 tracking-tight">
+              {t.ratesTitle}
+            </h2>
+            <ul className="list-disc pl-5 space-y-3 mb-8 text-gray-700 text-sm md:text-base">
+              <li>
+                {isEs
+                  ? `Traslado exclusivo y directo hacia ${seoData.nombre} servicio puerta a puerta profesional.`
+                  : `Exclusive, non-stop transfer directly to ${seoData.nombre} door to door professional service.`}
+              </li>
+              <li>{isEs ? 'Salida flexible—tu horario, tu traslado.' : 'Flexible departure—your schedule, your transfer.'}</li>
+              <li>
+                {isEs
+                  ? 'Vehículos modernos con choferes bilingües y bebidas de cortesía incluidas.'
+                  : 'Modern, comfortable vehicles with licensed bilingual drivers, beverages included.'}
+              </li>
+              <li>
+                {isEs
+                  ? 'Viaja en vehículos lujosos, espaciosos y desinfectados.'
+                  : 'Travel in spacious, sanitized, and air-conditioned luxury vehicles.'}
+              </li>
+              <li>
+                {isEs
+                  ? 'Precio garantizado—sin tarifas ocultas ni tarifas dinámicas.'
+                  : 'Guaranteed pricing—no hidden fees or surge rates.'}
+              </li>
+            </ul>
+
+            <div className="my-10 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
+              <img
+                src="/hard-rock-lobby-van.webp"
+                alt="Luxury Cabo Transportation"
+                className="w-full h-auto object-cover max-h-[400px]"
+              />
+            </div>
+
+            <p className="mb-4 text-gray-600 text-sm md:text-base">{t.ratesDesc}</p>
+          </section>
+
+          <section className="bg-gray-50 border border-gray-200 rounded-2xl p-6 shadow-sm my-10">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 tracking-tight">{t.routeTitle}</h3>
+            <div className="w-full h-72 md:h-96 rounded-xl overflow-hidden shadow-inner border border-gray-200 bg-gray-200">
+              {navigator.userAgent !== 'ReactSnap' ? (
+                <iframe
+                  title="Mapa de ubicación"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src={`https://maps.google.com/maps?saddr=${encodeURIComponent('Aeropuerto Internacional de Los Cabos')}&daddr=${encodeURIComponent(seoData.nombre + ' Los Cabos')}&output=embed`}
+                ></iframe>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-500">Mapa Interactivo</div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+              <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100 flex flex-col items-center justify-center">
+                <Clock className="text-blue-900 mb-2" size={20} />
+                <p className="font-bold text-gray-400 text-[10px] uppercase tracking-widest">{isEs ? 'Tiempo' : 'Time'}</p>
+                <p className="text-gray-800 font-semibold text-sm">{isEs ? '3h Espera Incl.' : '3h Wait Incl.'}</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100 flex flex-col items-center justify-center">
+                <MapPin className="text-blue-900 mb-2" size={20} />
+                <p className="font-bold text-gray-400 text-[10px] uppercase tracking-widest">{isEs ? 'Distancia' : 'Distance'}</p>
+                <p className="text-gray-800 font-semibold text-sm">{isEs ? 'Ruta Directa' : 'Direct Route'}</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100 flex flex-col items-center justify-center">
+                <Map className="text-blue-900 mb-2" size={20} />
+                <p className="font-bold text-gray-400 text-[10px] uppercase tracking-widest">{isEs ? 'Zona' : 'Zone'}</p>
+                <p className="text-gray-800 font-semibold text-sm text-center leading-tight">{seoData.zonaText}</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl shadow-sm text-center border border-gray-100 flex flex-col items-center justify-center">
+                <ShieldCheck className="text-green-600 mb-2" size={20} />
+                <p className="font-bold text-gray-400 text-[10px] uppercase tracking-widest">{isEs ? 'Servicio' : 'Service'}</p>
+                <p className="text-gray-800 font-semibold text-sm">{isEs ? '100% Privado' : '100% Private'}</p>
+              </div>
+            </div>
+
+            <p className="mt-6 text-gray-600 text-sm md:text-base">{t.routeDesc}</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-6 border-b border-gray-100 pb-4 tracking-tight">
+              {t.compareTitle}
+            </h2>
+            <p className="mb-6 text-gray-600 text-sm md:text-base">{t.compareDesc}</p>
+            <div className="space-y-4">
+              <div className="bg-white p-6 rounded-2xl border-2 border-blue-900 shadow-md relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-blue-900 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+                  {isEs ? 'Recomendado' : 'Recommended'}
+                </div>
+                <h4 className="text-lg font-bold text-blue-900 flex items-center gap-2 mb-2">
+                  <Car size={20} /> {isEs ? 'Traslados Privados VIP' : 'Private VIP Transfers'}
+                </h4>
+                <p className="text-sm text-gray-600 font-medium">
+                  {isEs
+                    ? 'Servicio directo y personalizado hasta el lobby del restaurante. Sin esperas, privacidad total, y chofer esperándote.'
+                    : 'Direct, personalized service to the restaurant. No wait times, total privacy, and chauffeur waiting for you.'}
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <h4 className="text-lg font-bold text-gray-700 flex items-center gap-2 mb-2">
+                  <Users size={20} className="text-gray-400" /> {isEs ? 'Shuttles Compartidos' : 'Shared Shuttles'}
+                </h4>
+                <p className="text-sm text-gray-600 font-medium">
+                  {isEs
+                    ? 'No suelen ofrecer servicios de cena a restaurantes específicos, o limitan mucho los horarios.'
+                    : 'Do not usually offer specific restaurant dinner services, or heavily limit schedules.'}
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <h4 className="text-lg font-bold text-gray-700 flex items-center gap-2 mb-2">
+                  <Banknote size={20} className="text-gray-400" /> {isEs ? 'Taxis y Uber' : 'Taxis and Uber'}
+                </h4>
+                <p className="text-sm text-gray-600 font-medium">
+                  {isEs
+                    ? 'Disponibles al momento, pero las tarifas son impredecibles. Los Ubers frecuentemente no tienen acceso a comunidades cerradas donde se encuentran restaurantes exclusivos.'
+                    : 'Readily available, but fares can be unpredictable. Ubers frequently face restrictions entering gated resort communities where exclusive restaurants are located.'}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* BOOKING TIPS & TRAVELER REVIEWS CON LA FOTO DEL RESTAURANTE */}
+          <section>
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-6 border-b border-gray-100 pb-4 mt-12 tracking-tight">
+              {t.tipsTitle}
+            </h2>
+            <p className="mb-6 text-sm md:text-base text-gray-600">{t.tipsDesc}</p>
+
+            <div className="my-8 rounded-[2rem] overflow-hidden shadow-xl border border-gray-100">
+              <img
+                src={`/${seoData.imageDiners}`}
+                alt={`Diners at ${seoData.nombre}`}
+                className="w-full h-auto object-cover max-h-[400px]"
+              />
+            </div>
+          </section>
+        </div>
+
+        {/* RIGHT: FORMULARIO LATERAL DE RESERVA */}
+        <div className="lg:col-span-1 order-1 lg:order-2">
+          <div className="sticky top-24 bg-white border border-gray-200 rounded-[2rem] shadow-xl p-6 md:p-8">
+            <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-xl p-3.5 text-xs font-semibold mb-6">
+              {isEs
+                ? 'Incluye hasta 3 horas de espera en el restaurante con chofer privado bilingüe.'
+                : 'Includes up to 3 hours of waiting time at the restaurant with a private bilingual chauffeur.'}
+            </div>
+
+            <h3 className="text-xl font-black text-gray-900 mb-4 tracking-tight">
+              {isEs ? 'Cotiza tu Traslado Redondo' : 'Quote Round-Trip Transfer'}
+            </h3>
+
+            <div className="space-y-4">
+              <div className="relative">
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  {isEs ? '¿De qué hotel sales?' : 'Departure Hotel'}
+                </label>
+                <input
+                  type="text"
+                  placeholder={isEs ? 'Busca tu hotel o villa...' : 'Search your hotel or villa...'}
+                  value={busquedaCenaOrigen}
+                  onChange={(e) => {
+                    setBusquedaCenaOrigen(e.target.value);
+                    setMostrarDropdownCena(true);
+                    if (e.target.value === '') setCenaOrigen('');
+                  }}
+                  onFocus={() => setMostrarDropdownCena(true)}
+                  onBlur={() => setTimeout(() => setMostrarDropdownCena(false), 200)}
+                  className="w-full border border-gray-200 rounded-xl p-3.5 text-gray-700 bg-white font-medium focus:outline-none focus:border-blue-900 text-sm"
+                />
+                {mostrarDropdownCena && (
+                  <ul className="absolute z-50 w-full bg-white border border-gray-200 rounded-xl shadow-2xl mt-1 max-h-56 overflow-y-auto">
+                    {catalogoHoteles
+                      .filter((h) =>
+                        (busquedaCenaOrigen || '')
+                          .toLowerCase()
+                          .split(' ')
+                          .every((w) =>
+                            h.nombre
+                              .normalize('NFD')
+                              .replace(/[\u0300-\u036f]/g, '')
+                              .toLowerCase()
+                              .includes(w.normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+                          )
+                      )
+                      .slice(0, 30)
+                      .map((hotel, idx) => (
+                        <li
+                          key={`${hotel.id}-${idx}`}
+                          onMouseDown={() => {
+                            const zona = hotel.zonaId || hotel.zona || '1';
+                            setCenaOrigen(`${hotel.nombre}|${zona}`);
+                            setBusquedaCenaOrigen(`${hotel.nombre} (Zona ${zona})`);
+                            setMostrarDropdownCena(false);
+                          }}
+                          className="p-3 hover:bg-blue-50 cursor-pointer text-gray-700 border-b border-gray-100 last:border-0 transition flex justify-between items-center text-xs"
+                        >
+                          <span className="font-semibold">{hotel.nombre}</span>
+                          <span className="text-[10px] font-bold text-blue-900 bg-blue-100 px-2 py-0.5 rounded-md">
+                            {isEs ? 'Zona' : 'Zone'} {hotel.zonaId || hotel.zona || 1}
+                          </span>
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  {isEs ? 'Restaurante Destino' : 'Destination Restaurant'}
+                </label>
+                <input
+                  type="text"
+                  value={cenaRestauranteNombre}
+                  onChange={(e) => setCenaRestauranteNombre(e.target.value)}
+                  className="w-full border border-gray-200 rounded-xl p-3.5 text-gray-700 bg-gray-50 font-bold text-sm"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                    {isEs ? 'Fecha' : 'Date'}
+                  </label>
+                  <input
+                    type="date"
+                    value={cenaFecha}
+                    onChange={(e) => setCenaFecha(e.target.value)}
+                    className="w-full border border-gray-200 rounded-xl p-3.5 text-gray-700 bg-white font-medium text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                    {isEs ? 'Pasajeros' : 'Passengers'}
+                  </label>
+                  <select
+                    value={cenaPax}
+                    onChange={(e) => setCenaPax(e.target.value)}
+                    className="w-full border border-gray-200 rounded-xl p-3.5 text-gray-700 bg-white font-medium text-sm"
+                  >
+                    <option value="1-4">1 - 4 Pax</option>
+                    <option value="5-8">5 - 8 Pax</option>
+                    <option value="9-10">9 - 10 Pax</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                    {isEs ? 'Recogida Hotel' : 'Hotel Pickup'}
+                  </label>
+                  <input
+                    type="time"
+                    value={cenaHora}
+                    onChange={(e) => setCenaHora(e.target.value)}
+                    className="w-full border border-gray-200 rounded-xl p-3.5 text-gray-700 bg-white font-medium text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                    {isEs ? 'Regreso' : 'Return Time'}
+                  </label>
+                  <input
+                    type="time"
+                    value={cenaHoraRegreso}
+                    onChange={(e) => setCenaHoraRegreso(e.target.value)}
+                    className="w-full border border-gray-200 rounded-xl p-3.5 text-gray-700 bg-white font-medium text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 mb-4 flex items-center justify-between">
+                  <div>
+                    <span className="block text-[10px] font-extrabold text-gray-400 uppercase tracking-widest">
+                      {isEs ? 'Viaje Redondo Privado' : 'Private Round-Trip Rate'}
+                    </span>
+                    <span className="text-xs text-gray-500 font-medium">
+                      {totalPrecioCena > 0
+                        ? isEs
+                          ? 'Impuestos y espera incluidos'
+                          : 'Taxes & 3h wait time included'
+                        : isEs
+                          ? 'Selecciona tu hotel para cotizar'
+                          : 'Select your hotel for exact rate'}
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    {totalPrecioCena > 0 ? (
+                      <span className="text-2xl font-black text-gray-900">
+                        ${granTotalCena} <span className="text-xs font-bold text-gray-500">USD</span>
+                      </span>
+                    ) : (
+                      <span className="text-sm font-black text-blue-900 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 inline-block">
+                        {isEs ? 'Desde $120 USD' : 'From $120 USD'}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    if (setServicioSeleccionado) setServicioSeleccionado('tours');
+                    if (setSubCategoria) setSubCategoria('especiales');
+                    if (setVistaEspecial) setVistaEspecial('cenas');
+                    if (setReserva && cenaOrigen) {
+                      setReserva((prev) => ({
+                        ...prev,
+                        tipoEspecial: 'cena',
+                        precioBaseEspecial: granTotalCena || 120,
+                        cenaRestaurante: cenaRestauranteNombre,
+                        cenaOrigen,
+                        cenaPax,
+                        cenaHora,
+                        cenaHoraRegreso
+                      }));
+                    }
+                    if (setPaso) setPaso(2);
+                    navigate('/');
+                    window.scrollTo(0, 0);
+                  }}
+                  className="w-full py-4 rounded-xl font-bold flex items-center justify-center transition-all text-base bg-blue-900 hover:bg-blue-800 text-white shadow-lg"
+                >
+                  <Plus size={18} className="mr-2" /> {isEs ? 'Reservar Traslado Redondo' : 'Book Round-Trip Transfer'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================= */}
+      {/* SECCIÓN FINAL: OTROS RESTAURANTES POPULARES EN LOS CABOS */}
+      {/* ========================================= */}
+      <div className="max-w-6xl mx-auto px-4 pb-16 mt-10">
+        <div className="mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <span className="text-xs font-extrabold text-blue-900 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-100 inline-block mb-3">
+                {isEs ? 'Gastronomía en Los Cabos' : 'Fine Dining Destinations'}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
+                {isEs ? 'Otros Restaurantes Populares en Los Cabos' : 'Other Popular Restaurants in Los Cabos'}
+              </h2>
+              <p className="text-gray-500 text-sm mt-1 max-w-2xl font-medium">
+                {isEs
+                  ? 'Descubre opciones de transporte privado redondo con chofer bilingüe y hasta 3 horas de espera incluida en los mejores restaurantes de Los Cabos.'
+                  : 'Discover private round-trip dinner transfer options with bilingual chauffeurs and up to 3 hours of waiting time included at top restaurants in Los Cabos.'}
+              </p>
+            </div>
+            <Link
+              to="/transportation/dinner-and-restaurants"
+              className="text-xs font-bold text-blue-900 hover:text-blue-700 flex items-center gap-1 shrink-0 group self-start md:self-auto"
+            >
+              <span>{isEs ? 'Ver todos los restaurantes' : 'View all restaurants'}</span>
+              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {restaurantSEOData
+              .filter((r) => r.slug !== slug)
+              .sort((a, b) => (a.zona === seoData.zona ? -1 : 1) - (b.zona === seoData.zona ? -1 : 1))
+              .map((item) => (
+                <Link
+                  key={item.slug}
+                  to={`/restaurants/${item.slug}`}
+                  className="group bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-900/40 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                    <img
+                      src={`/${item.imageDiners || item.image || 'diners-sjc.webp'}`}
+                      alt={`Transfer to ${item.nombre}`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.src = '/suburban-airport-los-cabos-ballard.webp';
+                      }}
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-950/80 backdrop-blur-md text-white border border-white/10">
+                        {item.zonaText}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-5 flex flex-col flex-1 justify-between">
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-base group-hover:text-blue-900 transition-colors line-clamp-1 mb-2">
+                        {item.nombre}
+                      </h3>
+                      <div className="flex items-center gap-3 text-xs text-gray-500 font-medium mb-4">
+                        <span className="flex items-center gap-1">
+                          <Clock size={13} className="text-gray-400" /> {isEs ? '3 hrs espera incl.' : '3 hrs wait incl.'}
+                        </span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <MapPin size={13} className="text-gray-400" /> {item.zonaText}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-blue-900">
+                      <span>{isEs ? 'Ver información y tarifas' : 'View rates & transfer'}</span>
+                      <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+
+        <FAQSection lang={lang} />
+      </div>
+    </div>
+  );
+}
+
 
