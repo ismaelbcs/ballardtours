@@ -1173,6 +1173,383 @@ export function RestaurantSeoPage({
               />
             </div>
           </section>
+
+          <section className="bg-gray-50 rounded-[2rem] p-8 md:p-12 mb-16 mt-16 text-center border border-gray-200 shadow-sm">
+            <h2 className="text-3xl font-black text-gray-900 mb-6 tracking-tight">{t.bookingTitle}</h2>
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">{t.bookingDesc}</p>
+            <div className="flex justify-center mb-6">
+              <img
+                src="/pago-tarjetas.png"
+                alt="Payment Methods"
+                className="h-10 object-contain hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </section>
+
+          {/* CONTENIDO SEO DE RESTAURANTES (BILINGÜE) */}
+          <section className="bg-white border border-gray-200 rounded-2xl p-6 md:p-10 shadow-sm mt-12 mb-10 space-y-8">
+            {/* Intro */}
+            <div>
+              <h2 className="text-2xl font-black text-gray-900 mb-4">
+                {isEs ? `Transporte Privado a ${seoData.nombre}` : `Private Transportation to ${seoData.nombre}`}
+              </h2>
+              <p className="text-gray-600 mb-3 text-sm md:text-base leading-relaxed">
+                {isEs
+                  ? `Disfruta de un servicio de transporte privado premium a ${seoData.nombre}, uno de los destinos gastronómicos más populares en Los Cabos. Ya sea que estés celebrando una ocasión especial, planeando una cena romántica o simplemente buscando una experiencia culinaria inolvidable, Ballard Tours te ofrece transporte de lujo directo a ${seoData.nombre} con choferes profesionales y vehículos premium.`
+                  : `Enjoy a premium private transportation service to ${seoData.nombre}, one of the most popular dining destinations in Los Cabos. Whether you are celebrating a special occasion, planning a romantic dinner, or simply looking for an unforgettable culinary experience, Ballard Tours provides luxury transportation directly to ${seoData.nombre} with professional chauffeurs and premium vehicles.`}
+              </p>
+              <p className="text-gray-600 mb-3 text-sm md:text-base leading-relaxed">
+                {isEs
+                  ? `Evita las molestias de buscar estacionamiento, esperar taxis o lidiar con las restricciones de aplicaciones de viaje compartido. Nuestro transporte privado a ${seoData.nombre} garantiza una experiencia fluida, cómoda y sin preocupaciones desde el momento en que te recogemos hasta que regresas a salvo a tu hotel.`
+                  : `Avoid the hassle of finding parking, waiting for taxis, or dealing with rideshare restrictions. Our private transportation to ${seoData.nombre} guarantees a smooth, comfortable, and worry-free experience from the moment we pick you up until you safely return to your hotel.`}
+              </p>
+            </div>
+
+            {/* Vehículos y Por qué Reservar */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {isEs ? `Transporte de Lujo a ${seoData.nombre}` : `Luxury Transportation to ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 mb-3 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Nuestro servicio de transporte de lujo a ${seoData.nombre} está diseñado para viajeros que valoran la comodidad, la seguridad y la puntualidad.`
+                    : `Our luxury transportation service to ${seoData.nombre} is designed for travelers who value comfort, safety, and punctuality.`}
+                </p>
+                <p className="text-gray-600 mb-3 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Ya sea que te hospedes en Cabo San Lucas, San José del Cabo, el Corredor Turístico, Palmilla, Puerto Los Cabos o cualquier villa privada, te llevaremos directamente a ${seoData.nombre} en una de nuestras SUVs de lujo o Mercedes Sprinter Vans.`
+                    : `Whether you're staying in Cabo San Lucas, San José del Cabo, the Tourist Corridor, Palmilla, Puerto Los Cabos, or any private villa, we'll take you directly to ${seoData.nombre} in one of our luxury SUVs or Mercedes Sprinter Vans.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {isEs ? `¿Por qué Reservar Transporte a ${seoData.nombre}?` : `Why Book Transportation to ${seoData.nombre}?`}
+                </h3>
+                <p className="text-gray-600 mb-3 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Cenar en ${seoData.nombre} debe ser una experiencia relajante de principio a fin. En lugar de preocuparte por direcciones, estacionamiento, tráfico o encontrar transporte después de cenar, reserva tu traslado privado a ${seoData.nombre} y déjanos encargarnos de todo.`
+                    : `Dining at ${seoData.nombre} should be a relaxing experience from beginning to end. Instead of worrying about directions, parking, traffic, or finding transportation after dinner, reserve your private transfer to ${seoData.nombre} and let us handle everything.`}
+                </p>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Muchos visitantes disfrutan de cócteles o vino durante la cena en ${seoData.nombre}, lo que hace que el transporte privado sea la opción más segura y conveniente.`
+                    : `Many visitors enjoy cocktails or wine during dinner at ${seoData.nombre}, making private transportation the safest and most convenient option.`}
+                </p>
+              </div>
+            </div>
+
+            {/* Listas Inclusiones y Vehículos */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <ShieldCheck className="text-blue-900" size={20} />
+                  {isEs ? `Cada traslado a ${seoData.nombre} incluye:` : `Every transfer to ${seoData.nombre} includes:`}
+                </h3>
+                <ul className="space-y-2 mb-4">
+                  {(isEs
+                    ? [
+                        'Vehículo privado',
+                        'Chofer profesional bilingüe',
+                        'Aire acondicionado',
+                        'Agua embotellada de cortesía',
+                        'Cerveza de cortesía',
+                        'Cómodos asientos de piel',
+                        'Servicio al cliente con calidad de vuelo',
+                        'Transporte puerta a puerta'
+                      ]
+                    : [
+                        'Private vehicle',
+                        'Professional bilingual chauffeur',
+                        'Air conditioning',
+                        'Complimentary bottled water',
+                        'Complimentary beer',
+                        'Comfortable leather seating',
+                        'Flight-quality customer service',
+                        'Door-to-door transportation'
+                      ]
+                  ).map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                      <CheckCircle size={16} className="text-blue-600 mt-0.5 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <Car className="text-blue-900" size={20} />
+                  {isEs ? 'Vehículos de Lujo' : 'Luxury Vehicles'}
+                </h3>
+                <p className="text-gray-600 mb-4 text-sm">
+                  {isEs ? 'Elige de nuestra flota premium:' : 'Choose from our premium fleet:'}
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {['Cadillac Escalade', 'Chevrolet Suburban', 'GMC Yukon XL', 'Mercedes Sprinter Vans'].map(
+                    (item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                        <CheckCircle size={16} className="text-blue-600 mt-0.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    )
+                  )}
+                </ul>
+                <p className="text-gray-600 text-sm">
+                  {isEs
+                    ? `Cada vehículo utilizado para el transporte a ${seoData.nombre} es limpiado, desinfectado y mantenido profesionalmente con los más altos estándares.`
+                    : `Every vehicle used for transportation to ${seoData.nombre} is professionally cleaned, sanitized, and maintained to the highest standards.`}
+                </p>
+              </div>
+            </div>
+
+            {/* Viajes Redondos y Desde cualquier hotel */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {isEs ? `Transporte Redondo a ${seoData.nombre}` : `Round Trip Transportation to ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 mb-3 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `La mayoría de nuestros huéspedes eligen transporte redondo a ${seoData.nombre}. Tu chofer te llevará directamente a ${seoData.nombre}, esperará cerca durante tu reservación, y te regresará a salvo a tu hotel, resort, Airbnb o residencia privada cuando estés listo.`
+                    : `Most of our guests choose round-trip transportation to ${seoData.nombre}. Your chauffeur will drive you directly to ${seoData.nombre}, wait nearby during your reservation, and return you safely to your hotel, resort, Airbnb, or private residence whenever you're ready.`}
+                </p>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed font-medium">
+                  {isEs
+                    ? `No hay necesidad de pedir otro viaje o buscar transporte tarde por la noche. Tu chofer privado ya te estará esperando después de tu cena en ${seoData.nombre}.`
+                    : `There is no need to request another ride or search for transportation late at night. Your private driver will already be waiting for you after your dinner at ${seoData.nombre}.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {isEs ? `Transporte Desde Cualquier Hotel a ${seoData.nombre}` : `Transportation from Any Hotel to ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 mb-4 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Brindamos transporte desde cada resort importante en Los Cabos a ${seoData.nombre}, incluyendo hoteles ubicados en:`
+                    : `We provide transportation from every major resort in Los Cabos to ${seoData.nombre}, including hotels located in:`}
+                </p>
+                <div className="columns-2 gap-4 text-sm text-gray-700 mb-4">
+                  <ul className="space-y-1">
+                    {[
+                      'Cabo San Lucas',
+                      'San José del Cabo',
+                      'Tourist Corridor',
+                      'Puerto Los Cabos',
+                      'Palmilla',
+                      'Diamante',
+                      'Quivira',
+                      'East Cape'
+                    ].map((item, i) => (
+                      <li key={i}>• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed font-medium">
+                  {isEs
+                    ? `Sin importar dónde te hospedes, proveeremos transporte de lujo directo a ${seoData.nombre}.`
+                    : `No matter where you're staying, we'll provide direct luxury transportation to ${seoData.nombre}.`}
+                </p>
+              </div>
+            </div>
+
+            <hr className="border-gray-100" />
+
+            {/* Ocasiones Especiales y Transporte Seguro de Noche */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  {isEs ? 'Perfecto para Ocasiones Especiales' : 'Perfect for Special Occasions'}
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Muchos invitados reservan transporte a ${seoData.nombre} para: Cenas románticas, Propuestas de matrimonio, Lunas de miel, Aniversarios, Cumpleaños, Cenas familiares, Cenas corporativas, Despedidas de soltero/a, o celebraciones vacacionales. Nuestros choferes profesionales hacen que la llegada a ${seoData.nombre} sea parte de la experiencia de lujo.`
+                    : `Many guests reserve transportation to ${seoData.nombre} for: Romantic dinners, Marriage proposals, Honeymoons, Wedding anniversaries, Birthday celebrations, Family dinners, Corporate dinners, Bachelor/Bachelorette parties, Vacation celebrations. Our professional chauffeurs make arriving at ${seoData.nombre} part of the luxury experience.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  {isEs ? `Transporte Seguro a ${seoData.nombre} por la Noche` : `Safe Transportation to ${seoData.nombre} at Night`}
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `El transporte nocturno en Los Cabos a veces puede ser difícil, especialmente después de que cierran los restaurantes. En lugar de buscar un taxi o esperar la disponibilidad de rideshare, tu transporte privado a ${seoData.nombre} está reservado por adelantado. Nuestros choferes con licencia saben exactamente cómo llegar a ${seoData.nombre}, monitorean el tráfico local y proveen un regreso seguro a tu destino.`
+                    : `Nighttime transportation in Los Cabos can sometimes be difficult, especially after restaurants close. Instead of searching for a taxi or waiting for rideshare availability, your private transportation to ${seoData.nombre} is reserved in advance. Our licensed drivers know exactly how to reach ${seoData.nombre}, monitor local traffic conditions, and provide safe transportation back to your destination.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  {isEs ? `Servicio de Chofer Privado a ${seoData.nombre}` : `Private Chauffeur Service to ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  {isEs
+                    ? `Nuestro servicio de chofer ofrece mucho más que un simple viaje. Tu conductor llega a tiempo, te ayuda a abordar, brinda recomendaciones locales y se asegura de que cada traslado a ${seoData.nombre} sea cómodo y libre de estrés. Ballard Tours se ha convertido en una de las compañías de transporte preferidas para los huéspedes que visitan ${seoData.nombre} debido a nuestra confiabilidad y excepcional servicio al cliente.`
+                    : `Our chauffeur service offers much more than a simple ride. Your driver arrives on time, assists with boarding, provides local recommendations, and ensures every transfer to ${seoData.nombre} is comfortable and stress-free. Ballard Tours has become one of the preferred transportation companies for guests visiting ${seoData.nombre} because of our reliability and exceptional customer service.`}
+                </p>
+              </div>
+            </div>
+
+            {/* Puntos Avanzados SEO */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {isEs ? `Nunca Pierdas tu Reservación en ${seoData.nombre}` : `Never Miss Your Reservation at ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {isEs
+                    ? `Asegurar una mesa en los mejores lugares gastronómicos de Los Cabos puede tomar meses de planeación. Debido a que los lugares premium hacen cumplir estrictamente sus tiempos de tolerancia, llegar tarde no es una opción. Al reservar nuestro transporte privado a ${seoData.nombre}, aseguras absoluta puntualidad. Tu chofer personal planificará la ruta más eficiente, esquivando el tráfico pesado, garantizando que llegues a las puertas de ${seoData.nombre} exactamente a tiempo para sentarte.`
+                    : `Securing a table at top Los Cabos dining spots can take months of planning. Because premium venues strictly enforce their reservation grace periods, arriving late is not an option. By booking our private transportation to ${seoData.nombre}, you ensure absolute punctuality. Your personal chauffeur will map out the most efficient route, bypassing heavy traffic and peak-hour congestion, guaranteeing you arrive at the doors of ${seoData.nombre} exactly on time to be seated.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {isEs
+                    ? `Disfruta el Vino y la Mixología en ${seoData.nombre} con Seguridad`
+                    : `Enjoy Wine Pairings and Mixology at ${seoData.nombre} Safely`}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {isEs
+                    ? `Uno de los puntos destacados de visitar ${seoData.nombre} es deleitarse con su selección de vinos de clase mundial, cócteles de autor y degustaciones de tequila. Al reservar un viaje privado a ${seoData.nombre}, estás eligiendo la forma más segura de disfrutar tu velada. Nunca te preocupes por conductores designados o manejar de noche. Tu transporte de lujo a ${seoData.nombre} permite que todos en tu grupo disfruten la experiencia en ${seoData.nombre} con total tranquilidad.`
+                    : `One of the highlights of visiting ${seoData.nombre} is indulging in their world-class wine selection, signature cocktails, and tequila tastings. When you book a private ride to ${seoData.nombre}, you are choosing the safest way to enjoy your evening. Never worry about designated drivers or navigating unfamiliar roads at night. Your luxury transportation to ${seoData.nombre} allows everyone in your party to fully enjoy the culinary experience at ${seoData.nombre} with total peace of mind.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {isEs ? `Paradas Previas en Camino a ${seoData.nombre}` : `Pre-Dinner Stops on Your Way to ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {isEs
+                    ? `¿Quieres ver el atardecer, tomar fotos panorámicas o tomar un trago rápido en un bar local antes de tu reserva en ${seoData.nombre}? Ofrecemos flexibilidad total. Al agendar tu transporte VIP a ${seoData.nombre}, puedes solicitar paradas personalizadas. Haz que tu trayecto a ${seoData.nombre} sea parte integral de la aventura.`
+                    : `Do you want to watch the sunset, take scenic photos, or grab a quick drink at a local bar before your reservation at ${seoData.nombre}? We offer complete flexibility. When you schedule your VIP transportation to ${seoData.nombre}, you can request customized stops along the way. Make your journey to ${seoData.nombre} an integral part of your evening's adventure.`}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {isEs ? `Cenas Corporativas en ${seoData.nombre}` : `Corporate Dinners at ${seoData.nombre}`}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {isEs
+                    ? `Si eres el anfitrión de clientes o ejecutivos para una cena de negocios en ${seoData.nombre}, la primera impresión cuenta. Llegar en una impecable Cadillac Escalade o Mercedes Sprinter marca un tono de profesionalismo y éxito. Proveemos transporte ejecutivo de primer nivel a ${seoData.nombre}, alineado a tus altos estándares. También ofrecemos facturación detallada para todo tu transporte corporativo a ${seoData.nombre}.`
+                    : `If you are hosting clients or executives for a business dinner at ${seoData.nombre}, first impressions matter. Arriving in a pristine Cadillac Escalade or Mercedes Sprinter Van sets a tone of professionalism and success. We provide discreet, top-tier executive transportation to ${seoData.nombre} that aligns perfectly with the high standards of your business.`}
+                </p>
+              </div>
+            </div>
+
+            {/* Comparación de Opciones Table */}
+            <div className="overflow-x-auto my-6">
+              <table className="w-full text-sm text-left text-gray-600 border border-gray-200 rounded-lg overflow-hidden">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      {isEs ? 'Característica' : 'Feature'}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {isEs ? `Ballard Tours a ${seoData.nombre}` : `Ballard Tours to ${seoData.nombre}`}
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {isEs ? `Taxis / Rideshare a ${seoData.nombre}` : `Standard Taxis to ${seoData.nombre}`}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-white border-b border-gray-100">
+                    <td className="px-6 py-4 font-bold">{isEs ? 'Puntualidad' : 'Punctuality'}</td>
+                    <td className="px-6 py-4 text-green-700 font-medium">
+                      {isEs ? 'Pre-agendado, esperándote en tu hotel' : 'Pre-scheduled, waiting for you at your hotel'}
+                    </td>
+                    <td className="px-6 py-4 text-red-700">
+                      {isEs ? 'Tiempos de espera impredecibles' : 'Unpredictable wait times'}
+                    </td>
+                  </tr>
+                  <tr className="bg-white border-b border-gray-100">
+                    <td className="px-6 py-4 font-bold">{isEs ? 'Precios' : 'Pricing'}</td>
+                    <td className="px-6 py-4 text-green-700 font-medium">
+                      {isEs
+                        ? `Tarifa fija garantizada a ${seoData.nombre}`
+                        : `Flat-rate, guaranteed price to ${seoData.nombre}`}
+                    </td>
+                    <td className="px-6 py-4 text-red-700">
+                      {isEs ? 'Tarifas dinámicas en horas pico' : 'Surge pricing during busy dinner hours'}
+                    </td>
+                  </tr>
+                  <tr className="bg-white border-b border-gray-100">
+                    <td className="px-6 py-4 font-bold">{isEs ? 'Vehículos' : 'Vehicles'}</td>
+                    <td className="px-6 py-4 text-green-700 font-medium">
+                      {isEs ? 'Luxury SUVs y Sprinter Vans' : 'Luxury SUVs and Sprinter Vans'}
+                    </td>
+                    <td className="px-6 py-4 text-red-700">
+                      {isEs ? 'Calidad de vehículo estándar e impredecible' : 'Standard, unpredictable vehicle quality'}
+                    </td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-6 py-4 font-bold">{isEs ? 'Privacidad' : 'Privacy'}</td>
+                    <td className="px-6 py-4 text-green-700 font-medium">
+                      {isEs
+                        ? `100% transporte privado a ${seoData.nombre}`
+                        : `100% private transportation to ${seoData.nombre}`}
+                    </td>
+                    <td className="px-6 py-4 text-red-700">
+                      {isEs ? 'Opciones compartidas' : 'Shared options or unvetted drivers'}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Why Travelers Choose Ballard Tours & Keywords */}
+            <div className="bg-blue-950 text-white p-6 md:p-8 rounded-2xl shadow-lg mt-8">
+              <h3 className="text-xl font-bold mb-3">
+                {isEs
+                  ? `¿Por qué los viajeros eligen Ballard Tours para ir a ${seoData.nombre}?`
+                  : `Why Travelers Choose Ballard Tours for ${seoData.nombre}?`}
+              </h3>
+              <p className="text-blue-100 text-sm md:text-base leading-relaxed mb-4">
+                {isEs
+                  ? `Miles de viajeros nos eligen para su transporte a ${seoData.nombre} porque ofrecemos:`
+                  : `Thousands of travelers choose Ballard Tours for transportation to ${seoData.nombre} because we offer:`}
+              </p>
+              <div className="columns-2 gap-4 text-sm text-blue-100 mb-6">
+                <ul className="space-y-1 font-medium">
+                  {(isEs
+                    ? [
+                        'Transporte privado únicamente',
+                        'Sin shuttles compartidos',
+                        'Precios fijos',
+                        'Sin tarifas dinámicas',
+                        'Sin cargos ocultos',
+                        'Choferes con licencia',
+                        'Vehículos de lujo',
+                        'Bebidas de cortesía',
+                        'Soporte bilingüe',
+                        'Asistencia por WhatsApp',
+                        'Reservaciones fáciles en línea',
+                        'Disponibilidad 24/7'
+                      ]
+                    : [
+                        'Private transportation only',
+                        'No shared shuttles',
+                        'Flat-rate pricing',
+                        'No surge pricing',
+                        'No hidden fees',
+                        'Professional licensed drivers',
+                        'Luxury vehicles',
+                        'Complimentary beverages',
+                        'Bilingual customer support',
+                        'WhatsApp assistance',
+                        'Easy online reservations',
+                        '24/7 availability'
+                      ]
+                  ).map((item, i) => (
+                    <li key={i}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+              <p className="text-blue-100 text-sm md:text-base leading-relaxed font-bold">
+                {isEs
+                  ? `Ya sea que visites Los Cabos por primera vez o regreses de nuevo, el transporte a ${seoData.nombre} debe ser tan memorable como la experiencia culinaria misma. Asegura tu traslado de lujo a ${seoData.nombre}, transporte privado a ${seoData.nombre}, o un servicio de chofer a ${seoData.nombre} con nosotros para un viaje sin estrés desde Cabo San Lucas, San José del Cabo o cualquier hotel hasta ${seoData.nombre}.`
+                  : `Whether you're visiting Los Cabos for the first time or returning for another vacation, transportation to ${seoData.nombre} should be as memorable as the dining experience itself. Secure your luxury transportation to ${seoData.nombre}, private transportation to ${seoData.nombre}, or chauffeur service to ${seoData.nombre} with us for a stress-free ride from Cabo San Lucas, San Jose del Cabo or your hotel to ${seoData.nombre}.`}
+              </p>
+            </div>
+          </section>
         </div>
 
         {/* RIGHT: FORMULARIO LATERAL DE RESERVA */}
