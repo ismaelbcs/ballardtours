@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { Clock, Calendar, Baby, Banknote, CheckCircle, MapPin, ShieldCheck } from 'lucide-react';
 import { FAQSection } from './FAQSection';
+import { HeroReviewsBadge } from './HeroReviewsBadge';
 
 export default function TransportationPage({ lang = 'es', setServicioSeleccionado, setPaso }) {
   const navigate = useNavigate();
@@ -170,6 +171,7 @@ export default function TransportationPage({ lang = 'es', setServicioSeleccionad
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight drop-shadow-lg">
             {t.heroTitle}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {t.heroSubtitle}
           </p>

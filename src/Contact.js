@@ -5,6 +5,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from './firebase'; // Asegúrate de que la ruta a tu archivo firebase.js sea correcta
 import { sendEmail } from './utils/sendEmail';
 import { FAQSection } from './FAQSection'; // <-- AQUÍ IMPORTAMOS LAS PREGUNTAS FRECUENTES
+import { HeroReviewsBadge } from './HeroReviewsBadge';
 
 export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por defecto para el idioma
   const [formData, setFormData] = useState({
@@ -91,6 +92,7 @@ export default function Contact({ lang = 'es' }) { // <-- Agregamos 'lang' por d
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2000')] bg-cover bg-center opacity-10"></div>
           <div className="relative z-10 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Get in Touch</h1>
+            <HeroReviewsBadge lang={lang} />
             <p className="text-lg md:text-xl text-blue-100 font-medium max-w-2xl mx-auto">
               We are here to help you plan the perfect Los Cabos experience. Reach out to our local experts 24/7.
             </p>

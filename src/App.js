@@ -45,6 +45,7 @@ import { db } from './firebase';
 import { sendEmail } from './utils/sendEmail';
 
 import { FAQSection } from './FAQSection';
+import { HeroReviewsBadge } from './HeroReviewsBadge';
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -3664,6 +3665,7 @@ export default function App() {
               {lang === 'es' ? 'Transporte Privado y Shuttles en Los Cabos' : 'Cabo Airport Shuttle, Taxi & Private Transportation'}
 
             </h1>
+            <HeroReviewsBadge lang={lang} />
             <p className="text-gray-200 text-lg md:text-xl font-medium max-w-2xl mx-auto drop-shadow-md">
               {lang === 'es' ? 'Reserva tu traslado seguro, sin filas y puerta a puerta en el Aeropuerto SJD.' : 'Book reliable, skip-the-line, door-to-door SJD airport transportation.'}
             </p>
@@ -7940,6 +7942,8 @@ export default function App() {
 
                       </h1>
 
+                      <HeroReviewsBadge lang={lang} />
+
                       <p className="text-lg md:text-xl text-gray-200 font-medium italic drop-shadow-md">
 
                         {lang === 'es' ? 'Un informe detallado por el equipo editorial de Ballard Tours' : 'An in-depth report by the Ballard Tours travel editorial team'}
@@ -8320,6 +8324,7 @@ export default function App() {
                         <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">
                           {lang === 'es' ? `Transporte Privado de SJD a ${hotel.nombre}` : `SJD Airport Transportation to ${hotel.nombre}`}
                         </h1>
+                        <HeroReviewsBadge lang={lang} />
                         <p className="text-lg md:text-xl text-gray-300 font-medium">
                           {lang === 'es' ? 'Servicio Exclusivo en Luxury SUV y Sprinter' : 'Exclusive Private Transportation & Luxury SUV Service'}
                         </p>
@@ -9061,6 +9066,8 @@ export default function App() {
                     <div className="relative z-10 max-w-4xl mx-auto">
 
                       <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">Los Cabos Insider Guides</h1>
+
+                      <HeroReviewsBadge lang={lang} />
 
                       <p className="text-lg md:text-xl text-blue-100 font-medium max-w-2xl mx-auto">
 
@@ -9840,6 +9847,8 @@ export default function App() {
 
                       </h1>
 
+                      <HeroReviewsBadge lang={lang} />
+
                       <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 font-light">
 
                         The ultimate guide to booking a seamless private airport transfer los cabos and enjoying unmatched luxury transportation cabo san lucas.
@@ -10289,6 +10298,8 @@ export default function App() {
                           {tour.nombre}
 
                         </h1>
+
+                        <HeroReviewsBadge lang={lang} />
 
                         <p className="text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md">
 
@@ -11497,6 +11508,8 @@ export default function App() {
                         Ultimate Guide to Things to Do in Cabo San Lucas
 
                       </h1>
+
+                      <HeroReviewsBadge lang={lang} />
 
                       <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 font-light">
 

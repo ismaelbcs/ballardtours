@@ -18,6 +18,7 @@ import {
   Map
 } from 'lucide-react';
 import { FAQSection } from './FAQSection';
+import { HeroReviewsBadge } from './HeroReviewsBadge';
 import { restaurantSEOData } from './data/restaurantSEOData';
 import { catalogoHoteles } from './data/seoData';
 
@@ -76,6 +77,7 @@ export function LuxurySuvPage({ lang = 'es', setServicioSeleccionado, setPaso })
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {isEs ? 'Transporte en Luxury SUV y Chofer VIP en Los Cabos' : 'Luxury SUV Transportation Service in Los Cabos'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {isEs
               ? 'Traslados 100% privados en Chevrolet Suburban y Cadillac Escalade de modelo reciente desde SJD y aeropuertos privados hacia cualquier resort o villa.'
@@ -200,6 +202,7 @@ export function GroupVanPage({ lang = 'es', setServicioSeleccionado, setPaso }) 
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {isEs ? 'Transporte Privado en Van y Sprinter para Grupos' : 'Group Van & Sprinter Transportation in Los Cabos'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {isEs
               ? 'Viajen todos juntos cómodamente (hasta 10 pasajeros por unidad) con tarifa fija por vehículo, sin cobros por persona y con amplio espacio para maletas.'
@@ -303,6 +306,7 @@ export function DinnerTransfersPage({ lang = 'es', setServicioSeleccionado, setS
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {isEs ? 'Transporte Privado para Cenas y Restaurantes en Los Cabos' : 'Private Dinner & Restaurant Transportation in Los Cabos'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {isEs
               ? 'Disfruta tu velada y brinda con tranquilidad. Tu chofer privado te lleva desde tu hotel o villa al restaurante, te espera hasta 3 horas y te regresa seguro.'
@@ -460,6 +464,7 @@ export function GolfTransfersPage({ lang = 'es', setServicioSeleccionado, setSub
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {isEs ? 'Transporte Privado a Campos de Golf en Los Cabos' : 'Los Cabos Golf Course Private Transportation'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {isEs
               ? 'Traslados privados ida y vuelta con amplio espacio para tus bolsas de palos de golf. Llega puntual a tu Tee Time en cualquier campo de Los Cabos.'
@@ -546,6 +551,7 @@ export function HotelToHotelPage({ lang = 'es', setServicioSeleccionado, setSubC
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {isEs ? 'Traslados Privados de Hotel a Hotel en Los Cabos' : 'Hotel-to-Hotel & Villa Private Transfers in Los Cabos'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {isEs
               ? 'Múdate de resort o pasa de tu hotel a una villa privada con total comodidad para todo tu equipaje, tarifas fijas por zona y parada opcional de compras.'
@@ -640,6 +646,7 @@ export function NightlifeTransfersPage({ lang = 'es', setServicioSeleccionado, s
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {isEs ? 'Transporte Privado para Nightlife en Cabo San Lucas' : 'Cabo San Lucas Nightlife Private Driver & Transfers'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium">
             {isEs
               ? 'Diviértete en el centro y la Marina de Cabo San Lucas con la tranquilidad de tener tu camioneta privada esperándote hasta por 4 horas para regresarte seguro a tu hotel.'
@@ -702,6 +709,7 @@ export function FaqsPage({ lang = 'es' }) {
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
             {isEs ? 'Preguntas Frecuentes: Viajes y Logística en Cabo' : 'Frequently Asked Questions: Cabo Travel & Logistics'}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
             {isEs
               ? 'Todo lo que necesitas saber sobre tu llegada al Aeropuerto SJD, nuestros vehículos privados y cómo reservar.'
@@ -975,6 +983,7 @@ export function RestaurantSeoPage({
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight leading-tight text-white drop-shadow-md">
             {t.title}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-lg md:text-xl text-blue-100 font-medium mt-4">
             {isEs ? 'Servicio Exclusivo en Luxury SUV y Sprinter' : 'Exclusive Private Transportation & Luxury SUV Service'}
           </p>

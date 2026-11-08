@@ -13,6 +13,7 @@ import {
     Compass
 } from 'lucide-react';
 import { FAQSection } from './FAQSection';
+import { HeroReviewsBadge } from './HeroReviewsBadge';
 
 export default function Fleet({ lang = 'es' }) {
     useEffect(() => {
@@ -152,6 +153,7 @@ export default function Fleet({ lang = 'es' }) {
                     <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
                         {t.title}
                     </h1>
+                    <HeroReviewsBadge lang={lang} />
                 </div>
             </div>
 

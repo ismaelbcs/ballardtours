@@ -15,6 +15,7 @@ import {
   CheckCircle,
   MapPin
 } from 'lucide-react';
+import { HeroReviewsBadge } from './HeroReviewsBadge';
 
 export default function AboutUs({ lang = 'es' }) {
   // Asegurarnos de que la página cargue desde arriba
@@ -205,6 +206,7 @@ export default function AboutUs({ lang = 'es' }) {
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight drop-shadow-md">
             {t.title}
           </h1>
+          <HeroReviewsBadge lang={lang} />
           <p className="text-xl md:text-2xl text-blue-100 font-medium max-w-2xl mx-auto italic drop-shadow-sm">
             "{t.motto1}"
           </p>
