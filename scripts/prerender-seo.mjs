@@ -257,6 +257,155 @@ const staticPages = [
     title: 'Cancellation & Refund Policy | Ballard Tours Los Cabos',
     description:
       'Flexible cancellation and refund policies for private transportation and tours in Los Cabos with Ballard Tours.'
+  },
+  {
+    path: '/yachts',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: 'Private Yacht Charters Cabo San Lucas | Luxury Fleet & Superyachts | Ballard Tours',
+    description:
+      'Book private yacht charters in Cabo San Lucas: 30ft Baja Therapy, 57ft La Dolce Vita, 80ft Papillon 9, 85ft Contessa, 108ft Neoprene, 110ft Aquaholic, 116ft Capella & 130ft Sovereign.'
+  },
+  {
+    path: '/yachts/baja-therapy',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '30 Ft Baja Therapy Double-Deck Pontoon Charter Cabo San Lucas | Ballard Tours',
+    description:
+      'Charter the 30ft Baja Therapy luxury double-deck pontoon in Cabo San Lucas. Up to 20 guests, water slide, open bar, snorkel gear, and sunset cruises from $1,560 USD.'
+  },
+  {
+    path: '/yachts/la-dolce-vita',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '57ft Yacht La Dolce Vita Private Charter Cabo San Lucas | Ballard Tours',
+    description:
+      'Private 57ft La Dolce Vita motor yacht charter in Cabo San Lucas for up to 12 guests. Includes captain, fuel, snorkel gear & paddleboards from $1,999 USD.'
+  },
+  {
+    path: '/yachts/papillon-9',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '80ft Ferretti Papillon 9 Private Yacht Charter Cabo San Lucas | Ballard Tours',
+    description:
+      'All-inclusive 80ft Ferretti Papillon 9 yacht charter in Cabo San Lucas with private chef, open bar, 4 staterooms, and water toys.'
+  },
+  {
+    path: '/yachts/contessa',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '85ft Azimut Contessa Superyacht Charter Cabo San Lucas | Ballard Tours',
+    description:
+      'Charter the 85ft Azimut Contessa superyacht in Cabo San Lucas. Includes private chef, unlimited open bar, 4 staterooms, and water toys.'
+  },
+  {
+    path: '/yachts/neoprene',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '108ft Mangusta Neoprene Matte-Black Superyacht Cabo San Lucas | Ballard Tours',
+    description:
+      'Charter the iconic 108ft matte-black Mangusta superyacht Neoprene in Cabo San Lucas. Private Chef Christian, personal bartender, Seabob & beach club for up to 30 guests.'
+  },
+  {
+    path: '/yachts/aquaholic',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '110ft Horizon Aquaholic Superyacht Charter Cabo San Lucas | Ballard Tours',
+    description:
+      'All-inclusive 110ft Horizon Aquaholic superyacht charter in Cabo San Lucas featuring flybridge Jacuzzi, 5 staterooms, private chef, and open bar.'
+  },
+  {
+    path: '/yachts/capella',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '116ft Azimut Grande Capella Superyacht Charter Cabo San Lucas | Ballard Tours',
+    description:
+      'Flagship 116ft Azimut Grande Capella superyacht charter in Cabo San Lucas with flybridge Jacuzzi, executive chef, open bar, and 5 marble staterooms.'
+  },
+  {
+    path: '/yachts/sovereign',
+    priority: '0.9',
+    changefreq: 'weekly',
+    title: '130ft Westport Sovereign Tri-Deck Megayacht Cabo San Lucas | Ballard Tours',
+    description:
+      'Charter the 130ft tri-deck Westport megayacht Sovereign in Cabo San Lucas for up to 40 guests. Executive chef, sky lounge Jacuzzi, and white-glove crew.'
+  },
+  {
+    path: '/cabo-yacht-charters',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: 'Cabo Yacht Charters | Private Luxury Yachts & Boats | Ballard Tours',
+    description: 'Compare and book private luxury yacht charters in Cabo San Lucas with optional private SUV hotel transfers.'
+  },
+  {
+    path: '/cabo-yacht-charters-baja-therapy',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '30 Ft Baja Therapy Party Boat & Sunset Charter Cabo | Ballard Tours',
+    description: 'Book the 30ft Baja Therapy double-deck pontoon in Cabo San Lucas with open bar and water slide.'
+  },
+  {
+    path: '/luxury-yacht-charter-cabo-san-lucas-baja-therapy',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: 'Luxury Pontoon Charter Cabo San Lucas - 30ft Baja Therapy | Ballard Tours',
+    description: 'Private 30ft Baja Therapy double-deck yacht pontoon charter in Cabo San Lucas for up to 20 passengers.'
+  },
+  {
+    path: '/cabo-yacht-charters-la-dolce-vita',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '57ft La Dolce Vita Yacht Charter Cabo San Lucas | Ballard Tours',
+    description: 'VIP 57-foot private motor yacht La Dolce Vita in Cabo San Lucas for up to 12 passengers.'
+  },
+  {
+    path: '/luxury-yacht-charter-cabo-san-lucas-la-dolce-vita',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: 'Luxury 57ft Yacht Rental Cabo San Lucas - La Dolce Vita | Ballard Tours',
+    description: 'Book the 57ft La Dolce Vita private yacht in Cabo San Lucas with captain, fuel, and snorkel gear included.'
+  },
+  {
+    path: '/cabo-yacht-charters-neoprene',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '108ft Neoprene Mangusta Yacht Charter Cabo San Lucas | Ballard Tours',
+    description: 'All-inclusive 108ft matte-black Mangusta superyacht Neoprene in Cabo San Lucas with Private Chef Christian.'
+  },
+  {
+    path: '/luxury-yacht-charter-cabo-san-lucas-neoprene',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '108ft Matte-Black Mangusta Neoprene Superyacht Cabo | Ballard Tours',
+    description: 'Charter the flagship 108ft Neoprene superyacht in Cabo San Lucas for up to 30 day guests.'
+  },
+  {
+    path: '/cabo-yacht-charters-papillon-9',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '80ft Papillon 9 Ferretti Yacht Charter Cabo San Lucas | Ballard Tours',
+    description: 'Private 80ft Ferretti Papillon 9 yacht rental in Cabo San Lucas with chef and open bar.'
+  },
+  {
+    path: '/cabo-yacht-charters-contessa',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '85ft Contessa Azimut Yacht Charter Cabo San Lucas | Ballard Tours',
+    description: 'Private 85ft Azimut Contessa superyacht charter in Cabo San Lucas with chef and open bar.'
+  },
+  {
+    path: '/cabo-yacht-charters-aquaholic',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '110ft Aquaholic Horizon Superyacht Charter Cabo | Ballard Tours',
+    description: 'Private 110ft Horizon Aquaholic superyacht charter in Cabo San Lucas with flybridge Jacuzzi.'
+  },
+  {
+    path: '/cabo-yacht-charters-sovereign',
+    priority: '0.8',
+    changefreq: 'weekly',
+    title: '130ft Sovereign Tri-Deck Megayacht Charter Cabo | Ballard Tours',
+    description: 'Private 130ft Westport Sovereign tri-deck megayacht charter in Cabo San Lucas for up to 40 guests.'
   }
 ];
 

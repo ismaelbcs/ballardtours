@@ -28,6 +28,8 @@ import {
   RestaurantSeoPage
 } from './SpecialServicesPages';
 
+import { YachtCharterPage } from './YachtsPages';
+
 import { hotelesSEO } from './datosHoteles';
 
 import { BrowserRouter as Router, Routes, useLocation, Route, useNavigate } from 'react-router-dom';
@@ -11799,7 +11801,31 @@ export default function App() {
 
               <Route path="/tours" element={<ToursPage lang={lang} />} />
 
-
+              {/* RUTAS DE YATES PRIVADOS Y ALIAS SEO */}
+              <Route path="/yachts" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/yachts/:slug" element={<YachtCharterPage lang={lang} />} />
+              <Route path="/cabo-yacht-charters" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/private-yacht-rental-los-cabos" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/superyacht-charter-cabo-san-lucas" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/cabo-arch-sunset-yacht-cruise" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/cabo-yacht-charter-with-transportation" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/renta-de-yates-de-lujo-en-los-cabos" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/alquiler-de-yates-privados-cabo-san-lucas" element={<YachtCharterPage lang={lang} yachtSlug="capella" />} />
+              <Route path="/cabo-yacht-charters-baja-therapy" element={<YachtCharterPage lang={lang} yachtSlug="baja-therapy" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-baja-therapy" element={<YachtCharterPage lang={lang} yachtSlug="baja-therapy" />} />
+              <Route path="/cabo-yacht-charters-la-dolce-vita" element={<YachtCharterPage lang={lang} yachtSlug="la-dolce-vita" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-la-dolce-vita" element={<YachtCharterPage lang={lang} yachtSlug="la-dolce-vita" />} />
+              <Route path="/cabo-yacht-charters-papillon-9" element={<YachtCharterPage lang={lang} yachtSlug="papillon-9" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-papillon-9" element={<YachtCharterPage lang={lang} yachtSlug="papillon-9" />} />
+              <Route path="/cabo-yacht-charters-contessa" element={<YachtCharterPage lang={lang} yachtSlug="contessa" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-contessa" element={<YachtCharterPage lang={lang} yachtSlug="contessa" />} />
+              <Route path="/cabo-yacht-charters-neoprene" element={<YachtCharterPage lang={lang} yachtSlug="neoprene" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-neoprene" element={<YachtCharterPage lang={lang} yachtSlug="neoprene" />} />
+              <Route path="/cabo-yacht-charters-aquaholic" element={<YachtCharterPage lang={lang} yachtSlug="aquaholic" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-aquaholic" element={<YachtCharterPage lang={lang} yachtSlug="aquaholic" />} />
+              <Route path="/cabo-yacht-charters-sovereign" element={<YachtCharterPage lang={lang} yachtSlug="sovereign" />} />
+              <Route path="/luxury-yacht-charter-cabo-san-lucas-sovereign" element={<YachtCharterPage lang={lang} yachtSlug="sovereign" />} />
 
               {/* 👇 AQUÍ PEGAS TU NUEVA RUTA DE DESTINOS 👇 */}
 

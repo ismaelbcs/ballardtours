@@ -197,6 +197,78 @@ const Footer = () => {
                         </li>
                         <li>
                             <Link
+                                to="/yachts"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 font-bold text-amber-300"
+                            >
+                                🛥️ Private Yacht Charters
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/baja-therapy"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                30ft Baja Therapy Party Pontoon
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/la-dolce-vita"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                57ft Yacht La Dolce Vita
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/papillon-9"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                80ft Ferretti Papillon 9
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/contessa"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                85ft Azimut Contessa
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/neoprene"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                108ft Mangusta Neoprene
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/aquaholic"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                110ft Horizon Aquaholic
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/yachts/sovereign"
+                                onClick={() => window.scrollTo(0, 0)}
+                                className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300 text-sm text-blue-200"
+                            >
+                                130ft Westport Sovereign
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 to="/contact"
                                 onClick={() => window.scrollTo(0, 0)}
                                 className="inline-block hover:text-white hover:translate-x-1 transition-all duration-300"
